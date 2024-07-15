@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="../src/logo/favIcon.jpg">
+    <link rel="shortcut icon" href="../src/logo/favIcon.png">
 
     <!-- title -->
     <title>404 Page</title>
