@@ -32,7 +32,7 @@
         <div class="flex-1 min-h-full min-w-full rounded-3xl bg-white shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
             <div class="w-full md:w-1/2">
                 <div class="mb-10 flex items-center lg:mb-20">
-                    <img class="w-20 h-20 " src="../src/logo/download.svg" alt="">
+                    <img class="w-20 h-20 " src="../src/logo/logo2.svg" alt="">
                     <h2 class="text-2xl font-bold text-indigo-500">Shopnest</h2>
                 </div>
                 <div class="mb-10 md:mb-20 text-gray-600 font-light">
@@ -185,7 +185,7 @@
     <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
         <div>
             <a title="Buy me a beer" href="../index.php" target="_blank" class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
-                <img class="object-cover object-center bg-white w-full h-full rounded-full" src="../src/logo/download.svg" />
+                <img class="object-cover object-center bg-white w-full h-full rounded-full" src="../src/logo/logo2.svg" />
             </a>
         </div>
     </div>
