@@ -40,7 +40,7 @@
                 <p>Billing email</p>
                 <input class="w-[100%] h-14 border rounded-md" type="text" placeholder="Email you see during checkout.">
             </div>
-            <button class="bg-indigo-500 text-white font-semibold h-14 rounded-md">Track</button>
+            <button class="bg-indigo-600 text-white font-semibold h-14 rounded-md">Track</button>
         </div>
     </div>
 

@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center mb-5">
-                    <button class="bg-indigo-500 font-semibold h-10 w-72 text-lg rounded-md text-white hover:bg-indigo-600 hover:transition">Register</button>
+                    <button class="bg-indigo-600 font-semibold h-10 w-72 text-lg rounded-md text-white hover:bg-indigo-700 hover:transition">Register</button>
                 </div>
             </div>
         </form>

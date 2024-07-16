@@ -77,7 +77,7 @@
                         <a href="" class="text-sm -translate-x-1 -translate-y-1 font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
                     </div>
                     <div class="text-center">
-                        <button class="bg-indigo-500 font-semibold py-1 h-10 w-full text-lg rounded-md text-white hover:bg-indigo-600 hover:transition">Login</button>
+                        <button class="bg-indigo-600 font-semibold py-1 h-10 w-full text-lg rounded-md text-white hover:bg-indigo-700 hover:transition">Login</button>
                     </div>
                     <div>
                         <a href="register.php" class="text-sm font-semibold tracking-wide flex justify-center underline">New Customer? Create account</a>

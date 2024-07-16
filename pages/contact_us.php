@@ -94,7 +94,7 @@
                         <textarea name="sub" id="message" rows="5" class="border-none w-full focus:border-0 focus:ring-0" placeholder="Can You Provide Some More Details?"></textarea>
                     </div>
                 </div>
-                <input type="submit" value="Get In Touch" class="text-sm font-medium text-center w-full bg-indigo-500 text-white mt-5 py-5 cursor-pointer hover:bg-indigo-600">
+                <input type="submit" value="Get In Touch" class="text-sm font-medium text-center w-full bg-indigo-600 text-white mt-5 py-5 cursor-pointer hover:bg-indigo-700">
             </form>
         </div>
     </div>
