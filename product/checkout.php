@@ -44,16 +44,8 @@
                 <p class="text-gray-400">Complete your order by providing your payment details.</p>
                 <div class="mt-5 grid space-y-3 border bg-white rounded-lg px-2 py-4 sm:px-6">
                     <div class="flex items-center gap-3 cursor-pointer w-max">
-                        <input type="radio" name="payment" id="credtCard" value="Credit or Debit Card" class="cursor-pointer">
-                        <label class="cursor-pointer text-base font-medium" for="credtCard">Credit or Debit Card</label>
-                    </div>
-                    <div class="flex items-center gap-3 cursor-pointer w-max">
-                        <input type="radio" name="payment" id="netBanking" value="Net Banking" class="cursor-pointer">
-                        <label class="cursor-pointer text-base font-medium" for="netBanking">Net Banking</label>
-                    </div>
-                    <div class="flex items-center gap-3 cursor-pointer w-max">
                         <input type="radio" name="payment" id="UPI" value="Other UPI" class="cursor-pointer">
-                        <label class="cursor-pointer text-base font-medium" for="UPI">Other UPI</label>
+                        <label class="cursor-pointer text-base font-medium" for="UPI">UPI</label>
                     </div>
                     <div class="flex items-center gap-3 cursor-pointer w-max">
                         <input type="radio" name="payment" id="COD" value="Cash On delivery" class="cursor-pointer">
