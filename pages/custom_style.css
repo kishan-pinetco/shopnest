@@ -1,0 +1,59 @@
+.outfit {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@keyframes openSideBar {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.sidebar-open {
+    animation: openSideBar 0.4s ease-in-out;
+}
+
+@keyframes closeSideBar {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.sidebar-close {
+    animation: closeSideBar 0.4s ease-in-out;
+}
+
+.link {
+    position: relative;
+}
+
+.link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1.5px;
+    display: block;
+    margin-top: 0;
+    right: 0;
+    background: #000;
+    /* Adjust color as needed */
+    transition: width .2s ease;
+    -webkit-transition: width 0.2s ease;
+}
+
+.link:hover:after {
+    width: 100%;
+    left: 0;
+    background: #000;
+    /* Adjust color as needed */
+}
