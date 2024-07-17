@@ -104,7 +104,7 @@
     </header>
     <!-- sidebar -->
     <!-- add hidden in container -->
-    <div id="sidebarContainer" class=" outfit bg-gray-50 pb-3 fixed top-0 w-72 lg:w-96 h-[100vh] overflow-y-auto z-50">
+    <div id="sidebarContainer" class="hidden outfit bg-gray-50 pb-3 fixed top-0 w-72 lg:w-96 h-[100vh] overflow-y-auto z-50">
         <div id="sidebarHeader" class="p-2 bg-gray-200 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
