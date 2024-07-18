@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,10 +23,9 @@
     <!-- title -->
     <title>Your Reviews</title>
 </head>
-
 <body style="font-family: 'Outfit', sans-serif;">
 
-<div>
+    <div>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         
         <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
