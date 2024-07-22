@@ -26,6 +26,11 @@
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
+    <!-- navbar -->
+    <?php
+        include "_navbar.php";
+    ?>
+
     <div class="max-w-screen-xl m-auto px-2 grid grid-cols-1 gap-y-7 gap-2 text-gray-900 mt-8 min-[879px]:grid-cols-2">
         <div class="text-center w-full md:w-[80%] m-auto">
             <div>
@@ -99,5 +104,10 @@
         </div>
     </div>
 
+
+    <!-- footer -->
+    <?php
+        include "_footer.php";
+    ?>
 </body>
 </html>

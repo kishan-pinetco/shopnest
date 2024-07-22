@@ -25,6 +25,12 @@
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
+
+    <!-- navbar -->
+    <?php
+        include "../pages/_navbar.php";
+    ?>
+
     <!-- shopping cart -->
     <section class="bg-gray-100 py-8 antialiased  md:py-16">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -205,6 +211,10 @@
             </div>
         </div>
     </div>
-
+    
+    <!-- footer -->
+    <?php
+        include "../pages/_footer.php";
+    ?>
 </body>
 </html>

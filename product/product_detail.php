@@ -25,7 +25,11 @@
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
-
+    <!-- navbar -->
+    <?php
+        include "../pages/_navbar.php";
+    ?>
+    
     <!-- product -->
     <div class="max-w-screen-xl m-auto">
         <div class="ListProducts py-12 mt-10 px-6">
@@ -215,6 +219,9 @@
         </div>
     </div>
 
-
+    <!-- footer -->
+    <?php
+        include "../pages/_footer.php";
+    ?>
 </body>
 </html>

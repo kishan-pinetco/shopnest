@@ -28,6 +28,10 @@
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
+    <!-- navbar -->
+    <?php
+        include "_navbar.php";
+    ?> 
 
     <div class="bg-[#b4f4de] text-center flex flex-col gap-6 py-20">
         <div class="max-w-screen-xl m-auto">
@@ -221,6 +225,11 @@
         <button class="text-white font-semibold text-sm bg-black px-8 py-3 rounded-sm">Contact Us</button>
     </div>
     
+
+    <!-- footer -->
+    <?php
+        include "_footer.php";
+    ?>
 
     <!-- flowbite Script -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>

@@ -26,6 +26,11 @@
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
+    <!-- navbar -->
+    <?php
+        include "_navbar.php";
+    ?>
+
     <div class="max-w-screen-xl m-auto mt-12 flex flex-col items-center my-5 px-5">
         <h1 class="text-gray-900 mb-7 text-2xl font-bold text-center leading-tight max-w-5xl md:text-6xl">Exploring Possibilities, Embracing Convenience: Discover Our E-commerce Journey</h1>
         <img class="rounded-md shadow-2xl" src="https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/05/about-us-v1.jpg" alt="">
@@ -107,6 +112,14 @@
             </div>
         </div>
     </div>
+
+    <hr>
+
+    <!-- footer -->
+    <?php
+        include "_footer.php";
+    ?>
+
 
 </body>
 </html>

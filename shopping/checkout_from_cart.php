@@ -236,5 +236,10 @@
         </div>
     </div>
 
+    <!-- footer -->
+    <?php
+        include "../pages/_footer.php";
+    ?>
+
 </body>
 </html>

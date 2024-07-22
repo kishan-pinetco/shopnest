@@ -24,6 +24,12 @@
     <title>Track Order</title>
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
+
+    <!-- navbar -->
+    <?php
+        include "_navbar.php";
+    ?>
+
     
     <!-- track order -->
     <div class="flex flex-col items-center justify-center px-3 py-8 m-auto w-[100%] md:px-8 lg:w-[70%] xl:w-[50%]">
@@ -43,6 +49,11 @@
             <button class="bg-indigo-600 text-white font-semibold h-14 rounded-md">Track</button>
         </div>
     </div>
+
+    <!-- footer -->
+    <?php
+        include "_footer.php";
+    ?>
 
 </body>
 </html>
