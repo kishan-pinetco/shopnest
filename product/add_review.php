@@ -76,6 +76,12 @@
             </div>
         </form>
     </div>
+
+    <!-- footer -->
+    <?php
+        include "../pages/_footer.php";
+    ?>
+
     <script>
         function changeIconClass(clickedStar) {
             for (var i = 1; i <= 5; i++) {

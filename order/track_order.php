@@ -24,6 +24,11 @@
     <title>Track Order</title>
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
+
+    <!-- navbar -->
+    <?php
+        include "../pages/_navbar.php";
+    ?>
     
     <section class="max-w-screen-lg m-auto bg-white py-8 md:py-16">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -136,6 +141,11 @@
             </div>
         </div>
     </section>
+
+    <!-- footer -->
+    <?php
+        include "../pages/_footer.php";
+    ?>
 
 </body>
 </html>

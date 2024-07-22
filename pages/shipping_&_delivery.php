@@ -25,7 +25,13 @@
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
-    <div class="max-w-screen-sm m-auto px-6 py-12">
+    <!-- navbar -->
+    <?php
+        include "_navbar.php";
+    ?>
+
+
+    <div class="max-w-screen-lg m-auto px-6 py-12">
         <div class="title mb-8">
             <h1 class="text-4xl md:text-6xl font-bold text-center">Shipping & Delivery</h1>
         </div>
@@ -112,6 +118,11 @@
             </div>
         </div>
     </div>
+
+    <!-- footer -->
+    <?php
+        include "_footer.php";
+    ?>
 
 </body>
 </html>

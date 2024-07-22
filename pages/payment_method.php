@@ -25,7 +25,13 @@
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
-    <div class="max-w-screen-sm m-auto px-6 py-12">
+
+    <!-- navbar -->
+    <?php
+        include "_navbar.php";
+    ?>
+
+    <div class="max-w-screen-lg m-auto px-6 py-12">
         <div class="title mb-6">
             <h1 class="text-6xl font-bold text-center">Payment Method</h1>
         </div>
@@ -63,5 +69,11 @@
             <p class="text-lg font-medium">Your payment security is our top priority. All transactions are protected with industry-leading encryption technology to safeguard your personal and financial information. If you have any questions or need assistance with payment, our customer service team is here to help.</p>
         </div>
     </div>
+
+    <!-- footer -->
+    <?php
+        include "_footer.php";
+    ?>
+    
 </body>
 </html>
