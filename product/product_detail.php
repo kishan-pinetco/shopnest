@@ -18,10 +18,38 @@
     <link rel="stylesheet" href="">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="../src/logo/favIcon.png">
+    <link rel="shortcut icon" href="../src/my-logo/logo-7.svg">
 
     <!-- title -->
     <title>Product Details</title>
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- swiper css -->
+    <style>
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mySwiper .swiper-slide {
+            opacity: 0.4;
+        }
+
+        .mySwiper .swiper-slide-thumb-active {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
@@ -31,54 +59,111 @@
     ?>
     
     <!-- product -->
-    <div class="max-w-screen-xl m-auto">
-        <div class="ListProducts py-12 mt-10 px-6">
-            <div class="flex flex-col gap-y-12 items-start justify-between gap-20 w-[100%] md:flex-row">
-                <div class="relative flex flex-col gap-10 w-full md:w-[50%] items-center">
-                    <div class="relative left-0 top-0 flex items-center">
-                        <img class="relative z-50" src="https://m.media-amazon.com/images/I/81Os1SDWpcL._SL1500_.jpg" alt="">
-                        <img class="absolute opacity-0 mx-auto w-full object-contain h-full" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" alt="">
-                        <img class="absolute opacity-0 mx-auto w-full object-contain h-full" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" alt="">
-                        <img class="absolute opacity-0 mx-auto w-full object-contain h-full" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" alt="">
+    <div class="max-w-screen-xl m-auto grid grid-cols-1 md:grid-cols-2 gap-y-1 mt-12 px-8 lg:px-0">
+        <div class="">
+            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2 w-auto h-auto md:h-96">
+                <div class="swiper-wrapper h-52 md:h-full">
+                    <div class="swiper-slide w-auto h-auto">
+                        <img class="h-full" src="https://m.media-amazon.com/images/I/81Os1SDWpcL._SL1500_.jpg" />
                     </div>
-                    <div class=" multiImage flex items-center overflow-x-scroll gap-3">
-                        <img class="w-[70px] h-[70px] z-50 border rounded-md object-contain cursor-pointer" src="https://m.media-amazon.com/images/I/81Os1SDWpcL._SL1500_.jpg" alt="">
-                        <img class="w-[70px] h-[70px] z-50 border rounded-md object-contain cursor-pointer" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" alt="">
-                        <img class="w-[70px] h-[70px] z-50 border rounded-md object-contain cursor-pointer" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" alt="">
-                        <img class="w-[70px] h-[70px] z-50 border rounded-md object-contain cursor-pointer" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" alt="">
+                    <div class="swiper-slide h-auto">
+                        <img class="h-full" src="https://m.media-amazon.com/images/I/51UtwJ0576L._SL1500_.jpg" />
                     </div>
-                </div>
-                <div class="flex flex-col gap-3 w-full mt-12 md:w-[50%]">
-                    <div class="flex flex-col gap-2">
-                        <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]">Apple iPhone 15 Pro Max (256 GB) - Black Titanium</h1>
-                    </div>     
-                    <!-- price -->
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-baseline gap-1">
-                        <span class="text-xl font-medium">₹1,48,900</span>
-                        <del class="text-sm font-normal">₹1,59,900</del>
+                    <div class="swiper-slide h-auto">
+                        <img class="h-full" src="https://m.media-amazon.com/images/I/71lmRVkniLL._SL1500_.jpg" />
                     </div>
-                    <p class="text-[#13bc96] text-sm font-medium">Available in stock</p>
-                    </div>            
-                    <!-- rating -->
-                    <div class="flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                        <span class="text-xs font-medium text-[#7c818b]">0</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
-                        <p class="text-sm font-medium text-[red]">Free Delivery</p>   
-                    </div>
-                    <hr> 
-                    <div class="mt-4 flex flex-col gap-3 md:flex-row">
-                        <input class="text-sm font-medium text-white bg-indigo-600 px-12 py-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-200" type="submit" name="addToCart" value="Add To Cart">
-                        <a href="?id=" class="text-sm font-medium text-indigo-500 border-2 border-indigo-500 px-12 py-4 rounded-md text-center">Buy now</a>
+                    <div class="swiper-slide h-auto">
+                        <img class="h-full" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" />
                     </div>
                 </div>
+            </div>
+            <div thumbsSlider="" class="swiper mySwiper md:w-80 h-auto mt-6">
+                <div class="swiper-wrapper flex item-center justify-center">
+                    <div class="swiper-slide border border-black p-1">
+                        <img class="w-full h-full m-auto aspect-square" src="https://m.media-amazon.com/images/I/81Os1SDWpcL._SL1500_.jpg" />
+                    </div>
+                    <div class="swiper-slide border border-black p-1">
+                        <img class="w-full h-full m-auto aspect-square" src="https://m.media-amazon.com/images/I/51UtwJ0576L._SL1500_.jpg" />
+                    </div>
+                    <div class="swiper-slide border border-black p-1">
+                        <img class="w-full h-full m-auto aspect-square" src="https://m.media-amazon.com/images/I/71lmRVkniLL._SL1500_.jpg" />
+                    </div>
+                    <div class="swiper-slide border border-black p-1">
+                        <img class="w-full h-full m-auto aspect-square" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col gap-3 w-full mt-12">
+            <div class="flex flex-col gap-2">
+                <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]">Apple iPhone 15 Pro Max (256 GB) - Black Titanium</h1>
+            </div>
+            <!-- price -->
+            <div class="flex items-center justify-between flex-wrap gap-y-3">
+                <div class="flex items-baseline gap-1">
+                    <span class="text-xl font-medium">₹1,48,900</span>
+                    <del class="text-sm font-normal">₹1,59,900</del>
+                </div>
+                <p class="text-[#13bc96] text-sm font-medium">Available in stock</p>
+            </div>
+            <!-- color -->
+            <div class="mt-3">
+                <h1 class="text-xl font-medium">Colors:</h1>
+                <div class="flex item-center gap-1">
+                    <div>
+                        <input type="radio" class="hidden" name="colors" id="color-1">
+                        <label for="color-1">
+                            <div class="h-7 w-7 rounded-full bg-red-500 cursor-pointer"></div>
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" class="hidden" name="colors" id="color-2">
+                        <label for="color-2">
+                            <div class="h-7 w-7 rounded-full bg-green-500 cursor-pointer"></div>
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" class="hidden" name="colors" id="color-3">
+                        <label for="color-3">
+                            <div class="h-7 w-7 rounded-full bg-blue-500 cursor-pointer"></div>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <!-- size -->
+            <div>
+                <div class="md:col-span-2 mt-3">
+                    <label for="size">Size</label>
+                    <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                        <option value="4GB-32GB">4 GB RAM, 32 GB ROM</option>
+                        <option value="4GB-64GB">4 GB RAM, 64 GB ROM</option>
+                        <option value="6GB-64GB">6 GB RAM, 64 GB ROM</option>
+                        <option value="6GB-128GB">6 GB RAM, 128 GB ROM</option>
+                        <option value="8GB-128GB">8 GB RAM, 128 GB ROM</option>
+                        <option value="8GB-256GB">8 GB RAM, 256 GB ROM</option>
+                        <option value="12GB-256GB">12 GB RAM, 256 GB ROM</option>
+                        <option value="12GB-512GB">12 GB RAM, 512 GB ROM</option>
+                        <option value="16GB-512GB">16 GB RAM, 512 GB ROM</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-3">
+                <!-- rating -->
+                <div class="flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                    <span class="text-base font-medium text-[#7c818b]">(0)</span>
+                </div>
+                <p class="text-sm font-medium text-[red]">Free Delivery</p>
+            </div>
+            <hr>
+            <div class="mt-4 flex flex-col gap-3 md:flex-row">
+                <input class="text-sm font-medium text-white bg-indigo-600 px-12 py-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-200" type="submit" name="addToCart" value="Add To Cart">
+                <a href="?id=" class="text-sm font-medium text-indigo-500 border-2 border-indigo-500 px-12 py-4 rounded-md text-center">Buy now</a>
             </div>
         </div>
     </div>
@@ -223,5 +308,24 @@
     <?php
         include "../pages/_footer.php";
     ?>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+        var swiper2 = new Swiper(".mySwiper2", {
+            spaceBetween: 10,
+            thumbs: {
+                swiper: swiper,
+            },
+        });
+    </script>
 </body>
 </html>

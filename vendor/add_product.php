@@ -101,8 +101,6 @@
                                     <button type="button" class="border bg-indigo-500 text-white rounded-md px-3 py-2 mt-5" id="add-input"><i class="fa-solid fa-plus border-2 border-dotted rounded-full p-1 mr-2"></i>Add More Colors</button>
                                 </div>
 
-
-
                                 <?php
                                     $phone = "Phones";
                                     if($_GET['name'] === $phone){
@@ -169,6 +167,19 @@
                                                 </select>
                                             </div>
                                         <?php
+                                    }else if($_GET['name'] === 'Shoes'){
+                                        ?>
+                                            <div class="md:col-span-2 mt-5">
+                                                <label for="size">Size</label>
+                                                <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                                    <option value="6 UK">6 UK</option>
+                                                    <option value="7 UK">7 UK</option>
+                                                    <option value="8 UK">8 UK</option>
+                                                    <option value="9 UK">9 UK</option>
+                                                    <option value="10 UK">10 UK</option>
+                                                </select>
+                                            </div>
+                                        <?php
                                     }
                                 ?>
 
@@ -197,6 +208,24 @@
             inputContainer.appendChild(newInput);
         });
 
+    </script>
+
+    <script>
+        function handleFileSelect(event, previewId) {
+            const file = event.target.files[0];
+            const preview = document.getElementById(previewId);
+
+            if (file && file.type.startsWith('image')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    const label = event.target.parentElement;
+                    label.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
     </script>
 
 </body>

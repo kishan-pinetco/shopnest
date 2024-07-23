@@ -35,7 +35,8 @@
             <div class="w-full md:w-1/2">
                 <div class="mb-10 flex  items-center gap-0 lg:mb-20">
                     <img class="w-14" src="../src/my-logo/logo-6.svg" alt="">
-                    <div class="text-center">
+                    <div class="text-center mt-2y
+                    ">
                         <h2 class="text-3xl font-semibold text-black leading-8">shopNest</h2>
                         <span class="text-black tracking-[5px] font-medium">Buy Best</span>
                     </div>
