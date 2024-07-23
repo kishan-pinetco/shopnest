@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="../src/logo/favicon.svg">
+    <link rel="shortcut icon" href="../../src/logo/favicon.svg">
 
     <!-- alpinejs CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -46,11 +46,6 @@
                 </svg>
             </div>
         </div>
-        <!-- 
-        Bio
-        GTS
-        cover_image
-        -->
         <form action="">
             <div class="border-2 rounded-md">
                 <h1 class="border-b-2 p-2 text-2xl font-semibold">Vendor Registration</h1>

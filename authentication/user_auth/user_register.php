@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="/src/logo/logo.svg">
+    <link rel="shortcut icon" href="../../src/logo/favicon.svg">
 
     <!-- alpinejs CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -144,8 +144,8 @@
             </div>
         </form>
         <div class="flex flex-col items-center gap-2 mt-5">
-            <a class="underline font-semibold" href="../authentication/vendor_auth/vendor_register.php">Become a Vendor</a>
-            <a class="underline font-semibold" href="login.php">Already a member? Login</a>
+            <a class="underline font-semibold" href="../vendor_auth/vendor_register.php">Become a Vendor</a>
+            <a class="underline font-semibold" href="user_login.php">Already a member? Login</a>
         </div>
     </div>
 </body>

@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="/src/logo/favicon.svg">
+    <link rel="shortcut icon" href="../../src/logo/favicon.svg">
 
 </head>
 
@@ -75,7 +75,7 @@
                         <button class="bg-indigo-600 font-semibold py-1 h-10 w-full text-lg rounded-md text-white hover:bg-indigo-700 hover:transition">Login</button>
                     </div>
                     <div>
-                        <a href="register.php" class="text-sm font-semibold tracking-wide flex justify-center underline">New Vendor? Create account</a>
+                        <a href="user_register.php" class="text-sm font-semibold tracking-wide flex justify-center underline">New Vendor? Create account</a>
                     </div>
                 </div>
             </form>
