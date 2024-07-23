@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
+    <title>Vendor Registration</title>
 
     <!-- css file link -->
-    <link rel="stylesheet" href="authentication.css">
+    <link rel="stylesheet" href="vendor_auth.css">
 
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
@@ -46,9 +46,14 @@
                 </svg>
             </div>
         </div>
+        <!-- 
+        Bio
+        GTS
+        cover_image
+        -->
         <form action="">
             <div class="border-2 rounded-md">
-                <h1 class="border-b-2 p-2 text-2xl font-semibold">User Registration</h1>
+                <h1 class="border-b-2 p-2 text-2xl font-semibold">Vendor Registration</h1>
                 <!-- Profile Picture -->
                 <div class="w-full flex flex-col items-center relative mt-3">
                     <img id="previewImage" class="w-16 h-16 rounded-full border object-cover object-center border-black" alt="" src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png">
@@ -107,12 +112,6 @@
                         <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter password !</p>
                         <!-- remove hidden class to show in <p> tag -->
                     </div>
-                    <div class="flex flex-col gap-1 md:col-span-2">
-                        <label for="username" class="require font-semibold">Address :</label>
-                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition resize-none" name="address" id="address"></textarea>
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter address !</p>
-                        <!-- remove hidden class to show in <p> tag -->
-                    </div>
                     <div class="flex flex-col gap-1">
                         <label for="username" class="require font-semibold">Mobile No :</label>
                         <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" name="mobileno" id="mobileno" maxlength="10">
@@ -120,21 +119,9 @@
                         <!-- remove hidden class to show in <p> tag -->
                     </div>
                     <div class="flex flex-col gap-1">
-                        <label for="username" class="require font-semibold">State :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="state" id="state">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter state !</p>
-                        <!-- remove hidden class to show in <p> tag -->
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="username" class="require font-semibold">City :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="city" id="city">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter city !</p>
-                        <!-- remove hidden class to show in <p> tag -->
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="username" class="require font-semibold">Pincode :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" name="pincode" id="pincode" maxlength="6">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter Pincode !</p>
+                        <label for="username" class="require font-semibold">GST No :</label>
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" name="gstno" id="gstno">
+                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter mobile number !</p>
                         <!-- remove hidden class to show in <p> tag -->
                     </div>
                 </div>
@@ -144,8 +131,7 @@
             </div>
         </form>
         <div class="flex flex-col items-center gap-2 mt-5">
-            <a class="underline font-semibold" href="../vendor_auth/vendor_register.php">Become a Vendor</a>
-            <a class="underline font-semibold" href="login.php">Already a member? Login</a>
+            <a class="underline font-semibold" href="vendor_login.php">Already a vendor? Login</a>
         </div>
     </div>
 </body>

@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
+    <title>Vendor Login</title>
 
     <!-- css file link -->
-    <link rel="stylesheet" href="authentication.css">
+    <link rel="stylesheet" href="custom_style.css">
 
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+    <!-- alpinejs CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,12 +23,10 @@
     <!-- favicon -->
     <link rel="shortcut icon" href="../src/logo/favicon.svg">
 
-    <!-- alpinejs CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="flex justify-center h-[100%] p-2">
-    <div class="lg:w-[45%]">
+<body class="flex justify-center items-center h-[100vh] p-2">
+    <div class="w-96">
         <!-- header -->
         <div class="p-2 flex items-center justify-center">
             <!-- icon logo div -->
@@ -36,7 +37,7 @@
             </div>
             <!-- text logo -->
             <div>
-                <svg class="w-40" viewBox="0 0 245 60" class="looka-1j8o68f">
+                <svg class="w-40" viewBox="0 0 240 57.56369650866126" class="looka-1j8o68f">
                     <g id="SvgjsG7220" featurekey="s6yzU4-0" transform="matrix(2.329517141759672,0,0,2.329517141759672,-2.223190361852095,-12.113490914430828)" fill="#000000">
                         <path d="M9.1 6.02 c0.82 0.28 0.38 1.56 -0.46 1.26 c-1.8 -0.64 -3.96 -0.98 -5.28 0.48 c-1.08 1.14 -1.36 3.24 0.08 4.48 c1.74 1.56 4.22 1.22 4.36 3.34 c0.06 1.12 -0.92 1.94 -2 2.02 c-1.3 0.08 -2.92 -0.24 -4.24 -1.2 c-0.7 -0.5 0.08 -1.58 0.78 -1.08 c1.54 1.12 4.24 1.32 4.12 0.32 c-0.08 -0.94 -2.06 -0.78 -3.92 -2.4 c-2.9 -2.54 -1.14 -7.6 2.98 -7.8 c1.2 -0.06 2.18 0.1 3.58 0.58 l0 0 z M1.3 19.24 c-0.76 -0.4 -0.14 -1.58 0.64 -1.18 c3.08 1.64 7.26 1.22 7.26 -2.48 c0 -2.74 -3.6 -3.24 -4.62 -4.06 c-1.6 -1.26 -0.76 -4.8 4.22 -2.78 c0.78 0.32 0.3 1.56 -0.52 1.22 c-3.02 -1.22 -3.54 0.02 -2.88 0.54 c0.74 0.56 5.12 1.36 5.12 5.08 c0 3.66 -3.24 5.38 -6.98 4.48 c-0.68 -0.14 -1.46 -0.4 -2.24 -0.82 l0 0 z M5.68 16.28 l0 0 l0 0 z M15.600000000000001 6.16 c0 -0.36 0.3 -0.66 0.66 -0.66 c0.38 0 0.68 0.3 0.68 0.66 l0 4.68 l2.66 0 l0 -4.68 c0 -0.36 0.3 -0.66 0.68 -0.66 c0.36 0 0.66 0.3 0.66 0.66 l0 5.36 c0 0.36 -0.3 0.66 -0.66 0.66 l-4.02 0 c-0.36 0 -0.66 -0.3 -0.66 -0.66 l0 -5.36 l0 0 z M20.939999999999998 19.54 c0 0.36 -0.3 0.66 -0.66 0.66 c-0.38 0 -0.68 -0.3 -0.68 -0.66 l0 -4.68 l-2.66 0 l0 4.68 c0 0.36 -0.3 0.66 -0.68 0.66 c-0.36 0 -0.66 -0.3 -0.66 -0.66 l0 -5.36 c0 -0.36 0.3 -0.66 0.66 -0.66 l4.02 0 c0.36 0 0.66 0.3 0.66 0.66 l0 5.36 l0 0 z M14.26 19.54 c0 0.36 -0.3 0.66 -0.66 0.66 c-0.38 0 -0.68 -0.3 -0.68 -0.66 l0 -13.38 c0 -0.36 0.3 -0.66 0.68 -0.66 c0.36 0 0.66 0.3 0.66 0.66 l0 13.38 l0 0 z M22.28 6.16 c0 -0.36 0.3 -0.66 0.66 -0.66 c0.38 0 0.68 0.3 0.68 0.66 l0 13.38 c0 0.36 -0.3 0.66 -0.68 0.66 c-0.36 0 -0.66 -0.3 -0.66 -0.66 l0 -13.38 l0 0 z M41.34 10.54 c0.1 0.36 -0.08 0.74 -0.44 0.84 c-0.36 0.12 -0.76 -0.08 -0.86 -0.44 c-0.42 -1.28 -1.22 -2.38 -2.32 -3.18 c-1.04 -0.74 -2.34 -1.2 -3.76 -1.2 c-8.34 0 -8.34 12.52 0 12.52 c1.42 0 2.72 -0.44 3.76 -1.2 c1.1 -0.78 1.9 -1.88 2.32 -3.18 c0.1 -0.36 0.5 -0.54 0.86 -0.44 s0.54 0.5 0.44 0.86 c-0.5 1.56 -1.5 2.92 -2.8 3.86 c-1.3 0.92 -2.86 1.48 -4.58 1.48 c-10.14 0 -10.14 -15.26 0 -15.26 c1.72 0 3.28 0.54 4.58 1.46 c1.3 0.96 2.3 2.3 2.8 3.88 l0 0 z M29.840000000000003 15.24 c-0.2 -0.34 -0.08 -0.72 0.24 -0.92 c0.34 -0.18 0.74 -0.08 0.92 0.26 c0.32 0.52 0.76 0.98 1.28 1.26 c0.48 0.3 1.06 0.48 1.68 0.48 c0.96 0 1.82 -0.38 2.42 -1.02 c0.64 -0.62 1.02 -1.5 1.02 -2.48 c0 -0.96 -0.38 -1.84 -1.02 -2.46 c-0.6 -0.62 -1.46 -1.02 -2.42 -1.02 c-0.62 0 -1.18 0.16 -1.68 0.46 c-0.52 0.3 -0.96 0.74 -1.28 1.26 c-0.18 0.34 -0.58 0.46 -0.92 0.28 c-0.32 -0.18 -0.44 -0.6 -0.24 -0.94 c0.42 -0.74 1.02 -1.36 1.74 -1.78 s1.54 -0.64 2.38 -0.64 c1.34 0 2.54 0.54 3.42 1.42 c0.84 0.88 1.38 2.08 1.38 3.42 s-0.54 2.54 -1.38 3.42 c-0.88 0.9 -2.08 1.44 -3.42 1.44 c-0.84 0 -1.66 -0.24 -2.38 -0.64 c-0.72 -0.44 -1.32 -1.06 -1.74 -1.8 l0 0 z M49.76 12.18 c-0.52 0 -1.42 0.14 -1.42 -0.66 c0 -0.82 0.9 -0.66 1.42 -0.66 c0.92 0 0.92 -1.34 0 -1.34 l-2.36 0 c-0.88 0 -0.88 -1.34 0 -1.34 l2.36 0 c2.68 0 2.68 4 0 4 l0 0 z M45.4 19.52 c0 0.88 -1.34 0.88 -1.34 0 l0 -13.32 c0 -0.4 0.3 -0.68 0.66 -0.68 l5.28 0 c6.06 0 6.04 9.34 0 9.34 l-1.92 0 l0 4.66 c0 0.88 -1.36 0.88 -1.36 0 l0 -5.34 c0 -0.36 0.32 -0.66 0.68 -0.66 l2.6 0 c4.3 0 4.3 -6.68 0 -6.68 l-4.6 0 l0 12.68 l0 0 z M58.120000000000005 19.54 c0 0.36 -0.28 0.68 -0.66 0.68 c-0.36 0 -0.66 -0.32 -0.66 -0.68 l0 -13.38 c0 -0.36 0.3 -0.64 0.66 -0.64 c0.38 0 0.66 0.28 0.66 0.64 l0 13.38 l0 0 z M69.04 19.54 c0 0.36 -0.3 0.68 -0.68 0.68 c-0.36 0 -0.66 -0.32 -0.66 -0.68 l0 -13.38 c0 -0.36 0.3 -0.64 0.66 -0.64 c0.38 0 0.68 0.28 0.68 0.64 l0 13.38 l0 0 z M66.5 19.16 c0.2 0.3 0.12 0.7 -0.16 0.94 c-0.32 0.2 -0.72 0.12 -0.94 -0.18 l-4.6 -6.58 l0 6.2 c0 0.36 -0.3 0.66 -0.68 0.66 c-0.36 0 -0.64 -0.3 -0.64 -0.66 l0 -8.32 c0 -0.22 0.08 -0.42 0.28 -0.54 c0.28 -0.24 0.72 -0.16 0.92 0.16 l5.82 8.32 l0 0 z M59.34 6.5600000000000005 c-0.22 -0.32 -0.14 -0.72 0.16 -0.92 c0.3 -0.24 0.72 -0.14 0.92 0.16 l4.6 6.58 l0 -6.22 c0 -0.36 0.32 -0.64 0.68 -0.64 s0.66 0.28 0.66 0.64 l0 8.32 c0 0.22 -0.1 0.44 -0.3 0.56 c-0.3 0.22 -0.7 0.14 -0.92 -0.16 l-5.8 -8.32 l0 0 z M79.84 8.18 c0.38 0 0.68 0.28 0.68 0.66 c0 0.36 -0.3 0.66 -0.68 0.66 l-3.58 0 l0 1.34 l2.34 0 c0.38 0 0.68 0.3 0.68 0.68 c0 0.36 -0.3 0.66 -0.68 0.66 l-3 0 c-0.38 0 -0.68 -0.3 -0.68 -0.66 l0 -2.68 c0 -0.38 0.3 -0.66 0.68 -0.66 l4.24 0 l0 0 z M78.6 13.52 c0.38 0 0.68 0.3 0.68 0.66 c0 0.38 -0.3 0.68 -0.68 0.68 l-2.34 0 l0 1.32 l3.58 0 c0.38 0 0.68 0.3 0.68 0.68 c0 0.36 -0.3 0.66 -0.68 0.66 l-4.24 0 c-0.38 0 -0.68 -0.3 -0.68 -0.66 l0 -2.68 c0 -0.36 0.3 -0.66 0.68 -0.66 l3 0 l0 0 z M79.84 18.86 c0.38 0 0.68 0.3 0.68 0.68 c0 0.36 -0.3 0.66 -0.68 0.66 l-6.92 0 c-0.36 0 -0.66 -0.3 -0.66 -0.66 l0 -13.38 c0 -0.36 0.3 -0.66 0.66 -0.66 l6.92 0 c0.38 0 0.68 0.3 0.68 0.66 c0 0.38 -0.3 0.68 -0.68 0.68 l-6.24 0 l0 12.02 l6.24 0 l0 0 z M90.69999999999999 6.02 c0.82 0.28 0.38 1.56 -0.46 1.26 c-1.8 -0.64 -3.96 -0.98 -5.28 0.48 c-1.08 1.14 -1.36 3.24 0.08 4.48 c1.74 1.56 4.22 1.22 4.36 3.34 c0.06 1.12 -0.92 1.94 -2 2.02 c-1.3 0.08 -2.92 -0.24 -4.24 -1.2 c-0.7 -0.5 0.08 -1.58 0.78 -1.08 c1.54 1.12 4.24 1.32 4.12 0.32 c-0.08 -0.94 -2.06 -0.78 -3.92 -2.4 c-2.9 -2.54 -1.14 -7.6 2.98 -7.8 c1.2 -0.06 2.18 0.1 3.58 0.58 l0 0 z M82.89999999999999 19.24 c-0.76 -0.4 -0.14 -1.58 0.64 -1.18 c3.08 1.64 7.26 1.22 7.26 -2.48 c0 -2.74 -3.6 -3.24 -4.62 -4.06 c-1.6 -1.26 -0.76 -4.8 4.22 -2.78 c0.78 0.32 0.3 1.56 -0.52 1.22 c-3.02 -1.22 -3.54 0.02 -2.88 0.54 c0.74 0.56 5.12 1.36 5.12 5.08 c0 3.66 -3.24 5.38 -6.98 4.48 c-0.68 -0.14 -1.46 -0.4 -2.24 -0.82 l0 0 z M87.28 16.28 l0 0 l0 0 z M103.33999999999999 8.18 c0.36 0 0.64 0.3 0.64 0.68 c0 0.36 -0.28 0.64 -0.64 0.64 l-2.68 0 l0 10.02 c0 0.38 -0.3 0.68 -0.68 0.68 c-0.36 0 -0.66 -0.3 -0.66 -0.68 l0 -10.66 c0 -0.38 0.3 -0.68 0.66 -0.68 l3.36 0 l0 0 z M93.99999999999999 6.84 c-0.38 0 -0.68 -0.3 -0.68 -0.66 c0 -0.38 0.3 -0.66 0.68 -0.66 l9.34 0 c0.36 0 0.64 0.28 0.64 0.66 c0 0.36 -0.28 0.66 -0.64 0.66 l-9.34 0 l0 0 z M93.99999999999999 9.5 c-0.38 0 -0.68 -0.28 -0.68 -0.64 c0 -0.38 0.3 -0.68 0.68 -0.68 l3.32 0 c0.38 0 0.68 0.3 0.68 0.68 l0 10.66 c0 0.38 -0.3 0.68 -0.68 0.68 c-0.36 0 -0.68 -0.3 -0.68 -0.68 l0 -10.02 l-2.64 0 l0 0 z"></path>
                     </g>
@@ -46,51 +47,11 @@
                 </svg>
             </div>
         </div>
-        <form action="">
-            <div class="border-2 rounded-md">
-                <h1 class="border-b-2 p-2 text-2xl font-semibold">User Registration</h1>
-                <!-- Profile Picture -->
-                <div class="w-full flex flex-col items-center relative mt-3">
-                    <img id="previewImage" class="w-16 h-16 rounded-full border object-cover object-center border-black" alt="" src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png">
-                    <input class="hidden" type="file" id="imageInput">
-                    <label for="imageInput" class="absolute bottom-0 translate-y-3 translate-x-[2px] rounded-full bg-white p-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                            <g>
-                                <g data-name="Layer 53">
-                                    <path d="M22 9.25a.76.76 0 0 0-.75.75v6l-4.18-4.78a2.84 2.84 0 0 0-4.14 0l-2.87 3.28-.94-1.14a2.76 2.76 0 0 0-4.24 0l-2.13 2.57V6A3.26 3.26 0 0 1 6 2.75h8a.75.75 0 0 0 0-1.5H6A4.75 4.75 0 0 0 1.25 6v12a.09.09 0 0 0 0 .05A4.75 4.75 0 0 0 6 22.75h12a4.75 4.75 0 0 0 4.74-4.68V10a.76.76 0 0 0-.74-.75Zm-4 12H6a3.25 3.25 0 0 1-3.23-3L6 14.32a1.29 1.29 0 0 1 1.92 0l1.51 1.82a.74.74 0 0 0 .57.27.86.86 0 0 0 .57-.26l3.44-3.94a1.31 1.31 0 0 1 1.9 0l5.27 6A3.24 3.24 0 0 1 18 21.25Z" fill="#000000" opacity="1" data-original="#000000"></path>
-                                    <path d="M4.25 7A2.75 2.75 0 1 0 7 4.25 2.75 2.75 0 0 0 4.25 7Zm4 0A1.25 1.25 0 1 1 7 5.75 1.25 1.25 0 0 1 8.25 7ZM16 5.75h2.25V8a.75.75 0 0 0 1.5 0V5.75H22a.75.75 0 0 0 0-1.5h-2.25V2a.75.75 0 0 0-1.5 0v2.25H16a.75.75 0 0 0 0 1.5Z" fill="#000000" opacity="1" data-original="#000000"></path>
-                                </g>
-                            </g>
-                        </svg></label>
-                    <script>
-                        const imageInput = document.getElementById('imageInput');
-                        const previewImage = document.getElementById('previewImage');
 
-                        function previewSelectedImage() {
-                            const file = imageInput.files[0];
-                            if (file) {
-                                const reader = new FileReader();
-                                reader.readAsDataURL(file);
-                                reader.onload = function(e) {
-                                    previewImage.src = e.target.result;
-                                }
-                            }
-                        }
-                        imageInput.addEventListener('change', previewSelectedImage);
-                    </script>
-                </div>
-                <div class="grid grid-cols-1 p-5 md:grid-cols-2 gap-5">
-                    <div class="flex flex-col gap-1 ">
-                        <label for="fname" class="require font-semibold">First Name :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="fname" id="fname">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter first name !</p>
-                        <!-- remove hidden class to show in <p> tag -->
-                    </div>
-                    <div class="flex flex-col gap-1 ">
-                        <label for="name" class="require font-semibold">Last Name :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="name" id="name">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter last name !</p>
-                        <!-- remove hidden class to show in <p> tag -->
-                    </div>
+        <div class="border-2 rounded-md">
+            <h1 class="border-b-2 p-2 text-2xl font-semibold">Vendor Login</h1>
+            <form action="">
+                <div class="space-y-4 p-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
                         <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="email" name="email" id="email">
@@ -100,53 +61,26 @@
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
                         <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password">
-                        <span class="absolute top-10 right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+                        <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                                 <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
                                 <path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
                             </svg></span>
                         <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter password !</p>
                         <!-- remove hidden class to show in <p> tag -->
                     </div>
-                    <div class="flex flex-col gap-1 md:col-span-2">
-                        <label for="username" class="require font-semibold">Address :</label>
-                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition resize-none" name="address" id="address"></textarea>
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter address !</p>
-                        <!-- remove hidden class to show in <p> tag -->
+                    <div>
+                        <a href="" class="text-sm -translate-x-1 -translate-y-1 font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
                     </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="username" class="require font-semibold">Mobile No :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" name="mobileno" id="mobileno" maxlength="10">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter mobile number !</p>
-                        <!-- remove hidden class to show in <p> tag -->
+                    <div class="text-center">
+                        <button class="bg-indigo-600 font-semibold py-1 h-10 w-full text-lg rounded-md text-white hover:bg-indigo-700 hover:transition">Login</button>
                     </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="username" class="require font-semibold">State :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="state" id="state">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter state !</p>
-                        <!-- remove hidden class to show in <p> tag -->
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="username" class="require font-semibold">City :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="city" id="city">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter city !</p>
-                        <!-- remove hidden class to show in <p> tag -->
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="username" class="require font-semibold">Pincode :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" name="pincode" id="pincode" maxlength="6">
-                        <p class="hidden text-sm font-medium translate-x-1 text-red-600">Please enter Pincode !</p>
-                        <!-- remove hidden class to show in <p> tag -->
+                    <div>
+                        <a href="vendor_register.php" class="text-sm font-semibold tracking-wide flex justify-center underline">New Vendor? Create account</a>
                     </div>
                 </div>
-                <div class="flex justify-center mb-5">
-                    <button class="bg-indigo-500 font-semibold h-10 w-72 text-lg rounded-md text-white hover:bg-indigo-600 hover:transition">Register</button>
-                </div>
-            </div>
-        </form>
-        <div class="flex flex-col items-center gap-2 mt-5">
-            <a class="underline font-semibold" href="../vendor_auth/vendor_register.php">Become a Vendor</a>
-            <a class="underline font-semibold" href="login.php">Already a member? Login</a>
+            </form>
         </div>
+
     </div>
 </body>
 
