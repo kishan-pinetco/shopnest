@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="../src/logo/favIcon.png">
+    <link rel="shortcut icon" href="../src/logo/favIcon.svg">
 
     <!-- flowbite -->
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />

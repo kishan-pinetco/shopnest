@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="../src/my-logo/logo-7.svg">
+    <link rel="shortcut icon" href="../src/logo/favIcon.svg">
 
     <!-- title -->
     <title>Product Details</title>

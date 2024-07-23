@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="../src/logo/favicon.png">
+    <link rel="shortcut icon" href="../src/logo/favIcon.svg">
 
     <!-- title -->
     <title>Cancel Order</title>
