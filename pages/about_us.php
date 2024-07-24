@@ -113,8 +113,6 @@
         </div>
     </div>
 
-    <hr>
-
     <!-- footer -->
     <?php
         include "_footer.php";
