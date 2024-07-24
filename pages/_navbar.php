@@ -83,7 +83,7 @@
                     </svg>
                     <div class="text-xs hidden md:block">
                         <h1>Username</h1>
-                        <a class="underline focus:outline-none" href="login.php">Login</a> / <a class="underline focus:outline-none" href="register.php">Register</a>
+                        <a class="underline focus:outline-none" href="../authentication/user_auth/user_login.php">Login</a> / <a class="underline focus:outline-none" href="../authentication/user_auth/user_register.php">Register</a>
                     </div>
                 </div>
                 <div>

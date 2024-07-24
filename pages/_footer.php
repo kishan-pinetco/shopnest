@@ -22,9 +22,9 @@
 </head>
 
 <body>
-    <hr class="mt-12 w-full">
-    <footer class="p-2 outfit">
-        <div class="md:flex justify-between gap-10 px-8 py-4 space-y-5 sm:space-y-0">
+    <hr>
+    <footer class="p-2 outfit mt-2 md:mt-12">
+        <div class="md:flex justify-between gap-10 px-2 md:px-8 py-4 space-y-5 sm:space-y-0">
             <div>
                 <a class="flex" href="../index.php">
                     <!-- icon logo div -->
@@ -84,7 +84,7 @@
                 </div>
             </div>
         </div>
-        <hr>
+        <hr class="mt-3"><br>
         <div class="sm:flex sm:items-center sm:justify-between sm:gap-10 px-2 py-4 space-y-3 sm:space-y-0">
             <div>
                 <p class="text-sm">Copyright &copy; 2024 shopNest. All Rights Reserved.</p>
