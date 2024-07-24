@@ -21,7 +21,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="flex justify-center h-[100%] p-2">
+<body class="flex justify-center h-[100%] p-2 outfit">
     <div class="lg:w-[45%]">
         <!-- header -->
         <div class="p-2 flex items-center justify-center">

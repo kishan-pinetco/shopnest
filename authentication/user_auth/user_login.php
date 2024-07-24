@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="flex justify-center items-center h-[100vh] p-2">
+<body class="flex justify-center items-center h-[100vh] p-2 outfit">
     <div class="w-96">
         <!-- header -->
         <div class="p-2 flex items-center justify-center">
