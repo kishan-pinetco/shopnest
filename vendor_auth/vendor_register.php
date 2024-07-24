@@ -1,0 +1,1 @@
+name,email,pass,phone,bio(textArea),cover_image,dp_image
