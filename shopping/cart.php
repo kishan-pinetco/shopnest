@@ -111,7 +111,7 @@
                     <!-- images -->
                     <div class="cursor-pointer relative mt-6">
                         <a href="Product.php?id=" class="relative m-auto">
-                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain" alt="">
+                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain aspect-square" alt="">
                         </a>
                     </div>
                     <!-- product-details -->
@@ -123,7 +123,6 @@
                             <span class="text-lg font-medium">₹26,999</span>
                             <del class="text-[10px] font-normal">₹86,000</del>
                         </div>
-                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
                         <p class="text-sm font-normal">Free Delivery</p>
                         <!-- rating -->
                         <div class="flex items-center gap-1">
@@ -133,6 +132,9 @@
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
                             <span class="text-xs font-medium text-[#7c818b]">0</span>
+                        </div>
+                        <div class="w-full bg-indigo-600 text-white hover:bg-indigo-700 transition duration-300 cursor-pointer text-center py-2 rounded-md mt-2">
+                            <a href="" class="font-medium">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -147,7 +149,7 @@
                     <!-- images -->
                     <div class="cursor-pointer relative mt-6">
                         <a href="Product.php?id=" class="relative m-auto">
-                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain" alt="">
+                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain aspect-square" alt="">
                         </a>
                     </div>
                     <!-- product-details -->
@@ -159,7 +161,6 @@
                             <span class="text-lg font-medium">₹26,999</span>
                             <del class="text-[10px] font-normal">₹86,000</del>
                         </div>
-                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
                         <p class="text-sm font-normal">Free Delivery</p>
                         <!-- rating -->
                         <div class="flex items-center gap-1">
@@ -169,6 +170,9 @@
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
                             <span class="text-xs font-medium text-[#7c818b]">0</span>
+                        </div>
+                        <div class="w-full bg-indigo-600 text-white hover:bg-indigo-700 transition duration-300 cursor-pointer text-center py-2 rounded-md mt-2">
+                            <a href="" class="font-medium">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -183,7 +187,7 @@
                     <!-- images -->
                     <div class="cursor-pointer relative mt-6">
                         <a href="Product.php?id=" class="relative m-auto">
-                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain" alt="">
+                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain aspect-square" alt="">
                         </a>
                     </div>
                     <!-- product-details -->
@@ -195,7 +199,6 @@
                             <span class="text-lg font-medium">₹26,999</span>
                             <del class="text-[10px] font-normal">₹86,000</del>
                         </div>
-                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
                         <p class="text-sm font-normal">Free Delivery</p>
                         <!-- rating -->
                         <div class="flex items-center gap-1">
@@ -205,6 +208,9 @@
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
                             <span class="text-xs font-medium text-[#7c818b]">0</span>
+                        </div>
+                        <div class="w-full bg-indigo-600 text-white hover:bg-indigo-700 transition duration-300 cursor-pointer text-center py-2 rounded-md mt-2">
+                            <a href="" class="font-medium">Add to Cart</a>
                         </div>
                     </div>
                 </div>
