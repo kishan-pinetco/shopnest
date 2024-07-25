@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <header class="bg-black p-2 outfit overflow-hidden">
+    <header class="bg-black px-2 py-4 outfit overflow-hidden">
         <div class="flex items-center justify-between gap-10">
             <div class="flex">
                 <button class="lg:hidden focus:outline-none pr-4" onclick="showSidebar()">
@@ -87,16 +87,17 @@
                     </div>
                 </div>
                 <div>
-                    <button class="translate-y-1">
+                    <a href="../shopping/cart.php" class="translate-y-1 relative">
                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                             <g>
                                 <path d="M164.96 300.004h.024c.02 0 .04-.004.059-.004H437a15.003 15.003 0 0 0 14.422-10.879l60-210a15.003 15.003 0 0 0-2.445-13.152A15.006 15.006 0 0 0 497 60H130.367l-10.722-48.254A15.003 15.003 0 0 0 105 0H15C6.715 0 0 6.715 0 15s6.715 15 15 15h77.969c1.898 8.55 51.312 230.918 54.156 243.71C131.184 280.64 120 296.536 120 315c0 24.812 20.188 45 45 45h272c8.285 0 15-6.715 15-15s-6.715-15-15-15H165c-8.27 0-15-6.73-15-15 0-8.258 6.707-14.977 14.96-14.996zM477.114 90l-51.43 180H177.032l-40-180zM150 405c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zM362 405c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zm0 0" fill="#ffffff" opacity="1" data-original="#000000"></path>
                             </g>
                         </svg>
-                    </button>
+                        <p class="text-white text-center rounded-full text-xs px-1 absolute -top-2 -right-2 bg-[#ff0000]">0</p>
+                    </a>
                 </div>
                 <div>
-                    <a class="flex items-center gap-2 text-white text-xs" href="../vendor_auth/vendor_register.php">
+                    <a class="flex items-center gap-2 text-white text-xs" href="../authentication/vendor_auth/vendor_register.php">
                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                             <g>
                                 <path d="M143.5 326.255a7.5 7.5 0 0 0-7.5 7.5v13.5a7.5 7.5 0 0 0 15 0v-13.5a7.5 7.5 0 0 0-7.5-7.5z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
