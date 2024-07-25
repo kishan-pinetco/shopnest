@@ -53,14 +53,36 @@
                         <div class="w-full relative">
                             <div class="w-full relative border border-black border-dashed">
                                 <img id="CoverPreview" class="w-full h-40 z-50 object-cover" src="" alt="">
-                                <h2 class="absolute left-0 top-0 flex items-center justify-center w-full h-full">Insert Cover image</h2>
+                                <h2 id="coverText" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">Insert Cover image</h2>
                             </div>
-                            <input class="hidden" name="CoverImage" type="file" id="Coverimage">
+                            <input class="hidden" name="CoverImage" type="file" id="Coverimage" onchange="coverImagePreview(event)">
                             <label for="Coverimage" class="absolute top-2 right-3 cursor-pointer">
                                 <h1 class="bg-indigo-600 text-white max-w-max p-1 rounded-md">Cover Image</h1>
                             </label>
                         </div>
-                        <div class="relative flex items-stretch justify-center -mt-12">
+                        <!-- script for cover image preview and hide text (insert cover image) when cover image is inserted  -->
+                        <script>
+                            function coverImagePreview(event) {
+                                const input = event.target;
+                                const coverPreview = document.getElementById('CoverPreview');
+                                const coverText = document.getElementById('coverText');
+
+                                if (input.files && input.files[0]) {
+                                    const reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        coverPreview.src = e.target.result;
+                                        coverPreview.classList.remove('hidden');
+                                        coverText.classList.add('hidden');
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                } else {
+                                    coverPreview.src = '';
+                                    coverPreview.classList.add('hidden');
+                                    coverText.classList.remove('hidden');
+                                }
+                            }
+                        </script>
+                        <div class="relative flex items-stretch justify-center -mt-8">
                             <img id="previewImage" class="w-16 h-16 rounded-full border object-cover object-center border-black" alt="" src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png">
                             <input class="hidden" name="ProfileImage" type="file" id="imageInput">
                             <label for="imageInput" class="absolute bottom-0 translate-y-3 translate-x-[2px] rounded-full bg-white p-1 cursor-pointer">
@@ -75,6 +97,7 @@
                             </label>
                         </div>
                     </div>
+                    <!-- script for profile image preview -->
                     <script>
                         const imageInput = document.getElementById('imageInput');
                         const previewImage = document.getElementById('previewImage');
@@ -123,10 +146,14 @@
                             <small id="vendorEmail" class="text-red-400 hidden">Enter Valid Email</small>
                         </div>
                     </div>
-                    <div class="col-span-4 md:col-span-2">
+                    <div class="col-span-4 md:col-span-2 relative" x-data="{ showPassword: false }">
                         <div class="flex flex-col gap-1 ">
                             <label for="password" class="require font-semibold">Password :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="password" name="password" id="password">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password">
+                            <span class="absolute top-10 right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+                                    <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
+                                    <path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
+                                </svg></span>
                             <small id="vendorPass" class="text-red-400 hidden">Enter Valid Password</small>
                         </div>
                     </div>
@@ -154,7 +181,7 @@
                     <div class="col-span-4">
                         <div class="flex flex-col gap-1 ">
                             <label for="bio" class="require font-semibold">Bio :</label>
-                            <textarea class="h-16 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" name="bio" id="bio"></textarea>
+                            <textarea class="h-16 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition resize-none" name="bio" id="bio"></textarea>
                             <small id="vendorBio" class="text-red-400 hidden">Enter Bio</small>
                         </div>
                     </div>
