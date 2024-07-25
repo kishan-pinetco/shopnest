@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2024 at 10:53 AM
+-- Generation Time: Jul 25, 2024 at 06:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -181,6 +181,7 @@ CREATE TABLE `vendor_registration` (
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `Bio` varchar(255) DEFAULT NULL,
   `GTS` varchar(255) DEFAULT NULL,
@@ -188,6 +189,13 @@ CREATE TABLE `vendor_registration` (
   `dp_image` varchar(255) DEFAULT NULL,
   `date` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `vendor_registration`
+--
+
+INSERT INTO `vendor_registration` (`vendor_id`, `name`, `email`, `password`, `username`, `phone`, `Bio`, `GTS`, `cover_image`, `dp_image`, `date`) VALUES
+(8, 'Ashish Thakor', 'ashish@gmail.com', '$2y$10$n/ZD/XJf48Q8NuxCTmntn./9U6cztiO8z5LPqP7jdtlahS7tKw7Xy', 'AshishEnterPrice', '7894561230', 'Celebrate style and convenience with Ahshish Enterprise. Discover curated collections of quality goods, tailored to elevate your everyday.', '24GWQBD5421M6Z7', '20.png', '26.jpg', '25-07-2024');
 
 --
 -- Indexes for dumped tables
@@ -279,7 +287,7 @@ ALTER TABLE `user_review`
 -- AUTO_INCREMENT for table `vendor_registration`
 --
 ALTER TABLE `vendor_registration`
-  MODIFY `vendor_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `vendor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
