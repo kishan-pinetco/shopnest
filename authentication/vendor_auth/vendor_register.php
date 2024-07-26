@@ -57,7 +57,7 @@
                             </div>
                             <input class="hidden" name="CoverImage" type="file" id="Coverimage" onchange="coverImagePreview(event)">
                             <label for="Coverimage" class="absolute top-2 right-3 cursor-pointer">
-                                <h1 class="bg-indigo-600 text-white max-w-max p-1 rounded-md">Cover Image</h1>
+                                <h1 class="bg-indigo-600 text-white max-w-max px-1 h-8 flex items-center rounded-md">Cover Image</h1>
                             </label>
                         </div>
                         <!-- script for cover image preview and hide text (insert cover image) when cover image is inserted  -->
@@ -295,7 +295,7 @@ if (isset($_POST['submitBtn'])) {
     if ($emailCount > 0) {
         echo '<script>displayErrorMessage("Email already Exists.");</script>';
     } else if (move_uploaded_file($tempname, $folder) && move_uploaded_file($tempname2, $folder2)) {
-        $insert_data = "INSERT INTO vendor_registration(name, email, password, username, phone, Bio, GTS, cover_image, dp_image, date) VALUES ('$name','$email','$pass','$username','$phone','$bio','$gst','$CoverImage','$ProfileImage','$Vendor_reg_date')";
+        $insert_data = "INSERT INTO vendor_registration(name, email, password, username, phone, Bio, GST, cover_image, dp_image, date) VALUES ('$name','$email','$pass','$username','$phone','$bio','$gst','$CoverImage','$ProfileImage','$Vendor_reg_date')";
         $insert_sql = mysqli_query($con, $insert_data);
 
         if ($insert_sql) {
