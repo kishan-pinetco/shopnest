@@ -1,3 +1,17 @@
+<?php
+    include "../include/connect.php";
+
+    if(isset($_COOKIE['id'])){
+        $user_id = $_COOKIE['id'];
+        $user_name = $_COOKIE['fname'];
+
+        $retrieve_data = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
+        $retrieve_query = mysqli_query($con, $retrieve_data);
+
+        $row = mysqli_fetch_assoc($retrieve_query);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,16 +105,30 @@
                                 <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </button>
-                        <div class="flex flex-col ml-8">
+                        <div class="flex flex-col">
                             <h1 class="font-semibold text-xl md:text-2xl">Hello
-                                <span id="usersName">User</span>!
+                                <span id="usersName">
+                                    <?php
+                                        if(isset($_COOKIE['id'])){
+                                            echo $user_name;
+                                        }else{
+                                            echo 'User';
+                                        }
+                                    ?>
+                                </span>!
                             </h1>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80" alt="Your avatar">
+                            <img class="object-cover w-full h-full" src="<?php
+                                    if(isset($_COOKIE['id'])){
+                                        echo '../src/user_dp/'. $row['profile_image'];
+                                    }else{
+                                        echo 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
+                                    }
+                                ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">

@@ -1,3 +1,17 @@
+<?php
+    include "../include/connect.php";
+
+    if(isset($_COOKIE['id'])){
+        $user_id = $_COOKIE['id'];
+        $user_name = $_COOKIE['fname'];
+
+        $retrieve_data = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
+        $retrieve_query = mysqli_query($con, $retrieve_data);
+
+        $row = mysqli_fetch_assoc($retrieve_query);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,7 +86,7 @@
                     </a>
 
                     <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="my_address.php">
-                        <svg class="w-6 h-6 fill-gray-500 group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M341.476 338.285c54.483-85.493 47.634-74.827 49.204-77.056C410.516 233.251 421 200.322 421 166 421 74.98 347.139 0 256 0 165.158 0 91 74.832 91 166c0 34.3 10.704 68.091 31.19 96.446l48.332 75.84C118.847 346.227 31 369.892 31 422c0 18.995 12.398 46.065 71.462 67.159C143.704 503.888 198.231 512 256 512c108.025 0 225-30.472 225-90 0-52.117-87.744-75.757-139.524-83.715zm-194.227-92.34a15.57 15.57 0 0 0-.517-.758C129.685 221.735 121 193.941 121 166c0-75.018 60.406-136 135-136 74.439 0 135 61.009 135 136 0 27.986-8.521 54.837-24.646 77.671-1.445 1.906 6.094-9.806-110.354 172.918L147.249 245.945zM256 482c-117.994 0-195-34.683-195-60 0-17.016 39.568-44.995 127.248-55.901l55.102 86.463a14.998 14.998 0 0 0 25.298 0l55.101-86.463C411.431 377.005 451 404.984 451 422c0 25.102-76.313 60-195 60z" fill="" opacity="1" data-original="#000000"></path><path d="M256 91c-41.355 0-75 33.645-75 75s33.645 75 75 75 75-33.645 75-75-33.645-75-75-75zm0 120c-24.813 0-45-20.187-45-45s20.187-45 45-45 45 20.187 45 45-20.187 45-45 45z" fill="" opacity="1" data-original="#000000"></path></g></svg>
+                        <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M341.476 338.285c54.483-85.493 47.634-74.827 49.204-77.056C410.516 233.251 421 200.322 421 166 421 74.98 347.139 0 256 0 165.158 0 91 74.832 91 166c0 34.3 10.704 68.091 31.19 96.446l48.332 75.84C118.847 346.227 31 369.892 31 422c0 18.995 12.398 46.065 71.462 67.159C143.704 503.888 198.231 512 256 512c108.025 0 225-30.472 225-90 0-52.117-87.744-75.757-139.524-83.715zm-194.227-92.34a15.57 15.57 0 0 0-.517-.758C129.685 221.735 121 193.941 121 166c0-75.018 60.406-136 135-136 74.439 0 135 61.009 135 136 0 27.986-8.521 54.837-24.646 77.671-1.445 1.906 6.094-9.806-110.354 172.918L147.249 245.945zM256 482c-117.994 0-195-34.683-195-60 0-17.016 39.568-44.995 127.248-55.901l55.102 86.463a14.998 14.998 0 0 0 25.298 0l55.101-86.463C411.431 377.005 451 404.984 451 422c0 25.102-76.313 60-195 60z" fill="" opacity="1" data-original="#000000"></path><path d="M256 91c-41.355 0-75 33.645-75 75s33.645 75 75 75 75-33.645 75-75-33.645-75-75-75zm0 120c-24.813 0-45-20.187-45-45s20.187-45 45-45 45 20.187 45 45-20.187 45-45 45z" fill="" opacity="1" data-original="#000000"></path></g></svg>
                         <span class="mx-3">Your Address</span>
                     </a>
 
@@ -91,16 +105,30 @@
                                 <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </button>
-                        <div class="flex flex-col ml-8">
+                        <div class="flex flex-col">
                             <h1 class="font-semibold text-xl md:text-2xl">Hello
-                                <span id="usersName">User</span>!
+                                <span id="usersName">
+                                    <?php
+                                        if(isset($_COOKIE['id'])){
+                                            echo $user_name;
+                                        }else{
+                                            echo 'User';
+                                        }
+                                    ?>
+                                </span>!
                             </h1>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80" alt="Your avatar">
+                            <img class="object-cover w-full h-full" src="<?php
+                                    if(isset($_COOKIE['id'])){
+                                        echo '../src/user_dp/'. $row['profile_image'];
+                                    }else{
+                                        echo 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
+                                    }
+                                ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
@@ -112,7 +140,7 @@
                     </div>
                 </header>
                 <form action="" method="post" class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-                <div class="container px-6 py-8 mx-auto">
+                    <div class="container px-6 py-8 mx-auto">
                         <h3 class="text-3xl font-medium text-gray-700">Address</h3>
                         <div class="mt-4 flex items-center justify-center">
                             <div class="bg-white max-h-max rounded-md shadow-lg p-8">
@@ -123,19 +151,19 @@
                                 <div class="mt-12 grid grid-cols-1 gap-y-5 gap-x-3 md:grid-col-2">
                                     <div class="col-span-2">
                                         <label for="address">Your Address</label>
-                                        <input type="text" name="address" value="" class="border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="address" value="<?php echo isset($_COOKIE['id']) ? $row['Address'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="col-span-2">
                                         <label for="state">State</label>
-                                        <input type="text" name="state" id="" value="" class="border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="state" id="" value="<?php echo isset($_COOKIE['id']) ? $row['state'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="col-span-2 md:col-span-1">
                                         <label for="city">City</label>
-                                        <input type="text" name="city" id="" value="" class="border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="city" id="" value="<?php echo isset($_COOKIE['id']) ? $row['city'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="col-span-2 md:col-span-1">
                                         <label for="Pincode">Pincode</label>
-                                        <input type="number" name="Pincode" id="" value="" class="border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="number" name="Pincode" id="" value="<?php echo isset($_COOKIE['id']) ? $row['pin'] : '' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <input type="submit" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7" name="updateAddress">
                                 </div>
@@ -149,3 +177,75 @@
 
 </body>
 </html>
+
+
+<?php
+
+if(isset($_POST['updateAddress'])){
+    $address = $_POST['address'];
+    $state = $_POST['state'];
+    $city = $_POST['city'];
+    $Pincode = $_POST['Pincode'];
+
+    $update_add = "UPDATE user_registration SET Address = '$address',state = '$state', city = '$city', pin = '$Pincode'";
+    $update_query = mysqli_query($con, $update_add);
+
+    if($update_query){
+    ?>
+        <!-- Successfully -->
+        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
+            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Data Updated Properly.</span>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            let SpopUp = document.getElementById('SpopUp');
+
+            SpopUp.style.display = 'flex';
+            SpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                SpopUp.style.display = 'none';
+                SpopUp.style.opacity = '0';
+                window.location.href = 'my_address.php';
+            }, 1500);
+        </script>
+                            
+    <?php
+    }else{
+    ?>
+        <!-- Error -->
+        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Enter Valid Data.</span>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            
+            let EpopUp = document.getElementById('EpopUp');
+
+            EpopUp.style.display = 'flex';
+            EpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                EpopUp.style.display = 'none';
+                EpopUp.style.opacity = '0';
+                window.location.href = 'my_address.php'
+            }, 1500);
+        </script>
+    <?php
+    }
+}                            
+
+?>

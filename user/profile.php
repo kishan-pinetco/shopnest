@@ -1,6 +1,20 @@
+<?php
+    include "../include/connect.php";
+
+    if(isset($_COOKIE['id'])){
+        $user_id = $_COOKIE['id'];
+        $user_name = $_COOKIE['fname'];
+
+        $retrieve_data = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
+        $retrieve_query = mysqli_query($con, $retrieve_data);
+
+        $row = mysqli_fetch_assoc($retrieve_query);
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +34,9 @@
 
     <!-- favicon -->
     <link rel="shortcut icon" href="../src/logo/favIcon.svg">
+
+    <!-- alpinejs CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- title -->
     <title>Profile</title>
@@ -57,7 +74,7 @@
                 </div>
                 <nav class="mt-10">
                     <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="profile.php">
-                        <svg class="w-6 h-6 fill-gray-500 group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(0.9799999999999999,0,0,0.9799999999999999,5.120029888153141,5.1200097656250705)"><path d="m498.147 222.58-57.298-57.298V15c0-8.284-6.716-15-15-15h-64.267c-8.284 0-15 6.716-15 15v56.017l-57.174-57.174C280.482 4.916 268.614 0 255.99 0c-12.625 0-24.494 4.916-33.42 13.843L13.832 222.582c-18.428 18.427-18.428 48.411 0 66.838 8.927 8.927 20.795 13.843 33.419 13.843 2.645 0 5.253-.229 7.812-.651v154.223c0 30.419 24.748 55.166 55.167 55.166h97.561c8.284 0 15-6.716 15-15V383.467h66.4V497c0 8.284 6.716 15 15 15h97.56c30.419 0 55.166-24.747 55.166-55.166V302.611c2.558.423 5.165.651 7.81.651h.003c12.622 0 24.49-4.916 33.419-13.844 8.926-8.926 13.842-20.794 13.843-33.418-.002-12.624-4.918-24.493-13.845-33.42zM376.583 30h34.267v105.283l-34.267-34.268zm25.167 452h-82.56V368.467c0-8.284-6.716-15-15-15h-96.4c-8.284 0-15 6.716-15 15V482h-82.561c-13.877 0-25.167-11.289-25.167-25.166V285.025L255.99 114.101l170.926 170.926v171.808c0 13.876-11.289 25.165-25.166 25.165zm75.186-213.795a17.155 17.155 0 0 1-12.208 5.058 17.156 17.156 0 0 1-12.204-5.055l-.004-.004L266.597 82.281c-5.856-5.859-15.354-5.857-21.213 0L59.459 268.203l-.005.005c-3.26 3.26-7.593 5.055-12.203 5.055s-8.945-1.795-12.206-5.056c-6.73-6.73-6.73-17.682 0-24.412L243.783 35.056A17.152 17.152 0 0 1 255.99 30c4.61 0 8.945 1.796 12.205 5.056l82.781 82.78 125.958 125.957c6.731 6.73 6.731 17.683.002 24.412z" fill="" opacity="1" data-original="#000000" class=""></path></g></svg>
+                        <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(0.9799999999999999,0,0,0.9799999999999999,5.120029888153141,5.1200097656250705)"><path d="m498.147 222.58-57.298-57.298V15c0-8.284-6.716-15-15-15h-64.267c-8.284 0-15 6.716-15 15v56.017l-57.174-57.174C280.482 4.916 268.614 0 255.99 0c-12.625 0-24.494 4.916-33.42 13.843L13.832 222.582c-18.428 18.427-18.428 48.411 0 66.838 8.927 8.927 20.795 13.843 33.419 13.843 2.645 0 5.253-.229 7.812-.651v154.223c0 30.419 24.748 55.166 55.167 55.166h97.561c8.284 0 15-6.716 15-15V383.467h66.4V497c0 8.284 6.716 15 15 15h97.56c30.419 0 55.166-24.747 55.166-55.166V302.611c2.558.423 5.165.651 7.81.651h.003c12.622 0 24.49-4.916 33.419-13.844 8.926-8.926 13.842-20.794 13.843-33.418-.002-12.624-4.918-24.493-13.845-33.42zM376.583 30h34.267v105.283l-34.267-34.268zm25.167 452h-82.56V368.467c0-8.284-6.716-15-15-15h-96.4c-8.284 0-15 6.716-15 15V482h-82.561c-13.877 0-25.167-11.289-25.167-25.166V285.025L255.99 114.101l170.926 170.926v171.808c0 13.876-11.289 25.165-25.166 25.165zm75.186-213.795a17.155 17.155 0 0 1-12.208 5.058 17.156 17.156 0 0 1-12.204-5.055l-.004-.004L266.597 82.281c-5.856-5.859-15.354-5.857-21.213 0L59.459 268.203l-.005.005c-3.26 3.26-7.593 5.055-12.203 5.055s-8.945-1.795-12.206-5.056c-6.73-6.73-6.73-17.682 0-24.412L243.783 35.056A17.152 17.152 0 0 1 255.99 30c4.61 0 8.945 1.796 12.205 5.056l82.781 82.78 125.958 125.957c6.731 6.73 6.731 17.683.002 24.412z" fill="" opacity="1" data-original="#000000" class=""></path></g></svg>
                         <span class="mx-3">Home</span>
                     </a>
 
@@ -91,19 +108,33 @@
                                 <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </button>
-                        <div class="flex flex-col ml-8">
+                        <div class="flex flex-col">
                             <h1 class="font-semibold text-xl md:text-2xl">Hello
-                                <span id="usersName">User</span>!
+                                <span id="usersName">
+                                    <?php
+                                        if(isset($_COOKIE['id'])){
+                                            echo $user_name;
+                                        }else{
+                                            echo 'User';
+                                        }
+                                    ?>
+                                </span>!
                             </h1>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
-                            <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80" alt="Your avatar">
+                            <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-9 h-9 overflow-hidden rounded-full shadow border ring-0 focus:ring-4">
+                                <img class="object-cover w-full h-full" src="<?php
+                                        if(isset($_COOKIE['id'])){
+                                            echo '../src/user_dp/'. $row['profile_image'];
+                                        }else{
+                                            echo 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
+                                        }
+                                    ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
-                            <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
+                            <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl border" style="display: none;">
                                 <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
                                 <a href="show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Orders</a>
                                 <a href="user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
@@ -122,29 +153,35 @@
                                 </div>
                                 <div class="mt-12">
                                     <div class="relative flex flex-col items-start gap-2">
-                                    <img class="border border-gray-200 rounded-full w-32 h-32 mx-auto object-cover" src="" alt="">
-                                    <input type="file" class="hidden" name="updateImage" id="profile_picture">
-                                    <label for="profile_picture" class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-white border border-black/20 p-2 mx-auto rounded-full">
+                                        <img id="previewImage" class="border border-gray-200 rounded-full w-32 h-32 mx-auto object-cover" src="<?php
+                                        if(isset($_COOKIE['id'])){
+                                            echo '../src/user_dp/'. $row['profile_image'];
+                                        }else{
+                                            echo 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
+                                        }
+                                    ?>" alt="">
+                                        <input type="file" class="hidden" name="updateImage" id="profile_picture">
+                                        <label for="profile_picture" class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-white border border-black/20 p-2 mx-auto rounded-full cursor-pointer">
                                             <svg class="h-4 w-4 fill-gray-500" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 36.174 36.174" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M23.921 20.528c0 3.217-2.617 5.834-5.834 5.834s-5.833-2.617-5.833-5.834 2.616-5.834 5.833-5.834 5.834 2.618 5.834 5.834zm12.253-8.284v16.57a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-16.57a4 4 0 0 1 4-4h4.92V6.86a3.5 3.5 0 0 1 3.5-3.5h11.334a3.5 3.5 0 0 1 3.5 3.5v1.383h4.92c2.209.001 4 1.792 4 4.001zm-9.253 8.284c0-4.871-3.963-8.834-8.834-8.834-4.87 0-8.833 3.963-8.833 8.834s3.963 8.834 8.833 8.834c4.871 0 8.834-3.963 8.834-8.834z" fill="" opacity="1" data-original="#000000" class=""></path></g></svg>
                                         </label>
                                     </div>
-                                    <div class="mt-4">
+                                    <div class="mt-4" class="mt-4">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" name="first_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                        <input type="text" name="first_name" value="<?php echo isset($_COOKIE['id']) ? $row['first_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
-                                    <div>
+                                    <div class="mt-4">
                                         <label for="last_name">last Name</label>
-                                        <input type="text" name="last_name" value="" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="last_name" value="<?php echo isset($_COOKIE['id']) ? $row['last_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
-                                    <div>
+                                    <div class="mt-4">
                                         <label for="phone">phone</label>
-                                        <input type="text" name="phone" value="" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="phone" value="<?php echo isset($_COOKIE['id']) ? $row['phone'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
-                                    <div>
+                                    <div class="mt-4">
                                         <label for="email">Email</label>
-                                        <input type="email" name="email" value="" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="email" name="email" value="<?php echo isset($_COOKIE['id']) ? $row['email'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
-                                    <input type="submit" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7" name="updateBtn">
+                                    <input type="submit" name="updateBtn" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7">
                                 </div>
                             </div>
                             <div class="bg-white max-h-max rounded-md shadow-lg p-8">
@@ -152,19 +189,37 @@
                                     <h1 class="font-semibold text-2xl">Password</h1>
                                 </div>
                                 <div class="mt-12">
-                                    <div>
+                                    <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                                         <label for="current_pass">Current Password</label>
-                                        <input type="text" name="current_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                        <input type="current_pass" name="current_pass" id="current_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" x-bind:type="showPassword ? 'text' : 'password'">
+                                        <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+                                                <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
+                                                <path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
+                                            </svg>
+                                        </span>
                                     </div>
-                                    <div>
-                                        <label for="last_name">New Password</label>
-                                        <input type="text" name="new_pass" value="" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                    <div class="mt-4 relative" x-data="{ showPassword: false }">
+                                        <label for="new_pass">New Password</label>
+                                        <input type="password" name="new_pass" id="new_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" x-bind:type="showPassword ? 'text' : 'password'">
+                                        <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+                                                <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
+                                                <path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
+                                            </svg>
+                                        </span>
                                     </div>
-                                    <div>
+                                    <div class="mt-4 relative" x-data="{ showPassword: false }">
                                         <label for="re_pass">Re-type New Password</label>
-                                        <input type="text" name="re_pass" value="" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input  type="password" name="re_pass" id="re_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" x-bind:type="showPassword ? 'text' : 'password'">
+                                        <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+                                                <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
+                                                <path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
+                                            </svg>
+                                        </span>
                                     </div>
-                                    <input type="submit" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7" name="changePass">
+                                    <input type="submit" name="changePass" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7">
                                 </div>
                             </div>
                         </div>
@@ -174,5 +229,151 @@
         </div>
     </div>
 
+    <!-- Successfully -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">Data Updated Properly.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">Enter Valid Data.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- display image -->
+    <script>
+        const profile_picture = document.getElementById('profile_picture');
+        const previewImage = document.getElementById('previewImage');
+                                        
+        function previewSelectedImage() {
+            const file = profile_picture.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                }
+            }
+        }
+        profile_picture.addEventListener('change', previewSelectedImage);
+    </script>
+
+    <script>
+        <!-- error msg -->
+        function displayErrorMessage(message) {
+            let popUp = document.getElementById('EpopUp');
+            let errorMessage = document.getElementById('errorMessage');
+
+            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+            EpopUp.style.display = 'flex';
+            EpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                EpopUp.style.display = 'none';
+                EpopUp.style.opacity = '0';
+            }, 2000);
+        };
+    </script>
+
+    <script>
+        <!-- Successfull msg -->
+        function displaySuccessMessage(message) {
+            let popUp = document.getElementById('SpopUp');
+            let errorMessage = document.getElementById('errorMessage');
+
+            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+            SpopUp.style.display = 'flex';
+            SpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                SpopUp.style.display = 'none';
+                SpopUp.style.opacity = '0';
+            }, 2000);
+        }
+    </script>
+
 </body>
 </html>
+
+<?php
+    if(isset($_POST['updateBtn'])){
+
+        $first_name = $_POST['first_name'];
+        $last_name = $_POST['last_name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+
+        $file_name = $_FILES['updateImage']['name'];
+        $tempname = $_FILES['updateImage']['tmp_name'];
+        $folder = '../src/user_dp/'.$file_name;
+                    
+        // Update user data in the database
+        $update_data = "UPDATE user_registration SET first_name='$first_name',last_name='$last_name',phone='$phone',email='$email' WHERE user_id = '$user_id'";
+        $updateQuery = mysqli_query($con,$update_data);
+
+        if($updateQuery){
+            echo '<script>displaySuccessMessage("Data Updated Properly.");</script>';
+            if (move_uploaded_file($tempname, $folder)) {
+                $update_dp = "UPDATE user_registration SET profile_image='$file_name' WHERE user_id = '$user_id'";
+                $update_query = mysqli_query($con,$update_dp);
+                if($update_dp){
+                    echo '<script>displaySuccessMessage("Data Updated Properly.");</script>';
+                }else{
+                    echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
+                }
+            }
+        }else{
+            echo '<script>displayErrorMessage("Data Not Updated Properly.");</script>';
+        }
+    }
+
+
+    // update Password
+    if(isset($_POST['changePass'])){
+
+        $dpass = $row['password'];
+
+        $current_pass = $_POST['current_pass'];
+        $new_pass = $_POST['new_pass'];
+        $re_pass = $_POST['re_pass'];
+
+        $decod_pass = password_verify($current_pass, $dpass);
+
+        if($decod_pass){
+            echo "pass Match";
+            if($new_pass === $re_pass){
+                $new_dpass = password_hash($new_pass, PASSWORD_BCRYPT); 
+
+                $up_pass = "UPDATE user_registration SET password = '$new_dpass' WHERE user_id = '$user_id'";
+                $up_query = mysqli_query($con,$up_pass);
+
+                if($up_query){
+                    // delete old password cookie
+                    setcookie('mypassCookie', '', time() - 3600, "/");
+
+                    // update password cookie
+                    setcookie('mypassCookie', $new_pass, time() + (365 * 24 * 60 * 60), "/");
+
+                    echo '<script>displaySuccessMessage("Password Updated Successfully.");</script>';
+                }else{
+                    echo '<script>displayErrorMessage("Password Not Update.");</script>';
+                }
+            }else{
+                echo '<script>displayErrorMessage("The new password and the re-typed password do not match. Please try again.");</script>';
+            }
+        }else{
+            echo '<script>displayErrorMessage("Current password not match with new password or re-type password. Please try again.");</script>';
+        }
+    }
+?>

@@ -1,3 +1,15 @@
+<?php
+    include "../include/connect.php";
+
+    if(isset($_COOKIE['id'])){
+        $vendor_id = $_COOKIE['id'];
+
+        $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
+        $retrieve_query = mysqli_query($con, $retrieve_data);
+
+        $row = mysqli_fetch_assoc($retrieve_query);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,14 +110,16 @@
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                         </button>
                         <div class="relative mx-4 lg:mx-0">
-                            <h1 class="text-2xl font-semibold">Hello Abhijeet !</h1>
+                            <h1 class="text-2xl font-semibold">Hello 
+                                <span><?php echo isset($_COOKIE['id']) ? $row['name'].'!' : 'Vendor !' ?></span>
+                            </h1>
                         </div>
                     </div>
         
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80" alt="Your avatar">
+                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
@@ -119,41 +133,129 @@
                 <main class="overflow-y-scroll overflow-hidden">
                    <!-- component -->
                    <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
-                        <div class="container max-w-screen-sm font-medium text-gray-800 mx-auto">
+                        <div class="container max-w-screen-md font-medium text-gray-800 mx-auto">
                             <h1 class="bg-gray-100 text-2xl font-bold mb-6">Settings Page</h1>
                             <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
                                 <div class="grid gap-4 gap-y-1 text-sm grid-cols-1 lg:grid-cols-1">
                                     <div class="lg:col-span-2">
-                                        <form action="" method="post">
+                                        <form action="" method="post" enctype="multipart/form-data">
                                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-4">
-                                                <div class="md:col-span-2">
+                                                <div class="col-span-4 flex flex-col items-center relative mt-3">
+                                                    <div class="w-full p-5">
+                                                        <div class="w-full relative">
+                                                            <div class="w-full relative">
+                                                                <img id="CoverPreview" class="w-full h-40 z-50 object-cover" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_cover_image/' . $row['cover_image'] : "https://t4.ftcdn.net/jpg/07/32/44/11/360_F_732441170_PtWNNaix37yGipnc2uDxLIAXH8VuzBPN.jpg"?>" alt="">
+                                                            </div>
+                                                            <input class="hidden" name="CoverImage" type="file" id="Coverimage" onchange="coverImagePreview(event)">
+                                                            <label for="Coverimage" class="absolute top-0 right-0 mt-1 mr-1 md:mb-4 md:mr-4 text-white bg-indigo-600 flex items-center gap-1 max-w-max px-3 py-1 rounded-sm cursor-pointer hover:bg-indigo-700 transition duration-300">
+                                                                <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M27.348 7h-4.294l-.5-1.5A3.645 3.645 0 0 0 19.089 3h-6.178a3.646 3.646 0 0 0-3.464 2.5L8.946 7H4.652A3.656 3.656 0 0 0 1 10.652v14.7A3.656 3.656 0 0 0 4.652 29h22.7A3.656 3.656 0 0 0 31 25.348v-14.7A3.656 3.656 0 0 0 27.348 7ZM29 25.348A1.654 1.654 0 0 1 27.348 27H4.652A1.654 1.654 0 0 1 3 25.348v-14.7A1.654 1.654 0 0 1 4.652 9h5.015a1 1 0 0 0 .948-.684l.729-2.187A1.65 1.65 0 0 1 12.911 5h6.178a1.649 1.649 0 0 1 1.567 1.13l.729 2.186a1 1 0 0 0 .948.684h5.015A1.654 1.654 0 0 1 29 10.652Z" fill="" opacity="1" data-original="#000000" class=""></path><path d="M16 10a7.5 7.5 0 1 0 7.5 7.5A7.508 7.508 0 0 0 16 10Zm0 13a5.5 5.5 0 1 1 5.5-5.5A5.506 5.506 0 0 1 16 23Z" fill="" opacity="1" data-original="#000000" class=""></path><circle cx="26" cy="12" r="1" fill="" opacity="1" data-original="#000000" class=""></circle></g></svg>
+                                                                <h3 class="text-sm md:text-base">Edit</h3>
+                                                            </label>
+                                                        </div>
+                                                        <!-- script for cover image preview and hide text (insert cover image) when cover image is inserted  -->
+                                                        <script>
+                                                            function coverImagePreview(event) {
+                                                                const input = event.target;
+                                                                const coverPreview = document.getElementById('CoverPreview');
+                                                                const coverText = document.getElementById('coverText');
+
+                                                                if (input.files && input.files[0]) {
+                                                                    const reader = new FileReader();
+                                                                    reader.onload = function(e) {
+                                                                        coverPreview.src = e.target.result;
+                                                                        coverPreview.classList.remove('hidden');
+                                                                        coverText.classList.add('hidden');
+                                                                    };
+                                                                    reader.readAsDataURL(input.files[0]);
+                                                                } else {
+                                                                    coverPreview.src = '';
+                                                                    coverPreview.classList.add('hidden');
+                                                                    coverText.classList.remove('hidden');
+                                                                }
+                                                            }
+                                                        </script>
+                                                        <div class="relative flex items-stretch justify-center -mt-8">
+                                                            <img id="previewImage" class="w-16 h-16 rounded-full object-cover m-auto bg-white/20 p-2 filter backdrop-blur-2xl" alt="" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'?>">
+                                                            <input class="hidden" name="ProfileImage" type="file" id="imageInput">
+                                                            <label for="imageInput" class="absolute bottom-0 translate-y-3 translate-x-[2px] rounded-full bg-white p-1 cursor-pointer">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                                                    <g>
+                                                                        <g data-name="Layer 53">
+                                                                            <path d="M22 9.25a.76.76 0 0 0-.75.75v6l-4.18-4.78a2.84 2.84 0 0 0-4.14 0l-2.87 3.28-.94-1.14a2.76 2.76 0 0 0-4.24 0l-2.13 2.57V6A3.26 3.26 0 0 1 6 2.75h8a.75.75 0 0 0 0-1.5H6A4.75 4.75 0 0 0 1.25 6v12a.09.09 0 0 0 0 .05A4.75 4.75 0 0 0 6 22.75h12a4.75 4.75 0 0 0 4.74-4.68V10a.76.76 0 0 0-.74-.75Zm-4 12H6a3.25 3.25 0 0 1-3.23-3L6 14.32a1.29 1.29 0 0 1 1.92 0l1.51 1.82a.74.74 0 0 0 .57.27.86.86 0 0 0 .57-.26l3.44-3.94a1.31 1.31 0 0 1 1.9 0l5.27 6A3.24 3.24 0 0 1 18 21.25Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                                                            <path d="M4.25 7A2.75 2.75 0 1 0 7 4.25 2.75 2.75 0 0 0 4.25 7Zm4 0A1.25 1.25 0 1 1 7 5.75 1.25 1.25 0 0 1 8.25 7ZM16 5.75h2.25V8a.75.75 0 0 0 1.5 0V5.75H22a.75.75 0 0 0 0-1.5h-2.25V2a.75.75 0 0 0-1.5 0v2.25H16a.75.75 0 0 0 0 1.5Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <!-- script for profile image preview -->
+                                                    <script>
+                                                        const imageInput = document.getElementById('imageInput');
+                                                        const previewImage = document.getElementById('previewImage');
+
+                                                        function previewSelectedImage() {
+                                                            const file = imageInput.files[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+                                                                reader.readAsDataURL(file);
+                                                                reader.onload = function(e) {
+                                                                    previewImage.src = e.target.result;
+                                                                }
+                                                            }
+                                                        }
+                                                        imageInput.addEventListener('change', previewSelectedImage);
+
+
+                                                        const Coverimage = document.getElementById('Coverimage');
+                                                        const CoverPreview = document.getElementById('CoverPreview');
+
+                                                        function previewCoverImage() {
+                                                            const file = Coverimage.files[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+                                                                reader.readAsDataURL(file);
+                                                                reader.onload = function(e) {
+                                                                    CoverPreview.src = e.target.result;
+                                                                }
+                                                            }
+                                                        }
+                                                        Coverimage.addEventListener('change', previewCoverImage);
+                                                    </script>
+                                                </div>
+                                                <div class="col-span-4 md:col-span-2">
                                                     <label for="full_name">Full Name</label>
-                                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['name'] : '' ?>" />
                                                 </div>
 
-                                                <div class="md:col-span-2">
+                                                <div class="col-span-4 md:col-span-2">
                                                     <label for="phone">Phone Number</label>
-                                                    <input type="number" name="phone" id="phone" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                                                    <input type="number" name="phone" id="phone" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['phone'] : '' ?>" placeholder="" />
                                                 </div>
 
-                                                <div class="md:col-span-4">
+                                                <div class="col-span-4">
                                                     <label for="email">Email</label>
-                                                    <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                                                    <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['email'] : '' ?>" placeholder="" />
                                                 </div>
 
-                                                <div class="md:col-span-4">
+                                                <div class="col-span-4 md:col-span-2">
                                                     <label for="userName">Username</label>
-                                                    <input type="text" name="userName" id="userName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                                                    <input type="text" name="userName" id="userName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['username'] : '' ?>" placeholder="" />
                                                 </div>
 
-                                                <div class="md:col-span-4">
+                                                <div class="col-span-4 md:col-span-2">
+                                                    <label for="gst">GST</label>
+                                                    <input type="text" name="gst" id="gst" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['GST'] : '' ?>" placeholder="" />
+                                                </div>
+
+                                                <div class="col-span-4">
                                                     <label for="bio">Bio</label>
-                                                    <textarea name="bio" id="bio" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50"></textarea>
+                                                    <textarea  name="bio" id="bio" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50"><?php echo isset($_COOKIE['id']) ? $row['Bio'] : '' ?></textarea>
                                                 </div>
 
-                                                <div class="md:col-span-5 text-right mt-7">
+                                                <div class="col-span-4 text-right mt-7">
                                                     <div class="inline-flex items-end">
-                                                        <input type="submit" value="Update" name="submitBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer">
+                                                        <input type="submit" value="Update" name="updateBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer">
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,5 +269,127 @@
             </div>
         </div>
     </div>
+
+    <!-- success Message -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="successMessage"></div>
+        </div>
+    </div>
+
+    <!-- Error message container -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="errorMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        function displayErrorMessage(message) {
+            let EpopUp = document.getElementById('EpopUp');
+            let errorMessage = document.getElementById('errorMessage');
+
+            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+            EpopUp.style.display = 'flex';
+            EpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                EpopUp.style.display = 'none';
+                EpopUp.style.opacity = '0';
+                window.location.href = "vendor_account.php";
+            }, 700);
+        }
+
+        function displaySuccessMessage(message) {
+            let SpopUp = document.getElementById('SpopUp');
+            let successMessage = document.getElementById('successMessage');
+
+            successMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+            SpopUp.style.display = 'flex';
+            SpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                SpopUp.style.display = 'none';
+                SpopUp.style.opacity = '0';
+                window.location.href = "vendor_account.php";
+            }, 700);
+        }
+    </script>
 </body>
 </html>
+
+<?php
+
+    if(isset($_POST['updateBtn'])){
+        $CoverImage = $_FILES['CoverImage']['name'];
+        $tempname = $_FILES['CoverImage']['tmp_name'];
+        $folder = '../src/vendor_images/vendor_cover_image/' . $CoverImage;
+
+
+        $ProfileImage = $_FILES['ProfileImage']['name'];
+        $tempname2 = $_FILES['ProfileImage']['tmp_name'];
+        $folder2 = '../src/vendor_images/vendor_profile_image/' . $ProfileImage;
+
+        $full_name = $_POST['full_name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $userName = $_POST['userName'];
+        $gst = $_POST['gst'];
+        $bio = $_POST['bio'];
+
+        $updateVenodr = "UPDATE vendor_registration SET name='$full_name', email='$email', username='$userName', phone='$phone', Bio='$bio', GST='$gst' WHERE vendor_id = '$vendor_id'";
+        $update_query = mysqli_query($con, $updateVenodr);
+
+        if ($update_query) {
+            // Check for Cover file upload
+            if(move_uploaded_file($tempname, $folder)){
+                $vendor_id = $_COOKIE['id'];
+                $update_cover = "UPDATE vendor_registration SET cover_image='$CoverImage' WHERE vendor_id = '$vendor_id'";
+                $updatedcover_query = mysqli_query($con, $update_cover);
+
+                if ($updatedcover_query) {
+                    echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
+                } else {
+                    echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
+                }
+            }
+            // Check for profile file upload
+            else if(move_uploaded_file($tempname2, $folder2)){
+                $vendor_id = $_COOKIE['id'];
+                $update_dp = "UPDATE vendor_registration SET dp_image='$ProfileImage' WHERE vendor_id = '$vendor_id'";
+                $updatedp_query = mysqli_query($con, $update_dp);
+
+                if ($updatedp_query) {
+                    echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
+                } else {
+                    echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
+                }
+            }
+            // Check for Cover and profile file upload
+            else if (move_uploaded_file($tempname, $folder) && move_uploaded_file($tempname2, $folder2)) {
+                $vendor_id = $_COOKIE['id'];
+                $update_img = "UPDATE vendor_registration SET cover_image='$CoverImage', dp_image='$ProfileImage' WHERE vendor_id = '$vendor_id'";
+                $update_img_query = mysqli_query($con, $update_img);
+
+                if ($update_img_query) {
+                    echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
+                } else {
+                    echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
+                }
+            } else {
+                echo '<script>displaySuccessMessage("Data Updated Properly.");</script>';
+            }
+        } else {
+            echo '<script>displayErrorMessage("Data Not Updated Properly.");</script>';
+        }
+    }
+
+?>

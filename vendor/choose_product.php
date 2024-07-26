@@ -1,3 +1,15 @@
+<?php
+    include "../include/connect.php";
+
+    if(isset($_COOKIE['id'])){
+        $vendor_id = $_COOKIE['id'];
+
+        $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
+        $retrieve_query = mysqli_query($con, $retrieve_data);
+
+        $row = mysqli_fetch_assoc($retrieve_query);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,14 +110,16 @@
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                         </button>
                         <div class="relative mx-4 lg:mx-0">
-                            <h1 class="text-2xl font-semibold">Hello Abhijeet !</h1>
+                            <h1 class="text-2xl font-semibold">Hello 
+                                <span><?php echo isset($_COOKIE['id']) ? $row['name'].'!' : 'Vendor !' ?></span>
+                            </h1>
                         </div>
                     </div>
         
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80" alt="Your avatar">
+                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
