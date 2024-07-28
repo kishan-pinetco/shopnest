@@ -204,7 +204,6 @@ if(isset($_POST['updateAddress'])){
         </div>
 
         <script>
-
             let SpopUp = document.getElementById('SpopUp');
 
             SpopUp.style.display = 'flex';
@@ -232,7 +231,6 @@ if(isset($_POST['updateAddress'])){
         </div>
 
         <script>
-            
             let EpopUp = document.getElementById('EpopUp');
 
             EpopUp.style.display = 'flex';

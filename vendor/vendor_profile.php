@@ -1,3 +1,15 @@
+<?php
+    include "../include/connect.php";
+
+    if(isset($_COOKIE['id'])){
+        $vendor_id = $_COOKIE['id'];
+
+        $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
+        $retrieve_query = mysqli_query($con, $retrieve_data);
+
+        $row = mysqli_fetch_assoc($retrieve_query);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,14 +110,16 @@
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                         </button>
                         <div class="relative mx-4 lg:mx-0">
-                            <h1 class="text-2xl font-semibold">Hello Abhijeet !</h1>
+                            <h1 class="text-2xl font-semibold">Hello 
+                                <span><?php echo isset($_COOKIE['id']) ? $row['name'].'!' : 'Vendor !' ?></span>
+                            </h1>
                         </div>
                     </div>
         
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80" alt="Your avatar">
+                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
@@ -120,29 +134,21 @@
                     <div class="mx-4 md:mx-12 my-12 bg-white shadow-lg">
                         <div class="relative">
                             <div class="relative">
-                                <img class="h-40 md:h-72 w-full" src="https://demo.tailadmin.com/src/images/cover/cover-01.png" alt="">
+                                <img class="h-40 md:h-72 w-full object-cover" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_cover_image/' . $row['cover_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="">
                             </div>
-                            <label for="coverImage" class="absolute bottom-0 right-0 mb-1 mr-1 md:mb-4 md:mr-4 text-white bg-indigo-600 flex items-center gap-1 max-w-max px-3 py-1 rounded-sm cursor-pointer hover:bg-indigo-700 transition duration-300">
-                                <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M27.348 7h-4.294l-.5-1.5A3.645 3.645 0 0 0 19.089 3h-6.178a3.646 3.646 0 0 0-3.464 2.5L8.946 7H4.652A3.656 3.656 0 0 0 1 10.652v14.7A3.656 3.656 0 0 0 4.652 29h22.7A3.656 3.656 0 0 0 31 25.348v-14.7A3.656 3.656 0 0 0 27.348 7ZM29 25.348A1.654 1.654 0 0 1 27.348 27H4.652A1.654 1.654 0 0 1 3 25.348v-14.7A1.654 1.654 0 0 1 4.652 9h5.015a1 1 0 0 0 .948-.684l.729-2.187A1.65 1.65 0 0 1 12.911 5h6.178a1.649 1.649 0 0 1 1.567 1.13l.729 2.186a1 1 0 0 0 .948.684h5.015A1.654 1.654 0 0 1 29 10.652Z" fill="" opacity="1" data-original="#000000" class=""></path><path d="M16 10a7.5 7.5 0 1 0 7.5 7.5A7.508 7.508 0 0 0 16 10Zm0 13a5.5 5.5 0 1 1 5.5-5.5A5.506 5.506 0 0 1 16 23Z" fill="" opacity="1" data-original="#000000" class=""></path><circle cx="26" cy="12" r="1" fill="" opacity="1" data-original="#000000" class=""></circle></g></svg>
-                                <h3 class="text-sm md:text-base">Edit</h3>
-                            </label>
-                            <input type="file" id="coverImage" name="cover" class="hidden">
                         </div>
-                        <div class="relative bg-white/20 filter backdrop-blur-xl w-32 h-32 rounded-full p-3 m-auto -translate-y-20">
-                            <img src="https://demo.tailadmin.com/src/images/user/user-06.png" alt="">
-                            <label for="dpImage" class="absolute bottom-0 right-0 mb-4 mr-4 bg-indigo-600 p-2 max-w-max rounded-full cursor-pointer hover:bg-indigo-700 transition duration-300">
-                                <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M27.348 7h-4.294l-.5-1.5A3.645 3.645 0 0 0 19.089 3h-6.178a3.646 3.646 0 0 0-3.464 2.5L8.946 7H4.652A3.656 3.656 0 0 0 1 10.652v14.7A3.656 3.656 0 0 0 4.652 29h22.7A3.656 3.656 0 0 0 31 25.348v-14.7A3.656 3.656 0 0 0 27.348 7ZM29 25.348A1.654 1.654 0 0 1 27.348 27H4.652A1.654 1.654 0 0 1 3 25.348v-14.7A1.654 1.654 0 0 1 4.652 9h5.015a1 1 0 0 0 .948-.684l.729-2.187A1.65 1.65 0 0 1 12.911 5h6.178a1.649 1.649 0 0 1 1.567 1.13l.729 2.186a1 1 0 0 0 .948.684h5.015A1.654 1.654 0 0 1 29 10.652Z" fill="" opacity="1" data-original="#000000" class=""></path><path d="M16 10a7.5 7.5 0 1 0 7.5 7.5A7.508 7.508 0 0 0 16 10Zm0 13a5.5 5.5 0 1 1 5.5-5.5A5.506 5.506 0 0 1 16 23Z" fill="" opacity="1" data-original="#000000" class=""></path><circle cx="26" cy="12" r="1" fill="" opacity="1" data-original="#000000" class=""></circle></g></svg>
-                            </label>
+                        <div class="relative m-auto -translate-y-20">
+                            <img class="bg-white/20 filter backdrop-blur-xl p-3 w-28 h-28 md:w-40 md:h-40 m-auto rounded-full object-cover" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="">
                             <input type="file" id="dpImage" name="dp" class="hidden">
                         </div>
                         <div class="m-auto text-center -mt-28 py-8">
                             <div class="mt-3">
-                                <h2 class="text-2xl font-medium text-gray-950">Abhijeet Dabhi</h2>
+                                <h2 class="text-2xl font-medium text-gray-950"><?php echo isset($_COOKIE['id']) ? $row['username'] : 'username' ?></h2>
                                 <span class="text-base font-medium text-gray-400 mt-2 mb-7">Seller</span>
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-base font-medium text-indigo-950">About Me</h3>
-                                <p class="text-sm font-normal text-gray-800 mt-4 max-w-3xl m-auto">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio voluptatem error, deserunt officia culpa laboriosam sed quas repudiandae nam explicabo fuga ad animi dignissimos, adipisci temporibus blanditiis. Blanditiis, et ducimus, eligendi eveniet eos debitis, quaerat nobis ipsa minima molestias deserunt nisi! Perspiciatis, officiis ducimus.</p>
+                                <p class="text-sm font-normal text-gray-800 mt-4 max-w-3xl m-auto"><?php echo isset($_COOKIE['id']) ? $row['Bio'] : 'Bio' ?></p>
                             </div>
                         </div>
                     </div>

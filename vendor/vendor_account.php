@@ -175,7 +175,7 @@
                                                             }
                                                         </script>
                                                         <div class="relative flex items-stretch justify-center -mt-8">
-                                                            <img id="previewImage" class="w-16 h-16 rounded-full object-cover m-auto bg-white/20 p-2 filter backdrop-blur-2xl" alt="" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'?>">
+                                                            <img id="previewImage" class="w-20 h-20 rounded-full object-cover m-auto bg-white/20 p-2 filter backdrop-blur-2xl" alt="" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'?>">
                                                             <input class="hidden" name="ProfileImage" type="file" id="imageInput">
                                                             <label for="imageInput" class="absolute bottom-0 translate-y-3 translate-x-[2px] rounded-full bg-white p-1 cursor-pointer">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
