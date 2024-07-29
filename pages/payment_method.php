@@ -39,30 +39,16 @@
             <p class="text-lg font-medium mb-4">At ShopNest, we offer a variety of secure and convenient payment options to ensure a smooth and hassle-free shopping experience. Choose the method that best suits your needs:</p>
             <ul class="list-decimal ml-6 mb-6">
                 <li class="mb-4">
-                    <strong class="">Credit/Debit Cards:</strong>
+                    <strong class="">Cash on Delivery (COD):</strong>
                     <ul class="list-disc ml-6">
-                        <li>We accept all major credit and debit cards including Visa, MasterCard, American Express, and Discover. Your card information is securely processed through our encrypted payment gateway.</li>
+                        <li>Pay for your order in cash upon delivery. Inspect your items before payment for added convenience and security. No upfront payment required.</li>
                     </ul>
                 </li>
 
                 <li class="mb-4">
-                    <strong>Google Pay (GPay):</strong>
+                    <strong>UPI Payment:</strong>
                     <ul class="list-disc ml-6">
-                        <li>Use your GPay account for a quick and easy checkout process. Simply log in to your GPay account to complete your purchase.</li>
-                    </ul>
-                </li>
-
-                <li class="mb-4">
-                    <strong>Paytm:</strong>
-                    <ul class="list-disc ml-6">
-                        <li>Opt for Paytm for a seamless and fast payment experience. Just log in to your Paytm account to complete the transaction.</li>
-                    </ul>
-                </li>
-
-                <li class="mb-4">
-                    <strong>Bank Transfer:</strong>
-                    <ul class="list-disc ml-6">
-                        <li>Prefer to pay directly from your bank account? Choose the bank transfer option at checkout and follow the instructions to complete your payment.</li>
+                        <li> Pay directly through your UPI app for a seamless and instant checkout. Simply choose UPI during checkout and complete your payment with ease. Enjoy a quick and secure transaction process.</li>
                     </ul>
                 </li>
             </ul>
