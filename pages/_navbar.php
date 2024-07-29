@@ -1,10 +1,24 @@
+<?php
+
+include "../include/connect.php";
+
+if (isset($_COOKIE['user_id'])) {
+    $user_id = $_COOKIE['user_id'];
+
+    $retrieve_data = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
+    $retrieve_query = mysqli_query($con, $retrieve_data);
+
+    $row = mysqli_fetch_assoc($retrieve_query);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Navbar</title>
 
     <!-- css file link -->
     <link rel="stylesheet" href="pages.css">
@@ -35,7 +49,7 @@
     </style>
 </head>
 
-<body>
+<body style="font-family: 'Outfit', sans-serif;">
     <header class="bg-black px-2 py-4 outfit overflow-hidden">
         <div class="flex items-center justify-between gap-10">
             <div class="flex">
@@ -83,102 +97,121 @@
             </div>
             <!-- user & cart -->
             <div class="flex items-center gap-5 md:gap-10 pr-4 ">
-                <div>
-                    <div class="hidden md:block md:flex items-center gap-3 text-white">
-                        <svg class="w-9" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                            <g>
-                                <path d="M437.02 74.98C388.668 26.63 324.379 0 256 0S123.332 26.629 74.98 74.98C26.63 123.332 0 187.621 0 256s26.629 132.668 74.98 181.02C123.332 485.37 187.621 512 256 512s132.668-26.629 181.02-74.98C485.37 388.668 512 324.379 512 256s-26.629-132.668-74.98-181.02zM111.105 429.297c8.454-72.735 70.989-128.89 144.895-128.89 38.96 0 75.598 15.179 103.156 42.734 23.281 23.285 37.965 53.687 41.742 86.152C361.641 462.172 311.094 482 256 482s-105.637-19.824-144.895-52.703zM256 269.507c-42.871 0-77.754-34.882-77.754-77.753C178.246 148.879 213.13 114 256 114s77.754 34.879 77.754 77.754c0 42.871-34.883 77.754-77.754 77.754zm170.719 134.427a175.9 175.9 0 0 0-46.352-82.004c-18.437-18.438-40.25-32.27-64.039-40.938 28.598-19.394 47.426-52.16 47.426-89.238C363.754 132.34 315.414 84 256 84s-107.754 48.34-107.754 107.754c0 37.098 18.844 69.875 47.465 89.266-21.887 7.976-42.14 20.308-59.566 36.542-25.235 23.5-42.758 53.465-50.883 86.348C50.852 364.242 30 312.512 30 256 30 131.383 131.383 30 256 30s226 101.383 226 226c0 56.523-20.86 108.266-55.281 147.934zm0 0" fill="#ffffff" opacity="1" data-original="#000000"></path>
-                            </g>
-                        </svg>
-                        <div class="text-xs hidden md:block">
-                            <h1>Username</h1>
-                            <a class="underline focus:outline-none" href="../authentication/user_auth/user_login.php">Login</a> / <a class="underline focus:outline-none" href="../authentication/user_auth/user_register.php">Register</a>
+                <?php
+                if (isset($_COOKIE['user_id'])) {
+                ?>
+                    <!-- popup is show when user is login -->
+                    <div x-data="{loginUser:false}">
+                        <div>
+                            <button class="flex items-center gap-2 text-white rounded-full px-0.5 py-0.5 hover:ring-1 hover:ring-gray-400 hover:bg-gray-800" x-on:click="loginUser = !loginUser" @click.outside="loginUser=false">
+                                <div class="w-6 h-6 md:w-8 md:h-8 m-auto">
+                                    <img class="w-full h-full rounded-full flex justify-center object-cover" src="<?php echo isset($_COOKIE['user_id']) ? '../src/user_dp/' . $row['profile_image'] : 'https://cdn-icons-png.flaticon.com/512/149/149071.png' ?>" alt="" class="bg-white">
+                                </div>
+                                <svg class="w-3" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                        <div x-show="loginUser" x-transition x-cloak class="w-40 bg-white border text-black absolute right-4 top-16 md:right-36 rounded-md">
+                            <div class="py-2 px-3">
+                                <a href="../index.php" class="w-full">Hi,<?php echo isset($_COOKIE['fname']) ? $_COOKIE['fname'] : 'User Name' ?></a>
+                            </div>
+                            <hr>
+                            <ul class="text-sm">
+                                <li class="hover:bg-indigo-500 hover:text-white px-3">
+                                    <a class="flex items-center gap-x-2 py-1 mt-2" href="../user/profile.php">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <g>
+                                                <path d="M256 0c-74.439 0-135 60.561-135 135s60.561 135 135 135 135-60.561 135-135S330.439 0 256 0zM423.966 358.195C387.006 320.667 338.009 300 286 300h-60c-52.008 0-101.006 20.667-137.966 58.195C51.255 395.539 31 444.833 31 497c0 8.284 6.716 15 15 15h420c8.284 0 15-6.716 15-15 0-52.167-20.255-101.461-57.034-138.805z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                            </g>
+                                        </svg>
+                                        Account
+                                    </a>
+                                </li>
+                                <li class="hover:bg-indigo-500 hover:text-white px-3 mb-2">
+                                    <a class="flex items-center gap-x-2 py-1" href="../user/show_orders.php">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <g>
+                                                <path d="M458.732 422.212 435.87 134.103c-1.419-18.563-17.124-33.098-35.737-33.098h-45.164v66.917c0 8.287-6.708 14.995-14.995 14.995-8.277 0-14.995-6.708-14.995-14.995v-66.917H187.028v66.917c0 8.287-6.718 14.995-14.995 14.995-8.287 0-14.995-6.708-14.995-14.995v-66.917h-45.164c-18.613 0-34.318 14.535-35.737 33.058L53.265 422.252c-1.769 23.082 6.238 46.054 21.962 63.028C90.952 502.253 113.244 512 136.386 512h239.236c23.142 0 45.434-9.747 61.159-26.721 15.724-16.974 23.731-39.946 21.951-63.067zM323.56 275.493l-77.553 77.553a14.958 14.958 0 0 1-10.606 4.398 14.956 14.956 0 0 1-10.606-4.398l-36.347-36.347c-5.858-5.858-5.858-15.345 0-21.203 5.858-5.858 15.355-5.858 21.203 0l25.751 25.741 66.956-66.956c5.848-5.848 15.345-5.848 21.203 0 5.857 5.858 5.857 15.354-.001 21.212zM256.004 0c-54.571 0-98.965 44.404-98.965 98.975v2.029h29.99v-2.029c0-38.037 30.939-68.986 68.976-68.986s68.976 30.949 68.976 68.986v2.029h29.989v-2.029C354.969 44.404 310.575 0 256.004 0z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                                            </g>
+                                        </svg>
+                                        Order
+                                    </a>
+                                </li>
+                                <hr>
+                                <li class="hover:bg-indigo-500 hover:text-white px-3 my-1">
+                                    <a class="flex items-center gap-x-2 py-1" href="../user/user_logout.php">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <g>
+                                                <path fill-rule="evenodd" d="M252.326 430.455v25.516c0 20.462-10.198 38.127-27.919 48.357-8.526 4.922-18.042 7.668-27.908 7.673-9.875.005-19.388-2.746-27.92-7.673L55.123 438.824c-17.723-10.232-27.919-27.892-27.919-48.357V55.838C27.204 25.047 52.252 0 83.042 0h249.871c30.792 0 55.842 25.045 55.842 55.838v70.539c0 10.119-8.216 18.335-18.335 18.335-10.122 0-18.331-8.215-18.331-18.335V55.838c0-10.573-8.603-19.176-19.176-19.176H113.961l110.446 63.777c17.715 10.23 27.919 27.89 27.919 48.347v245.003h80.587c10.572 0 19.176-8.598 19.176-19.172v-61.836c0-10.126 8.204-18.335 18.331-18.335 10.123 0 18.335 8.211 18.335 18.335v61.836c0 30.793-25.05 55.838-55.842 55.838zm169.883-196.897-20.191 20.191c-7.159 7.159-7.157 18.765 0 25.925a18.28 18.28 0 0 0 12.963 5.364 18.27 18.27 0 0 0 12.968-5.364l51.479-51.488c7.157-7.158 7.158-18.758 0-25.916l-51.479-51.48c-7.16-7.16-18.767-7.157-25.93-.001-7.157 7.152-7.155 18.763 0 25.917l20.19 20.186h-135.26c-10.129 0-18.331 8.208-18.331 18.336s8.203 18.331 18.331 18.331h135.26z" clip-rule="evenodd" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                                            </g>
+                                        </svg>
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="md:hidden" x-data="{withOutLogin:false}">
-                        <button x-on:click="withOutLogin = !withOutLogin" @click.outside="withOutLogin=false" class="focus:outline-none text-white flex items-center gap-2 rounded-full px-1 py-0.5 hover:ring-1 hover:ring-gray-400 hover:bg-gray-800">
-                            <svg class="w-7 md:w-9" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                <?php
+                } else {
+                ?>
+                    <div>
+                        <div class="hidden md:flex items-center gap-3 text-white">
+                            <svg class="w-9" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                 <g>
                                     <path d="M437.02 74.98C388.668 26.63 324.379 0 256 0S123.332 26.629 74.98 74.98C26.63 123.332 0 187.621 0 256s26.629 132.668 74.98 181.02C123.332 485.37 187.621 512 256 512s132.668-26.629 181.02-74.98C485.37 388.668 512 324.379 512 256s-26.629-132.668-74.98-181.02zM111.105 429.297c8.454-72.735 70.989-128.89 144.895-128.89 38.96 0 75.598 15.179 103.156 42.734 23.281 23.285 37.965 53.687 41.742 86.152C361.641 462.172 311.094 482 256 482s-105.637-19.824-144.895-52.703zM256 269.507c-42.871 0-77.754-34.882-77.754-77.753C178.246 148.879 213.13 114 256 114s77.754 34.879 77.754 77.754c0 42.871-34.883 77.754-77.754 77.754zm170.719 134.427a175.9 175.9 0 0 0-46.352-82.004c-18.437-18.438-40.25-32.27-64.039-40.938 28.598-19.394 47.426-52.16 47.426-89.238C363.754 132.34 315.414 84 256 84s-107.754 48.34-107.754 107.754c0 37.098 18.844 69.875 47.465 89.266-21.887 7.976-42.14 20.308-59.566 36.542-25.235 23.5-42.758 53.465-50.883 86.348C50.852 364.242 30 312.512 30 256 30 131.383 131.383 30 256 30s226 101.383 226 226c0 56.523-20.86 108.266-55.281 147.934zm0 0" fill="#ffffff" opacity="1" data-original="#000000"></path>
                                 </g>
                             </svg>
-                            <svg class="w-3 md:w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                <g>
-                                    <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                </g>
-                            </svg>
-                        </button>
-                        <!-- popup for without login -->
-                        <div x-show="withOutLogin" x-transition x-cloak class="text-sm border rounded-md flex flex-col space-y-1 py-1.5 absolute top-16  bg-white text-black overflow-hidden">
-                            <a class="px-2 py-1 flex items-center gap-x-2 hover:bg-indigo-500 hover:text-white" href="../authentication/user_auth/user_login.php">
-                                <svg class="h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                    <g>
-                                        <g fill="#000">
-                                            <path d="M14.945 1.25c-1.367 0-2.47 0-3.337.117-.9.12-1.658.38-2.26.981-.524.525-.79 1.17-.929 1.928-.135.737-.161 1.638-.167 2.72a.75.75 0 0 0 1.5.008c.006-1.093.034-1.868.142-2.457.105-.566.272-.895.515-1.138.277-.277.666-.457 1.4-.556.755-.101 1.756-.103 3.191-.103h1c1.436 0 2.437.002 3.192.103.734.099 1.122.28 1.4.556s.456.665.555 1.4c.102.754.103 1.756.103 3.191v8c0 1.435-.001 2.437-.103 3.192-.099.734-.279 1.122-.556 1.399s-.665.457-1.399.556c-.755.101-1.756.103-3.192.103h-1c-1.435 0-2.436-.002-3.192-.103-.733-.099-1.122-.28-1.399-.556-.243-.243-.41-.572-.515-1.138-.108-.589-.136-1.364-.142-2.457a.75.75 0 1 0-1.5.008c.006 1.082.032 1.983.167 2.72.14.758.405 1.403.93 1.928.601.602 1.36.86 2.26.982.866.116 1.969.116 3.336.116h1.11c1.368 0 2.47 0 3.337-.117.9-.12 1.658-.38 2.26-.981.602-.602.86-1.36.982-2.26.116-.867.116-1.97.116-3.337v-8.11c0-1.367 0-2.47-.116-3.337-.121-.9-.38-1.658-.982-2.26-.602-.602-1.36-.86-2.26-.981-.867-.117-1.97-.117-3.337-.117z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                            <path d="M2.001 11.249a.75.75 0 0 0 0 1.5h11.973l-1.961 1.68a.75.75 0 1 0 .976 1.14l3.5-3a.75.75 0 0 0 0-1.14l-3.5-3a.75.75 0 0 0-.976 1.14l1.96 1.68z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                        </g>
-                                    </g>
-                                </svg>Login</a>
-                            <a class="px-2 py-1 flex items-center gap-x-2 hover:bg-indigo-500 hover:text-white" href="../authentication/user_auth/user_register.php">
-                                <svg class="h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 1.27 1.27" style="enable-background:new 0 0 512 512" xml:space="preserve" fill-rule="evenodd">
-                                    <g>
-                                        <g fill="currentColor">
-                                            <path fill-rule="nonzero" d="M.565.042a.257.257 0 0 1 .183.44.257.257 0 0 1-.365 0 .257.257 0 0 1 .182-.44zm.123.136A.173.173 0 0 0 .445.176L.443.178a.173.173 0 0 0 0 .245.173.173 0 0 0 .245-.245zM.579 1.228H.127a.086.086 0 0 1-.064-.029.086.086 0 0 1-.022-.066.54.54 0 0 1 .792-.425c.01.005.016.014.018.024.003.01.002.02-.004.03L.842.77a.038.038 0 0 1-.05.014.454.454 0 0 0-.667.358v.001h.001l.001.001h.686c.021 0 .038.017.038.038v.009a.038.038 0 0 1-.038.038zm-.492-.01a.042.042 0 0 1-.018-.024" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                            <path d="M.846.93h.341c.024 0 .043.018.043.042a.042.042 0 0 1-.043.042H.846a.042.042 0 0 1 0-.085z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                            <path d="M.974 1.142V.801c0-.023.02-.042.043-.042.023 0 .042.019.042.042v.341a.042.042 0 0 1-.085 0z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                        </g>
-                                    </g>
-                                </svg>Register</a>
+                            <div class="text-xs hidden md:block">
+                                <h1>Username</h1>
+                                <a class="underline focus:outline-none" href="../authentication/user_auth/user_login.php">Login</a> / <a class="underline focus:outline-none" href="../authentication/user_auth/user_register.php">Register</a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <!-- popup is show when user is login -->
-                <div x-data="{loginUser:false}">
-                    <div>
-                        <button class="flex items-center gap-2 text-white rounded-full px-1 py-0.5 hover:ring-1 hover:ring-gray-400 hover:bg-gray-800" x-on:click="loginUser = !loginUser" @click.outside="loginUser=false">
-                            <img class="w-9 rounded-full flex justify-center" src="https://cdn-icons-png.flaticon.com/512/1144/1144709.png" alt="" class="bg-white">
-                            <svg class="w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                <g>
-                                    <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                </g>
-                            </svg>
-                        </button>
-                    </div>
-                    <div x-show="loginUser" x-transition x-cloak class="text-center w-32 bg-white border text-black absolute top-16 rounded-md">
-                        <div class="py-1.5 px-3">
-                            <a href="../index.php">Hi,Username</a>
-                        </div>
-                        <hr>
-                        <ul class="text-sm">
-                            <li class="hover:bg-indigo-500 hover:text-white px-3"><a class="flex items-center gap-x-2 py-1 mt-2" href="../user/profile.php"><svg class="h-4 lg:h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                                        <g>
-                                            <path d="M259.2 468H51.5c-14.3 0-27.3-6.6-35.7-18.1s-10.8-26-6.4-39.6l32.3-100.8c5.4-16.9 17.2-30.4 33.2-38.1 16.1-7.7 34.1-8.3 50.7-1.9 24.3 9.4 50.9 14.2 79.1 14.2s54.8-4.8 79.1-14.2c28.5-11 60.9-.4 77.1 25.3 1.2 2 1 4.5-.7 6.2l-83.7 84c-3.8 3.8-6.2 8.8-6.9 14.1l-6.8 50.9c-.5 3.8-.1 7.7 1.2 11.3.5 1.5.3 3.2-.6 4.6-1 1.4-2.5 2.1-4.2 2.1zM102.5 275.2c-7.9 0-15.8 1.8-23.2 5.3-13.5 6.4-23.5 17.9-28 32.1L18.9 413.4c-3.4 10.5-1.6 21.7 4.9 30.6s16.6 14 27.6 14h201.4c-.4-3.1-.5-6.2 0-9.3l6.8-50.9c1-7.5 4.5-14.5 9.8-19.8l81-81c-14.3-19.3-40.1-26.9-62.8-18.1-25.5 9.9-53.3 14.9-82.8 14.9s-57.3-5-82.8-14.9c-6.3-2.5-12.9-3.7-19.5-3.7zm102.3-19c-58.5 0-106.1-47.6-106.1-106.1S146.3 44 204.8 44s106.1 47.6 106.1 106.1-47.6 106-106.1 106.1zm0-202.2c-53 0-96.1 43.1-96.1 96.1s43.1 96.1 96.1 96.1 96.1-43.1 96.1-96.1S257.8 54 204.8 54zm82.1 414c-3.9 0-7.6-1.5-10.4-4.3-3.3-3.3-4.8-7.8-4.2-12.4l6.8-50.9c.4-3.2 1.9-6.2 4.2-8.5l113.1-113.1c.9-.9 2.2-1.5 3.5-1.5s2.6.5 3.5 1.5l58 58c2 2 2 5.1 0 7.1l-113 113c-2.3 2.3-5.3 3.8-8.5 4.2l-51 6.8c-.7.1-1.3.1-2 .1zm113-178.7L290.3 398.9c-.8.8-1.2 1.7-1.4 2.8l-6.8 50.9c-.2 1.5.3 3 1.4 4 1.1 1.1 2.5 1.6 4 1.4l50.9-6.8c1-.1 2-.6 2.8-1.4l109.6-109.6zm78.2 35.8c-1.3 0-2.6-.5-3.5-1.5l-58-58c-2-2-2-5.1 0-7.1l14.5-14.5c5.6-5.6 13-8.6 20.9-8.6s15.3 3.1 20.9 8.6l23.4 23.4c11.5 11.5 11.5 30.2 0 41.7l-14.5 14.5c-1.1 1-2.4 1.5-3.7 1.5zm-50.9-63 51 51 10.9-10.9c7.6-7.6 7.6-20 0-27.6l-23.4-23.4c-3.7-3.7-8.6-5.7-13.8-5.7s-10.1 2-13.8 5.7z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                        </g>
-                                    </svg>Account</a>
-                            </li>
-                            <li class="hover:bg-indigo-500 hover:text-white px-3 mb-2"><a class="flex items-center gap-x-2 py-1" href="../user/show_orders.php"><svg class="h-4 lg:h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                                        <g>
-                                            <path d="m458.737 422.218-22.865-288.116c-1.425-18.562-17.123-33.103-35.739-33.103H354.97v-2.03C354.97 44.397 310.573 0 256.001 0s-98.969 44.397-98.969 98.969v2.03H111.87c-18.617 0-34.316 14.54-35.736 33.064L53.262 422.257c-1.77 23.075 6.235 46.048 21.961 63.026C90.949 502.261 113.242 512 136.385 512h239.231c23.142 0 45.436-9.738 61.163-26.717 15.726-16.979 23.73-39.951 21.958-63.065zM187.022 98.969c0-38.035 30.945-68.979 68.979-68.979s68.979 30.945 68.979 68.979v2.03H187.022v-2.03zm227.754 365.936c-10.218 11.03-24.124 17.105-39.16 17.105h-239.23c-15.036 0-28.942-6.075-39.16-17.105-10.217-11.031-15.211-25.363-14.063-40.315l22.87-288.195c.232-3.032 2.796-5.406 5.837-5.406h45.162v36.935c0 8.281 6.714 14.995 14.995 14.995 8.281 0 14.995-6.714 14.995-14.995v-36.935H324.98v36.935c0 8.281 6.714 14.995 14.995 14.995s14.995-6.714 14.995-14.995v-36.935h45.163c3.04 0 5.604 2.375 5.84 5.446l22.865 288.115c1.15 14.992-3.845 29.323-14.062 40.355z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                            <path d="M323.556 254.285c-5.854-5.856-15.349-5.856-21.204 0l-66.956 66.956-25.746-25.746c-5.855-5.856-15.35-5.856-21.206 0s-5.856 15.35 0 21.206l36.349 36.349c2.928 2.928 6.766 4.393 10.602 4.393s7.675-1.464 10.602-4.393l77.558-77.558c5.857-5.857 5.857-15.351.001-21.207z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                        </g>
-                                    </svg>Order</a>
-                            </li>
-                            <hr>
-                            <li class="hover:bg-indigo-500 hover:text-white px-3 my-1"><a class="flex items-center gap-x-2 py-1" href="../user/user_logout.php"><svg class="h-4 lg:h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <div class="md:hidden" x-data="{withOutLogin:false}">
+                            <button x-on:click="withOutLogin = !withOutLogin" @click.outside="withOutLogin=false" class="focus:outline-none text-white flex items-center gap-2 rounded-full px-1 py-0.5 hover:ring-1 hover:ring-gray-400 hover:bg-gray-800">
+                                <svg class="w-7 md:w-9" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                    <g>
+                                        <path d="M437.02 74.98C388.668 26.63 324.379 0 256 0S123.332 26.629 74.98 74.98C26.63 123.332 0 187.621 0 256s26.629 132.668 74.98 181.02C123.332 485.37 187.621 512 256 512s132.668-26.629 181.02-74.98C485.37 388.668 512 324.379 512 256s-26.629-132.668-74.98-181.02zM111.105 429.297c8.454-72.735 70.989-128.89 144.895-128.89 38.96 0 75.598 15.179 103.156 42.734 23.281 23.285 37.965 53.687 41.742 86.152C361.641 462.172 311.094 482 256 482s-105.637-19.824-144.895-52.703zM256 269.507c-42.871 0-77.754-34.882-77.754-77.753C178.246 148.879 213.13 114 256 114s77.754 34.879 77.754 77.754c0 42.871-34.883 77.754-77.754 77.754zm170.719 134.427a175.9 175.9 0 0 0-46.352-82.004c-18.437-18.438-40.25-32.27-64.039-40.938 28.598-19.394 47.426-52.16 47.426-89.238C363.754 132.34 315.414 84 256 84s-107.754 48.34-107.754 107.754c0 37.098 18.844 69.875 47.465 89.266-21.887 7.976-42.14 20.308-59.566 36.542-25.235 23.5-42.758 53.465-50.883 86.348C50.852 364.242 30 312.512 30 256 30 131.383 131.383 30 256 30s226 101.383 226 226c0 56.523-20.86 108.266-55.281 147.934zm0 0" fill="#ffffff" opacity="1" data-original="#000000"></path>
+                                    </g>
+                                </svg>
+                                <svg class="w-3 md:w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                            <!-- popup for without login -->
+                            <div x-show="withOutLogin" x-transition x-cloak class="text-sm border rounded-md flex flex-col space-y-1 py-1.5 absolute top-16  bg-white text-black overflow-hidden">
+                                <a class="px-2 py-1 flex items-center gap-x-2 hover:bg-indigo-500 hover:text-white" href="../authentication/user_auth/user_login.php">
+                                    <svg class="h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                         <g>
                                             <g fill="#000">
                                                 <path d="M14.945 1.25c-1.367 0-2.47 0-3.337.117-.9.12-1.658.38-2.26.981-.524.525-.79 1.17-.929 1.928-.135.737-.161 1.638-.167 2.72a.75.75 0 0 0 1.5.008c.006-1.093.034-1.868.142-2.457.105-.566.272-.895.515-1.138.277-.277.666-.457 1.4-.556.755-.101 1.756-.103 3.191-.103h1c1.436 0 2.437.002 3.192.103.734.099 1.122.28 1.4.556s.456.665.555 1.4c.102.754.103 1.756.103 3.191v8c0 1.435-.001 2.437-.103 3.192-.099.734-.279 1.122-.556 1.399s-.665.457-1.399.556c-.755.101-1.756.103-3.192.103h-1c-1.435 0-2.436-.002-3.192-.103-.733-.099-1.122-.28-1.399-.556-.243-.243-.41-.572-.515-1.138-.108-.589-.136-1.364-.142-2.457a.75.75 0 1 0-1.5.008c.006 1.082.032 1.983.167 2.72.14.758.405 1.403.93 1.928.601.602 1.36.86 2.26.982.866.116 1.969.116 3.336.116h1.11c1.368 0 2.47 0 3.337-.117.9-.12 1.658-.38 2.26-.981.602-.602.86-1.36.982-2.26.116-.867.116-1.97.116-3.337v-8.11c0-1.367 0-2.47-.116-3.337-.121-.9-.38-1.658-.982-2.26-.602-.602-1.36-.86-2.26-.981-.867-.117-1.97-.117-3.337-.117z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                                                <path d="M15 11.25a.75.75 0 0 1 0 1.5H4.027l1.961 1.68a.75.75 0 1 1-.976 1.14l-3.5-3a.75.75 0 0 1 0-1.14l3.5-3a.75.75 0 1 1 .976 1.14l-1.96 1.68z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                                <path d="M2.001 11.249a.75.75 0 0 0 0 1.5h11.973l-1.961 1.68a.75.75 0 1 0 .976 1.14l3.5-3a.75.75 0 0 0 0-1.14l-3.5-3a.75.75 0 0 0-.976 1.14l1.96 1.68z" fill="currentColor" opacity="1" data-original="currentColor"></path>
                                             </g>
                                         </g>
-                                    </svg>Logout</a>
-                            </li>
-                        </ul>
+                                    </svg>Login</a>
+                                <a class="px-2 py-1 flex items-center gap-x-2 hover:bg-indigo-500 hover:text-white" href="../authentication/user_auth/user_register.php">
+                                    <svg class="h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 1.27 1.27" style="enable-background:new 0 0 512 512" xml:space="preserve" fill-rule="evenodd">
+                                        <g>
+                                            <g fill="currentColor">
+                                                <path fill-rule="nonzero" d="M.565.042a.257.257 0 0 1 .183.44.257.257 0 0 1-.365 0 .257.257 0 0 1 .182-.44zm.123.136A.173.173 0 0 0 .445.176L.443.178a.173.173 0 0 0 0 .245.173.173 0 0 0 .245-.245zM.579 1.228H.127a.086.086 0 0 1-.064-.029.086.086 0 0 1-.022-.066.54.54 0 0 1 .792-.425c.01.005.016.014.018.024.003.01.002.02-.004.03L.842.77a.038.038 0 0 1-.05.014.454.454 0 0 0-.667.358v.001h.001l.001.001h.686c.021 0 .038.017.038.038v.009a.038.038 0 0 1-.038.038zm-.492-.01a.042.042 0 0 1-.018-.024" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                                <path d="M.846.93h.341c.024 0 .043.018.043.042a.042.042 0 0 1-.043.042H.846a.042.042 0 0 1 0-.085z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                                <path d="M.974 1.142V.801c0-.023.02-.042.043-.042.023 0 .042.019.042.042v.341a.042.042 0 0 1-.085 0z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                            </g>
+                                        </g>
+                                    </svg>Register</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                <?php
+                }
+                ?>
 
                 <div>
-                    <a href="../shopping/cart.php" class="translate-y-1 relative focus:outline-none">
+                    <a href="../shopping/cart.php" class="relative focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                             <g>
                                 <path d="M164.96 300.004h.024c.02 0 .04-.004.059-.004H437a15.003 15.003 0 0 0 14.422-10.879l60-210a15.003 15.003 0 0 0-2.445-13.152A15.006 15.006 0 0 0 497 60H130.367l-10.722-48.254A15.003 15.003 0 0 0 105 0H15C6.715 0 0 6.715 0 15s6.715 15 15 15h77.969c1.898 8.55 51.312 230.918 54.156 243.71C131.184 280.64 120 296.536 120 315c0 24.812 20.188 45 45 45h272c8.285 0 15-6.715 15-15s-6.715-15-15-15H165c-8.27 0-15-6.73-15-15 0-8.258 6.707-14.977 14.96-14.996zM477.114 90l-51.43 180H177.032l-40-180zM150 405c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zM362 405c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zm0 0" fill="#ffffff" opacity="1" data-original="#000000"></path>
@@ -189,7 +222,7 @@
                 </div>
                 <div>
                     <a class="flex items-center gap-2 text-white text-xs focus:outline-none" href="../authentication/vendor_auth/vendor_register.php">
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                             <g>
                                 <path d="M143.5 326.255a7.5 7.5 0 0 0-7.5 7.5v13.5a7.5 7.5 0 0 0 15 0v-13.5a7.5 7.5 0 0 0-7.5-7.5z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
                                 <path d="M488.312 425.849h-12.143V217.76c20.115-3.56 35.445-21.155 35.445-42.276v-28.876c0-.147-.014-.291-.022-.436-.005-.081-.005-.162-.012-.243a7.517 7.517 0 0 0-.128-.871c-.003-.017-.009-.033-.013-.049a7.389 7.389 0 0 0-.224-.8c-.022-.066-.048-.132-.072-.197a7.436 7.436 0 0 0-.278-.655c-.019-.039-.031-.08-.05-.118L477.653 77.29V42.796c0-8.902-7.243-16.145-16.145-16.145H120.456a7.5 7.5 0 0 0 0 15h341.052c.631 0 1.145.514 1.145 1.145V71.64H49.347V42.796c0-.631.514-1.145 1.145-1.145H85.56a7.5 7.5 0 0 0 0-15H50.492c-8.902 0-16.145 7.243-16.145 16.145V77.29L1.186 143.239c-.019.039-.032.08-.05.118a7.436 7.436 0 0 0-.278.655c-.024.066-.05.131-.072.197a7.389 7.389 0 0 0-.224.8l-.013.049c-.06.285-.102.575-.128.871-.007.081-.007.162-.012.243-.008.145-.022.289-.022.436v28.876c0 21.12 15.33 38.716 35.445 42.276v208.089H23.688C10.626 425.849 0 436.476 0 449.538v23.722c0 6.666 5.423 12.089 12.089 12.089h487.822c6.666 0 12.089-5.423 12.089-12.089v-23.722c0-13.062-10.626-23.689-23.688-23.689zm8.301-250.364c0 15.409-12.536 27.945-27.945 27.945s-27.945-12.536-27.945-27.945v-21.376h55.89v21.376zM465.565 86.64l26.382 52.468h-53.448L419.655 86.64h45.91zm-61.849 0 18.844 52.468h-54.17L357.083 86.64h46.633zm22.008 67.468v21.376c0 15.409-12.536 27.945-27.945 27.945s-27.945-12.536-27.945-27.945v-21.376h55.89zM341.739 86.64l11.307 52.468h-54.62l-3.769-52.468h47.082zm13.095 67.468v21.376c0 15.409-12.536 27.945-27.944 27.945s-27.945-12.536-27.945-27.945v-21.376h55.889zM232.382 86.64h47.235l3.769 52.468h-54.773l3.769-52.468zm-4.327 67.468h55.89v21.376c0 15.409-12.536 27.945-27.945 27.945s-27.945-12.536-27.945-27.945v-21.376zM256 218.429c14.704 0 27.701-7.431 35.445-18.732 7.744 11.301 20.741 18.732 35.445 18.732s27.701-7.431 35.444-18.732c7.744 11.301 20.741 18.732 35.445 18.732s27.701-7.431 35.445-18.732c6.396 9.334 16.379 16.016 27.945 18.063v208.089H178.836V259.185c0-7.692-6.258-13.95-13.95-13.95H78.177c-7.692 0-13.95 6.258-13.95 13.95v166.664H50.832V217.76c11.566-2.047 21.549-8.729 27.945-18.063 7.744 11.301 20.741 18.732 35.445 18.732s27.701-7.431 35.445-18.732c7.744 11.301 20.741 18.732 35.444 18.732s27.701-7.431 35.445-18.732c7.743 11.301 20.74 18.732 35.444 18.732zm-92.164 41.806v165.614H79.227V260.235h84.609zm-77.56-84.75v-21.376h55.89v21.376c0 15.409-12.536 27.945-27.945 27.945s-27.945-12.537-27.945-27.945zm83.985-88.845h47.082l-3.769 52.468h-54.62l11.307-52.468zm-13.095 67.468h55.889v21.376c0 15.409-12.536 27.945-27.945 27.945s-27.944-12.536-27.944-27.945v-21.376zm-2.25-67.468-11.307 52.468h-54.17l18.844-52.468h46.633zm-108.481 0h45.91l-18.844 52.468H20.053L46.435 86.64zm-31.048 88.845v-21.376h55.89v21.376c0 15.409-12.536 27.945-27.945 27.945s-27.945-12.537-27.945-27.945zM15 470.349v-20.812c0-4.791 3.897-8.688 8.688-8.688h464.623c4.791 0 8.688 3.897 8.688 8.688v20.812H15z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
@@ -203,8 +236,8 @@
         </div>
         <div class=" lg:hidden px-5 my-4">
             <div class="flex justify-center items-center">
-                <input id="SearchInput" class="w-full h-12 focus:ring-[#08091b] border-0 focus:border-[#08091b] text-black focus:outline-none rounded-s-md text-lg" type="text" name="searchInputItems" placeholder="search for anything...">
-                <div class="search-btn bg-[#b7ff1d] px-3 h-12 flex items-center justify-center rounded-e-md transition duration-300 cursor-pointer">
+                <input id="SearchInput" class="w-full h-10 focus:ring-[#08091b] border-0 focus:border-[#08091b] text-black focus:outline-none rounded-s-md text-lg" type="text" name="searchInputItems" placeholder="search for anything...">
+                <div class="search-btn bg-[#b7ff1d] px-3 h-10 flex items-center justify-center rounded-e-md transition duration-300 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
                         <g>
                             <path d="M115.97 101.597 88.661 74.286a47.75 47.75 0 0 0 7.333-25.488c0-26.509-21.49-47.996-47.998-47.996S0 22.289 0 48.798c0 26.51 21.487 47.995 47.996 47.995a47.776 47.776 0 0 0 27.414-8.605l26.984 26.986a9.574 9.574 0 0 0 6.788 2.806 9.58 9.58 0 0 0 6.791-2.806 9.602 9.602 0 0 0-.003-13.577zM47.996 81.243c-17.917 0-32.443-14.525-32.443-32.443s14.526-32.444 32.443-32.444c17.918 0 32.443 14.526 32.443 32.444S65.914 81.243 47.996 81.243z" fill="#000000" opacity="1" data-original="#000000"></path>
@@ -216,15 +249,27 @@
     </header>
     <!-- sidebar -->
     <!-- add hidden in container -->
-    <div id="sidebarContainer" class="hidden bg-gray-50 pb-3 fixed top-0 w-72 lg:w-96 h-[100vh] overflow-y-auto z-50">
+    <div id="sidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 w-72 lg:w-96 h-[100vh] overflow-y-auto z-50">
         <div id="sidebarHeader" class="p-2 bg-gray-200 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                    <g>
-                        <path d="M437.02 74.98C388.668 26.63 324.379 0 256 0S123.332 26.629 74.98 74.98C26.63 123.332 0 187.621 0 256s26.629 132.668 74.98 181.02C123.332 485.37 187.621 512 256 512s132.668-26.629 181.02-74.98C485.37 388.668 512 324.379 512 256s-26.629-132.668-74.98-181.02zM111.105 429.297c8.454-72.735 70.989-128.89 144.895-128.89 38.96 0 75.598 15.179 103.156 42.734 23.281 23.285 37.965 53.687 41.742 86.152C361.641 462.172 311.094 482 256 482s-105.637-19.824-144.895-52.703zM256 269.507c-42.871 0-77.754-34.882-77.754-77.753C178.246 148.879 213.13 114 256 114s77.754 34.879 77.754 77.754c0 42.871-34.883 77.754-77.754 77.754zm170.719 134.427a175.9 175.9 0 0 0-46.352-82.004c-18.437-18.438-40.25-32.27-64.039-40.938 28.598-19.394 47.426-52.16 47.426-89.238C363.754 132.34 315.414 84 256 84s-107.754 48.34-107.754 107.754c0 37.098 18.844 69.875 47.465 89.266-21.887 7.976-42.14 20.308-59.566 36.542-25.235 23.5-42.758 53.465-50.883 86.348C50.852 364.242 30 312.512 30 256 30 131.383 131.383 30 256 30s226 101.383 226 226c0 56.523-20.86 108.266-55.281 147.934zm0 0" fill="#000000" opacity="1" data-original="#000000"></path>
-                    </g>
-                </svg>
-                <h1 class="text-black"><a href="">Hello,User</a></h1>
+                <?php
+                if (isset($_COOKIE['user_id'])) {
+                ?>
+                    <div class="w-7 h-7 md:w-8 md:h-8 border m-auto">
+                        <img class="w-full h-full rounded-full flex justify-center object-cover" src="<?php echo isset($_COOKIE['user_id']) ? '../src/user_dp/' . $row['profile_image'] : 'https://cdn-icons-png.flaticon.com/512/149/149071.png' ?>" alt="" class="bg-white">
+                    </div>
+                <?php
+                } else {
+                ?>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path d="M437.02 74.98C388.668 26.63 324.379 0 256 0S123.332 26.629 74.98 74.98C26.63 123.332 0 187.621 0 256s26.629 132.668 74.98 181.02C123.332 485.37 187.621 512 256 512s132.668-26.629 181.02-74.98C485.37 388.668 512 324.379 512 256s-26.629-132.668-74.98-181.02zM111.105 429.297c8.454-72.735 70.989-128.89 144.895-128.89 38.96 0 75.598 15.179 103.156 42.734 23.281 23.285 37.965 53.687 41.742 86.152C361.641 462.172 311.094 482 256 482s-105.637-19.824-144.895-52.703zM256 269.507c-42.871 0-77.754-34.882-77.754-77.753C178.246 148.879 213.13 114 256 114s77.754 34.879 77.754 77.754c0 42.871-34.883 77.754-77.754 77.754zm170.719 134.427a175.9 175.9 0 0 0-46.352-82.004c-18.437-18.438-40.25-32.27-64.039-40.938 28.598-19.394 47.426-52.16 47.426-89.238C363.754 132.34 315.414 84 256 84s-107.754 48.34-107.754 107.754c0 37.098 18.844 69.875 47.465 89.266-21.887 7.976-42.14 20.308-59.566 36.542-25.235 23.5-42.758 53.465-50.883 86.348C50.852 364.242 30 312.512 30 256 30 131.383 131.383 30 256 30s226 101.383 226 226c0 56.523-20.86 108.266-55.281 147.934zm0 0" fill="#000000" opacity="1" data-original="#000000"></path>
+                        </g>
+                    </svg>
+                <?php
+                }
+                ?>
+                <h1 class="text-black"><a href="">Hello,<?php echo isset($_COOKIE['fname']) ? $_COOKIE['fname'] : 'User' ?></a></h1>
             </div>
             <div>
                 <button onclick="closeSidebar()" class="focus:outline-none"><svg class="relative top-0.5 right-0.5 text-[#ff0000] transition rounded-md" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" style="fill: currentColor;">

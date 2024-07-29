@@ -21,7 +21,7 @@
     <link rel="shortcut icon" href="../src/logo/favicon.svg">
 </head>
 
-<body>
+<body style="font-family: 'Outfit', sans-serif;">
     <hr>
     <footer class="p-2 outfit mt-2 md:mt-12">
         <div class="md:flex justify-between gap-10 px-2 md:px-8 py-4 space-y-5 sm:space-y-0">
@@ -87,7 +87,7 @@
         <hr class="mt-3"><br>
         <div class="sm:flex sm:items-center sm:justify-between sm:gap-10 px-2 py-2 space-y-3 sm:space-y-0">
             <div>
-                <p class="text-sm">Copyright &copy; 2024 shopNest. All Rights Reserved.</p>
+                <p class="text-sm">Copyright &copy; <?php echo date('Y') ?> shopNest. All Rights Reserved.</p>
             </div>
             <div class="flex items-center gap-1">
                 <svg class="w-8" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 68 68" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
