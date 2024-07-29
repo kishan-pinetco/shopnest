@@ -1,8 +1,8 @@
 <?php
     include "../include/connect.php";
 
-    if(isset($_COOKIE['id'])){
-        $user_id = $_COOKIE['id'];
+    if(isset($_COOKIE['user_id'])){
+        $user_id = $_COOKIE['user_id'];
         $user_name = $_COOKIE['fname'];
 
         $retrieve_data = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
@@ -112,7 +112,7 @@
                             <h1 class="font-semibold text-xl md:text-2xl">Hello
                                 <span id="usersName">
                                     <?php
-                                        if(isset($_COOKIE['id'])){
+                                        if(isset($_COOKIE['user_id'])){
                                             echo $user_name;
                                         }else{
                                             echo 'User';
@@ -126,7 +126,7 @@
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-9 h-9 overflow-hidden rounded-full shadow border ring-0 focus:ring-4">
                                 <img class="object-cover w-full h-full" src="<?php
-                                        if(isset($_COOKIE['id'])){
+                                        if(isset($_COOKIE['user_id'])){
                                             echo '../src/user_dp/'. $row['profile_image'];
                                         }else{
                                             echo 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
@@ -154,7 +154,7 @@
                                 <div class="mt-12">
                                     <div class="relative flex flex-col items-start gap-2">
                                         <img id="previewImage" class="border border-gray-200 rounded-full w-32 h-32 mx-auto object-cover" src="<?php
-                                        if(isset($_COOKIE['id'])){
+                                        if(isset($_COOKIE['user_id'])){
                                             echo '../src/user_dp/'. $row['profile_image'];
                                         }else{
                                             echo 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
@@ -167,19 +167,19 @@
                                     </div>
                                     <div class="mt-4" class="mt-4">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" name="first_name" value="<?php echo isset($_COOKIE['id']) ? $row['first_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="first_name" value="<?php echo isset($_COOKIE['user_id']) ? $row['first_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="mt-4">
                                         <label for="last_name">last Name</label>
-                                        <input type="text" name="last_name" value="<?php echo isset($_COOKIE['id']) ? $row['last_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="last_name" value="<?php echo isset($_COOKIE['user_id']) ? $row['last_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="mt-4">
                                         <label for="phone">phone</label>
-                                        <input type="text" name="phone" value="<?php echo isset($_COOKIE['id']) ? $row['phone'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="phone" value="<?php echo isset($_COOKIE['user_id']) ? $row['phone'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="mt-4">
                                         <label for="email">Email</label>
-                                        <input type="email" name="email" value="<?php echo isset($_COOKIE['id']) ? $row['email'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="email" name="email" value="<?php echo isset($_COOKIE['user_id']) ? $row['email'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <input type="submit" name="updateBtn" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7">
                                 </div>

@@ -1,8 +1,8 @@
 <?php
     include "../include/connect.php";
 
-    if(isset($_COOKIE['id'])){
-        $vendor_id = $_COOKIE['id'];
+    if(isset($_COOKIE['vendor_id'])){
+        $vendor_id = $_COOKIE['vendor_id'];
 
         $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
         $retrieve_query = mysqli_query($con, $retrieve_data);
@@ -138,7 +138,7 @@
                         </button>
                         <div class="relative mx-4 lg:mx-0">
                             <h1 class="text-2xl font-semibold">Hello 
-                                <span><?php echo isset($_COOKIE['id']) ? $row['name'].'!' : 'Vendor !' ?></span>
+                                <span><?php echo isset($_COOKIE['vendor_id']) ? $row['name'].'!' : 'Vendor !' ?></span>
                             </h1>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
+                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">

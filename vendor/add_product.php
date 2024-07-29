@@ -555,8 +555,8 @@
 
     if(isset($_POST['submitBtn'])){
 
-        if(isset($_COOKIE['id'])){
-            $vendor_id = $_COOKIE['id'];
+        if(isset($_COOKIE['vendor_id'])){
+            $vendor_id = $_COOKIE['vendor_id'];
         }
 
         $Product_insert_Date = date('d-m-Y');

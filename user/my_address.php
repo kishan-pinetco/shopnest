@@ -1,8 +1,8 @@
 <?php
     include "../include/connect.php";
 
-    if(isset($_COOKIE['id'])){
-        $user_id = $_COOKIE['id'];
+    if(isset($_COOKIE['user_id'])){
+        $user_id = $_COOKIE['user_id'];
         $user_name = $_COOKIE['fname'];
 
         $retrieve_data = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
@@ -109,7 +109,7 @@
                             <h1 class="font-semibold text-xl md:text-2xl">Hello
                                 <span id="usersName">
                                     <?php
-                                        if(isset($_COOKIE['id'])){
+                                        if(isset($_COOKIE['user_id'])){
                                             echo $user_name;
                                         }else{
                                             echo 'User';
@@ -123,7 +123,7 @@
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
                             <img class="object-cover w-full h-full" src="<?php
-                                    if(isset($_COOKIE['id'])){
+                                    if(isset($_COOKIE['user_id'])){
                                         echo '../src/user_dp/'. $row['profile_image'];
                                     }else{
                                         echo 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
@@ -151,19 +151,19 @@
                                 <div class="mt-12 grid grid-cols-1 gap-y-5 gap-x-3 md:grid-col-2">
                                     <div class="col-span-2">
                                         <label for="address">Your Address</label>
-                                        <input type="text" name="address" value="<?php echo isset($_COOKIE['id']) ? $row['Address'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="address" value="<?php echo isset($_COOKIE['user_id']) ? $row['Address'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="col-span-2">
                                         <label for="state">State</label>
-                                        <input type="text" name="state" id="" value="<?php echo isset($_COOKIE['id']) ? $row['state'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="state" id="" value="<?php echo isset($_COOKIE['user_id']) ? $row['state'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="col-span-2 md:col-span-1">
                                         <label for="city">City</label>
-                                        <input type="text" name="city" id="" value="<?php echo isset($_COOKIE['id']) ? $row['city'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="text" name="city" id="" value="<?php echo isset($_COOKIE['user_id']) ? $row['city'] : 'Sign In' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <div class="col-span-2 md:col-span-1">
                                         <label for="Pincode">Pincode</label>
-                                        <input type="number" name="Pincode" id="" value="<?php echo isset($_COOKIE['id']) ? $row['pin'] : '' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
+                                        <input type="number" name="Pincode" id="" value="<?php echo isset($_COOKIE['user_id']) ? $row['pin'] : '' ?>" class="border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
                                     <input type="submit" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7" name="updateAddress">
                                 </div>

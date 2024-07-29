@@ -30,7 +30,7 @@
         </script>
     <?php
 
-    setcookie('id', '', time() - 3600, '/');
+    setcookie('vendor_id', '', time() - 3600, '/');
 
     ?>
         <script>window.location.href = '../index.php';</script>

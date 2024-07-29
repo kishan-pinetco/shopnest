@@ -1,8 +1,8 @@
 <?php
     include "../include/connect.php";
 
-    if(isset($_COOKIE['id'])){
-        $vendor_id = $_COOKIE['id'];
+    if(isset($_COOKIE['vendor_id'])){
+        $vendor_id = $_COOKIE['vendor_id'];
 
         $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
         $retrieve_query = mysqli_query($con, $retrieve_data);
@@ -111,7 +111,7 @@
                         </button>
                         <div class="relative mx-4 lg:mx-0">
                             <h1 class="text-2xl font-semibold">Hello 
-                                <span><?php echo isset($_COOKIE['id']) ? $row['name'].'!' : 'Vendor !' ?></span>
+                                <span><?php echo isset($_COOKIE['vendor_id']) ? $row['name'].'!' : 'Vendor !' ?></span>
                             </h1>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
+                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
@@ -134,21 +134,21 @@
                     <div class="mx-4 md:mx-12 my-12 bg-white shadow-lg">
                         <div class="relative">
                             <div class="relative">
-                                <img class="h-40 md:h-72 w-full object-cover" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_cover_image/' . $row['cover_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="">
+                                <img class="h-40 md:h-72 w-full object-cover" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_cover_image/' . $row['cover_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="">
                             </div>
                         </div>
                         <div class="relative m-auto -translate-y-20">
-                            <img class="bg-white/20 filter backdrop-blur-xl p-3 w-28 h-28 md:w-40 md:h-40 m-auto rounded-full object-cover" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="">
+                            <img class="bg-white/20 filter backdrop-blur-xl p-3 w-28 h-28 md:w-40 md:h-40 m-auto rounded-full object-cover" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="">
                             <input type="file" id="dpImage" name="dp" class="hidden">
                         </div>
                         <div class="m-auto text-center -mt-28 py-8">
                             <div class="mt-3">
-                                <h2 class="text-2xl font-medium text-gray-950"><?php echo isset($_COOKIE['id']) ? $row['username'] : 'username' ?></h2>
+                                <h2 class="text-2xl font-medium text-gray-950"><?php echo isset($_COOKIE['vendor_id']) ? $row['username'] : 'username' ?></h2>
                                 <span class="text-base font-medium text-gray-400 mt-2 mb-7">Seller</span>
                             </div>
                             <div class="mt-6">
                                 <h3 class="text-base font-medium text-indigo-950">About Me</h3>
-                                <p class="text-sm font-normal text-gray-800 mt-4 max-w-3xl m-auto"><?php echo isset($_COOKIE['id']) ? $row['Bio'] : 'Bio' ?></p>
+                                <p class="text-sm font-normal text-gray-800 mt-4 max-w-3xl m-auto"><?php echo isset($_COOKIE['vendor_id']) ? $row['Bio'] : 'Bio' ?></p>
                             </div>
                         </div>
                     </div>

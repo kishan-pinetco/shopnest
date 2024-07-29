@@ -1,8 +1,8 @@
 <?php
     include "../include/connect.php";
 
-    if(isset($_COOKIE['id'])){
-        $vendor_id = $_COOKIE['id'];
+    if(isset($_COOKIE['vendor_id'])){
+        $vendor_id = $_COOKIE['vendor_id'];
 
         $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
         $retrieve_query = mysqli_query($con, $retrieve_data);
@@ -111,7 +111,7 @@
                         </button>
                         <div class="relative mx-4 lg:mx-0">
                             <h1 class="text-2xl font-semibold">Hello 
-                                <span><?php echo isset($_COOKIE['id']) ? $row['name'].'!' : 'Vendor !' ?></span>
+                                <span><?php echo isset($_COOKIE['vendor_id']) ? $row['name'].'!' : 'Vendor !' ?></span>
                             </h1>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="flex items-center">
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
+                                <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
@@ -144,7 +144,7 @@
                                                     <div class="w-full p-5">
                                                         <div class="w-full relative">
                                                             <div class="w-full relative">
-                                                                <img id="CoverPreview" class="w-full h-40 z-50 object-cover" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_cover_image/' . $row['cover_image'] : "https://t4.ftcdn.net/jpg/07/32/44/11/360_F_732441170_PtWNNaix37yGipnc2uDxLIAXH8VuzBPN.jpg"?>" alt="">
+                                                                <img id="CoverPreview" class="w-full h-40 z-50 object-cover" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_cover_image/' . $row['cover_image'] : "https://t4.ftcdn.net/jpg/07/32/44/11/360_F_732441170_PtWNNaix37yGipnc2uDxLIAXH8VuzBPN.jpg"?>" alt="">
                                                             </div>
                                                             <input class="hidden" name="CoverImage" type="file" id="Coverimage" onchange="coverImagePreview(event)">
                                                             <label for="Coverimage" class="absolute top-0 right-0 mt-1 mr-1 md:mb-4 md:mr-4 text-white bg-indigo-600 flex items-center gap-1 max-w-max px-3 py-1 rounded-sm cursor-pointer hover:bg-indigo-700 transition duration-300">
@@ -175,7 +175,7 @@
                                                             }
                                                         </script>
                                                         <div class="relative flex items-stretch justify-center -mt-8">
-                                                            <img id="previewImage" class="w-20 h-20 rounded-full object-cover m-auto bg-white/20 p-2 filter backdrop-blur-2xl" alt="" src="<?php echo isset($_COOKIE['id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'?>">
+                                                            <img id="previewImage" class="w-20 h-20 rounded-full object-cover m-auto bg-white/20 p-2 filter backdrop-blur-2xl" alt="" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'?>">
                                                             <input class="hidden" name="ProfileImage" type="file" id="imageInput">
                                                             <label for="imageInput" class="absolute bottom-0 translate-y-3 translate-x-[2px] rounded-full bg-white p-1 cursor-pointer">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
@@ -225,32 +225,32 @@
                                                 </div>
                                                 <div class="col-span-4 md:col-span-2">
                                                     <label for="full_name">Full Name</label>
-                                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['name'] : '' ?>" />
+                                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['name'] : '' ?>" />
                                                 </div>
 
                                                 <div class="col-span-4 md:col-span-2">
                                                     <label for="phone">Phone Number</label>
-                                                    <input type="number" name="phone" id="phone" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['phone'] : '' ?>" placeholder="" />
+                                                    <input type="number" name="phone" id="phone" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['phone'] : '' ?>" placeholder="" />
                                                 </div>
 
                                                 <div class="col-span-4">
                                                     <label for="email">Email</label>
-                                                    <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['email'] : '' ?>" placeholder="" />
+                                                    <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['email'] : '' ?>" placeholder="" />
                                                 </div>
 
                                                 <div class="col-span-4 md:col-span-2">
                                                     <label for="userName">Username</label>
-                                                    <input type="text" name="userName" id="userName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['username'] : '' ?>" placeholder="" />
+                                                    <input type="text" name="userName" id="userName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['username'] : '' ?>" placeholder="" />
                                                 </div>
 
                                                 <div class="col-span-4 md:col-span-2">
                                                     <label for="gst">GST</label>
-                                                    <input type="text" name="gst" id="gst" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['id']) ? $row['GST'] : '' ?>" placeholder="" />
+                                                    <input type="text" name="gst" id="gst" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['GST'] : '' ?>" placeholder="" />
                                                 </div>
 
                                                 <div class="col-span-4">
                                                     <label for="bio">Bio</label>
-                                                    <textarea  name="bio" id="bio" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50"><?php echo isset($_COOKIE['id']) ? $row['Bio'] : '' ?></textarea>
+                                                    <textarea  name="bio" id="bio" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50"><?php echo isset($_COOKIE['vendor_id']) ? $row['Bio'] : '' ?></textarea>
                                                 </div>
 
                                                 <div class="col-span-4 text-right mt-7">
@@ -351,7 +351,7 @@
         if ($update_query) {
             // Check for Cover file upload
             if(move_uploaded_file($tempname, $folder)){
-                $vendor_id = $_COOKIE['id'];
+                $vendor_id = $_COOKIE['vendor_id'];
                 $update_cover = "UPDATE vendor_registration SET cover_image='$CoverImage' WHERE vendor_id = '$vendor_id'";
                 $updatedcover_query = mysqli_query($con, $update_cover);
 
@@ -363,7 +363,7 @@
             }
             // Check for profile file upload
             else if(move_uploaded_file($tempname2, $folder2)){
-                $vendor_id = $_COOKIE['id'];
+                $vendor_id = $_COOKIE['vendor_id'];
                 $update_dp = "UPDATE vendor_registration SET dp_image='$ProfileImage' WHERE vendor_id = '$vendor_id'";
                 $updatedp_query = mysqli_query($con, $update_dp);
 
@@ -375,7 +375,7 @@
             }
             // Check for Cover and profile file upload
             else if (move_uploaded_file($tempname, $folder) && move_uploaded_file($tempname2, $folder2)) {
-                $vendor_id = $_COOKIE['id'];
+                $vendor_id = $_COOKIE['vendor_id'];
                 $update_img = "UPDATE vendor_registration SET cover_image='$CoverImage', dp_image='$ProfileImage' WHERE vendor_id = '$vendor_id'";
                 $update_img_query = mysqli_query($con, $update_img);
 

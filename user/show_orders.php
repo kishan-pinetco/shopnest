@@ -1,8 +1,8 @@
 <?php
     include "../include/connect.php";
 
-    if(isset($_COOKIE['id'])){
-        $user_id = $_COOKIE['id'];
+    if(isset($_COOKIE['user_id'])){
+        $user_id = $_COOKIE['user_id'];
         $user_name = $_COOKIE['fname'];
 
         $retrieve_data = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
@@ -109,7 +109,7 @@
                             <h1 class="font-semibold text-xl md:text-2xl">Hello
                                 <span id="usersName">
                                     <?php
-                                        if(isset($_COOKIE['id'])){
+                                        if(isset($_COOKIE['user_id'])){
                                             echo $user_name;
                                         }else{
                                             echo 'User';
@@ -123,7 +123,7 @@
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
                             <img class="object-cover w-full h-full" src="<?php
-                                    if(isset($_COOKIE['id'])){
+                                    if(isset($_COOKIE['user_id'])){
                                         echo '../src/user_dp/'. $row['profile_image'];
                                     }else{
                                         echo 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
