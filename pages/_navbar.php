@@ -1,7 +1,4 @@
 <?php
-
-include "../include/connect.php";
-
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 

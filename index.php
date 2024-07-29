@@ -1,3 +1,7 @@
+<?php
+include "include/connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +26,15 @@
 </head>
 
 <body>
-    <p>hi</p>
+    <!-- navbar -->
+    <?php
+    include "pages/_navbar.php";
+    ?>
+
+    <!-- footer -->
+    <?php
+    include "pages/_footer.php";
+    ?>
 </body>
 
 </html>
