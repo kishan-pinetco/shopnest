@@ -19,7 +19,6 @@
                 }
             }
         });
-
     function closeSidebar() { 
         let closeSidebar = $('#sidebarContainer');
         closeSidebar.addClass('sidebar-close');    
