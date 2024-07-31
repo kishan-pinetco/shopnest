@@ -91,27 +91,27 @@
                         <div class="space-y-3">
                             <h1 class="text-lg sm:text-xl">Get to know us</h1>
                             <ul class="space-y-3 text-xs sm:text-sm">
-                                <li><a class="link" href="/shopNest/shopnest/pages/about_us.php">About Us</a></li>
-                                <li><a class="link" href="/shopNest/shopnest/pages/contact_us.php">Contact Us</a></li>
-                                <li><a class="link" href="/shopNest/shopnest/pages/Investor.php">Investors</a></li>
+                                <li><a class="link" href="/shopnest/pages/about_us.php">About Us</a></li>
+                                <li><a class="link" href="/shopnest/pages/contact_us.php">Contact Us</a></li>
+                                <li><a class="link" href="/shopnest/pages/Investor.php">Investors</a></li>
                             </ul>
                         </div>
 
                         <div class="space-y-3">
                             <h1 class="text-lg sm:text-xl">Customer Service</h1>
                             <ul class="space-y-3 text-xs sm:text-sm">
-                                <li><a class="link" href="/shopNest/shopnest/pages/help_center.php">Help Center</a></li>
-                                <li><a class="link" href="/shopNest/shopnest/pages/FAQ.php">faq</a></li>
-                                <li><a class="link" href="/shopNest/shopnest/pages/payment_method.php">Payment Method</a></li>
+                                <li><a class="link" href="/shopnest/pages/help_center.php">Help Center</a></li>
+                                <li><a class="link" href="/shopnest/pages/FAQ.php">faq</a></li>
+                                <li><a class="link" href="/shopnest/pages/payment_method.php">Payment Method</a></li>
                             </ul>
                         </div>
 
                         <div class="space-y-3">
                             <h1 class="text-lg sm:text-xl">Orders & Returns</h1>
                             <ul class="space-y-3 text-xs sm:text-sm">
-                                <li><a class="link" href="/shopNest/shopnest/pages/track_order.php">Track Orders</a></li>
-                                <li><a class="link" href="/shopNest/shopnest/pages/shipping_&_delivery.php">Shipping & Dilivery</a></li>
-                                <li><a class="link" href="/shopNest/shopnest/pages/return-exchange.php">Return & Exchange</a></li>
+                                <li><a class="link" href="/shopnest/pages/track_order.php">Track Orders</a></li>
+                                <li><a class="link" href="/shopnest/pages/shipping_&_delivery.php">Shipping & Dilivery</a></li>
+                                <li><a class="link" href="/shopnest/pages/return-exchange.php">Return & Exchange</a></li>
                             </ul>
                         </div>
                     </div>
