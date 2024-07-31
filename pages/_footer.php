@@ -7,7 +7,7 @@
     <title>Document</title>
 
     <!-- css file link -->
-    <link rel="stylesheet" href="pages.css">
+    <!-- <link rel="stylesheet" href="pages.css"> -->
 
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
@@ -19,6 +19,40 @@
 
     <!-- favicon -->
     <link rel="shortcut icon" href="../src/logo/favicon.svg">
+
+    <style>
+        .outfit {
+            font-family: "Outfit", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .link {
+            position: relative;
+        }
+
+        .link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1.5px;
+            display: block;
+            margin-top: 0;
+            right: 0;
+            background: #000;
+            /* Adjust color as needed */
+            transition: width .2s ease;
+            -webkit-transition: width 0.2s ease;
+        }
+
+        .link:hover:after {
+            width: 100%;
+            left: 0;
+            background: #000;
+            /* Adjust color as needed */
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -57,27 +91,27 @@
                         <div class="space-y-3">
                             <h1 class="text-lg sm:text-xl">Get to know us</h1>
                             <ul class="space-y-3 text-xs sm:text-sm">
-                                <li><a class="link" href="about_us.php">About Us</a></li>
-                                <li><a class="link" href="contact_us.php">Contact Us</a></li>
-                                <li><a class="link" href="Investor.php">Investors</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/about_us.php">About Us</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/contact_us.php">Contact Us</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/Investor.php">Investors</a></li>
                             </ul>
                         </div>
 
                         <div class="space-y-3">
                             <h1 class="text-lg sm:text-xl">Customer Service</h1>
                             <ul class="space-y-3 text-xs sm:text-sm">
-                                <li><a class="link" href="help_center.php">Help Center</a></li>
-                                <li><a class="link" href="FAQ.php">faq</a></li>
-                                <li><a class="link" href="payment_method.php">Payment Method</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/help_center.php">Help Center</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/FAQ.php">faq</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/payment_method.php">Payment Method</a></li>
                             </ul>
                         </div>
 
                         <div class="space-y-3">
                             <h1 class="text-lg sm:text-xl">Orders & Returns</h1>
                             <ul class="space-y-3 text-xs sm:text-sm">
-                                <li><a class="link" href="track_order.php">Track Orders</a></li>
-                                <li><a class="link" href="shipping_&_delivery.php">Shipping & Dilivery</a></li>
-                                <li><a class="link" href="return-exchange.php">Return & Exchange</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/track_order.php">Track Orders</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/shipping_&_delivery.php">Shipping & Dilivery</a></li>
+                                <li><a class="link" href="/shopNest/shopnest/pages/return-exchange.php">Return & Exchange</a></li>
                             </ul>
                         </div>
                     </div>

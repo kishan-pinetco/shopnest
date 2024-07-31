@@ -18,7 +18,7 @@ if (isset($_COOKIE['user_id'])) {
     <title>Navbar</title>
 
     <!-- css file link -->
-    <link rel="stylesheet" href="pages.css">
+    <!-- <link rel="stylesheet" href="pages.css"> -->
 
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
@@ -27,7 +27,7 @@ if (isset($_COOKIE['user_id'])) {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- Js link -->
-    <script src="navbar.js"></script>
+    <!-- <script src="navbar.js"></script> -->
 
     <!-- alpinejs CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -39,9 +39,80 @@ if (isset($_COOKIE['user_id'])) {
 
     <!-- favicon -->
     <link rel="shortcut icon" href="../src/logo/favicon.svg">
+
+    <script>
+        function showSidebar() {
+            // $("#sidebarContainer").addClass('block');
+            activePopup = 'sidebarContainer';
+            let sidebarContainer = $('#sidebarContainer');
+            sidebarContainer.show();
+            sidebarContainer.addClass('sidebar-open');
+
+            $('body').css('overflowY', 'hidden');
+            // $('body').fadeTo(700, 0.5);
+            event.preventDefault();
+        }
+
+        // close sidebarContainer using Esc key
+        $(document).keydown(function(event) {
+            if (event.key === 'Escape') {
+                if (activePopup === 'sidebarContainer') {
+                    closeSidebar();
+                }
+            }
+        });
+
+        function closeSidebar() {
+            let closeSidebar = $('#sidebarContainer');
+            closeSidebar.addClass('sidebar-close');
+
+            $('body').css('overflow', 'visible');
+
+            setTimeout(function() {
+                closeSidebar.removeClass('sidebar-close').hide();
+            }, 300);
+            // $('body').fadeTo(800,1);   
+        }
+    </script>
+
     <style>
+        .outfit {
+            font-family: "Outfit", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+
         [x-cloak] {
             display: none;
+        }
+
+        @keyframes openSideBar {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .sidebar-open {
+            animation: openSideBar 0.4s ease-in-out;
+        }
+
+        @keyframes closeSideBar {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .sidebar-close {
+            animation: closeSideBar 0.4s ease-in-out;
         }
     </style>
 </head>
