@@ -234,7 +234,7 @@ if (isset($_COOKIE['user_id'])) {
                             </svg>
                             <div class="text-xs hidden md:block">
                                 <h1>Username</h1>
-                                <a class="underline focus:outline-none" href="../authentication/user_auth/user_login.php">Login</a> / <a class="underline focus:outline-none" href="../authentication/user_auth/user_register.php">Register</a>
+                                <a class="underline focus:outline-none" href="/shopnest/authentication/user_auth/user_login.php">Login</a> / <a class="underline focus:outline-none" href="/shopnest/authentication/user_auth/user_register.php">Register</a>
                             </div>
                         </div>
                         <div class="md:hidden" x-data="{withOutLogin:false}">
@@ -252,7 +252,7 @@ if (isset($_COOKIE['user_id'])) {
                             </button>
                             <!-- popup for without login -->
                             <div x-show="withOutLogin" x-transition x-cloak class="text-sm border rounded-md flex flex-col space-y-1 py-1.5 absolute top-16  bg-white text-black overflow-hidden">
-                                <a class="px-2 py-1 flex items-center gap-x-2 hover:bg-indigo-500 hover:text-white" href="../authentication/user_auth/user_login.php">
+                                <a class="px-2 py-1 flex items-center gap-x-2 hover:bg-indigo-500 hover:text-white" href="/shopnest/authentication/user_auth/user_login.php">
                                     <svg class="h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                         <g>
                                             <g fill="#000">
@@ -261,7 +261,7 @@ if (isset($_COOKIE['user_id'])) {
                                             </g>
                                         </g>
                                     </svg>Login</a>
-                                <a class="px-2 py-1 flex items-center gap-x-2 hover:bg-indigo-500 hover:text-white" href="../authentication/user_auth/user_register.php">
+                                <a class="px-2 py-1 flex items-center gap-x-2 hover:bg-indigo-500 hover:text-white" href="/shopnest/authentication/user_auth/user_register.php">
                                     <svg class="h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 1.27 1.27" style="enable-background:new 0 0 512 512" xml:space="preserve" fill-rule="evenodd">
                                         <g>
                                             <g fill="currentColor">
@@ -279,7 +279,7 @@ if (isset($_COOKIE['user_id'])) {
                 ?>
 
                 <div>
-                    <a href="../shopping/cart.php" class="relative focus:outline-none">
+                    <a href="/shopnest/shopping/cart.php" class="relative focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                             <g>
                                 <path d="M164.96 300.004h.024c.02 0 .04-.004.059-.004H437a15.003 15.003 0 0 0 14.422-10.879l60-210a15.003 15.003 0 0 0-2.445-13.152A15.006 15.006 0 0 0 497 60H130.367l-10.722-48.254A15.003 15.003 0 0 0 105 0H15C6.715 0 0 6.715 0 15s6.715 15 15 15h77.969c1.898 8.55 51.312 230.918 54.156 243.71C131.184 280.64 120 296.536 120 315c0 24.812 20.188 45 45 45h272c8.285 0 15-6.715 15-15s-6.715-15-15-15H165c-8.27 0-15-6.73-15-15 0-8.258 6.707-14.977 14.96-14.996zM477.114 90l-51.43 180H177.032l-40-180zM150 405c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zM362 405c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zm0 0" fill="#ffffff" opacity="1" data-original="#000000"></path>
@@ -301,7 +301,7 @@ if (isset($_COOKIE['user_id'])) {
                     </a>
                 </div>
                 <div>
-                    <a class="flex items-center gap-2 text-white text-xs focus:outline-none" href="../authentication/vendor_auth/vendor_register.php">
+                    <a class="flex items-center gap-2 text-white text-xs focus:outline-none" href="/shopnest/authentication/vendor_auth/vendor_register.php">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                             <g>
                                 <path d="M143.5 326.255a7.5 7.5 0 0 0-7.5 7.5v13.5a7.5 7.5 0 0 0 15 0v-13.5a7.5 7.5 0 0 0-7.5-7.5z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
