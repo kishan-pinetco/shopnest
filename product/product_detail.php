@@ -1,5 +1,26 @@
 <?php
     include "../include/connect.php";
+
+    if(isset($_GET['product_id'])){
+        $product_id = $_GET['product_id'];
+        
+        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
+        $product_query = mysqli_query($con,$product_find);
+        
+        $res = mysqli_fetch_assoc($product_query);
+
+        $vendor_id = $res['vendor_id'];
+
+        $vendor_find = "SELECT * FROM vendor_registration WHERE vendor_id  = '$vendor_id'";
+        $vendor_query = mysqli_query($con,$vendor_find);
+        $ven = mysqli_fetch_assoc($vendor_query);
+
+        $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+        $review_query = mysqli_query($con,$get_reviews);
+
+        $rev = mysqli_fetch_assoc($review_query);
+        $totalReviews = mysqli_num_rows($review_query);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,124 +88,194 @@
             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2 w-auto h-auto md:h-96">
                 <div class="swiper-wrapper h-52 md:h-full">
                     <div class="swiper-slide w-auto h-auto">
-                        <img class="h-full" src="https://m.media-amazon.com/images/I/81Os1SDWpcL._SL1500_.jpg" />
+                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg' ?>" />
                     </div>
                     <div class="swiper-slide h-auto">
-                        <img class="h-full" src="https://m.media-amazon.com/images/I/51UtwJ0576L._SL1500_.jpg" />
+                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_2'] : '../src/sample_images/product_2.jpg' ?>" />
                     </div>
                     <div class="swiper-slide h-auto">
-                        <img class="h-full" src="https://m.media-amazon.com/images/I/71lmRVkniLL._SL1500_.jpg" />
+                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_3'] : '../src/sample_images/product_3.jpg' ?>" />
                     </div>
                     <div class="swiper-slide h-auto">
-                        <img class="h-full" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" />
+                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_4'] : '../src/sample_images/product_4.jpg' ?>" />
                     </div>
                 </div>
             </div>
-            <div thumbsSlider="" class="swiper mySwiper md:w-80 h-auto mt-6">
+            <div thumbsSlider="" class="swiper mySwiper md:w-80 h-auto mt-6 px-2">
                 <div class="swiper-wrapper flex item-center justify-center">
                     <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="https://m.media-amazon.com/images/I/81Os1SDWpcL._SL1500_.jpg" />
+                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg' ?>" />
                     </div>
                     <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="https://m.media-amazon.com/images/I/51UtwJ0576L._SL1500_.jpg" />
+                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_2'] : '../src/sample_images/product_2.jpg' ?>" />
                     </div>
                     <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="https://m.media-amazon.com/images/I/71lmRVkniLL._SL1500_.jpg" />
+                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_3'] : '../src/sample_images/product_3.jpg' ?>" />
                     </div>
                     <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="https://m.media-amazon.com/images/I/71TSx9D2BVL._SL1500_.jpg" />
+                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_4'] : '../src/sample_images/product_4.jpg' ?>" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-3 w-full mt-12">
-            <div class="flex flex-col gap-2">
-                <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]">Apple iPhone 15 Pro Max (256 GB) - Black Titanium</h1>
-            </div>
-            <!-- price -->
-            <div class="flex items-center justify-between flex-wrap gap-y-3">
-                <div class="flex items-baseline gap-1">
-                    <span class="text-xl font-medium">₹1,48,900</span>
-                    <del class="text-sm font-normal">₹1,59,900</del>
+        <form action="" Method="post">
+            <div class="flex flex-col gap-3 w-full mt-12 px-2">
+                <div class="flex flex-col gap-2">
+                    <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]"><?php echo isset($_GET['product_id']) ? $res['title'] : 'Product title' ?></h1>
                 </div>
-                <p class="text-[#13bc96] text-sm font-medium">Available in stock</p>
-            </div>
-            <!-- color -->
-            <div class="mt-3">
-                <h1 class="text-xl font-medium">Colors:</h1>
-                <div class="flex item-center gap-1">
-                    <div>
-                        <input type="radio" class="hidden" name="colors" id="color-1">
-                        <label for="color-1">
-                            <div class="h-7 w-7 rounded-full bg-red-500 cursor-pointer"></div>
-                        </label>
+                <!-- vendor Store -->
+                <a href="../vendor/vendor_store.php?vendor_id=<?php echo $ven['vendor_id'];?>" class="text-lg text-indigo-600 font-bold hover:underline cursor-pointer max-w-max">Visit a <span><?php echo isset($product_id) ? $ven['username'] : 'vendor store Name';?></span> Store</a>
+                <!-- price -->
+                <div class="flex items-center justify-between flex-wrap gap-y-3">
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-xl font-medium">₹<?php echo isset($_GET['product_id']) ? $res['MRP'] : 'MRP' ?></span>
+                        <del class="text-sm font-normal">₹<?php echo isset($_GET['product_id']) ? $res['Your_Price'] : 'Product price' ?></del>
                     </div>
-                    <div>
-                        <input type="radio" class="hidden" name="colors" id="color-2">
-                        <label for="color-2">
-                            <div class="h-7 w-7 rounded-full bg-green-500 cursor-pointer"></div>
-                        </label>
-                    </div>
-                    <div>
-                        <input type="radio" class="hidden" name="colors" id="color-3">
-                        <label for="color-3">
-                            <div class="h-7 w-7 rounded-full bg-blue-500 cursor-pointer"></div>
-                        </label>
-                    </div>
+                    <p class="text-[#13bc96] text-sm font-medium">Available in stock</p>
+                </div>
+                <!-- color -->
+                <div class="mt-3">
+                    <h1 class="text-xl font-medium">Colors:</h1>
+                    <div class="flex item-center gap-4 mt-2" x-data="{ selectedColor: '' }">
+                        <?php
+                            if(isset($product_id)){
+                                $product_colors = [];
+                                $product_colors[] = $res['color'];
+                                foreach ($product_colors as $colors){
+                                    $color_array = explode(',', $colors);
 
+                                    $i = 0;
+                                    foreach($color_array as $color){
+                                        $clr = trim($color);
+                                        $unique_id = 'color-' . $i;
+                                        ?>
+                                            <div>
+                                                <label for="<?php echo $unique_id; ?>" @click="selectedColor = '<?php echo $clr?>'">
+                                                    <div :class="{'ring-2': selectedColor === '<?php echo $clr?>'}" class="h-7 w-7 rounded-full cursor-pointer border" style="background-color: <?php echo htmlspecialchars($clr) ?>;"></div>
+                                                </label>
+                                                <input type="radio" class="hidden" name="products_colors" value="<?php echo htmlspecialchars($clr)?>" id="<?php echo $unique_id; ?>">
+                                            </div>
+                                        <?php
+                                        $i++; 
+                                    }
+                                }
+                            }else{
+                                echo "Colors of products";
+                            }
+                        ?>
+                    </div>
+                </div>
+                <!-- size -->
+                <div>
+                    <div class="md:col-span-2 mt-3">
+                        <?php
+                            if(isset($product_id)){
+                                if($res['size'] == '-'){
+                                    echo '';
+                                }else{
+                                    ?>
+                                        <label for="size">Size</label>
+                                        <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                            <?php
+                                                $product_size[] = $res['size'];
+                                                foreach($product_size as $productSize){
+                                                    $size_array = explode(',', $productSize);
+                                                    foreach($size_array as $size){
+                                                        $sz = trim($size);
+                                                        ?>
+                                                            <option value="<?php echo $sz?>"><?php echo $sz?></option>
+                                                        <?php
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    <?php
+                                }
+                            }else{
+                                echo "size of products";
+                            }
+                        ?>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <label for="qty">QTY:</label>
+                    <div class="flex items-center flex-wrap gap-2">
+                        <select name="qty" id="qty" class="h-10 border mt-1 rounded px-4 w-16 bg-gray-50" value="">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-1">
+                    <!-- rating -->
+                    <div class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                        <span class="text-base font-medium text-[#7c818b]">(<?php echo isset($totalReviews) ? $totalReviews : '0' ?>)</span>
+                    </div>
+                    <p class="text-sm font-medium text-[red]">Free Delivery</p>
+                </div>
+                <hr>
+                <div class="mt-4 flex flex-col gap-3 md:flex-row">
+                    <a href="../shopping/add_to_cart.php?product_id=<?php echo $product_id?>" class="text-sm font-medium text-white bg-indigo-600 px-12 py-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-200">Add To Cart</a>
+                    <input type="submit" name="buyBtn" value="Buy now" class="text-sm font-medium text-indigo-500 border-2 border-indigo-500 px-12 py-4 rounded-md text-center cursor-pointer">
                 </div>
             </div>
-            <!-- size -->
-            <div>
-                <div class="md:col-span-2 mt-3">
-                    <label for="size">Size</label>
-                    <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
-                        <option value="4GB-32GB">4 GB RAM, 32 GB ROM</option>
-                        <option value="4GB-64GB">4 GB RAM, 64 GB ROM</option>
-                        <option value="6GB-64GB">6 GB RAM, 64 GB ROM</option>
-                        <option value="6GB-128GB">6 GB RAM, 128 GB ROM</option>
-                        <option value="8GB-128GB">8 GB RAM, 128 GB ROM</option>
-                        <option value="8GB-256GB">8 GB RAM, 256 GB ROM</option>
-                        <option value="12GB-256GB">12 GB RAM, 256 GB ROM</option>
-                        <option value="12GB-512GB">12 GB RAM, 512 GB ROM</option>
-                        <option value="16GB-512GB">16 GB RAM, 512 GB ROM</option>
-                    </select>
-                </div>
-            </div>
-            <div class="flex justify-between items-center mt-3">
-                <!-- rating -->
-                <div class="flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                    <span class="text-base font-medium text-[#7c818b]">(0)</span>
-                </div>
-                <p class="text-sm font-medium text-[red]">Free Delivery</p>
-            </div>
-            <hr>
-            <div class="mt-4 flex flex-col gap-3 md:flex-row">
-                <input class="text-sm font-medium text-white bg-indigo-600 px-12 py-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-200" type="submit" name="addToCart" value="Add To Cart">
-                <a href="?id=" class="text-sm font-medium text-indigo-500 border-2 border-indigo-500 px-12 py-4 rounded-md text-center">Buy now</a>
-            </div>
-        </div>
+        </form>
+
+        <?php
+            if(isset($_POST['buyBtn'])){
+                $color = $_POST['products_colors'];
+                if(isset($size)){
+                    $size = $_POST['size'];
+                }else{
+                    $size = null;
+                }
+
+                $encoded_color = urlencode($color);
+                $encoded_size = urlencode($size);
+
+                $qty = $_POST['qty'];
+
+                if(isset($_COOKIE['user_id'])){
+                    ?>
+                        <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&color=<?php echo $encoded_color; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script>
+                    <?php
+                }else{
+                    ?>
+                        <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
+                    <?php
+                }
+                
+            }
+        ?>
     </div>
 
     <!-- product Details -->
     <div class="py-12 px-2 xl:px-52">
         <div class="border rounded-md p-8">
             <div>
-                <h1 class="text-3xl font-semibold md:text-5xl">Phone</h1>
+                <h1 class="text-3xl font-semibold md:text-5xl"><?php echo isset($_GET['product_id']) ? $res['Type'] : 'Product Name' ?></h1>
                 <hr class="my-6">
                 <div class="">
-                    <span class="text-xl font-medium">Apple iPhone 15 Pro Max (256 GB) - Black Titanium</span>
+                    <span class="text-xl font-medium"><?php echo isset($_GET['product_id']) ? $res['title'] : 'Product Name' ?></span>
                 </div>
-                <div class="grid grid-cols-1 mt-8 gap-3 md:grid-cols-2 m-auto">
-                    <img class="border m-auto" src="https://m.media-amazon.com/images/I/61lfdF60sRL._SL1500_.jpg" alt="">
-                    <img class="border m-auto" src="https://m.media-amazon.com/images/I/81MDZsYTIoL._SL1500_.jpg" alt="">
-                    <img class="border m-auto" src="https://m.media-amazon.com/images/G/31/img21/Wireless/Madhav/september/Apple/River15pro/R1AEBB1._CB575355692_.jpg" alt="">
-                    <img class="border m-auto" src="https://m.media-amazon.com/images/G/31/img21/Wireless/Madhav/september/Apple/River15pro/R1809_4._CB575355692_.jpg" alt="">
+                <div class="grid grid-cols-1 mt-8 gap-2 md:grid-cols-1 m-auto">
+                    <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_1'] : '../src/sample_images/cover_1.jpg' ?>" alt="">
+                    <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_2'] : '../src/sample_images/cover_2.jpg' ?>" alt="">
+                    <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_3'] : '../src/sample_images/cover_3.jpg' ?>" alt="">
+                    <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_4'] : '../src/sample_images/cover_4.jpg' ?>" alt="">
                 </div>
                 <div class="mt-12">
                     <h2 class="text-lg font-medium">More information</h2>
@@ -192,31 +283,7 @@
                         <div class="flex">
                             <li></li>
                             <div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nobis laboriosam amet facilis fugiat, excepturi sint repudiandae, nemo aliquam similique officia aliquid corrupti beatae aut rerum quod quibusdam minus id.</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <li></li>
-                            <div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nobis laboriosam amet facilis fugiat, excepturi sint repudiandae, nemo aliquam similique officia aliquid corrupti beatae aut rerum quod quibusdam minus id..</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <li></li>
-                            <div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nobis laboriosam amet facilis fugiat, excepturi sint repudiandae, nemo aliquam similique officia aliquid corrupti beatae aut rerum quod quibusdam minus id..</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <li></li>
-                            <div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nobis laboriosam amet facilis fugiat, excepturi sint repudiandae, nemo aliquam similique officia aliquid corrupti beatae aut rerum quod quibusdam minus id.</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <li></li>
-                            <div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nobis laboriosam amet facilis fugiat, excepturi sint repudiandae, nemo aliquam similique officia aliquid corrupti beatae aut rerum quod quibusdam minus id..</p>
+                                <p><?php echo isset($_GET['product_id']) ? $res['Description'] : 'Product Description' ?></p>
                             </div>
                         </div>
                     </div>
@@ -228,7 +295,7 @@
                     <span class="text-2xl font-medium">Rating</span>
                     <div class="border p-5 mt-3">
                         <div class="flex flex-col items-center my-6 md:items-start md:flex-row">
-                            <h1 class="text-7xl font-medium"><?php if(isset($average)){echo $average;}else{echo '0';}  ?></h1>
+                            <h1 class="text-7xl font-medium">0</h1>
                         </div>
                         <div class="flex items-center gap-5 justify-between text-[#7c818b] text-sm font-medium">
                             <div class="flex items-center">
@@ -269,39 +336,65 @@
                         <div class="flex flex-col gap-y-3">
                             <h1 class="text-lg font-medium">Review this product</h1>
                             <span class="text-sm font-normal">Share your thoughts with other customers</span>
-                            <button class="text-sm font-medium text-white bg-indigo-600 py-4 hover:bg-indigo-700 transition duration-200"><a href="">Write a review</a></button>
+                            <a href="<?php echo isset($_COOKIE['user_id']) ? 'add_review.php?product_id=' . htmlspecialchars($product_id) : '../authentication/user_auth/user_login.php'; ?>" class="text-sm font-medium text-white text-center bg-indigo-600 py-4 hover:bg-indigo-700 transition duration-200">Write a review</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-span-2">
-                    <span class="text-2xl font-medium">Customer Reviews (1)</span>
-                    <hr class="mt-3">
-                    <!-- <h1 class="text-[#0f86ff] text-sm font-medium bg-[#ecf6ff] text-center py-3 border mt-3">Ther are no review yet.</h1> -->
-                    <div class="mt-7 flex flex-col gap-8 overflow-scroll h-[60vh] md:px-4">
-                        <div>
-                            <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row">
-                                <div class="flex item-center justify-center gap-3">
-                                    <img class="w-12 h-12" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
-                                    <div class="flex flex-col gap-0">
-                                        <h2 class="font-medium text-base text-neutral-800">Abhijeet Dabhi</span></h2>
-                                        <p class="font-medium text-sm text-gray-500">16-07-2024</p>
-                                    </div>
+                    <?php
+                        if(isset($product_id)){
+
+                            ?>
+                                <span class="text-2xl font-medium">Customer Reviews (<?php echo isset($totalReviews) ? $totalReviews : '0' ?>)</span>
+                                <hr class="mt-3">
+                            <?php
+                            if(!$rev){
+                                ?>
+                                    <h1 class="text-[#0f86ff] text-sm font-medium bg-[#ecf6ff] text-center py-3 border mt-3">Ther are no review yet.</h1>
+                                <?php
+                            }
+                            ?>
+                                <div class="mt-7 flex flex-col gap-8 overflow-scroll h-[60vh] md:px-4">
+                                    <?php
+                                        if($rev){
+                                            ?>
+                                                <div>
+                                                    <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row">
+                                                        <div class="flex item-center justify-center gap-3">
+                                                            <img class="w-12 h-12" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                                                            <div class="flex flex-col gap-0">
+                                                                <h2 class="font-medium text-base text-neutral-800">Abhijeet Dabhi</span></h2>
+                                                                <p class="font-medium text-sm text-gray-500">16-07-2024</p>
+                                                            </div>
+                                                        </div>
+                                                        <p>
+                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                        </p>
+                                                    </div>
+                                                    <div class="mt-6">
+                                                        <h1 class="font-medium mb-3">Nice Product</h1>
+                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, natus accusantium sed id consequatur sint rem ab sapiente assumenda facilis?</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            <?php
+                                        }
+                                    ?>
+
                                 </div>
-                                <p>
-                                    <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                    <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                    <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                    <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                    <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                </p>
-                            </div>
-                            <div class="mt-6">
-                                <h1 class="font-medium mb-3">Nice Product</h1>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, natus accusantium sed id consequatur sint rem ab sapiente assumenda facilis?</p>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
+                            <?php
+                        }else{
+                            ?>
+                                <span class="text-2xl font-medium">Customer Reviews (<?php echo isset($totalReviews) ? $totalReviews : '0' ?>)</span>
+                                <hr class="mt-3">
+                                <h1 class="text-[#0f86ff] text-sm font-medium bg-[#ecf6ff] text-center py-3 border mt-3">Ther are no review yet.</h1>
+                            <?php
+                        }
+                    ?>
                 </div>
             </div>
         </div>
@@ -332,3 +425,4 @@
     </script>
 </body>
 </html>
+

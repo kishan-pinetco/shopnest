@@ -1,3 +1,74 @@
+<?php
+    include "../include/connect.php";
+
+    if(isset($_COOKIE['user_id'])){
+        $totalPrice = $_GET['totalPrice'];
+        $myCookie = $_COOKIE['user_id'];
+        if(isset($_COOKIE['Cart_products'])){
+            $cookie_value = $_COOKIE['Cart_products'];
+
+            $cart_products = json_decode($cookie_value, true);
+            if (!empty($cart_products) && is_array($cart_products)) {
+                foreach($cart_products as $Cproducts){
+                    $cart_products_id = $Cproducts['cart_id'];
+                    $cart_products_image = $Cproducts['cart_image'];
+                    $cart_products_title = $Cproducts['cart_title'];
+                    $cart_products_price = $Cproducts['cart_price'];
+                }
+            }
+        }
+
+        $product_find = "SELECT * FROM products WHERE product_id = '$cart_products_id'";
+        $product_query = mysqli_query($con,$product_find);
+        
+        $row = mysqli_fetch_assoc($product_query);
+
+        if($_GET['color'] === 'color'){
+            $product_colors[] = $row['color'];
+            foreach ($product_colors as $colors){
+                $color_array = explode(',', $colors);
+                foreach($color_array as $clrs){
+                    $color = trim($clrs);
+                    break;
+                }
+            }
+        }
+
+        if($_GET['size'] === 'size'){
+            $product_size[] = $row['size'];
+            foreach ($product_size as $size){
+                $size_array = explode(',', $size);
+                
+                foreach($size_array as $sz){
+                    $sizz = trim($sz);
+                    break;
+                }
+            }
+        }
+
+        if($_GET['qty']){
+            $qty = $_GET['qty'];
+        }else{
+            $qty = '';
+        }
+
+
+        $vendor_id = $row['vendor_id'];
+
+        $vendor_find = "SELECT * FROM vendor_registration WHERE vendor_id  = '$vendor_id'";
+        $vendor_query = mysqli_query($con,$vendor_find);
+        $ven = mysqli_fetch_assoc($vendor_query);
+
+        $user_id = $_COOKIE['user_id'];
+
+        $get_user = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
+        $user_query = mysqli_query($con,$get_user);
+
+        $us = mysqli_fetch_assoc($user_query);
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,15 +102,56 @@
             <div class="px-4 pt-8">
                 <p class="text-xl font-medium">Order Summary</p>
                 <p class="text-gray-400">Check your items. And select a suitable shipping method.</p>
-                <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-                    <div class="flex flex-col rounded-lg bg-white sm:flex-row">
-                        <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="https://m.media-amazon.com/images/I/81Os1SDWpcL._SL1500_.jpg" alt="" />
-                        <div class="flex w-full flex-col px-4 py-4 gap-y-3">
-                            <span class="font-semibold line-clamp-2">Apple iPhone 15 Pro Max (256 GB) - Black Titanium</span>
-                            <p class="text-lg font-semibold">₹1,48,900</p>
-                        </div>
-                    </div>
-                </div>
+                    <?php
+                        if(isset($_COOKIE['Cart_products'])){
+                            $cookie_value = $_COOKIE['Cart_products'];
+                
+                            $cart_products = json_decode($cookie_value, true);
+                            if (!empty($cart_products) && is_array($cart_products)) {
+                                foreach($cart_products as $Cproducts){
+                                    $cart_products_id = $Cproducts['cart_id'];
+                                    $cart_products_image = $Cproducts['cart_image'];
+                                    $cart_products_title = $Cproducts['cart_title'];
+                                    $cart_products_price = $Cproducts['cart_price'];
+
+                                    ?>
+                                       <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+                                            <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+                                                <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($myCookie) ? '../src/product_image/product_profile/' . $cart_products_image : '../src/sample_images/product_1.jpg' ?>" alt="" />
+                                                <div class="flex w-full flex-col px-4 py-4 gap-y-3">
+                                                    <span class="font-semibold line-clamp-2"><?php echo isset($myCookie) ? $cart_products_title : 'product title' ?></span>
+                                                    <p class="text-lg font-semibold text-indigo-600">₹<?php echo isset($myCookie) ? $cart_products_price : 'MRP' ?></p>
+                                                    <div class="flex item-center justify-between">
+                                                        <div class="flex item-center gap-1">
+                                                            <span class="text-lg font-semibold">Color:</span>
+                                                            <div class="h-4 w-8 my-auto border" style="background-color: <?php echo isset($myCookie) ? htmlspecialchars($color) : 'product color' ?>"></div>
+                                                        </div>
+                                                        <div class="flex item-center gap-1">
+                                                            <?php
+                                                                if(isset($size) == null){
+                                                                    echo "";
+                                                                }else{
+                                                                    ?>
+                                                                        <span class="text-lg font-semibold">Size:</span>
+                                                                        <p class="my-auto"><?php echo isset($myCookie) ? $size : 'product Size' ?></p>
+                                                                    <?php
+                                                                }
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex item-center gap-1">
+                                                        <span class="text-lg font-semibold">QTY:</span>
+                                                        <p class="my-auto"><?php echo isset($myCookie) ? $qty : 'product Quantity';?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    <?php
+                                }
+                            }
+                        }
+                    ?>
+                
                 <p class="mt-8 text-xl font-medium">Payment Methods</p>
                 <p class="text-gray-400">Complete your order by providing your payment details.</p>
                 <div class="mt-5 grid space-y-3 border bg-white rounded-lg px-2 py-4 sm:px-6">
@@ -60,43 +172,43 @@
                         <div>
                             <label for="FirstName" class="mt-4 mb-2 block text-sm font-medium">First Name</label>
                             <div class="relative">
-                                <input type="text" id="FirstName" name="FirstName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value=""/>
+                                <input type="text" id="FirstName" name="FirstName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($myCookie) ? $us['first_name'] : 'User First Name'?>"/>
                             </div>
                         </div>
                         <div>
                             <label for="lastName" class="mt-4 mb-2 block text-sm font-medium">Last Name</label>
                             <div class="relative">
-                                <input type="text" id="lastName" name="lastName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="" />
+                                <input type="text" id="lastName" name="lastName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($myCookie) ? $us['last_name'] : 'User Last Name'?>" />
                             </div>
                         </div>
                     </div>
                     <label for="Phone_number" class="mt-4 mb-2 block text-sm font-medium">Phone Number</label>
                     <div class="relative">
-                        <input type="number" id="Phone_number" name="Phone_number" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="" />
+                        <input type="number" id="Phone_number" name="Phone_number" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($myCookie) ? $us['phone'] : 'User Phone Number'?>" />
                     </div>
                     <label for="user_email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
                     <div class="relative">
-                        <input type="email" id="user_email" name="user_email" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="" />
+                        <input type="email" id="user_email" name="user_email" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($myCookie) ? $us['email'] : 'User email'?>" />
                     </div>
                     <label for="Address" class="mt-4 mb-2 block text-sm font-medium">Shipping Address</label>
                     <div class="relative">
-                        <input type="text" id="Address" name="Address" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value=""/>
+                        <input type="text" id="Address" name="Address" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($myCookie) ? $us['Address'] : 'User Address'?>"/>
                     </div>
                     <label for="state" class="mt-4 mb-2 block text-sm font-medium">State</label>
                     <div class="relative">
-                        <input type="text" id="state" name="state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="" />
+                        <input type="text" id="state" name="state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($myCookie) ? $us['state'] : 'User state'?>" />
                     </div>
                     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                         <div>
                             <label for="city" class="mt-4 mb-2 block text-sm font-medium">City</label>
                             <div class="relative">
-                                <input type="text" id="city" name="city" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value=""/>
+                                <input type="text" id="city" name="city" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($myCookie) ? $us['city'] : 'User city'?>"/>
                             </div>
                         </div>
                         <div>
                             <label for="pin" class="mt-4 mb-2 block text-sm font-medium">Pincode</label>
                             <div class="relative">
-                                <input type="tel" id="pin" name="pin" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" maxlength="6" value=""/>
+                                <input type="tel" id="pin" name="pin" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" maxlength="6" value="<?php echo isset($myCookie) ? $us['pin'] : 'User Pin'?>"/>
                             </div>
                         </div>
                     </div>
@@ -105,16 +217,61 @@
                     <div class="mt-6 border-t border-b py-2">
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Subtotal</p>
-                            <p class="font-semibold text-gray-900">₹1,48,900</p>
+                            <?php
+                                if(isset($myCookie)){
+                                    $product_mrp = $totalPrice;
+                                    $products_price = explode(",", $product_mrp);
+
+                                    $productPrice = implode("", $products_price);
+                                }
+                            ?>
+                            <p class="font-semibold text-gray-900">₹<?php echo isset($myCookie) ? $totalPrice : 'MRP' ?></p>
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
-                            <p class="font-semibold text-gray-900">₹50.00</p>
+                            <p class="font-semibold text-gray-900">₹<?php echo isset($myCookie) ? ($productPrice <= 599 ? $shipping = 40 : $shipping = 0) : $shipping = 0?></p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
-                        <p class="text-sm font-medium text-gray-900">Total</p>
-                        <input type="text" class="float-right bg-transparent border-none text-2xl font-semibold text-gray-900" name="totalProductPrice" value="148,950" dir="rtl">
+                        <p class="text-base font-medium text-gray-900">Total</p>
+                        <label for="totalPrice">
+                            <h1 class="float-right text-2xl font-semibold text-gray-900">₹
+                            <?php
+                                if(isset($myCookie)){
+                                    $productPrice = (float)$productPrice;
+                                    $qty = (int)$qty;
+                                                            
+                                    $totalPriceWithQty = $productPrice * $qty;
+                                                                
+                                    $total = $totalPriceWithQty + $shipping;
+                                                            
+                                    $formattedTotalPriceWithQty = number_format($totalPriceWithQty, 0);
+                                    $formattedTotal = number_format($total, 0);
+                                                                
+                                    echo $formattedTotal;
+                                }else{
+                                    echo 'Total Amount';
+                                }
+                            ?>
+                            </h1>
+                        </label>
+                        <input type="text" id="totalPrice" class="hidden float-right bg-transparent border-none text-2xl font-semibold text-gray-900" name="totalProductPrice" value="₹<?php
+                                if(isset($myCookie)){
+                                    $productPrice = (float)$productPrice;
+                                    $qty = (int)$qty;
+                                                            
+                                    $totalPriceWithQty = $productPrice * $qty;
+                                                                
+                                    $total = $totalPriceWithQty + $shipping;
+                                                            
+                                    $formattedTotalPriceWithQty = number_format($totalPriceWithQty, 0);
+                                    $formattedTotal = number_format($total, 0);
+                                                                
+                                    echo $formattedTotal;
+                                }else{
+                                    echo 'Total Amount';
+                                }
+                            ?>" dir="rtl">
                     </div>
                 </div>
                 <input type="submit" name="placeOrder" value="Place Order" class="mt-4 mb-8 w-full rounded-md bg-indigo-600 px-6 py-3 font-medium text-white cursor-pointer hover:bg-indigo-700 transition duration-200">
@@ -122,124 +279,81 @@
         </div>
     </form>
 
-    <!-- people also like -->
-    <div class="py-12 max-w-screen-xl m-auto px-6">
-        <span class="text-2xl font-medium">People Also Search</span>
-        <div class="grid grid-cols-2 gap-5 gap-y-8 text-[#1d2128] md:grid-cols-4 mt-4">
-            <div onclick="window.location.href = 'Product.php?id='">
-                <div class="group px-2 border rounded-md py-5 md:p-5 relative hover:shadow-2xl transition duration-300">
-                    <div class="absolute left-0 top-0 z-10 p-2 mb-4 pt-3 md:p-5">
-                        <p class="text-[11px] font-medium bg-red-500 text-white py-1 px-3 mb-4 rounded-sm">Sale</p>
-                    </div>
-                    
-                    <!-- images -->
-                    <div class="cursor-pointer relative mt-6">
-                        <a href="Product.php?id=" class="relative m-auto">
-                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain" alt="">
-                        </a>
-                    </div>
-                    <!-- product-details -->
-                    <div class="flex flex-col gap-2 mt-12">
-                        <!-- name -->
-                        <a href="Product.php?id=" class="text-base font-medium line-clamp-2 cursor-pointer">GIGABYTE NVIDIA GeForce RTX 3060 WINDFORCE OC 12GB GDDR6 pci_e_x16 Graphics Card (GV-N3060WF2OC-12GD)</a>
-                        <!-- price -->
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-lg font-medium">₹26,999</span>
-                            <del class="text-[10px] font-normal">₹86,000</del>
-                        </div>
-                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
-                        <p class="text-sm font-normal">Free Delivery</p>
-                        <!-- rating -->
-                        <div class="flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <span class="text-xs font-medium text-[#7c818b]">0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div onclick="window.location.href = 'Product.php?id='">
-                <div class="group px-2 border rounded-md py-5 md:p-5 relative hover:shadow-2xl transition duration-300">
-                    <div class="absolute left-0 top-0 z-10 p-2 mb-4 pt-3 md:p-5">
-                        <p class="text-[11px] font-medium bg-red-500 text-white py-1 px-3 mb-4 rounded-sm">Sale</p>
-                    </div>
-                    
-                    <!-- images -->
-                    <div class="cursor-pointer relative mt-6">
-                        <a href="Product.php?id=" class="relative m-auto">
-                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain" alt="">
-                        </a>
-                    </div>
-                    <!-- product-details -->
-                    <div class="flex flex-col gap-2 mt-12">
-                        <!-- name -->
-                        <a href="Product.php?id=" class="text-base font-medium line-clamp-2 cursor-pointer">GIGABYTE NVIDIA GeForce RTX 3060 WINDFORCE OC 12GB GDDR6 pci_e_x16 Graphics Card (GV-N3060WF2OC-12GD)</a>
-                        <!-- price -->
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-lg font-medium">₹26,999</span>
-                            <del class="text-[10px] font-normal">₹86,000</del>
-                        </div>
-                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
-                        <p class="text-sm font-normal">Free Delivery</p>
-                        <!-- rating -->
-                        <div class="flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <span class="text-xs font-medium text-[#7c818b]">0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div onclick="window.location.href = 'Product.php?id='">
-                <div class="group px-2 border rounded-md py-5 md:p-5 relative hover:shadow-2xl transition duration-300">
-                    <div class="absolute left-0 top-0 z-10 p-2 mb-4 pt-3 md:p-5">
-                        <p class="text-[11px] font-medium bg-red-500 text-white py-1 px-3 mb-4 rounded-sm">Sale</p>
-                    </div>
-                    
-                    <!-- images -->
-                    <div class="cursor-pointer relative mt-6">
-                        <a href="Product.php?id=" class="relative m-auto">
-                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contain" alt="">
-                        </a>
-                    </div>
-                    <!-- product-details -->
-                    <div class="flex flex-col gap-2 mt-12">
-                        <!-- name -->
-                        <a href="Product.php?id=" class="text-base font-medium line-clamp-2 cursor-pointer">GIGABYTE NVIDIA GeForce RTX 3060 WINDFORCE OC 12GB GDDR6 pci_e_x16 Graphics Card (GV-N3060WF2OC-12GD)</a>
-                        <!-- price -->
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-lg font-medium">₹26,999</span>
-                            <del class="text-[10px] font-normal">₹86,000</del>
-                        </div>
-                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
-                        <p class="text-sm font-normal">Free Delivery</p>
-                        <!-- rating -->
-                        <div class="flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            <span class="text-xs font-medium text-[#7c818b]">0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- footer -->
     <?php
         include "../pages/_footer.php";
     ?>
-
 </body>
 </html>
+
+<?php
+    if(isset($_POST['placeOrder'])){
+
+
+        if(isset($_COOKIE['Cart_products'])){
+            $cookie_value = $_COOKIE['Cart_products'];
+            $cart_products = json_decode($cookie_value, true);
+            if (!empty($cart_products) && is_array($cart_products)) {
+                foreach($cart_products as $Cproducts){
+                    $order_image = $Cproducts['cart_image'];
+                    $order_title = $Cproducts['cart_title'];
+                    $order_price = $Cproducts['cart_price'];
+
+                    $order_color = $color;
+                    $order_size = $size;
+
+                    $user_id = $_COOKIE['user_id'];
+                    $product_id = $Cproducts['cart_id'];
+                    $vendor_id = $row['vendor_id'];
+
+                    $FirstName = $_POST['FirstName'];
+                    $lastName = $_POST['lastName'];
+                    $Phone_number = $_POST['Phone_number'];
+                    $user_email = $_POST['user_email'];
+                    $Address = $_POST['Address'];
+                    $state = $_POST['state'];
+                    $city = $_POST['city'];
+                    $pin = $_POST['pin'];
+
+                    $paymentType = $_POST['payment'];
+                    $totalProductPrice = $_POST['totalProductPrice'];
+
+                    $status = 'pending';
+
+                    // $adming_profit
+                    // $vendor_profit
+
+                    // order id
+                    $product_qty = $qty;
+
+                    $review_insert_Date = date('d-m-Y');
+
+                    echo "<h2>Order Details</h2>";
+echo "<p><strong>Product Image:</strong> $order_image</p>";
+echo "<p><strong>Product Title:</strong> $order_title</p>";
+echo "<p><strong>Product Price:</strong> $order_price</p>";
+echo "<p><strong>Color:</strong> $order_color</p>";
+echo "<p><strong>Size:</strong> $order_size</p>";
+echo "<p><strong>User ID:</strong> $user_id</p>";
+echo "<p><strong>Product ID:</strong> $product_id</p>";
+echo "<p><strong>Vendor ID:</strong> $vendor_id</p>";
+echo "<p><strong>First Name:</strong> $FirstName</p>";
+echo "<p><strong>Last Name:</strong> $lastName</p>";
+echo "<p><strong>Phone Number:</strong> $Phone_number</p>";
+echo "<p><strong>Email:</strong> $user_email</p>";
+echo "<p><strong>Address:</strong> $Address</p>";
+echo "<p><strong>State:</strong> $state</p>";
+echo "<p><strong>City:</strong> $city</p>";
+echo "<p><strong>Pin Code:</strong> $pin</p>";
+echo "<p><strong>Payment Type:</strong> $paymentType</p>";
+echo "<p><strong>Total Product Price:</strong> $totalProductPrice</p>";
+echo "<p><strong>Status:</strong> $status</p>";
+echo "<p><strong>Product Quantity:</strong> $product_qty</p>";
+echo "<p><strong>Review Insert Date:</strong> $review_insert_Date</p>";
+                }
+            }
+        }
+    }
+?>
