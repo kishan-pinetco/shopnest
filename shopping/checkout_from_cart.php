@@ -20,38 +20,15 @@
 
         $product_find = "SELECT * FROM products WHERE product_id = '$cart_products_id'";
         $product_query = mysqli_query($con,$product_find);
-        
+
         $row = mysqli_fetch_assoc($product_query);
 
-        if($_GET['color'] === 'color'){
-            $product_colors[] = $row['color'];
-            foreach ($product_colors as $colors){
-                $color_array = explode(',', $colors);
-                foreach($color_array as $clrs){
-                    $color = trim($clrs);
-                    break;
-                }
-            }
-        }
+        $qty = $_GET['qty'];
 
-        if($_GET['size'] === 'size'){
-            $product_size[] = $row['size'];
-            foreach ($product_size as $size){
-                $size_array = explode(',', $size);
-                
-                foreach($size_array as $sz){
-                    $sizz = trim($sz);
-                    break;
-                }
-            }
-        }
-
-        if($_GET['qty']){
-            $qty = $_GET['qty'];
-        }else{
-            $qty = '';
-        }
-
+        $cleaned_string = trim($qty, '[]');
+        $array = explode(',', $cleaned_string);
+        $numbers = array_map('intval', $array);
+        $quantityMap = array_combine(array_keys($cart_products), $numbers);
 
         $vendor_id = $row['vendor_id'];
 
@@ -107,12 +84,42 @@
                             $cookie_value = $_COOKIE['Cart_products'];
                 
                             $cart_products = json_decode($cookie_value, true);
+                            $cart_products_ids = [];
                             if (!empty($cart_products) && is_array($cart_products)) {
-                                foreach($cart_products as $Cproducts){
+                                foreach($cart_products as $index => $Cproducts){
                                     $cart_products_id = $Cproducts['cart_id'];
                                     $cart_products_image = $Cproducts['cart_image'];
                                     $cart_products_title = $Cproducts['cart_title'];
                                     $cart_products_price = $Cproducts['cart_price'];
+
+                                    $product_quantity = isset($quantityMap[$index]) ? $quantityMap[$index] : 'N/A'; // Get the quantity for the product
+                                    $cart_price = str_replace(',', '', $cart_products_price);
+
+                                    $total_price = $product_quantity * $cart_price;
+
+                                    $product_find = "SELECT * FROM products WHERE product_id = '$cart_products_id'";
+                                    $product_query = mysqli_query($con,$product_find);
+
+                                    $row = mysqli_fetch_assoc($product_query);
+
+                                    $colors = $row['color'];
+                                    $color_array = explode(',', $colors);
+                                    
+                                    $array = [];
+                                    if (!empty($color_array)) {
+                                        $first_color = trim($color_array[0]);
+                                        $array[] = $first_color;
+                                    }
+                                    
+                                    // for color
+                                    $size = $row['size'];
+                                    $size_array = explode(',', $size);
+
+                                    if(!empty($size_array)){
+                                        $first_size = trim($size_array[0]);
+                                    }else{
+                                        $first_size = '-';
+                                    }
 
                                     ?>
                                        <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
@@ -120,11 +127,11 @@
                                                 <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($myCookie) ? '../src/product_image/product_profile/' . $cart_products_image : '../src/sample_images/product_1.jpg' ?>" alt="" />
                                                 <div class="flex w-full flex-col px-4 py-4 gap-y-3">
                                                     <span class="font-semibold line-clamp-2"><?php echo isset($myCookie) ? $cart_products_title : 'product title' ?></span>
-                                                    <p class="text-lg font-semibold text-indigo-600">₹<?php echo isset($myCookie) ? $cart_products_price : 'MRP' ?></p>
+                                                    <p class="text-lg font-semibold text-indigo-600">₹<?php echo isset($myCookie) ? number_format($total_price) : 'MRP' ?></p>
                                                     <div class="flex item-center justify-between">
                                                         <div class="flex item-center gap-1">
                                                             <span class="text-lg font-semibold">Color:</span>
-                                                            <div class="h-4 w-8 my-auto border" style="background-color: <?php echo isset($myCookie) ? htmlspecialchars($color) : 'product color' ?>"></div>
+                                                            <div class="h-4 w-8 my-auto border" style="background-color: <?php echo isset($myCookie) ? htmlspecialchars($first_color) : 'product color' ?>"></div>
                                                         </div>
                                                         <div class="flex item-center gap-1">
                                                             <?php
@@ -133,7 +140,7 @@
                                                                 }else{
                                                                     ?>
                                                                         <span class="text-lg font-semibold">Size:</span>
-                                                                        <p class="my-auto"><?php echo isset($myCookie) ? $size : 'product Size' ?></p>
+                                                                        <p class="my-auto"><?php echo isset($myCookie) ? $first_size : 'product Size' ?></p>
                                                                     <?php
                                                                 }
                                                             ?>
@@ -141,7 +148,7 @@
                                                     </div>
                                                     <div class="flex item-center gap-1">
                                                         <span class="text-lg font-semibold">QTY:</span>
-                                                        <p class="my-auto"><?php echo isset($myCookie) ? $qty : 'product Quantity';?></p>
+                                                        <p class="my-auto"><?php echo isset($myCookie) ? $product_quantity : 'product Quantity'; ?></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,11 +232,11 @@
                                     $productPrice = implode("", $products_price);
                                 }
                             ?>
-                            <p class="font-semibold text-gray-900">₹<?php echo isset($myCookie) ? $totalPrice : 'MRP' ?></p>
+                            <p class="font-semibold text-gray-900">₹<?php echo isset($myCookie) ? number_format($totalPrice) : 'MRP' ?></p>
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
-                            <p class="font-semibold text-gray-900">₹<?php echo isset($myCookie) ? ($productPrice <= 599 ? $shipping = 40 : $shipping = 0) : $shipping = 0?></p>
+                            <p class="font-semibold text-gray-900">₹<?php echo isset($myCookie) ? ($productPrice <= 5999 ? $shipping = 40 : $shipping = 0) : $shipping = 0?></p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
@@ -238,10 +245,12 @@
                             <h1 class="float-right text-2xl font-semibold text-gray-900">₹
                             <?php
                                 if(isset($myCookie)){
-                                    $productPrice = (float)$productPrice;
-                                    $qty = (int)$qty;
+                                    $product_mrp = $totalPrice;
+                                    $products_price = explode(",", $product_mrp);
+
+                                    $productPrice = implode("", $products_price);
                                                             
-                                    $totalPriceWithQty = $productPrice * $qty;
+                                    $totalPriceWithQty = $productPrice * $product_quantity;
                                                                 
                                     $total = $totalPriceWithQty + $shipping;
                                                             
@@ -257,10 +266,12 @@
                         </label>
                         <input type="text" id="totalPrice" class="hidden float-right bg-transparent border-none text-2xl font-semibold text-gray-900" name="totalProductPrice" value="₹<?php
                                 if(isset($myCookie)){
-                                    $productPrice = (float)$productPrice;
-                                    $qty = (int)$qty;
+                                    $product_mrp = $totalPrice;
+                                    $products_price = explode(",", $product_mrp);
+
+                                    $productPrice = implode("", $products_price);
                                                             
-                                    $totalPriceWithQty = $productPrice * $qty;
+                                    $totalPriceWithQty = $productPrice * $product_quantity;
                                                                 
                                     $total = $totalPriceWithQty + $shipping;
                                                             
@@ -279,7 +290,7 @@
         </div>
     </form>
 
-    
+    <br><br>
 
     <!-- footer -->
     <?php
@@ -301,8 +312,8 @@
                     $order_title = $Cproducts['cart_title'];
                     $order_price = $Cproducts['cart_price'];
 
-                    $order_color = $color;
-                    $order_size = $size;
+                    $order_color = $first_color;
+                    $order_size = $first_size;
 
                     $user_id = $_COOKIE['user_id'];
                     $product_id = $Cproducts['cart_id'];
@@ -326,7 +337,7 @@
                     // $vendor_profit
 
                     // order id
-                    $product_qty = $qty;
+                    $product_qty = $product_quantity;
 
                     $review_insert_Date = date('d-m-Y');
 

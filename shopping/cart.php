@@ -1,5 +1,7 @@
 <?php
     include "../include/connect.php";
+    session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,21 +38,49 @@
 
     <!-- shopping cart -->
     <section class="bg-gray-100 py-8 antialiased  md:py-16">
-        <form method="post" action="" class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
                 <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
                     <div class="space-y-6">
                         <?php
                             if(isset($_COOKIE['Cart_products'])){
+                                $totalCartPrice = 0;
                                 $cookie_value = $_COOKIE['Cart_products'];
 
                                 $cart_products = json_decode($cookie_value, true);
+                                $all_quantities = [];
                                 if (!empty($cart_products) && is_array($cart_products)) {
                                     foreach($cart_products as $Cproducts){
                                         $cart_products_id = $Cproducts['cart_id'];
                                         $cart_products_image = $Cproducts['cart_image'];
                                         $cart_products_title = $Cproducts['cart_title'];
                                         $cart_products_price = $Cproducts['cart_price'];
+
+                                        if (!isset($_SESSION['quantity'][$cart_products_id])) {
+                                            $_SESSION['quantity'][$cart_products_id] = 1;
+                                        }
+                                
+                                        if (isset($_POST['action']) && isset($_POST['product_id']) && $_POST['product_id'] == $cart_products_id) {
+                                            if ($_POST['action'] === 'increment') {
+                                                $_SESSION['quantity'][$cart_products_id]++;
+                                            } elseif ($_POST['action'] === 'decrement') {
+                                                if ($_SESSION['quantity'][$cart_products_id] > 1) {
+                                                    $_SESSION['quantity'][$cart_products_id]--;
+                                                }
+                                            }
+                                        }
+
+                                        $cart_price = str_replace(',', '', $cart_products_price);
+                                
+                                        $number = $_SESSION['quantity'][$cart_products_id];
+
+                                        $all_quantities[] = $number;
+                                        $price = $cart_price;
+                                        $result = $number * $price;
+
+                                        $resultNumeric = intval($result);
+                                        $totalCartPrice += $resultNumeric;
+
                                         ?>
                                         <div class="rounded-lg bg-white p-4 shadow-md md:p-6">
                                             <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
@@ -60,17 +90,18 @@
 
                                                 <label for="counter-input" class="sr-only">Choose quantity:</label>
                                                 <div class="flex items-center justify-between md:order-3 md:justify-end">
-                                                    <div class="flex items-center">
-                                                        <button type="button" id="decrement-button" data-input-counter-decrement="counter-input" class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300  focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 ">
+                                                    <form action="" method="post" class="flex items-center justify-center mb-4">
+                                                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($cart_products_id); ?>">
+                                                        <button type="submit" name="action" value="decrement" class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600">
                                                             <svg class="h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" /></svg>
                                                         </button>
-                                                        <p class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium focus:outline-none focus:ring-0 ">1</p>
-                                                        <button type="submit" name="increase" id="increment-button" class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300  focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 " >
+                                                        <input type="text" name="qty" id="count" class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium focus:outline-none focus:ring-0" value="<?php echo htmlspecialchars($number); ?>" readonly>
+                                                        <button type="submit" name="action" value="increment" class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600">
                                                             <svg class="h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" /></svg>
                                                         </button>
-                                                    </div>
+                                                    </form>
                                                     <div class="text-end md:order-4 md:w-32">
-                                                        <p class="text-base font-bold">₹<?php echo isset($_COOKIE['Cart_products']) ? $cart_products_price : ''?></p>
+                                                        <p class="text-base font-bold">₹<?php echo isset($_COOKIE['Cart_products']) ? number_format($number * $price) : ''?></p>
                                                     </div>
                                                 </div>
 
@@ -96,7 +127,7 @@
                                             <h1 class="text-3xl font-semibold text-gray-800">Your Cart is Empty</h1>
                                             <p class="text-gray-600 mt-2">Looks like you haven’t added any products to your cart yet.</p>
                                         </div>
-                                    <?php
+                                        <?php
                                 }
                             }
                         ?>
@@ -110,34 +141,18 @@
                         <div class="space-y-4">
                             <dl class="flex items-center justify-between gap-4 border-b pt-2">
                                 <dt class="text-base font-bold">Total</dt>
-                                <?php
-                                    if(isset($_COOKIE['Cart_products'])){
-                                        $cookie_value = $_COOKIE['Cart_products'];
-
-                                        $cart_products = json_decode($cookie_value, true);
-                                        $total_price = 0;
-                                        foreach($cart_products as $Cprice){
-                                            $cart_price = str_replace(',', '', $Cprice['cart_price']);
-                                            if(is_numeric($cart_price)){
-                                                $total_price += $cart_price;
-                                            }
-                                        }
-
-                                        $sumPrice = number_format($total_price);
-
-                                        ?>
-                                            <dd class="text-base font-bold">₹<?php echo $sumPrice?></dd>
-                                        <?php
-                                    }
-                                ?>
+                                <dd class="text-base font-bold">₹<?php echo number_format($totalCartPrice)?></dd>
                             </dl>  
                         </div>
 
                         <?php
+                            $quantity_josn = json_encode($all_quantities);
+                            $encode_josn = urldecode($quantity_josn);
+
                             if(isset($_COOKIE['user_id'])){
                                 $color = 'color';
                                 $size = 'size';
-                                $url = 'checkout_from_cart.php?totalPrice=' . urlencode($sumPrice) . '&color=' . $color .'&size=' . $size .'&qty=' . urlencode(1);
+                                $url = 'checkout_from_cart.php?totalPrice=' . urlencode($totalCartPrice) . '&color=null' . $color .'&size=null' . $size .'&qty=' . urlencode($encode_josn);
                             }else{
                                 $url = '../authentication/user_auth/user_login.php';
                             }
@@ -158,8 +173,9 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </section>
+
 
     <div class="py-12 max-w-screen-xl m-auto px-6">
         <span class="text-2xl font-medium">People Also Search</span>
