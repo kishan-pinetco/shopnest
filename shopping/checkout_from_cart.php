@@ -85,42 +85,24 @@
                 
                             $cart_products = json_decode($cookie_value, true);
                             $cart_products_ids = [];
+
+                            // for the color or size
+                            // $crl_array = [];
+                            // $sz = [];
+
                             if (!empty($cart_products) && is_array($cart_products)) {
                                 foreach($cart_products as $index => $Cproducts){
                                     $cart_products_id = $Cproducts['cart_id'];
                                     $cart_products_image = $Cproducts['cart_image'];
                                     $cart_products_title = $Cproducts['cart_title'];
                                     $cart_products_price = $Cproducts['cart_price'];
+                                    $cart_products_color = $Cproducts['cart_color'];
+                                    $cart_products_size = $Cproducts['cart_size'];
 
                                     $product_quantity = isset($quantityMap[$index]) ? $quantityMap[$index] : 'N/A'; // Get the quantity for the product
                                     $cart_price = str_replace(',', '', $cart_products_price);
 
                                     $total_price = $product_quantity * $cart_price;
-
-                                    $product_find = "SELECT * FROM products WHERE product_id = '$cart_products_id'";
-                                    $product_query = mysqli_query($con,$product_find);
-
-                                    $row = mysqli_fetch_assoc($product_query);
-
-                                    $colors = $row['color'];
-                                    $color_array = explode(',', $colors);
-                                    
-                                    $array = [];
-                                    if (!empty($color_array)) {
-                                        $first_color = trim($color_array[0]);
-                                        $array[] = $first_color;
-                                    }
-                                    
-                                    // for color
-                                    $size = $row['size'];
-                                    $size_array = explode(',', $size);
-
-                                    if(!empty($size_array)){
-                                        $first_size = trim($size_array[0]);
-                                    }else{
-                                        $first_size = '-';
-                                    }
-
                                     ?>
                                        <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
                                             <div class="flex flex-col rounded-lg bg-white sm:flex-row">
@@ -131,7 +113,7 @@
                                                     <div class="flex item-center justify-between">
                                                         <div class="flex item-center gap-1">
                                                             <span class="text-lg font-semibold">Color:</span>
-                                                            <div class="h-4 w-8 my-auto border" style="background-color: <?php echo isset($myCookie) ? htmlspecialchars($first_color) : 'product color' ?>"></div>
+                                                            <div class="h-4 w-8 my-auto border" style="background-color: <?php echo isset($myCookie) ? htmlspecialchars($cart_products_color) : 'product color' ?>"></div>
                                                         </div>
                                                         <div class="flex item-center gap-1">
                                                             <?php
@@ -140,7 +122,7 @@
                                                                 }else{
                                                                     ?>
                                                                         <span class="text-lg font-semibold">Size:</span>
-                                                                        <p class="my-auto"><?php echo isset($myCookie) ? $first_size : 'product Size' ?></p>
+                                                                        <p class="my-auto"><?php echo isset($myCookie) ? $cart_products_size : 'product Size' ?></p>
                                                                     <?php
                                                                 }
                                                             ?>
@@ -236,7 +218,7 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
-                            <p class="font-semibold text-gray-900">₹<?php echo isset($myCookie) ? ($productPrice <= 5999 ? $shipping = 40 : $shipping = 0) : $shipping = 0?></p>
+                            <p class="font-semibold text-gray-900">₹<?php echo isset($myCookie) ? ($productPrice <= 599 ? $shipping = 40 : $shipping = 0) : $shipping = 0?></p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
@@ -301,70 +283,140 @@
 
 <?php
     if(isset($_POST['placeOrder'])){
-
-
         if(isset($_COOKIE['Cart_products'])){
             $cookie_value = $_COOKIE['Cart_products'];
             $cart_products = json_decode($cookie_value, true);
             if (!empty($cart_products) && is_array($cart_products)) {
                 foreach($cart_products as $Cproducts){
-                    $order_image = $Cproducts['cart_image'];
-                    $order_title = $Cproducts['cart_title'];
-                    $order_price = $Cproducts['cart_price'];
-
-                    $order_color = $first_color;
-                    $order_size = $first_size;
-
-                    $user_id = $_COOKIE['user_id'];
-                    $product_id = $Cproducts['cart_id'];
-                    $vendor_id = $row['vendor_id'];
-
-                    $FirstName = $_POST['FirstName'];
-                    $lastName = $_POST['lastName'];
-                    $Phone_number = $_POST['Phone_number'];
-                    $user_email = $_POST['user_email'];
-                    $Address = $_POST['Address'];
-                    $state = $_POST['state'];
-                    $city = $_POST['city'];
-                    $pin = $_POST['pin'];
-
-                    $paymentType = $_POST['payment'];
-                    $totalProductPrice = $_POST['totalProductPrice'];
-
-                    $status = 'pending';
-
-                    // $adming_profit
-                    // $vendor_profit
-
-                    // order id
+                    // Escape special characters
+                    $order_image = mysqli_real_escape_string($con, $Cproducts['cart_image']);
+                    $order_title = mysqli_real_escape_string($con, $Cproducts['cart_title']);
+                    $order_price = mysqli_real_escape_string($con, $Cproducts['cart_price']);
+                    $order_color = mysqli_real_escape_string($con, $Cproducts['cart_color']);
+                    $order_size = mysqli_real_escape_string($con, $Cproducts['cart_size']);
                     $product_qty = $product_quantity;
-
+    
+                    $user_id = mysqli_real_escape_string($con, $_COOKIE['user_id']);
+                    $product_id = mysqli_real_escape_string($con, $Cproducts['cart_id']);
+                    $vendor_id = mysqli_real_escape_string($con, $row['vendor_id']);
+    
+                    $FirstName = mysqli_real_escape_string($con, $_POST['FirstName']);
+                    $lastName = mysqli_real_escape_string($con, $_POST['lastName']);
+                    $Phone_number = mysqli_real_escape_string($con, $_POST['Phone_number']);
+                    $user_email = mysqli_real_escape_string($con, $_POST['user_email']);
+                    $Address = mysqli_real_escape_string($con, $_POST['Address']);
+                    $state = mysqli_real_escape_string($con, $_POST['state']);
+                    $city = mysqli_real_escape_string($con, $_POST['city']);
+                    $pin = mysqli_real_escape_string($con, $_POST['pin']);
+    
+                    if(isset($_POST['payment'])){
+                        $paymentType = mysqli_real_escape_string($con, $_POST['payment']);
+                    }
+    
+                    if($order_price <= 599){
+                        $shipping = 40;
+                    } else {
+                        $shipping = 0;
+                    }
+    
+                    $bac = str_replace(",", "", $order_price);
+                    $bac = (int)$bac;
+    
+                    $totalProductPrice = number_format($bac + $shipping);
+    
+                    $status = 'Ready For Delivery';
+    
+                    $orders_prices = str_replace("," , "", $Cproducts['cart_price']);
+    
+                    $admin_profit = 20 + $shipping;
+                    $vendor_profit = number_format($orders_prices - $admin_profit);
+    
                     $review_insert_Date = date('d-m-Y');
+    
+                    if(!empty($FirstName) && !empty($lastName) && !empty($Phone_number) && !empty($user_email) && !empty($Address) && !empty($state) && !empty($city) && !empty($pin) && !empty($paymentType)){
+                        $order_insert_sql = "INSERT INTO orders (order_tital, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, status, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$status', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";                        
+                        $order_insert_query = mysqli_query($con, $order_insert_sql);
 
-                    echo "<h2>Order Details</h2>";
-echo "<p><strong>Product Image:</strong> $order_image</p>";
-echo "<p><strong>Product Title:</strong> $order_title</p>";
-echo "<p><strong>Product Price:</strong> $order_price</p>";
-echo "<p><strong>Color:</strong> $order_color</p>";
-echo "<p><strong>Size:</strong> $order_size</p>";
-echo "<p><strong>User ID:</strong> $user_id</p>";
-echo "<p><strong>Product ID:</strong> $product_id</p>";
-echo "<p><strong>Vendor ID:</strong> $vendor_id</p>";
-echo "<p><strong>First Name:</strong> $FirstName</p>";
-echo "<p><strong>Last Name:</strong> $lastName</p>";
-echo "<p><strong>Phone Number:</strong> $Phone_number</p>";
-echo "<p><strong>Email:</strong> $user_email</p>";
-echo "<p><strong>Address:</strong> $Address</p>";
-echo "<p><strong>State:</strong> $state</p>";
-echo "<p><strong>City:</strong> $city</p>";
-echo "<p><strong>Pin Code:</strong> $pin</p>";
-echo "<p><strong>Payment Type:</strong> $paymentType</p>";
-echo "<p><strong>Total Product Price:</strong> $totalProductPrice</p>";
-echo "<p><strong>Status:</strong> $status</p>";
-echo "<p><strong>Product Quantity:</strong> $product_qty</p>";
-echo "<p><strong>Review Insert Date:</strong> $review_insert_Date</p>";
+                        // remove quantity of products
+                        $products_id = $Cproducts['cart_id'];
+
+                        $get_qty = "SELECT * FROM products WHERE product_id = '$products_id'";
+                        $get_qty_query = mysqli_query($con, $get_qty);
+
+                        $qty = mysqli_fetch_assoc($get_qty_query);
+                        $product_quty = $qty['Quantity'];
+
+                        $qty_replace = str_replace(",", "",$product_quty);
+
+                        $remove_quty = $qty_replace - $product_qty;
+
+                        $update_qty = "UPDATE products SET Quantity='$remove_quty' WHERE product_id = '$products_id'";
+                        $update_qty_quary = mysqli_query($con, $update_qty);
+    
+                        if(!$order_insert_query){
+                            // Log error for debugging
+                            error_log("MySQL Error: " . mysqli_error($con));
+                        }
+                    } else {
+                        // Log missing field for debugging
+                        error_log("Missing fields in the order data.");
+                    }
+                }
+                
+                // Success Message Outside the Loop
+                if(isset($order_insert_query) && isset($update_qty_quary)){
+
+                    ?>
+                        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
+                            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div>
+                                    <span class="font-medium">Your Order Has been Placed.</span>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <script>
+                            let popUp = document.getElementById('popUp');
+                            popUp.style.display = 'flex';
+                            popUp.style.opacity = '100';
+                            setTimeout(() => {
+                                popUp.style.display = 'none';
+                                popUp.style.opacity = '0';
+                                window.location.href = '../index.php';
+                            }, 1500);
+                        </script>
+                    <?php
+                } else {
+                    ?>
+                        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+                            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div>
+                                    <span class="font-medium">Order Not Placed Please try again.</span>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <script>
+                            let EpopUp = document.getElementById('EpopUp');
+                            EpopUp.style.display = 'flex';
+                            EpopUp.style.opacity = '100';
+                            setTimeout(() => {
+                                EpopUp.style.display = 'none';
+                                EpopUp.style.opacity = '0';
+                            }, 1500);
+                        </script>
+                    <?php
                 }
             }
         }
     }
+    
 ?>

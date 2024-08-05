@@ -23,7 +23,7 @@
         }
 
         if($_GET['size'] == ''){
-            $size = null;
+            $size = '-';
         }else{
             $size = $_GET['size'];
         }
@@ -202,7 +202,7 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
-                            <p class="font-semibold text-gray-900">₹<?php echo isset($product_id) ? ($productPrice <= 599 ? $shipping = 40 : $shipping = 0) : $shipping = 0?></p>
+                            <p class="font-semibold text-gray-900">₹<?php echo isset($product_id) ? ($totalPriceWithQty <= 599 ? $shipping = 40 : $shipping = 0) : $shipping = 0?></p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
@@ -263,36 +263,124 @@
 
 <?php
     if(isset($_POST['placeOrder'])){
-        $order_title = $row['title'];
-        $order_image = $row['image_1'];
-        $order_price = $row['MRP'];
-        $order_color = $color;
-        $order_size = $size;
+        $order_title = mysqli_real_escape_string($con, $row['title']);
+        $order_image = mysqli_real_escape_string($con, $row['image_1']);
+        $order_price = mysqli_real_escape_string($con, $totalPriceWithQty);
+        $order_color = mysqli_real_escape_string($con, $color);
+        $order_size = mysqli_real_escape_string($con, $size);
 
-        $user_id = $_COOKIE['user_id'];
-        $product_id = $_GET['product_id'];
-        $vendor_id = $row['vendor_id'];
-
-        $FirstName = $_POST['FirstName'];
-        $lastName = $_POST['lastName'];
-        $Phone_number = $_POST['Phone_number'];
-        $user_email = $_POST['user_email'];
-        $Address = $_POST['Address'];
-        $state = $_POST['state'];
-        $city = $_POST['city'];
-        $pin = $_POST['pin'];
-
-        $paymentType = $_POST['payment'];
-        $totalProductPrice = $_POST['totalProductPrice'];
-
-        $status = 'pending';
-        
-        // $adming_profit
-        // $vendor_profit
-
-        // order id
         $product_qty = $qty;
 
+        $user_id = mysqli_real_escape_string($con, $_COOKIE['user_id']);
+        $product_id = mysqli_real_escape_string($con, $_GET['product_id']);
+        $vendor_id = mysqli_real_escape_string($con, $row['vendor_id']);
+
+        $FirstName = mysqli_real_escape_string($con, $_POST['FirstName']);
+        $lastName = mysqli_real_escape_string($con, $_POST['lastName']);
+        $user_email = mysqli_real_escape_string($con, $_POST['user_email']);
+        $Phone_number = mysqli_real_escape_string($con, $_POST['Phone_number']);
+        $Address = mysqli_real_escape_string($con, $_POST['Address']);
+        $state = mysqli_real_escape_string($con, $_POST['state']);
+        $city = mysqli_real_escape_string($con, $_POST['city']);
+        $pin = mysqli_real_escape_string($con, $_POST['pin']);
+
+        if(isset($_POST['payment'])){
+            $paymentType = mysqli_real_escape_string($con, $_POST['payment']);
+        }
+        $status = 'Ready For Delivery';
+
+        $bac = str_replace(",", "", $order_price);
+        $bac = (int)$bac;
+    
+        $totalProductPrice = number_format($bac + $shipping);
+
+        
+        $orders_prices = str_replace("," , "", $order_price);
+    
+        $admin_profit = 20 + $shipping;
+        $vendor_profit = number_format($orders_prices - $admin_profit);
+
         $review_insert_Date = date('d-m-Y');
+
+        if(!empty($FirstName) && !empty($lastName) && !empty($Phone_number) && !empty($user_email) && !empty($Address) && !empty($state) && !empty($city) && !empty($pin) && !empty($paymentType)){
+            $order_insert_sql = "INSERT INTO orders (order_tital, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, status, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$status', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";                        
+            $order_insert_query = mysqli_query($con, $order_insert_sql);
+
+            // remove quantity of products
+
+            $get_qty = "SELECT * FROM products WHERE product_id = '$product_id'";
+            $get_qty_query = mysqli_query($con, $get_qty);
+
+            $qty = mysqli_fetch_assoc($get_qty_query);
+            $product_quty = $qty['Quantity'];
+
+            $qty_replace = str_replace(",", "",$product_quty);
+
+            $remove_quty = $qty_replace - $product_qty;
+
+            $update_qty = "UPDATE products SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
+            $update_qty_quary = mysqli_query($con, $update_qty);
+
+            if(!$order_insert_query){
+                // Log error for debugging
+                error_log("MySQL Error: " . mysqli_error($con));
+            }
+        } else {
+            // Log missing field for debugging
+            error_log("Missing fields in the order data.");
+        }
+
+
+        if(isset($order_insert_query) && isset($update_qty_quary)){
+
+            ?>
+                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
+                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Your Order Has been Placed.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    let popUp = document.getElementById('popUp');
+                    popUp.style.display = 'flex';
+                    popUp.style.opacity = '100';
+                    setTimeout(() => {
+                        popUp.style.display = 'none';
+                        popUp.style.opacity = '0';
+                        window.location.href = '../index.php';
+                    }, 1500);
+                </script>
+            <?php
+        } else {
+            ?>
+                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Order Not Placed Please try again.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    let EpopUp = document.getElementById('EpopUp');
+                    EpopUp.style.display = 'flex';
+                    EpopUp.style.opacity = '100';
+                    setTimeout(() => {
+                        EpopUp.style.display = 'none';
+                        EpopUp.style.opacity = '0';
+                    }, 1500);
+                </script>
+            <?php
+        }
     }
 ?>

@@ -9,6 +9,22 @@ if (isset($_GET['product_id'])) {
     $product_query = mysqli_query($con, $product_find);
 
     $res = mysqli_fetch_assoc($product_query);
+    $colors = $res['color'];
+    $color_array = explode(',', $colors);
+
+    if (!empty($color_array)) {
+        $first_color = trim($color_array[0]);
+    }
+
+    // for color
+    $size = $res['size'];
+    $size_array = explode(',', $size);
+
+    if(!empty($size_array)){
+        $first_size = trim($size_array[0]);
+    }else{
+        $first_size = '-';
+    }
 }
 
 $cart_products = [];
@@ -25,7 +41,9 @@ $cart_items = array(
     'cart_id' => $res['product_id'],
     'cart_image' => $res['image_1'],
     'cart_title' => $res['title'],
-    'cart_price' => $res['MRP']
+    'cart_price' => $res['MRP'],
+    'cart_color' => $first_color,
+    'cart_size' => $first_size
 );
 
 $cart_id = '';
