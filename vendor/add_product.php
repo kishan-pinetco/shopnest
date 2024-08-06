@@ -668,7 +668,7 @@
         $CoverImage4 = $_FILES['CoverImage4']['error'] === UPLOAD_ERR_OK ? $CoverImage4 : '';
 
         if ($allFilesUploaded) {
-            $product_insert = "INSERT INTO products(vendor_id, tital, image_1, image_2, image_3, image_4, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, Your_Price, MRP, Quantity, Item_Condition, Description, color, size, keywords, date) VALUES ('$vendor_id','$full_name','$ProfileImage1','$ProfileImage2','$ProfileImage3','$ProfileImage4','$CoverImage1','$CoverImage2','$CoverImage3','$CoverImage4','$Company_name','$Category','$type','$your_price','$MRP','$quantity','$condition','$description','$color_value','$size_value','$keywords_value','$Product_insert_Date')";
+            $product_insert = "INSERT INTO products(vendor_id, title, image_1, image_2, image_3, image_4, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, Your_Price, MRP, Quantity, Item_Condition, Description, color, size, keywords, date) VALUES ('$vendor_id','$full_name','$ProfileImage1','$ProfileImage2','$ProfileImage3','$ProfileImage4','$CoverImage1','$CoverImage2','$CoverImage3','$CoverImage4','$Company_name','$Category','$type','$your_price','$MRP','$quantity','$condition','$description','$color_value','$size_value','$keywords_value','$Product_insert_Date')";
             $product_query = mysqli_query($con,$product_insert);
             if($product_query){
                 echo '<script>displaySuccessMessage("Data Inserted.");</script>';
