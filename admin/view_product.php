@@ -109,47 +109,56 @@
                         </div>
                     </div>
                 </header>
-                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-                    <section class="container mx-auto p-6 text-center">
-                        <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                            <div class="w-full overflow-x-auto">
-                                <table class="w-full">
-                                    <thead>
-                                        <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
-                                            <th class="px-4 py-3">ID</th>
-                                            <th class="px-4 py-3">First Name</th>
-                                            <th class="px-4 py-3">Last Name</th>
-                                            <th class="px-4 py-3">Mobile</th>
-                                            <th class="px-4 py-3">Email</th>
-                                            <th class="px-4 py-3">Address</th>
-                                            <th class="px-4 py-3">State</th>
-                                            <th class="px-4 py-3">City</th>
-                                            <th class="px-4 py-3">Pincode</th>
-                                            <th class="px-4 py-3">Password</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white">
-                                        <tr class="text-gray-700">
-                                            <td class="px-4 py-3 border cursor-pointer" title="">1</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">Abhijeet</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">Dabhi</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">7863843776</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">abhijeetdabhi@gmamil.com</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">Surat</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">Gujarat</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">Surat</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">395004</td>
-                                            <td class="px-4 py-3 border cursor-pointer" title="">******</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
+                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 p-6">
+                    <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 gap-x-8 text-[#1d2128] mt-4">
+                        <?php
+
+                            include "../include/connect.php";
+                            if(isset($_COOKIE['adminEmail'])){
+                                $product_find = "SELECT * FROM products";
+                                $product_query = mysqli_query($con,$product_find);
+    
+                                while($res = mysqli_fetch_assoc($product_query)){
+                                    $vendor_id = $res['vendor_id'];
+                                    $get_vendor = "SELECT * FROM `vendor_registration` WHERE vendor_id = '$vendor_id'";
+                                    $vendor_query = mysqli_query($con, $get_vendor);
+                                    $row = mysqli_fetch_assoc($vendor_query);
+                                    ?>
+                                        <div class="bg-white rounded-lg shadow-sm overflow-hidden max-w-xs w-full">
+                                            <div class="relative">
+                                                <img src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg'?>" alt="Product Image" class="w-full h-full object-cover">
+                                                <span class="absolute top-2 right-2 bg-green-500 text-white text-xs font-semibold py-1 px-2 rounded-full"><?php echo isset($_COOKIE['adminEmail']) ? $res['Item_Condition'] : 'Item_Condition'?></span>
+                                            </div>
+                                            <div class="p-4">
+                                                <h2 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $res['title'] : 'title'?></h2>
+                                                <a href="../vendor/vendor_store.php?vendor_id=<?php echo $res['vendor_id'] ?>" class="text-sm text-gray-600 mb-3">By <span class="font-bold text-base text-indigo-600"><?php echo isset($_COOKIE['adminEmail']) ? $row['username'] : 'username'?></span></a>
+                                                <div class="text-gray-600 text-sm mb-2 space-y-1">
+                                                    <p>Company: <span class="font-medium"><?php echo isset($_COOKIE['adminEmail']) ? $res['company_name'] : 'company_name'?></span></p>
+                                                    <p>Category: <span class="font-medium"><?php echo isset($_COOKIE['adminEmail']) ? $res['Category'] : 'Category'?></span></p>
+                                                    <p>Date: <span class="font-medium"><?php echo isset($_COOKIE['adminEmail']) ? $res['date'] : 'date'?></span></p>
+                                                </div>
+                                                <div class="flex items-center justify-between border-t pt-2 border-gray-200">
+                                                    <div>
+                                                        <p class="text-md font-semibold text-gray-900">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['MRP'] : 'MRP'?></p>
+                                                        <p class="text-sm font-medium text-gray-500 line-through">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['Your_Price'] : 'Delete Price'?></p>
+                                                    </div>
+                                                    <div class="flex space-x-2">
+                                                        <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="bg-blue-600 text-white text-xs py-1 px-2 rounded-full shadow hover:bg-blue-700 transition">View</a>
+                                                        <button class="bg-red-600 text-white text-xs py-1 px-2 rounded-full shadow hover:bg-red-700 transition">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
+                                }
+                            }
+                        ?>
+                    </div>
                 </main>
             </div>
         </div>
     </div>
+
 
 
 </body>

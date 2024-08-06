@@ -133,141 +133,43 @@
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <div class="py-12 max-w-screen-xl m-auto px-6">
                         <span class="text-2xl font-semibold">Your Products</span>
-                        <div class="grid grid-cols-2 gap-5 gap-y-8 text-[#1d2128] md:grid-cols-4 mt-4">
-                            <div>
-                                <div class="group px-2 border rounded-md py-5 md:p-5 relative hover:shadow-2xl transition duration-300">
-                                    <div class="absolute left-0 top-0 z-10 p-2 mb-4 pt-3 md:p-5">
-                                        <p class="text-[11px] font-medium bg-red-500 text-white py-1 px-3 mb-4 rounded-sm">Sale</p>
-                                    </div>
-                                    <div class="absolute right-0 top-0 z-10 p-2 mb-4 pt-3 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
-                                        <!-- edit -->
-                                        <a href="update_product.php" title="Edit Your Product" class="text-xl text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <!-- delete -->
-                                        <a href="delete_product.php" title="Delete Your Product" class="text-xl text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    </div>
-                                    <!-- images -->
-                                    <div class="cursor-pointer relative mt-6">
-                                        <div class="relative m-auto">
-                                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contai mix-blend-multiply" alt="">
-                                        </div>
-                                    </div>
-                                    <!-- product-details -->
-                                    <div class="flex flex-col gap-2 mt-12">
-                                        <!-- name -->
-                                        <a href="Product.php?id=" class="text-base font-medium line-clamp-2 cursor-pointer">GIGABYTE NVIDIA GeForce RTX 3060 WINDFORCE OC 12GB GDDR6 pci_e_x16 Graphics Card (GV-N3060WF2OC-12GD)</a>
-                                        <!-- price -->
-                                        <div class="flex items-baseline gap-1">
-                                            <span class="text-lg font-medium">₹26,999</span>
-                                            <del class="text-[10px] font-normal">₹86,000</del>
-                                        </div>
-                                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
-                                        <p class="text-sm font-normal">Free Delivery</p>
-                                        <!-- rating -->
-                                        <div class="flex items-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <span class="text-xs font-medium text-[#7c818b]">0</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 text-[#1d2128] mt-4">
+                            <?php
+                                $product_find = "SELECT * FROM products WHERE vendor_id = '$vendor_id'";
+                                $product_query = mysqli_query($con,$product_find);
 
-                            <div>
-                                <div class="group px-2 border rounded-md py-5 md:p-5 relative hover:shadow-2xl transition duration-300">
-                                    <div class="absolute left-0 top-0 z-10 p-2 mb-4 pt-3 md:p-5">
-                                        <p class="text-[11px] font-medium bg-red-500 text-white py-1 px-3 mb-4 rounded-sm">Sale</p>
-                                    </div>
-                                    <div class="absolute right-0 top-0 z-10 p-2 mb-4 pt-3 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
-                                        <!-- edit -->
-                                        <a href="update_product.php" title="Edit Your Product" class="text-xl text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <!-- delete -->
-                                        <a href="delete_product.php" title="Delete Your Product" class="text-xl text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    </div>
-                                    <!-- images -->
-                                    <div class="cursor-pointer relative mt-6">
-                                        <div class="relative m-auto">
-                                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contai mix-blend-multiply" alt="">
-                                        </div>
-                                    </div>
-                                    <!-- product-details -->
-                                    <div class="flex flex-col gap-2 mt-12">
-                                        <!-- name -->
-                                        <a href="Product.php?id=" class="text-base font-medium line-clamp-2 cursor-pointer">GIGABYTE NVIDIA GeForce RTX 3060 WINDFORCE OC 12GB GDDR6 pci_e_x16 Graphics Card (GV-N3060WF2OC-12GD)</a>
-                                        <!-- price -->
-                                        <div class="flex items-baseline gap-1">
-                                            <span class="text-lg font-medium">₹26,999</span>
-                                            <del class="text-[10px] font-normal">₹86,000</del>
-                                        </div>
-                                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
-                                        <p class="text-sm font-normal">Free Delivery</p>
-                                        <!-- rating -->
-                                        <div class="flex items-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <span class="text-xs font-medium text-[#7c818b]">0</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div>
-                                <div class="group px-2 border rounded-md py-5 md:p-5 relative hover:shadow-2xl transition duration-300">
-                                    <div class="absolute left-0 top-0 z-10 p-2 mb-4 pt-3 md:p-5">
-                                        <p class="text-[11px] font-medium bg-red-500 text-white py-1 px-3 mb-4 rounded-sm">Sale</p>
-                                    </div>
-                                    <div class="absolute right-0 top-0 z-10 p-2 mb-4 pt-3 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
-                                        <!-- edit -->
-                                        <a href="update_product.php" title="Edit Your Product" class="text-xl text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <!-- delete -->
-                                        <a href="delete_product.php" title="Delete Your Product" class="text-xl text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    </div>
-                                    <!-- images -->
-                                    <div class="cursor-pointer relative mt-6">
-                                        <div class="relative m-auto">
-                                            <img src="https://m.media-amazon.com/images/I/71OFKtclW4L._SL1500_.jpg" class="h-full md:h-52 object-contai mix-blend-multiply" alt="">
+                                while($res = mysqli_fetch_assoc($product_query)){
+                                    ?>
+                                        <div class="card w-full flex-shrink-0 p-4 group relative">
+                                            <div class="absolute right-0 top-0 z-10 p-2 mb-4 pt-3 mt-2 mr-2 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
+                                                <!-- edit -->
+                                                <a href="update_product.php?product_id=<?php echo $res['product_id']?>&name=<?php echo $res['Category']?>" title="Edit Your Product" class="text-xl text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                                <!-- delete -->
+                                                <a href="delete_product.php?product_id=<?php echo $res['product_id']?>" title="Delete Your Product" class="text-xl text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </a>
+                                            </div>
+                                            <div class="p-3 border rounded-lg transition transform hover:shadow-lg bg-white">
+                                                <div>
+                                                    <img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg'?>" class="h-full w-full object-contai mix-blend-multiply" alt="">
+                                                </div>
+                                                <div class="mt-2">
+                                                    <div class="space-y-1">
+                                                    <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id'?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $res['title'] : 'product Name'?></a>
+                                                        <p class="space-x-2">
+                                                            <span class="text-lg font-medium text-indigo-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['MRP'] : 'MRP'?></span>
+                                                            <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['Your_Price'] : 'Delete Price'?></del>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- product-details -->
-                                    <div class="flex flex-col gap-2 mt-12">
-                                        <!-- name -->
-                                        <a href="Product.php?id=" class="text-base font-medium line-clamp-2 cursor-pointer">GIGABYTE NVIDIA GeForce RTX 3060 WINDFORCE OC 12GB GDDR6 pci_e_x16 Graphics Card (GV-N3060WF2OC-12GD)</a>
-                                        <!-- price -->
-                                        <div class="flex items-baseline gap-1">
-                                            <span class="text-lg font-medium">₹26,999</span>
-                                            <del class="text-[10px] font-normal">₹86,000</del>
-                                        </div>
-                                        <p class="text-sm font-normal">Save extra with No Cost EMI</p>
-                                        <p class="text-sm font-normal">Free Delivery</p>
-                                        <!-- rating -->
-                                        <div class="flex items-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                                            <span class="text-xs font-medium text-[#7c818b]">0</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    <?php
+                                }
+                            ?>
                         </div>
                     </div>
                 </main>
