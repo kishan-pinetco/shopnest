@@ -1,8 +1,31 @@
 <?php
-    include "../include/connect.php";
+include "../include/connect.php";
+
+if (isset($_COOKIE['user_id'])) {
+    $user_id = $_COOKIE['user_id'];
+    $user_name = $_COOKIE['fname'];
+
+    $order_id = $_GET['order_id'];
+
+    $retrieve_order = "SELECT * FROM orders WHERE order_id = '$order_id'";
+    $retrieve_order_query = mysqli_query($con, $retrieve_order);
+
+    $res = mysqli_fetch_assoc($retrieve_order_query);
+
+    $today = date('d-m-Y', strtotime($res['date']));
+    $future_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+
+    $toDay = date('d-m-Y', strtotime('+0 days', strtotime($today)));
+    $oneday = date('d-m-Y', strtotime('+1 days', strtotime($today)));
+    $secondday = date('d-m-Y', strtotime('+2 days', strtotime($today)));
+    $thirdday = date('d-m-Y', strtotime('+3 days', strtotime($today)));
+    $fourday = date('d-m-Y', strtotime('+4 days', strtotime($today)));
+    $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,129 +49,211 @@
     <!-- title -->
     <title>Track Order</title>
 </head>
+
 <body style="font-family: 'Outfit', sans-serif;">
 
     <!-- navbar -->
     <?php
-        include "../pages/_navbar.php";
+    include "../pages/_navbar.php";
     ?>
-    
+
     <section class="max-w-screen-lg m-auto bg-white py-8 md:py-16">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div>
-                <!-- <h2 class="text-xl font-semibold sm:text-2xl">Your Order is Delivered</h2> -->
-                <h2 class="text-xl font-semibold sm:text-2xl">Your Order is Confirmed</h2>
+                <?php
+                if ($future_date > strtotime("today")) {
+                ?>
+                    <h2 class="text-xl font-semibold sm:text-2xl">Your Order is Delivered</h2>
+                <?php
+                } else {
+                ?>
+                    <h2 class="text-xl font-semibold sm:text-2xl">Your Order is Confirmed</h2>
+                <?php
+                }
+                ?>
                 <div>
-                    <h3 class="mt-7 text-xl font-medium">Hi Abhijeet!</h3>
-                    <!-- <span>Your Order is Delivered</span> -->
-                    <span>Your Order has been confirmed and will be shipping soon</span>
+                    <h3 class="mt-7 text-xl font-medium">Hi <?php echo $user_name; ?>!</h3>
+                    <?php
+                    if ($future_date > strtotime("today")) {
+                    ?>
+                        <span>Your Order is Delivered</span>
+                    <?php
+                    } else {
+                    ?>
+                        <span>Your Order has been confirmed and will be Delivered soon</span>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
             <hr class="my-10">
             <div>
-                <h3 class="text-xl font-medium sm:text-2xl">Order #35784</h3>
+                <h3 class="text-xl font-medium sm:text-2xl">Order ID: #<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'product id' ?></h3>
                 <div class="grid grid-cols-1 mt-12 gap-7 w-full md:grid-cols-2 lg:grid-cols-4 lg:gap-x-12">
                     <div>
+                        <h4 class="font-semibold mb-2">Full Name</h4>
+                        <p><?php echo isset($_COOKIE['user_id']) ? $res['user_first_name'] . ' ' . $res['user_last_name'] : 'user name' ?></p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">User Email</h4>
+                        <p><?php echo isset($_COOKIE['user_id']) ? $res['user_email'] : 'user_email' ?></p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">User Mobile</h4>
+                        <p><?php echo isset($_COOKIE['user_id']) ? $res['user_mobile'] : 'user_mobile' ?></p>
+                    </div>
+                    <div>
                         <h4 class="font-semibold mb-2">Devliery Address</h4>
-                        <p>103 madhav flat gajanand park soc.</p>
+                        <p><?php echo isset($_COOKIE['user_id']) ? $res['user_address'] : 'user_address' ?></p>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-2">Billing Address</h4>
-                        <p>103 madhav flat gajanand park soc.</p>
+                        <h4 class="font-semibold mb-2">State</h4>
+                        <p><?php echo isset($_COOKIE['user_id']) ? $res['user_state'] : 'user_state' ?></p>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-2">Contact Help</h4>
-                        <p>mottacompany09@gmail.com</p>
+                        <h4 class="font-semibold mb-2">City</h4>
+                        <p><?php echo isset($_COOKIE['user_id']) ? $res['user_city'] : 'user_city' ?></p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">Order Date</h4>
+                        <p><?php echo isset($_COOKIE['user_id']) ? $res['date'] : 'date' ?></p>
                     </div>
                     <div>
                         <h4 class="font-semibold mb-2">Payment Information</h4>
-                        <p>Other UPI</p>
+                        <p><?php echo isset($_COOKIE['user_id']) ? $res['payment_type'] : 'payment_type' ?></p>
                     </div>
                 </div>
             </div>
-            <hr class="my-10">
-            <div class="flex flex-col items-center gap-5 md:flex-row">
-                <div>
-                    <img class="w-full h-32 object-contain" src="https://m.media-amazon.com/images/I/5197bOnxfWL._SL1500_.jpg" alt="">
-                </div>
-                <div>
-                    <h2 class="text-xl font-semibold mb-7 line-clamp-2">ZEBRONICS Zeb-Sound Bomb 1 TWS Earbuds with BT5.0, Up to 12H Playback, Touch Controls, Voice Assistant, Splash Proof with Type C Portable Charging Case (Black)</h2>
-                    <div>
-                        <div class="flex items-center">
-                            <p class="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200"> Qty: <span class="text-gray-500">1</span></p> 
-                            <p class="font-medium text-base leading-7 text-black">Price: <span class="text-indigo-500">₹799</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="border my-10 px-3 py-4 hidden md:block">
-                <div>
-                    <!-- <h2 class="font-semibold text-2xl">Your Order is Delivered</h2> -->
-                    <h2 class="font-semibold text-2xl">Shipped on: 21-7-2024</h2>
-                </div>
-                <div class="relative">
-                    <div class="relative w-[100%] h-2 bg-gray-200 rounded-full my-5"></div>
-                    <div class="absolute -top-5 left-0 w-[100%] h-2 bg-indigo-600 rounded-full my-5"></div>
-                </div>
-                <div class="flex items-center justify-between w-[100%]">
-                    <p class="">order Place</p>
-                    <p class="">Product in the warehouse</p>
-                    <p class="">Devlivery Progress</p>
-                    <p class="">Product Delivered</p>
-                </div>
-            </div>
+            <div class="bg-white border-2 rounded-lg overflow-hidden w-full flex flex-col md:flex-row mt-10">
+                <!-- Product Image -->
+                <img class="h-full md:h-40 object-cover" src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="Product Image">
 
-            <div class="border my-10 px-3 py-4 block md:hidden">
-                <div>
-                    <!-- <h2 class="font-semibold text-2xl">Your Order is Delivered</h2> -->
-                    <h2 class="font-semibold text-2xl">Shipped on: 21-7-2024</h2>
-                </div>
-                <div class="flex items-start justify-center gap-7 mt-8">
-                    <div class="flex flex-col items-start justify-between h-[80vh]">
-                        <p class="flex flex-col">order Place
-                            <div class="text-gray-400 -mt-6">
-                                16-07-2024
-                            </div>
-                        </p>
-                        <p class="flex flex-col">Product in the warehouse 
-                            <div class="text-gray-400 -mt-6">
-                                17-07-2024
-                            </div>
-                        </p>
-                        <p class="flex flex-col">Devlivery Progress 
-                            <div class="text-gray-400 -mt-6">
-                                18-07-2024
-                            </div>
-                        </p>
-                        <p class="flex flex-col">Product Delivered 
-                            <div class="text-gray-400 -mt-6">
-                                21-07-2024
-                            </div>
-                        </p>
-                    </div>
-                    <div class="relative">
-                        <div class="relative top-0 w-[10px] h-[80vh] bg-gray-200 rounded-full"></div>
-                        <div class="absolute -top-5 left-0 w-[10px] h-[80vh] bg-indigo-600 rounded-full my-5"></div>
-                    </div>
+                <!-- Product Details -->
+                <div class="p-6 flex-1">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product title' ?></h2>
+                    <p class="font-medium text-base leading-7 text-black pr-4">Quantity: <span class="font-medium">10</span></p>
+                    <p class="font-medium text-base leading-7 text-black pr-4">Price: <span class="font-bold text-indigo-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
+                    <p class="font-medium text-base leading-7 text-black pr-4">Color: <span class="font-medium">Blue</span></p>
+                    <p class="font-medium text-base leading-7 text-black pr-4">Size: <span class="font-medium">Medium</span></p>
                 </div>
             </div>
-            <div class="flex  items-center gap-5 flex-row">
+        </div>
 
-                <!-- <h1 class="px-3 py-1.5 bg-gray-900 text-white rounded-md max-w-max cursor-pointer opacity-50">Cancle Order</h1> -->
-                <a href="" class="px-3 py-2 bg-indigo-600 text-white rounded max-w-max cursor-pointer">Return Order</a>
-            
-    
-                <a href="" class="px-3 py-2 bg-gray-900 text-white rounded max-w-max cursor-pointer">Cancle Order</a>
-                <!-- <h1 class="px-3 py-1.5 bg-indigo-600 text-white rounded-md max-w-max cursor-pointer opacity-50">Return Order</h1> -->
+        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0 mt-12">
+            <div>
+                <?php
+                    if($future_date > strtotime("today")){
+                        ?>
+                            <h2 class="font-semibold text-2xl mb-4">Your Order is Delivered</h2>
+                        <?php
+                    }else{
+                        ?>
+                            <h2 class="font-semibold text-2xl mb-4">Shipped on: <span class="text-indigo-500"><?php echo $future_date; ?></span></h2>
+                        <?php
+                    }
+                ?>
+            </div>
+            <div class="mt-6 grow sm:mt-8 lg:mt-0">
+                <div class="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-900">Order Traking</h3>
 
+                    <ol class="relative ms-3 border-s border-gray-200 ">
+                        <li class="mb-10 ms-6">
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $fifth === date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $fifth === date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-clipboard-check') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            </span>
+                            <div class="ml-2">
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fifth === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>">Estimated delivery in 24 Nov 2023</h4>
+                                <p class="text-sm font-normal <?php echo $fifth === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products delivered</p>
+                            </div>
+                        </li>
+
+                        <li class="mb-10 ms-6">
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $fourday === date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $fourday === date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-cube') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            </span>
+                            <div class="ml-2">
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fourday === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>">Today</h4>
+                                <p class="text-sm font-normal <?php echo $fourday === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products being delivered</p>
+                            </div>
+                        </li>
+
+                        <li class="mb-10 ms-6 text-blue-700">
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $thirdday === date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $thirdday === date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-warehouse') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            </span>
+                            <div class="ml-2">
+                                <h4 class="mb-0.5 font-semibold <?php echo $thirdday === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>">23 Nov 2023, 15:15</h4>
+                                <p class="text-sm font-normal <?php echo $thirdday === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products in the courier's warehouse</p>
+                            </div>
+                        </li>
+
+                        <li class="mb-10 ms-6 text-blue-700">
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $secondday === date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $secondday === date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-truck') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            </span>
+                            <div class="ml-2">
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $secondday === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>">22 Nov 2023, 12:27</h4>
+                                <p class="text-sm font-normal <?php echo $secondday === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products delivered to the courier</p>
+                            </div>
+                        </li>
+
+                        <li class="mb-10 ms-6 text-blue-700">
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $toDay === date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $toDay === date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-credit-card') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            </span>
+                            <div class="ml-2">
+                                <h4 class="mb-0.5 font-semibold <?php echo $toDay === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>">19 Nov 2023, 10:47</h4>
+                                <p class="text-sm font-normal <?php echo $toDay === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Payment accepted - <?php echo isset($_COOKIE['user_id']) ? $res['payment_type'] : 'payment_type' ?></p>
+                            </div>
+                        </li>
+                        
+
+                        <li class="ms-6">
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $toDay === date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $toDay === date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-cart-plus') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            </span>
+                            <div class="ml-2">
+                                <h4 class="mb-0.5 font-semibold <?php echo $toDay === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>">19 Nov 2023, 10:45</h4>
+                                <p class="text-sm font-normal <?php echo $toDay === date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Order placed - Receipt #<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'product id' ?></p>
+                            </div>
+                        </li>
+                    </ol>
+
+                    <div class="flex flex-col items-center gap-4 gap-y-4 sm:flex-row">
+                        <!-- <a href="" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-black/90">Cancel the order</a>
+                        <a href="" class="w-full flex items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800">Order details</a> -->
+                        <?php
+                            if($thirdday > strtotime("today")){
+                                ?>
+                                    <h1 class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer">Cancle Order</h1>
+                                    <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
+                                <?php
+                                if($fifth > strtotime("today")){
+                                    ?>
+                                        <a href="" class="w-full flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
+                                    <?php
+                                }
+                            }else{
+                                ?>
+                                    <a href="" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-black/90">Cancel the order</a>
+                                    <h1 class="w-full flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer">Return Order</h1>
+                                <?php
+                            }
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+
+
     <!-- footer -->
     <?php
-        include "../pages/_footer.php";
+    include "../pages/_footer.php";
     ?>
 
 </body>
+
 </html>
