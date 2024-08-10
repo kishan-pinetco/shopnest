@@ -36,7 +36,7 @@
     <link rel="shortcut icon" href="../src/logo/favIcon.svg">
 
     <!-- title -->
-    <title>Your Orders</title>
+    <title>Return Orders</title>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
