@@ -153,10 +153,10 @@
                                             <th class="px-4 py-3">order_name</th>
                                             <th class="px-4 py-3">order_image</th>
                                             <th class="px-4 py-3">order_price</th>
-                                            <th class="px-4 py-3">product_id</th>
-                                            <th class="px-4 py-3">user_id</th>
-                                            <th class="px-4 py-3">user_first_name</th>
-                                            <th class="px-4 py-3">user_last_name</th>
+                                            <th class="px-4 py-3">order_Color</th>
+                                            <th class="px-4 py-3">order_size</th>
+                                            <th class="px-4 py-3">order_QTY</th>
+                                            <th class="px-4 py-3">user_name</th>
                                             <th class="px-4 py-3">user_email</th>
                                             <th class="px-4 py-3">user_mobile</th>
                                             <th class="px-4 py-3">user_address</th>
@@ -164,31 +164,38 @@
                                             <th class="px-4 py-3">user_city</th>
                                             <th class="px-4 py-3">user_pincode</th>
                                             <th class="px-4 py-3">payment_type</th>
-                                            <th class="px-4 py-3">total_price</th>
                                             <th class="px-4 py-3">Order_Date</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="bg-white">
-                                        <tr class="text-gray-700">
-                                            <td class="px-4 py-3 border">1</td>
-                                            <td class="px-4 py-3 border">Apple iPhone 15 Pro Max (256 GB) - Black Titanium</td>
-                                            <td class="px-4 py-3 border"><img src="https://m.media-amazon.com/images/I/81Os1SDWpcL._SL1500_.jpg" alt="" class="w-24 h-24"></td>
-                                            <td class="px-4 py-3 border">₹1,48,900</td>
-                                            <td class="px-4 py-3 border">12345</td>
-                                            <td class="px-4 py-3 border">67890</td>
-                                            <td class="px-4 py-3 border">John</td>
-                                            <td class="px-4 py-3 border">Doe</td>
-                                            <td class="px-4 py-3 border">john.doe@example.com</td>
-                                            <td class="px-4 py-3 border">123-456-7890</td>
-                                            <td class="px-4 py-3 border">123 Main St</td>
-                                            <td class="px-4 py-3 border">CA</td>
-                                            <td class="px-4 py-3 border">San Francisco</td>
-                                            <td class="px-4 py-3 border">94101</td>
-                                            <td class="px-4 py-3 border">Credit Card</td>
-                                            <td class="px-4 py-3 border">$100.00</td>
-                                            <td class="px-4 py-3 border">2024-07-17</td>
-                                        </tr>
-                                    </tbody>
+                                    <?php 
+                                        $get_orders = "SELECT * FROM orders WHERE vendor_id = '$vendor_id'";
+                                        $get_orders_query = mysqli_query($con,$get_orders);
+
+                                        while($items = mysqli_fetch_assoc($get_orders_query)){
+                                            ?>
+                                                <tbody class="bg-white border">
+                                                    <tr class="text-gray-700">
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_id'] : 'order_id'?></td>
+                                                        <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_title'] : 'order_title'?></td>
+                                                        <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $items['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['total_price'] : 'total_price'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_color'] : 'order_color'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_size'] : 'order_size'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['qty'] : 'qty'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_first_name'] . ' ' . $items['user_last_name'] : 'user name'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_email'] : 'user_email'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_mobile'] : 'user_mobile'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_address'] : 'user_address'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_state'] : 'user_state'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_city'] : 'user_city'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_pin'] : 'user_pin'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['payment_type'] : 'payment_type'?></td>
+                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['date'] : 'date'?></td>
+                                                    </tr>
+                                                </tbody>
+                                            <?php
+                                        }
+                                    ?> 
                                 </table>
                             </div>
                         </div>
