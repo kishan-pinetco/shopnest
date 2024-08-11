@@ -295,42 +295,66 @@
                     <span class="text-2xl font-medium">Rating</span>
                     <div class="border p-5 mt-3">
                         <div class="flex flex-col items-center my-6 md:items-start md:flex-row">
-                            <h1 class="text-7xl font-medium">0</h1>
+                            <?php
+                                $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+                                $review_query = mysqli_query($con,$get_reviews);
+                     
+                                if($totalReviews = mysqli_num_rows($review_query)){
+                                    $sum = 0;
+                                    $count = 0;
+
+                                    while ($data = mysqli_fetch_assoc($review_query)) {
+                                        $rating = str_replace(",", "", $data['Rating']);
+                                        $sum += (float)$rating;
+                                        $count++;
+                                    }
+                                
+                                    $average = $sum / $count;
+                                    $formatted_average = number_format($average, 1);
+
+                                }
+                            ?>
+                            <h1 class="text-7xl font-medium"><?php echo isset($formatted_average) ? $formatted_average : '0.0'?></h1>
                         </div>
-                        <div class="flex items-center gap-5 justify-between text-[#7c818b] text-sm font-medium">
-                            <div class="flex items-center">
-                                <p>5</p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            </div>
-                            <div class="relative w-full h-2 m-auto rounded-sm bg-gray-200"></div>
-                            <span>0</span>
-                        </div>
-                        <div class="flex items-center gap-5 justify-between text-[#7c818b] text-sm font-medium">
-                            <div class="flex items-center">
-                                <p>4</p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            </div>
-                            <div class="relative w-full h-2 m-auto rounded-sm bg-gray-200"></div>
-                            <span>0</span>
-                        </div>
-                        <div class="flex items-center gap-5 justify-between text-[#7c818b] text-sm font-medium">
-                            <div class="flex items-center">
-                                <p>3</p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            </div>
-                            <div class="relative w-full h-2 m-auto rounded-sm bg-gray-200"></div>
-                            <span>0</span>
-                        </div>
-                        <div class="flex items-center gap-5 justify-between text-[#7c818b] text-sm font-medium">
-                            <div class="flex items-center">
-                                <p>2</p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            </div>
-                            <div class="relative w-full h-2 m-auto rounded-sm bg-gray-200"></div>
-                            <span>0</span>
-                        </div>
-                        <div class="flex items-center gap-5 justify-between text-[#7c818b] text-sm font-medium">
-                            <div class="flex items-center">
-                                <p>1</p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
-                            </div>
-                            <div class="relative w-full h-2 m-auto rounded-sm bg-gray-200"></div>
-                            <span>0</span>
+                        <div>
+                            <?php
+                                $get_rev = "SELECT Rating, COUNT(*) AS count FROM user_review WHERE product_id = '$product_id' GROUP BY Rating";
+                                $get_query = mysqli_query($con, $get_rev);
+
+                                $ratings = [
+                                    5 => 0,
+                                    4 => 0,
+                                    3 => 0,
+                                    2 => 0,
+                                    1 => 0
+                                ];
+                                $totalReviews = 0;
+
+                                // Fetch the review counts and update the ratings array
+                                while ($avg = mysqli_fetch_assoc($get_query)) {
+                                    $ratings[$avg['Rating']] = $avg['count'];
+                                    $totalReviews += $avg['count'];
+                                }
+
+                                function calculateRating($count, $total) {
+                                    return ($total > 0) ? round(($count / $total) * 100, 2) : 0;
+                                }
+                            ?>
+                            <?php
+                                foreach(range(5, 1) as $star){
+                                    ?>
+                                        <div class="flex items-center justify-between text-gray-600 text-sm font-medium">
+                                            <div class="flex items-center gap-1">
+                                                <p><?php echo isset($_COOKIE['user_id']) ? $star : $rating ; ?></p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                                            </div>
+                                            <div class="relative w-full h-2 mx-3 m-auto rounded-md bg-gray-200">
+                                                <div class="absolute top-0 left-0 w-full h-2 rounded-md bg-yellow-400" style="width: <?php echo calculateRating($ratings[$star], $totalReviews); ?>%;"></div>
+                                            </div>
+                                            <span><?php echo isset($_COOKIE['user_id']) ? $ratings[$star] : '0';?></span>
+                                        </div>
+                                    <?php
+                                }
+                            ?>
                         </div>
                         <hr class="my-6">
                         <div class="flex flex-col gap-y-3">
@@ -354,30 +378,34 @@
                                 <?php
                             }
                             ?>
-                                <div class="mt-7 flex flex-col gap-8 overflow-scroll h-[60vh] md:px-4">
+                                <div class="mt-7 flex flex-col gap-8 overflow-y-scroll py-4 h-[60vh] md:px-4">
                                     <?php
-                                        if($rev){
+                                        $retrive_reivew = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+                                        $retrive_reivew_query = mysqli_query($con, $retrive_reivew);
+
+                                        while($row = mysqli_fetch_assoc($retrive_reivew_query)){
                                             ?>
                                                 <div>
                                                     <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row">
                                                         <div class="flex item-center justify-center gap-3">
                                                             <img class="w-12 h-12" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
                                                             <div class="flex flex-col gap-0">
-                                                                <h2 class="font-medium text-base text-neutral-800">Abhijeet Dabhi</span></h2>
-                                                                <p class="font-medium text-sm text-gray-500">16-07-2024</p>
+                                                                <h2 class="font-medium text-base text-neutral-800"><?php echo isset($_GET['product_id']) ? $row['public_name'] : 'user Name' ?></span></h2>
+                                                                <p class="font-medium text-sm text-gray-500"><?php echo isset($_GET['product_id']) ? $row['date'] : 'review date' ?></p>
                                                             </div>
                                                         </div>
-                                                        <p>
-                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                                            <i class="fa-sharp fa-solid fa-star text-yellow-400 text-sm"></i>
-                                                        </p>
+                                                        <div class="flex item-center gap-1">
+                                                            <span class="bg-indigo-500 rounded-md px-2 py-1 flex items-center gap-1">
+                                                                <h1 class="font-semibold text-base text-white"><?php echo isset($_GET['product_id']) ? floatval($row['Rating']) : 'Rating' ?></h1>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
+                                                                    <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                     <div class="mt-6">
-                                                        <h1 class="font-medium mb-3">Nice Product</h1>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, natus accusantium sed id consequatur sint rem ab sapiente assumenda facilis?</p>
+                                                        <h1 class="font-medium mb-3"><?php echo isset($_GET['product_id']) ? $row['Headline'] : 'headline' ?></h1>
+                                                        <p><?php echo isset($_GET['product_id']) ? $row['description'] : 'reivew details' ?></p>
                                                     </div>
                                                 </div>
                                                 <hr>

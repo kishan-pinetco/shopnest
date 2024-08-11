@@ -90,7 +90,7 @@
                     <p class="cursor-default font-semibold text-2xl">Choose your public name</p>
                     <div class="flex item-center justify-center m-auto gap-2">
                         <img class="w-12 h-12 mt-2" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
-                        <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-black focus:ring-0 mt-2" type="text" id="public_Name" name="public_Name" value="<?php echo isset($_COOKIE['user_id']) ? $userFirstName . $userLastName : 'user Name'?>" required>
+                        <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-black focus:ring-0 mt-2" type="text" id="public_Name" name="public_Name" value="<?php echo isset($_COOKIE['user_id']) ? $userFirstName . ' ' . $userLastName : 'user Name'?>" required>
                     </div>
                 </div>
                 <div class="submit mt-6">
@@ -127,9 +127,9 @@
 
 <?php
     if(isset($_POST['submitReview'])){
-        $headline = $_POST['headline'];
-        $description = $_POST['description'];
-        $public_Name = $_POST['public_Name'];
+        $headline = mysqli_real_escape_string($con, $_POST['headline']);
+        $description = mysqli_real_escape_string($con, $_POST['description']);
+        $public_Name = mysqli_real_escape_string($con, $_POST['public_Name']);
         $review_insert_Date = date('d-m-Y');
 
         if(isset($_POST['stars']) && is_array($_POST['stars'])){
@@ -162,7 +162,7 @@
                     setTimeout(() => {
                         SpopUp.style.display = 'none';
                         SpopUp.style.opacity = '0';
-                        window.location.href = 'product_detail.php?id=<?php echo $product_id?>';
+                        window.location.href = 'product_detail.php?product_id=<?php echo $product_id?>';
                     }, 1500);
                 </script>
                 <?php

@@ -36,7 +36,7 @@
     <link rel="shortcut icon" href="../src/logo/favIcon.svg">
 
     <!-- title -->
-    <title>Your Orders</title>
+    <title>Return Orders</title>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -69,14 +69,14 @@
             </div>
         </a>
                 </div>
-                <nav class="mt-10">
+                <nav class="mt-10"> 
                     <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="profile.php">
                         <svg class="w-6 h-6 fill-gray-500 group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(0.9799999999999999,0,0,0.9799999999999999,5.120029888153141,5.1200097656250705)"><path d="m498.147 222.58-57.298-57.298V15c0-8.284-6.716-15-15-15h-64.267c-8.284 0-15 6.716-15 15v56.017l-57.174-57.174C280.482 4.916 268.614 0 255.99 0c-12.625 0-24.494 4.916-33.42 13.843L13.832 222.582c-18.428 18.427-18.428 48.411 0 66.838 8.927 8.927 20.795 13.843 33.419 13.843 2.645 0 5.253-.229 7.812-.651v154.223c0 30.419 24.748 55.166 55.167 55.166h97.561c8.284 0 15-6.716 15-15V383.467h66.4V497c0 8.284 6.716 15 15 15h97.56c30.419 0 55.166-24.747 55.166-55.166V302.611c2.558.423 5.165.651 7.81.651h.003c12.622 0 24.49-4.916 33.419-13.844 8.926-8.926 13.842-20.794 13.843-33.418-.002-12.624-4.918-24.493-13.845-33.42zM376.583 30h34.267v105.283l-34.267-34.268zm25.167 452h-82.56V368.467c0-8.284-6.716-15-15-15h-96.4c-8.284 0-15 6.716-15 15V482h-82.561c-13.877 0-25.167-11.289-25.167-25.166V285.025L255.99 114.101l170.926 170.926v171.808c0 13.876-11.289 25.165-25.166 25.165zm75.186-213.795a17.155 17.155 0 0 1-12.208 5.058 17.156 17.156 0 0 1-12.204-5.055l-.004-.004L266.597 82.281c-5.856-5.859-15.354-5.857-21.213 0L59.459 268.203l-.005.005c-3.26 3.26-7.593 5.055-12.203 5.055s-8.945-1.795-12.206-5.056c-6.73-6.73-6.73-17.682 0-24.412L243.783 35.056A17.152 17.152 0 0 1 255.99 30c4.61 0 8.945 1.796 12.205 5.056l82.781 82.78 125.958 125.957c6.731 6.73 6.731 17.683.002 24.412z" fill="" opacity="1" data-original="#000000" class=""></path></g></svg>
                         <span class="mx-3">Home</span>
                     </a>
 
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="show_orders.php">
-                        <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 96 96" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="m90.895 25.211-42-21a2.004 2.004 0 0 0-1.789 0l-42 21A2 2 0 0 0 4 27v42a2 2 0 0 0 1.105 1.789l42 21a1.998 1.998 0 0 0 1.79 0l42-21A2 2 0 0 0 92 69V27a2 2 0 0 0-1.105-1.789zM48 8.236 85.528 27 77.5 31.014 39.973 12.25zm13.5 30.778L23.972 20.25 35.5 14.486 73.028 33.25zm1.5 3.722 12-6v14.877l-3.838-2.741a2.006 2.006 0 0 0-1.506-.343 2.007 2.007 0 0 0-1.301.832L63 57.098zm-43.5-20.25L57.027 41.25 48 45.764 10.472 27zM8 30.236l38 19v37.527l-38-19zm42 56.528V49.236l9-4.5V63.5a2 2 0 0 0 3.645 1.139l7.845-11.331 5.349 3.82A1.997 1.997 0 0 0 79 55.5V34.736l9-4.5v37.527z" fill="" opacity="1" data-original="#000000" class=""></path></g>
+                    <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="show_orders.php">
+                        <svg class="w-6 h-6 fill-gray-500 group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 96 96" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="m90.895 25.211-42-21a2.004 2.004 0 0 0-1.789 0l-42 21A2 2 0 0 0 4 27v42a2 2 0 0 0 1.105 1.789l42 21a1.998 1.998 0 0 0 1.79 0l42-21A2 2 0 0 0 92 69V27a2 2 0 0 0-1.105-1.789zM48 8.236 85.528 27 77.5 31.014 39.973 12.25zm13.5 30.778L23.972 20.25 35.5 14.486 73.028 33.25zm1.5 3.722 12-6v14.877l-3.838-2.741a2.006 2.006 0 0 0-1.506-.343 2.007 2.007 0 0 0-1.301.832L63 57.098zm-43.5-20.25L57.027 41.25 48 45.764 10.472 27zM8 30.236l38 19v37.527l-38-19zm42 56.528V49.236l9-4.5V63.5a2 2 0 0 0 3.645 1.139l7.845-11.331 5.349 3.82A1.997 1.997 0 0 0 79 55.5V34.736l9-4.5v37.527z" fill="" opacity="1" data-original="#000000" class=""></path></g>
                         <span class="mx-3">Your Orders</span>
                     </a>
 
@@ -85,8 +85,8 @@
                         <span class="mx-3">Cancled Orders</span>
                     </a>
 
-                    <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="show_return_order.php">
-                        <svg class="w-7 h-7 fill-gray-500 group-hover:fill-white -ml-1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 100 100" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M73.76 38.48v23.07a1.74 1.74 0 0 1-1.27 1.71l-21.8 7.65a1.59 1.59 0 0 1-1.38 0l-21.9-7.65a1.73 1.73 0 0 1-1.17-1.71l-.11-23.07a1.83 1.83 0 0 1 1.38-1.7l21.91-7.65a1.14 1.14 0 0 1 1.16 0l22 7.65a1.73 1.73 0 0 1 1.17 1.7zM29.21 89.94a1.81 1.81 0 0 1 1.71-3.19A41.41 41.41 0 0 0 82.27 24a.41.41 0 0 0-.75.32l.32 1.28c.64 2.34-2.87 3.19-3.51 1l-2.55-9.79A1.74 1.74 0 0 1 78 14.67l9.68 2.55a1.82 1.82 0 0 1-1 3.51l-1.91-.53c-.43-.11-.75.32-.43.63a45.06 45.06 0 0 1-55.13 69.11zm42.64-79.31c2.12 1.17.32 4.36-1.7 3.19A41.43 41.43 0 0 0 17.73 76a.44.44 0 0 0 .75-.42l-.32-1.17c-.64-2.34 2.87-3.19 3.51-1l2.55 9.78A1.75 1.75 0 0 1 22 85.37l-9.68-2.55c-2.34-.64-1.38-4.15.85-3.51l2 .53c.43.11.75-.32.43-.74C.51 61.45 1.68 34.66 18.16 18.18a45.07 45.07 0 0 1 53.69-7.55zm-20.1 37.1v18.4a.47.47 0 0 0 .64.42l17.54-6.17c.11-.1.32-.21.32-.42V41.57c0-.22-.32-.43-.63-.32l-17.55 6.06c-.21.1-.32.21-.32.42zm-3.61 18.4v-18.4a.55.55 0 0 0-.21-.42l-7.13-2.45a.47.47 0 0 0-.63.43v6.8a1.8 1.8 0 0 1-1.81 1.81 1.86 1.86 0 0 1-1.81-1.81v-8.4a.55.55 0 0 0-.21-.42l-6-2c-.31-.11-.63.1-.63.32V60c0 .21.1.32.32.42l17.54 6.17c.32.11.53-.11.53-.42zm-13.5-27.22 4.68 1.59a.19.19 0 0 0 .31 0l15.21-5.31c.21 0 .32-.21.32-.43a.35.35 0 0 0-.32-.32l-4.68-1.7h-.32l-15.2 5.32a.44.44 0 0 0 0 .85zm11.48 4 3.72 1.27h.32l15.2-5.31a.44.44 0 0 0 0-.85l-3.82-1.38h-.32l-15.1 5.46c-.43.1-.43.64 0 .85zm19.56 12.27a1.8 1.8 0 0 1 1.17 3.4L60.9 60.7a1.8 1.8 0 0 1-1.17-3.4z" fill="" opacity="1" data-original="#000000" class=""></path></g></svg>
+                    <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="show_return_order.php">
+                        <svg class="w-7 h-7 fill-white -ml-1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 100 100" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M73.76 38.48v23.07a1.74 1.74 0 0 1-1.27 1.71l-21.8 7.65a1.59 1.59 0 0 1-1.38 0l-21.9-7.65a1.73 1.73 0 0 1-1.17-1.71l-.11-23.07a1.83 1.83 0 0 1 1.38-1.7l21.91-7.65a1.14 1.14 0 0 1 1.16 0l22 7.65a1.73 1.73 0 0 1 1.17 1.7zM29.21 89.94a1.81 1.81 0 0 1 1.71-3.19A41.41 41.41 0 0 0 82.27 24a.41.41 0 0 0-.75.32l.32 1.28c.64 2.34-2.87 3.19-3.51 1l-2.55-9.79A1.74 1.74 0 0 1 78 14.67l9.68 2.55a1.82 1.82 0 0 1-1 3.51l-1.91-.53c-.43-.11-.75.32-.43.63a45.06 45.06 0 0 1-55.13 69.11zm42.64-79.31c2.12 1.17.32 4.36-1.7 3.19A41.43 41.43 0 0 0 17.73 76a.44.44 0 0 0 .75-.42l-.32-1.17c-.64-2.34 2.87-3.19 3.51-1l2.55 9.78A1.75 1.75 0 0 1 22 85.37l-9.68-2.55c-2.34-.64-1.38-4.15.85-3.51l2 .53c.43.11.75-.32.43-.74C.51 61.45 1.68 34.66 18.16 18.18a45.07 45.07 0 0 1 53.69-7.55zm-20.1 37.1v18.4a.47.47 0 0 0 .64.42l17.54-6.17c.11-.1.32-.21.32-.42V41.57c0-.22-.32-.43-.63-.32l-17.55 6.06c-.21.1-.32.21-.32.42zm-3.61 18.4v-18.4a.55.55 0 0 0-.21-.42l-7.13-2.45a.47.47 0 0 0-.63.43v6.8a1.8 1.8 0 0 1-1.81 1.81 1.86 1.86 0 0 1-1.81-1.81v-8.4a.55.55 0 0 0-.21-.42l-6-2c-.31-.11-.63.1-.63.32V60c0 .21.1.32.32.42l17.54 6.17c.32.11.53-.11.53-.42zm-13.5-27.22 4.68 1.59a.19.19 0 0 0 .31 0l15.21-5.31c.21 0 .32-.21.32-.43a.35.35 0 0 0-.32-.32l-4.68-1.7h-.32l-15.2 5.32a.44.44 0 0 0 0 .85zm11.48 4 3.72 1.27h.32l15.2-5.31a.44.44 0 0 0 0-.85l-3.82-1.38h-.32l-15.1 5.46c-.43.1-.43.64 0 .85zm19.56 12.27a1.8 1.8 0 0 1 1.17 3.4L60.9 60.7a1.8 1.8 0 0 1-1.17-3.4z" fill="" opacity="1" data-original="#000000" class=""></path></g></svg>
                         <span class="mx-3">Return Orders</span>
                     </a>
 
@@ -151,10 +151,10 @@
                 </header>
                 <section class="relative pt-7">
                     <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
-                        <h2 class="font-manrope font-bold text-4xl leading-10 text-black text-center mb-11">Your Orders</h2>
+                        <h2 class="font-manrope font-bold text-4xl leading-10 text-black text-center mb-11">Your Cancled Orders</h2>
                         <div class="w-full px-3 overflow-auto min-[400px]:px-6 lg:h-[60vh] lg:overflow-y-scroll">
                             <?php
-                                $retrieve_order = "SELECT * FROM orders WHERE user_id = '$user_id'";
+                                $retrieve_order = "SELECT * FROM cancel_orders WHERE user_id = '$user_id'";
                                 $retrieve_order_query = mysqli_query($con, $retrieve_order);
 
                                 while($res = mysqli_fetch_assoc($retrieve_order_query)){
@@ -165,19 +165,18 @@
                                         <div class="flex flex-col md:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
                                             <div class="img-box max-lg:w-full">
                                                 <a href="">
-                                                    <img class="aspect-square w-full lg:max-w-[140px]" src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="">
+                                                    <img class="aspect-square w-full lg:max-w-[140px]" src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['cancle_order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="">
                                                 </a>
                                             </div>
                                             <div class="flex flex-row items-center w-full ">
                                                 <div class="grid grid-cols-1 lg:grid-cols-2 w-full">
                                                     <div class="flex items-center">
                                                         <div class="">
-                                                            <a href="../order/track_order.php?order_id=<?php echo $res['order_id'];?>">
-                                                                <h2 class="font-semibold text-xl leading-8 text-black mb-3 line-clamp-2 w-[90%]"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product Title' ?></h2>
+                                                            <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'];?>">
+                                                                <h2 class="font-semibold text-xl leading-8 text-black mb-3 line-clamp-2 w-[90%]"><?php echo isset($_COOKIE['user_id']) ? $res['cancle_order_title'] : 'cancle_order_title' ?></h2>
                                                             </a>
                                                             <div class="flex items-center">
-                                                                <p class="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200"> Qty: <span class="text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'product quantity' ?></span></p>
-                                                                <p class="font-medium text-base leading-7 text-black">Price: <span class="text-indigo-600">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'product total_price' ?></span></p>
+                                                                <p class="font-medium text-base leading-7 text-black">Price: <span class="text-indigo-600">₹<?php echo isset($_COOKIE['user_id']) ? $res['cancle_order_price'] : 'cancle_order_price' ?></span></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -185,27 +184,13 @@
                                                         <div class="col-span-5 lg:col-span-3 flex items-center max-lg:mt-3 ">
                                                             <div class="flex gap-3 text-center lg:block">
                                                                 <p class="font-medium text-sm leading-7 text-black">Status</p>
-                                                                <?php
-                                                                    if($res['status'] === 'Ready For Delivery'){
-                                                                        ?>
-                                                                            <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-emerald-600">Ready for Delivery</p>
-                                                                        <?php
-                                                                    }else if($res['status'] === 'Delivered'){
-                                                                        ?>
-                                                                            <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-indigo-600">Delivered</p>
-                                                                        <?php
-                                                                    }else if($res['status'] === 'Cancle'){
-                                                                        ?>
-                                                                            <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-red-600">Cancle</p>
-                                                                        <?php
-                                                                    }
-                                                                    ?>
+                                                                    <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-red-600">Cancle</p>
                                                             </div>
                                                         </div>
                                                         <div class="col-span-5 lg:col-span-2 flex items-center max-lg:mt-3">
                                                             <div class="flex flex-col items-center gap-2">
-                                                                <p class="font-medium text-sm whitespace-nowrap leading-6 text-black">Delivery Expected by:</p>
-                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500"><?php echo isset($_COOKIE['user_id']) ? $future_date : 'Delivery Date' ?></p>
+                                                                <p class="font-medium text-sm whitespace-nowrap leading-6 text-black">Order Cancle Date:</p>
+                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500"><?php echo isset($_COOKIE['user_id']) ? $res['date'] : 'Date' ?></p>
                                                             </div>
                                                         </div>
                                                     </div>
