@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2024 at 07:54 AM
+-- Generation Time: Aug 11, 2024 at 10:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -98,6 +98,38 @@ INSERT INTO `orders` (`order_id`, `order_title`, `order_image`, `order_price`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `page_count`
+--
+
+CREATE TABLE `page_count` (
+  `view_id` int(11) NOT NULL,
+  `view_count` varchar(255) NOT NULL,
+  `view_date` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `page_count`
+--
+
+INSERT INTO `page_count` (`view_id`, `view_count`, `view_date`) VALUES
+(1, '9', '11-08-24'),
+(2, '10', '11-08-24'),
+(3, '11', '11-08-24'),
+(4, '12', '11-08-24'),
+(5, '13', '11-08-24'),
+(6, '14', '11-08-24'),
+(7, '15', '11-08-24'),
+(8, '16', '11-08-24'),
+(9, '17', '11-08-24'),
+(10, '18', '11-08-24'),
+(11, '19', '11-08-24'),
+(12, '20', '11-08-24'),
+(13, '21', '11-08-24'),
+(14, '22', '11-08-24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -171,6 +203,7 @@ CREATE TABLE `return_orders` (
   `return_order_price` varchar(255) NOT NULL,
   `return_order_color` varchar(255) NOT NULL,
   `return_order_size` varchar(255) NOT NULL,
+  `payment_type` varchar(255) NOT NULL,
   `reason` varchar(255) DEFAULT NULL,
   `date` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -275,6 +308,12 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`);
 
 --
+-- Indexes for table `page_count`
+--
+ALTER TABLE `page_count`
+  ADD PRIMARY KEY (`view_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -319,6 +358,12 @@ ALTER TABLE `cancel_orders`
 --
 ALTER TABLE `orders`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `page_count`
+--
+ALTER TABLE `page_count`
+  MODIFY `view_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `products`
