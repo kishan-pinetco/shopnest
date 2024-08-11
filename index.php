@@ -1,6 +1,20 @@
 <?php
 include "include/connect.php";
 
+// session_start();
+
+// if (isset($_SESSION['views'])) {
+//     $_SESSION['views'] = $_SESSION['views'] + 1;
+// } else {
+//     $_SESSION['views'] = 1;
+// }
+
+// $page_view = $_SESSION['views'];
+// $view_date = date('d-m-y');
+
+// $view_count = "INSERT INTO page_count(view_count, view_date) VALUES ('$page_view','$view_date')";
+// $view_query = mysqli_query($con, $view_count);
+
 function displayRandomProducts($con, $limit)
 {
     $product_find = "SELECT * FROM products ORDER BY RAND() LIMIT $limit";
@@ -9,19 +23,18 @@ function displayRandomProducts($con, $limit)
     if ($product_query) {
         while ($res = mysqli_fetch_assoc($product_query)) {
 ?>
-            <div class="card w-72 flex-shrink-0 p-4 cursor-pointer" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                <div class="p-3 border rounded-lg transition transform hover:shadow-lg bg-white">
+
+            <li class="splide__slide flex justify-center" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
                     <div>
-                        <img src="<?php echo 'src/product_image/product_profile/' . $res['image_1']; ?>" alt="" class="w-full px-2 h-52 object-cover object-center rounded" loading="eager" sizes>
+                        <img src="<?php echo 'src/product_image/product_profile/' . $res['image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-56 object-cover" loading="lazy" sizes="">
                     </div>
-                    <div class="mt-2">
-                        <div class="space-y-1">
-                            <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo $res['title'] ?></a>
-                            <p class="space-x-2">
-                                <span class="text-lg font-medium text-indigo-500">₹<?php echo $res['MRP'] ?></span>
-                                <del class="text-xs font-normal">₹<?php echo $res['Your_Price'] ?></del>
-                            </p>
-                        </div>
+                    <div class="mt-2 translate-x-2">
+                        <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo $res['title'] ?></a>
+                        <p class="space-x-2">
+                            <span class="text-lg font-medium text-indigo-500">₹<?php echo $res['MRP'] ?></span>
+                            <del class="text-xs font-normal">₹<?php echo $res['Your_Price'] ?></del>
+                        </p>
                         <div class="flex items-center mt-3">
                             <span class="bg-indigo-400 rounded-md px-2 py-0.5 flex items-center gap-1">
                                 <h1 class="font-semibold text-base text-white">0.0</h1>
@@ -33,7 +46,7 @@ function displayRandomProducts($con, $limit)
                         </div>
                     </div>
                 </div>
-            </div>
+            </li>
 <?php
         }
     } else {
@@ -314,119 +327,13 @@ function displayRandomProducts($con, $limit)
 
 
         <!-- card splide 1 -->
-        <div class="splide" id="cardSplide1">
+        <div class="splide mt-12" id="cardSplide1">
             <h1 class="text-2xl">You Might Also Like</h1>
             <div class="splide__track py-5">
                 <ul class="splide__list">
-                    <li class="splide__slide flex justify-center">
-                        <?php
-                        displayRandomProducts($con, 10);
-                        ?>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
+                    <?php
+                    displayRandomProducts($con, 10);
+                    ?>
                 </ul>
             </div>
         </div>
@@ -607,119 +514,13 @@ function displayRandomProducts($con, $limit)
 
 
         <!-- card splide 1 -->
-        <div class="splide" id="cardSplide2">
+        <div class="splide mt-12" id="cardSplide2">
             <h1 class="text-2xl">You Might Also Like</h1>
             <div class="splide__track py-5">
                 <ul class="splide__list">
-                    <li class="splide__slide flex justify-center">
-                        <?php
-                        displayRandomProducts($con, 10);
-                        ?>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="splide__slide flex justify-center">
-                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                            <div>
-                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                            </div>
-                            <div class="mt-2 translate-x-2">
-                                <h1 class="text-orange-600">Bestseller</h1>
-                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
-                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
-                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
-                            </div>
-                        </div>
-                    </li>
+                    <?php
+                    displayRandomProducts($con, 10);
+                    ?>
                 </ul>
             </div>
         </div>
