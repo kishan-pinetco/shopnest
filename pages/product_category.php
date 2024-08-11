@@ -67,13 +67,13 @@
     <?php
     include "../pages/_navbar.php";
     ?>
-    <div class="max-w-screen-xl m-auto">
-        <div class="h-64 w-full mt-10 flex items-center" style="background-image: url(https://motta.uix.store/wp-content/uploads/2022/07/shop_header.jpg);">
+    <div class="max-w-screen-xl m-auto px-5">
+        <div class="h-64 mt-10 flex items-center" style="background-image: url(https://motta.uix.store/wp-content/uploads/2022/07/shop_header.jpg);">
             <h1 class="text-4xl text-[#b96459] font-bold ml-10">Shop</h1>
         </div>
-        <div class="flex ">
+        <div class="sm:flex sm:justify-between gap-x-5">
             <!-- filter -->
-            <div>
+            <div class="hidden sm:block">
                 <div x-data="{ openItem: null }" class="max-w-xl mx-auto bg-white shadow-lg rounded-lg my-12 w-80">
                     <h2 class="text-2xl font-bold p-5">Filter</h2>
                     <hr>
@@ -153,8 +153,10 @@
 
             </div>
             <!-- products -->
-            <div>
-
+            <div class="flex justify-center mt-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                    <!-- include card here -->
+                </div>
             </div>
         </div>
     </div>

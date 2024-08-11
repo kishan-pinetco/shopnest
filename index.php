@@ -70,6 +70,10 @@ function displayRandomProducts($con, $limit)
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+    <!-- splide link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.9/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide/dist/js/splide.min.js"></script>
+
 
     <style>
         .outfit {
@@ -108,6 +112,8 @@ function displayRandomProducts($con, $limit)
             z-index: 1;
         }
 
+        /* change this below css and pest test.html page */
+
         .slider-container {
             overflow: hidden;
             position: relative;
@@ -124,13 +130,6 @@ function displayRandomProducts($con, $limit)
             width: 288px;
             margin-right: 16px;
         }
-
-        .categoryCard {
-            width: 12rem;
-            /* Card width */
-            margin-right: 1rem;
-            /* Card margin */
-        }
     </style>
 
 </head>
@@ -140,32 +139,114 @@ function displayRandomProducts($con, $limit)
     <?php
     include "pages/_navbar.php";
     ?>
-    <div class="p-2 flex flex-col items-center max-w-screen-xl m-auto outfit">
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-9 text-sm py-5 px-6">
-            <div>
-                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
+    <div class="p-2 flex flex-col max-w-screen-xl m-auto outfit">
+        <div>
+            <div class="hidden xl:block xl:grid xl:grid-cols-8 gap-9 text-sm py-5 px-6">
+                <div>
+                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
+                </div>
+                <div>
+                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Electronics</span></a>
+                </div>
+                <div>
+                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">15% off Headphone</span></a>
+                </div>
+                <div>
+                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Think Outside The Box</span></a>
+                </div>
+                <div>
+                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ... ">Toys</span></a>
+                </div>
+                <div>
+                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Sports</span></a>
+                </div>
+                <div>
+                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">New From Apple</span></a>
+                </div>
+                <div>
+                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
+                </div>
             </div>
-            <div>
-                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Electronics</span></a>
+            <!-- categorySplider2 -->
+            <div class="splide xl:hidden" id="categorySplide1">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard p-4">
+                                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Electronics</span></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">15% off Headphone</span></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Think Outside The Box</span></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ... ">Toys</span></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Sports</span></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">New From Apple</span></a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">15% off Headphone</span></a>
-            </div>
-            <div>
-                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Think Outside The Box</span></a>
-            </div>
-            <div>
-                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ... ">Toys</span></a>
-            </div>
-            <div>
-                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Sports</span></a>
-            </div>
-            <div>
-                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">New From Apple</span></a>
-            </div>
-            <div>
-                <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
-            </div>
+
+            <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    new Splide('#categorySplide1', {
+                        perPage: 6,
+                        perMove: 1,
+                        gap: '1rem', // Adjust gap between slides
+                        rewind: false, // Do not loop back to the start
+                        arrows: true,
+                        pagination: false,
+                        breakpoints: {
+                            1200: {
+                                perPage: 4,
+                                gap: '0.75rem'
+                            },
+                            992: {
+                                perPage: 3,
+                                gap: '0.5rem'
+                            },
+                            768: {
+                                perPage: 2,
+                                gap: '0.25rem'
+                            },
+                            500: {
+                                perPage: 1,
+                                gap: '0.25rem'
+                            }
+                        }
+                    }).mount();
+                });
+            </script>
         </div>
         <!-- Swiper -->
         <div class="swiper mySwiper w-full h-full rounded-lg mt-3">
@@ -294,7 +375,7 @@ function displayRandomProducts($con, $limit)
 
 
         <!-- tranding deals -->
-        <div class="mt-12">
+        <div class="mt-12 flex flex-col items-center">
             <h1 class="mb-5 text-2xl">Trending Deals</h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
                 <div class="overflow-hidden w-52">
@@ -496,9 +577,9 @@ function displayRandomProducts($con, $limit)
             updateButtons2();
         </script>
 
-        <div class="my-5 mt-12 hidden xl:block">
+        <div class="my-5 mt-12 ">
             <h1 class="text-2xl mb-4">Explore More Categories</h1>
-            <div class="flex w-full gap-10 overflow-auto">
+            <div class="xl:flex w-full gap-10 hidden xl:block">
                 <div>
                     <a class="flex flex-col items-center space-y-2 w-36" href="">
                         <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cellphones.jpg?w=640&ssl=1" alt="">
@@ -542,107 +623,101 @@ function displayRandomProducts($con, $limit)
                     </a>
                 </div>
             </div>
+
+            <!-- categorySplider2 -->
+            <div class="splide xl:hidden" id="categorySplide2">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard p-4">
+                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                    <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cellphones.jpg?w=640&ssl=1" alt="">
+                                    <p>Cell Phones</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                    <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-ipadtablets.jpg?w=640&ssl=1" alt="">
+                                    <p>iPads & Tablets</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                    <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-laptops.jpg?w=640&ssl=1" alt="">
+                                    <p>Laptops</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                    <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cameras.jpg?w=640&ssl=1" alt="">
+                                    <p>Cameras</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                    <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-wearabletech.jpg?w=640&ssl=1" alt="">
+                                    <p>Wearable Tech</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                    <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-headphones.jpg?w=640&ssl=1" alt="">
+                                    <p>Headphones</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="splide__slide flex justify-center">
+                            <div class="categoryCard flex-shrink-0 p-4">
+                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                    <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-accessories.jpg?w=640&ssl=1" alt="">
+                                    <p>Accessories</p>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    new Splide('#categorySplide2', {
+                        perPage: 5,
+                        perMove: 1,
+                        gap: '1rem', // Adjust gap between slides
+                        rewind: false, // Do not loop back to the start
+                        arrows: true,
+                        pagination: false,
+                        breakpoints: {
+                            1200: {
+                                perPage: 3,
+                                gap: '0.75rem'
+                            },
+                            992: {
+                                perPage: 2,
+                                gap: '0.5rem'
+                            },
+                            768: {
+                                perPage: 1,
+                                gap: '0.25rem'
+                            }
+                        }
+                    }).mount();
+                });
+            </script>
+
         </div>
-
-        <!-- category slider 2 -->
-        <div class="slider-container mt-12 block xl:hidden">
-            <h1 class="text-2xl mb-5">Explore More Categories</h1>
-            <div id="categoryslider2" class="card-slider flex transition-transform duration-300">
-                <div class="categoryCard ml-10">
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
-                        <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cellphones.jpg?w=640&ssl=1" alt="">
-                        <p>Cell Phones</p>
-                    </a>
-                </div>
-                <div class="categoryCard">
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
-                        <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-ipadtablets.jpg?w=640&ssl=1" alt="">
-                        <p>iPads & Tablets</p>
-                    </a>
-                </div>
-                <div class="categoryCard">
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
-                        <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-laptops.jpg?w=640&ssl=1" alt="">
-                        <p>Laptops</p>
-                    </a>
-                </div>
-                <div class="categoryCard">
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
-                        <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cameras.jpg?w=640&ssl=1" alt="">
-                        <p>Cameras</p>
-                    </a>
-                </div>
-                <div class="categoryCard">
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
-                        <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-wearabletech.jpg?w=640&ssl=1" alt="">
-                        <p>Wearable Tech</p>
-                    </a>
-                </div>
-                <div class="categoryCard">
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
-                        <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-headphones.jpg?w=640&ssl=1" alt="">
-                        <p>Headphones</p>
-                    </a>
-                </div>
-                <div class="categoryCard">
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
-                        <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-accessories.jpg?w=640&ssl=1" alt="">
-                        <p>Accessories</p>
-                    </a>
-                </div>
-            </div>
-            <!-- slider control -->
-            <div class="absolute inset-y-0 left-0 flex items-center">
-                <button id="categoryprev2" class="bg-white p-2 rounded-full shadow-lg focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="absolute inset-y-0 right-0 flex items-center">
-                <button id="categorynext2" class="bg-white p-2 rounded-full shadow-lg focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-
-        <script>
-            const categoryslider2 = document.getElementById('categoryslider2');
-            const categorynext2 = document.getElementById('categorynext2');
-            const categoryprev2 = document.getElementById('categoryprev2');
-
-            let categorycurrentIndex2 = 0;
-            const categorycardWidth2 = 12 * 16; // 12rem in pixels (1rem = 16px)
-            const categoryvisibleCards2 = Math.floor(document.querySelector('.slider-container').offsetWidth / categorycardWidth2);
-            const categorytotalCards2 = categoryslider2.children.length;
-
-            function categoryupdateButtons2() {
-                categoryprev2.disabled = categorycurrentIndex2 === 0;
-                categorynext2.disabled = categorycurrentIndex2 >= categorytotalCards2 - categoryvisibleCards2;
-            }
-
-            categorynext2.addEventListener('click', () => {
-                if (categorycurrentIndex2 < categorytotalCards2 - categoryvisibleCards2) {
-                    categorycurrentIndex2++;
-                    categoryslider2.style.transform = `translateX(-${categorycurrentIndex2 * categorycardWidth2}px)`;
-                    categoryupdateButtons2();
-                }
-            });
-
-            categoryprev2.addEventListener('click', () => {
-                if (categorycurrentIndex2 > 0) {
-                    categorycurrentIndex2--;
-                    categoryslider2.style.transform = `translateX(-${categorycurrentIndex2 * categorycardWidth2}px)`;
-                    categoryupdateButtons2();
-                }
-            });
-
-            // Initial button state
-            categoryupdateButtons2();
-        </script>
 
         <!-- slider 2 -->
         <div class="slider-container mt-12">
@@ -726,7 +801,7 @@ function displayRandomProducts($con, $limit)
                     </svg>
                 </div>
 
-                <!-- logitech -->
+                <!-- canon -->
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                         <g>
