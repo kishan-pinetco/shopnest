@@ -312,64 +312,152 @@ function displayRandomProducts($con, $limit)
         </script>
 
 
-        <!-- slider 1 -->
-        <div class="slider-container mt-10">
+
+        <!-- card splide 1 -->
+        <div class="splide" id="cardSplide1">
             <h1 class="text-2xl">You Might Also Like</h1>
-            <div id="slider1" class="card-slider">
-                <?php
-                displayRandomProducts($con, 10);
-                ?>
-            </div>
-            <!-- slider contorl -->
-            <div class="absolute inset-y-0 left-0 flex items-center">
-                <button id="prev1" class="bg-white p-2 rounded-full shadow-lg focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="absolute inset-y-0 right-0 flex items-center">
-                <button id="next1" class="bg-white p-2 rounded-full shadow-lg focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
+            <div class="splide__track py-5">
+                <ul class="splide__list">
+                    <li class="splide__slide flex justify-center">
+                        <?php
+                        displayRandomProducts($con, 10);
+                        ?>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
 
+        <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
+
         <script>
-            const slider1 = document.getElementById('slider1');
-            const next1 = document.getElementById('next1');
-            const prev1 = document.getElementById('prev1');
-
-            let currentIndex1 = 0;
-            const cardWidth1 = 18 * 16; // 18rem in pixels (1rem = 16px)
-            const visibleCards1 = Math.floor(document.querySelector('.slider-container').offsetWidth / cardWidth1);
-            const totalCards1 = slider1.children.length;
-
-            function updateButtons1() {
-                prev1.disabled = currentIndex1 === 0;
-                next1.disabled = currentIndex1 >= totalCards1 - visibleCards1;
-            }
-
-            next1.addEventListener('click', () => {
-                if (currentIndex1 < totalCards1 - visibleCards1) {
-                    currentIndex1++;
-                    slider1.style.transform = `translateX(-${currentIndex1 * cardWidth1}px)`;
-                    updateButtons1();
-                }
+            document.addEventListener('DOMContentLoaded', function() {
+                new Splide('#cardSplide1', {
+                    perPage: 4,
+                    perMove: 1,
+                    gap: '1rem', // Adjust gap between slides
+                    rewind: false, // Do not loop back to the start
+                    arrows: true,
+                    pagination: false,
+                    breakpoints: {
+                        1200: {
+                            perPage: 3,
+                            gap: '0.75rem'
+                        },
+                        992: {
+                            perPage: 2,
+                            gap: '0.5rem'
+                        },
+                        768: {
+                            perPage: 1,
+                            gap: '0.25rem'
+                        }
+                    }
+                }).mount();
             });
-
-            prev1.addEventListener('click', () => {
-                if (currentIndex1 > 0) {
-                    currentIndex1--;
-                    slider1.style.transform = `translateX(-${currentIndex1 * cardWidth1}px)`;
-                    updateButtons1();
-                }
-            });
-
-            // Initial button state
-            updateButtons1();
         </script>
 
 
@@ -517,64 +605,152 @@ function displayRandomProducts($con, $limit)
             </div>
         </div>
 
-        <!-- slider 2 -->
-        <div class="slider-container mt-12">
-            <h1 class="text-2xl">More to Discover</h1>
-            <div id="slider2" class="card-slider">
-                <?php
-                displayRandomProducts($con, 10);
-                ?>
-            </div>
-            <!-- slider contorl -->
-            <div class="absolute inset-y-0 left-0 flex items-center">
-                <button id="prev2" class="bg-white p-2 rounded-full shadow-lg focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="absolute inset-y-0 right-0 flex items-center">
-                <button id="next2" class="bg-white p-2 rounded-full shadow-lg focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
+
+        <!-- card splide 1 -->
+        <div class="splide" id="cardSplide2">
+            <h1 class="text-2xl">You Might Also Like</h1>
+            <div class="splide__track py-5">
+                <ul class="splide__list">
+                    <li class="splide__slide flex justify-center">
+                        <?php
+                        displayRandomProducts($con, 10);
+                        ?>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide flex justify-center">
+                        <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
+                            <div>
+                                <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw" loading="lazy" sizes="" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            </div>
+                            <div class="mt-2 translate-x-2">
+                                <h1 class="text-orange-600">Bestseller</h1>
+                                <p class="text-lg font-medium">Nike Air Force 1 '07</p>
+                                <p class="text-gray-500 font-medium">Shoes <br> 6 Colors</p>
+                                <p class="font-medium mt-3">MRP : ₹ 9 695.00</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
 
+        <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
+
         <script>
-            const slider2 = document.getElementById('slider2');
-            const next2 = document.getElementById('next2');
-            const prev2 = document.getElementById('prev2');
-
-            let currentIndex2 = 0;
-            const cardWidth2 = 18 * 16; // 18rem in pixels (1rem = 16px)
-            const visibleCards2 = Math.floor(document.querySelector('.slider-container').offsetWidth / cardWidth2);
-            const totalCards2 = slider2.children.length;
-
-            function updateButtons2() {
-                prev2.disabled = currentIndex2 === 0;
-                next2.disabled = currentIndex2 >= totalCards2 - visibleCards2;
-            }
-
-            next2.addEventListener('click', () => {
-                if (currentIndex2 < totalCards2 - visibleCards2) {
-                    currentIndex2++;
-                    slider2.style.transform = `translateX(-${currentIndex2 * cardWidth2}px)`;
-                    updateButtons2();
-                }
+            document.addEventListener('DOMContentLoaded', function() {
+                new Splide('#cardSplide2', {
+                    perPage: 4,
+                    perMove: 1,
+                    gap: '1rem', // Adjust gap between slides
+                    rewind: false, // Do not loop back to the start
+                    arrows: true,
+                    pagination: false,
+                    breakpoints: {
+                        1200: {
+                            perPage: 3,
+                            gap: '0.75rem'
+                        },
+                        992: {
+                            perPage: 2,
+                            gap: '0.5rem'
+                        },
+                        768: {
+                            perPage: 1,
+                            gap: '0.25rem'
+                        }
+                    }
+                }).mount();
             });
-
-            prev2.addEventListener('click', () => {
-                if (currentIndex2 > 0) {
-                    currentIndex2--;
-                    slider2.style.transform = `translateX(-${currentIndex2 * cardWidth2}px)`;
-                    updateButtons2();
-                }
-            });
-
-            // Initial button state
-            updateButtons2();
         </script>
 
         <div class="my-5 mt-12 ">
