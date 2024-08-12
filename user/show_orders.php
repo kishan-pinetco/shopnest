@@ -149,10 +149,10 @@
                         </div>
                     </div>
                 </header>
-                <section class="relative pt-7">
+                <section class="relative pt-7 overflow-y-scroll h-full">
                     <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black text-center mb-11">Your Orders</h2>
-                        <div class="w-full px-3 overflow-auto min-[400px]:px-6 lg:h-[60vh] lg:overflow-y-scroll">
+                        <div class="w-full px-3 min-[400px]:px-6">
                             <?php
                                 $retrieve_order = "SELECT * FROM orders WHERE user_id = '$user_id'";
                                 $retrieve_order_query = mysqli_query($con, $retrieve_order);
@@ -204,8 +204,22 @@
                                                         </div>
                                                         <div class="col-span-5 lg:col-span-2 flex items-center max-lg:mt-3">
                                                             <div class="flex flex-col items-center gap-2">
-                                                                <p class="font-medium text-sm whitespace-nowrap leading-6 text-black">Delivery Expected by:</p>
-                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500"><?php echo isset($_COOKIE['user_id']) ? $future_date : 'Delivery Date' ?></p>
+                                                                <?php
+                                                                    if($res['status'] === 'Ready For Delivery'){
+                                                                        ?>
+                                                                            <p class="font-medium text-sm whitespace-nowrap leading-6 text-black">Delivery Expected by:</p>
+                                                                            <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500"><?php echo isset($_COOKIE['user_id']) ? $future_date : 'Delivery Date' ?></p>
+                                                                        <?php
+                                                                    }else if($res['status'] === 'Delivered'){
+                                                                       ?>
+                                                                            <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500">Your Order is Delivered</p>
+                                                                       <?php
+                                                                    }else if($res['status'] === 'Cancle'){
+                                                                        ?>
+                                                                            <p class="font-medium text-base whitespace-nowrap leading-7 text-red-500">Your Order is Cancled</p>
+                                                                        <?php
+                                                                    }
+                                                                ?>
                                                             </div>
                                                         </div>
                                                     </div>

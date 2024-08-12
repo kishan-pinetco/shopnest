@@ -68,13 +68,13 @@ if (isset($_COOKIE['user_id'])) {
                     <p class="cursor-default font-semibold text-2xl">Receive Payment Via?</p>
                     <div class="flex flex-col gap-2 px-3 mt-3">
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="Preceive" id="type_1" value="Found a better option elsewhere">
+                            <input type="radio" name="Preceive" id="type_1" value="UPI">
                             <label for="type_1">
                                 <p>UPI</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="Preceive" id="type_2" value="Budget constraints">
+                            <input type="radio" name="Preceive" id="type_2" value="Net Banking">
                             <label for="type_2">
                                 <p>Net Banking</p>
                             </label>
