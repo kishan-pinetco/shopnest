@@ -158,11 +158,12 @@
                                                 </div>
                                                 <div class="mt-2">
                                                     <div class="space-y-1">
-                                                    <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id'?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $res['title'] : 'product Name'?></a>
+                                                        <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id'?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $res['title'] : 'product Name'?></a>
                                                         <p class="space-x-2">
                                                             <span class="text-lg font-medium text-indigo-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['MRP'] : 'MRP'?></span>
                                                             <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['Your_Price'] : 'Delete Price'?></del>
                                                         </p>
+                                                        <h2>QTY: <?php echo isset($_COOKIE['vendor_id']) ? $res['Quantity'] : 'product Quantity'?></h2>
                                                     </div>
                                                 </div>
                                             </div>

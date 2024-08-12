@@ -14,6 +14,8 @@ if (isset($_COOKIE['user_id'])) {
 
     $product_color = $res['order_color'];
 
+    $todays = date('d-m-Y');
+
     $today = date('d-m-Y', strtotime($res['date']));
     $future_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
 
@@ -65,7 +67,7 @@ if (isset($_COOKIE['user_id'])) {
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div>
                 <?php
-                if ($future_date > strtotime("today")) {
+                if ($future_date < $todays) {
                 ?>
                     <h2 class="text-xl font-semibold sm:text-2xl">Your Order is Delivered</h2>
                 <?php
@@ -78,7 +80,7 @@ if (isset($_COOKIE['user_id'])) {
                 <div>
                     <h3 class="mt-7 text-xl font-medium">Hi <?php echo $user_name; ?>!</h3>
                     <?php
-                    if ($future_date > strtotime("today")) {
+                    if ($future_date < $todays) {
                     ?>
                         <span>Your Order is Delivered</span>
                     <?php
@@ -149,7 +151,7 @@ if (isset($_COOKIE['user_id'])) {
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0 mt-12">
             <div>
                 <?php
-                    if($future_date > strtotime("today")){
+                    if($future_date < $todays){
                         ?>
                             <h2 class="font-semibold text-2xl mb-4">Your Order is Delivered</h2>
                         <?php
@@ -228,15 +230,12 @@ if (isset($_COOKIE['user_id'])) {
                     </ol>
 
                     <div class="flex flex-col items-center gap-4 gap-y-4 sm:flex-row">
-                        <!-- <a href="" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-black/90">Cancel the order</a>
-                        <a href="" class="w-full flex items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800">Order details</a> -->
                         <?php
-                            if($thirdday > strtotime("today")){
+                            if($thirdday < $todays){
                                 ?>
-                                    <h1 class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer">Cancle Order</h1>
                                     <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
                                 <?php
-                                if($fifth > strtotime("today") && $return_date >= strtotime('today')){
+                                if($fifth < $todays && $return_date >= strtotime('today')){
                                     ?>
                                         <a href="return_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
                                     <?php
@@ -246,6 +245,10 @@ if (isset($_COOKIE['user_id'])) {
                                     <a href="cancel_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-black/90">Cancel the order</a>
                                     <h1 class="w-full flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer">Return Order</h1>
                                 <?php
+                            }
+
+                            if($todays == $fifth){
+                                
                             }
                         ?>
                     </div>

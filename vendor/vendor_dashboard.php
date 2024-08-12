@@ -20,6 +20,24 @@
             $totalSale += $trimPrice;
         }
 
+        $fetch_orders_query = "
+            SELECT date, COUNT(*) AS product_count
+            FROM orders
+            WHERE vendor_id = '$vendor_id'
+            GROUP BY date
+        ";
+        $orders_result = mysqli_query($con, $fetch_orders_query);
+
+        $data = [];
+        while ($order = mysqli_fetch_assoc($orders_result)) {
+            $data[] = [
+                'date' => $order['date'], // Date field
+                'product_count' => (int)$order['product_count'] // Count of products sold
+            ];
+        }
+
+        $data_json = json_encode($data);
+
         // for earning
         $earning_orders = "SELECT * FROM orders WHERE vendor_id = '$vendor_id'";
         $earning_query = mysqli_query($con,$earning_orders);
@@ -61,11 +79,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- morris chart -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
     <!-- link to css -->
     <link rel="stylesheet" href="">
@@ -247,28 +264,30 @@
                     </div>
                     <div class="bg-white shadow-xl rounded-md px-4 py-3 mt-12">
                         <h1 class="text-2xl font-bold text-indigo-950">Sales</h1>
-                        <div id="myfirstchart" class="w-full"></div>
+                        <div id="chart" style="height: 250px;"></div>
+
+    <script>
+        $(document).ready(function() {
+            var chartData = <?php echo $data_json; ?>;
+            
+            new Morris.Bar({
+                element: 'chart',
+                data: chartData,
+                xkey: 'date',
+                ykeys: ['product_count'],
+                labels: ['Number of Products Sold'],
+                barColors: ['#00a65a'],
+                hideHover: 'auto',
+                resize: true,
+                xLabelAngle: 60,
+                xLabels: 'day',
+            });
+        });
+    </script>
                     </div>
                 </main>
             </div>
         </div>
     </div>
-
-
-    <script>
-        new Morris.Area({
-            element: 'myfirstchart',
-            data: [
-                {year: '2008',value: 20},
-                {year: '2009',value: 10},
-                {year: '2010',value: 5},
-                {year: '2011',value: 5},
-                {year: '2012',value: 20}
-            ],
-            xkey: 'year',
-            ykeys: ['value'],
-            labels: ['Value']
-        });
-    </script>
 </body>
 </html>
