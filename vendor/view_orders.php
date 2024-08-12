@@ -145,14 +145,21 @@
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <!-- place orders -->
                     <section class="container mx-auto p-6">
+                    <style>
+                        /* width */
+                        ::-webkit-scrollbar {
+                          width: 10px;
+                          height: 4px;
+                        }
+                        </style>
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Place Orders</h2>
-                        <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                        <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg" id="place">
                             <div class="w-full overflow-x-auto h-max text-center">
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
                                             <th class="px-4 py-3">order_id</th>
-                                            <th class="px-4 py-3">order_name</th>
+                                            <th class="px-4 py-3 w-96">order_name</th>
                                             <th class="px-4 py-3">order_image</th>
                                             <th class="px-4 py-3">order_price</th>
                                             <th class="px-4 py-3">order_Color</th>
@@ -179,7 +186,7 @@
                                                     <tbody class="bg-white border">
                                                         <tr class="text-gray-700">
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_id'] : 'order_id'?></td>
-                                                            <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_title'] : 'order_title'?></td>
+                                                            <td class="px-4 py-3 leading-9 line-clamp-3"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_title'] : 'order_title'?></td>
                                                             <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $items['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['total_price'] : 'total_price'?></td>
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_color'] : 'order_color'?></td>
@@ -215,7 +222,7 @@
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
                                             <th class="px-4 py-3">cancel_order_id</th>
                                             <th class="px-4 py-3">cancle_order_title</th>
-                                            <th class="px-4 py-3">cancle_order_image</th>
+                                            <th class="px-4 py-3 w-96">cancle_order_image</th>
                                             <th class="px-4 py-3">cancle_order_price</th>
                                             <th class="px-4 py-3">cancle_order_color</th>
                                             <th class="px-4 py-3">cancle_order_size	</th>
@@ -237,7 +244,7 @@
                                                     <tbody class="bg-white border">
                                                         <tr class="text-gray-700">
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancel_order_id'] : 'cancel_order_id'?></td>
-                                                            <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_title'] : 'cancle_order_title'?></td>
+                                                            <td class="px-4 py-3 leading-9 line-clamp-3"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_title'] : 'cancle_order_title'?></td>
                                                             <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $co['cancle_order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_price'] : 'cancle_order_price'?></td>
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_color'] : 'cancle_order_color'?></td>
@@ -268,7 +275,7 @@
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
                                             <th class="px-4 py-3">return_order_id</th>
-                                            <th class="px-4 py-3">return_order_title</th>
+                                            <th class="px-4 py-3 w-96">return_order_title</th>
                                             <th class="px-4 py-3">return_order_image</th>
                                             <th class="px-4 py-3">return_order_price</th>
                                             <th class="px-4 py-3">return_order_color</th>
@@ -290,7 +297,7 @@
                                                     <tbody class="bg-white border">
                                                         <tr class="text-gray-700">
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_id'] : 'return_order_id'?></td>
-                                                            <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_title'] : 'return_order_title'?></td>
+                                                            <td class="px-4 py-3 leading-9 line-clamp-3"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_title'] : 'return_order_title'?></td>
                                                             <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $ro['return_order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_price'] : 'return_order_price'?></td>
                                                             <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_color'] : 'return_order_color'?></td>
