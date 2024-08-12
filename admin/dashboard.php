@@ -4,10 +4,23 @@ include "../include/connect.php";
 
 if(isset($_COOKIE['adminEmail'])){
     // for views
-    $sale_orders = "SELECT * FROM page_count";
-    $sale_query = mysqli_query($con,$sale_orders);
+    $views = "SELECT * FROM page_count";
+    $views_query = mysqli_query($con,$views);
 
-    $Cview = mysqli_num_rows($sale_query);
+    $Cview = mysqli_num_rows($views_query);
+
+    $views = "SELECT view_date, COUNT(view_count) as total_count FROM page_count GROUP BY view_date ORDER BY view_date";
+    $view_query = mysqli_query($con, $views);
+
+    $data = array();
+    while ($row = mysqli_fetch_assoc($view_query)) {
+        $data[] = array(
+            'date' => $row['view_date'],
+            'count' => (int) $row['total_count']
+        );
+    }
+
+    $data_json = json_encode($data);
 
     // for profit
     $earning_orders = "SELECT * FROM orders";
@@ -40,7 +53,7 @@ if(isset($_COOKIE['adminEmail'])){
     $vendors_query = mysqli_query($con,$vendors);
 
     $vendor = mysqli_num_rows($vendors_query);
-
+    
 }
 ?> 
 
@@ -60,6 +73,11 @@ if(isset($_COOKIE['adminEmail'])){
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
     <!-- link to css -->
     <link rel="stylesheet" href="">
@@ -210,6 +228,29 @@ if(isset($_COOKIE['adminEmail'])){
                     </div>
                     <div class="bg-white shadow-xl rounded-md px-4 py-3 mt-12">
                         <h1 class="text-2xl font-bold text-indigo-950">Visitors Analytics</h1>
+                        <div id="chart" style="height: 250px;"></div>
+                        <script>
+                            $(document).ready(function() {
+                                var chartData = <?php echo $data_json; ?>;
+                            
+                                new Morris.Bar({
+                                    element: 'chart',
+                                    data: chartData,
+                                    xkey: 'date',
+                                    ykeys: ['count'],
+                                    labels: ['View Count'],
+                                    barColors: ['#00a65a'],
+                                    hideHover: 'auto',
+                                    resize: true,
+                                    xLabelAngle: 60, // Optional: rotate x-axis labels to avoid overlapping
+                                    xLabels: 'day',  // Optional: set format to day if needed
+                                    dateFormat: function (x) {
+                                        var d = new Date(x);
+                                        return (d.getDate() < 10 ? '0' : '') + d.getDate() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1) + '-' + d.getFullYear();
+                                    } // Optional: custom date formatting
+                                });
+                            });
+                        </script>
                     </div>
                 </main>
             </div>
