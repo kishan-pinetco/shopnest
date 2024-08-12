@@ -152,41 +152,44 @@
                     <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-3 gap-6 w-full mt-6 lg:h-[70vh] py-4 lg:overflow-y-scroll p-3 rounded-md">
                         
                         <?php
-                            $retrive_reivew = "SELECT * FROM user_review WHERE user_id = '$user_id'";
-                            $retrive_reivew_query = mysqli_query($con, $retrive_reivew);
+                            if(isset($_COOKIE['user_id'])){
 
-                            while($rev = mysqli_fetch_assoc($retrive_reivew_query)){
-                                ?>
-                                    <div class="bg-white shadow-lg h-max p-3 rounded-md">
-                                        <a href="">
-                                            <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row">
-                                                <div class="flex item-center justify-center gap-3">
-                                                    <img class="w-12 h-12" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
-                                                    <div class="flex flex-col gap-0">
-                                                        <h2 class="font-medium text-base text-neutral-800"><?php echo isset($_COOKIE['user_id']) ? $rev['public_name'] : 'public_name'?></span></h2>
-                                                        <p class="font-medium text-sm text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $rev['date'] : 'date'?></p>
+                                $retrive_reivew = "SELECT * FROM user_review WHERE user_id = '$user_id'";
+                                $retrive_reivew_query = mysqli_query($con, $retrive_reivew);
+
+                                while($rev = mysqli_fetch_assoc($retrive_reivew_query)){
+                                    ?>
+                                        <div class="bg-white shadow-lg h-max p-3 rounded-md">
+                                            <a href="">
+                                                <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row">
+                                                    <div class="flex item-center justify-center gap-3">
+                                                        <img class="w-12 h-12" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                                                        <div class="flex flex-col gap-0">
+                                                            <h2 class="font-medium text-base text-neutral-800"><?php echo isset($_COOKIE['user_id']) ? $rev['public_name'] : 'public_name'?></span></h2>
+                                                            <p class="font-medium text-sm text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $rev['date'] : 'date'?></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex item-center gap-1">
+                                                        <span class="bg-indigo-500 rounded-md px-2 py-1 flex items-center gap-1">
+                                                            <h1 class="font-semibold text-base text-white"><?php echo isset($_COOKIE['user_id']) ? $rev['Rating'] : 'Rating'?></h1>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
+                                                                <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                                            </svg>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div class="flex item-center gap-1">
-                                                    <span class="bg-indigo-500 rounded-md px-2 py-1 flex items-center gap-1">
-                                                        <h1 class="font-semibold text-base text-white"><?php echo isset($_COOKIE['user_id']) ? $rev['Rating'] : 'Rating'?></h1>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
-                                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                                        </svg>
-                                                    </span>
+                                                <div class="mt-6">
+                                                    <h1 class="font-medium mb-3"><?php echo isset($_COOKIE['user_id']) ? $rev['Headline'] : 'Headline'?></h1>
+                                                    <p><?php echo isset($_COOKIE['user_id']) ? $rev['description'] : 'description'?></p>
                                                 </div>
+                                            </a> 
+                                            <div class="flex item-center justify-between mt-4">
+                                                <a href="edit_review.php?product_id=<?php echo $rev['product_id']?>" class="text-green-600 underline underline-offset-4">Edit</a>
+                                                <a href="delete_review.php?product_id=<?php echo $rev['product_id']?>" class="text-red-600 underline underline-offset-4">Delete</a>
                                             </div>
-                                            <div class="mt-6">
-                                                <h1 class="font-medium mb-3"><?php echo isset($_COOKIE['user_id']) ? $rev['Headline'] : 'Headline'?></h1>
-                                                <p><?php echo isset($_COOKIE['user_id']) ? $rev['description'] : 'description'?></p>
-                                            </div>
-                                        </a> 
-                                        <div class="flex item-center justify-between mt-4">
-                                            <a href="edit_review.php?product_id=<?php echo $rev['product_id']?>" class="text-green-600 underline underline-offset-4">Edit</a>
-                                            <a href="delete_review.php?product_id=<?php echo $rev['product_id']?>" class="text-red-600 underline underline-offset-4">Delete</a>
                                         </div>
-                                    </div>
-                                <?php
+                                    <?php
+                                }
                             }
                         ?>
                     </div>    

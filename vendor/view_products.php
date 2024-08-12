@@ -135,40 +135,42 @@
                         <span class="text-2xl font-semibold">Your Products</span>
                         <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 text-[#1d2128] mt-4">
                             <?php
-                                $product_find = "SELECT * FROM products WHERE vendor_id = '$vendor_id'";
-                                $product_query = mysqli_query($con,$product_find);
-
-
-                                while($res = mysqli_fetch_assoc($product_query)){
-                                    ?>
-                                        <div class="card w-full flex-shrink-0 p-4 group relative">
-                                            <div class="absolute right-0 top-0 z-10 p-2 mb-4 pt-3 mt-2 mr-2 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
-                                                <!-- edit -->
-                                                <a href="update_product.php?product_id=<?php echo $res['product_id']?>&name=<?php echo $res['Category']?>" title="Edit Your Product" class="text-xl text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
-                                                <!-- delete -->
-                                                <a href="delete_product.php?product_id=<?php echo $res['product_id']?>" title="Delete Your Product" class="text-xl text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
-                                            </div>
-                                            <div class="p-3 border rounded-lg transition transform hover:shadow-lg bg-white">
-                                                <div>
-                                                    <img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg'?>" class="h-full w-full object-contai mix-blend-multiply" alt="">
+                                if(isset($_COOKIE['vendor_id'])){
+                                    $product_find = "SELECT * FROM products WHERE vendor_id = '$vendor_id'";
+                                    $product_query = mysqli_query($con,$product_find);
+    
+    
+                                    while($res = mysqli_fetch_assoc($product_query)){
+                                        ?>
+                                            <div class="card w-full flex-shrink-0 p-4 group relative">
+                                                <div class="absolute right-0 top-0 z-10 p-2 mb-4 pt-3 mt-2 mr-2 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
+                                                    <!-- edit -->
+                                                    <a href="update_product.php?product_id=<?php echo $res['product_id']?>&name=<?php echo $res['Category']?>" title="Edit Your Product" class="text-xl text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                    <!-- delete -->
+                                                    <a href="delete_product.php?product_id=<?php echo $res['product_id']?>" title="Delete Your Product" class="text-xl text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </a>
                                                 </div>
-                                                <div class="mt-2">
-                                                    <div class="space-y-1">
-                                                        <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id'?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $res['title'] : 'product Name'?></a>
-                                                        <p class="space-x-2">
-                                                            <span class="text-lg font-medium text-indigo-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['MRP'] : 'MRP'?></span>
-                                                            <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['Your_Price'] : 'Delete Price'?></del>
-                                                        </p>
-                                                        <h2>QTY: <?php echo isset($_COOKIE['vendor_id']) ? $res['Quantity'] : 'product Quantity'?></h2>
+                                                <div class="p-3 border rounded-lg transition transform hover:shadow-lg bg-white">
+                                                    <div>
+                                                        <img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg'?>" class="h-full w-full object-contai mix-blend-multiply" alt="">
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <div class="space-y-1">
+                                                            <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id'?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $res['title'] : 'product Name'?></a>
+                                                            <p class="space-x-2">
+                                                                <span class="text-lg font-medium text-indigo-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['MRP'] : 'MRP'?></span>
+                                                                <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['Your_Price'] : 'Delete Price'?></del>
+                                                            </p>
+                                                            <h2>QTY: <?php echo isset($_COOKIE['vendor_id']) ? $res['Quantity'] : 'product Quantity'?></h2>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php
+                                        <?php
+                                    }
                                 }
                             ?>
                         </div>

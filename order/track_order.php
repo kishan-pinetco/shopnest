@@ -67,7 +67,7 @@ if (isset($_COOKIE['user_id'])) {
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div>
                 <?php
-                if ($future_date < $todays) {
+                if (isset($future_date) && isset($todays) && $future_date < $todays) {
                 ?>
                     <h2 class="text-xl font-semibold sm:text-2xl">Your Order is Delivered</h2>
                 <?php
@@ -78,9 +78,9 @@ if (isset($_COOKIE['user_id'])) {
                 }
                 ?>
                 <div>
-                    <h3 class="mt-7 text-xl font-medium">Hi <?php echo $user_name; ?>!</h3>
+                    <h3 class="mt-7 text-xl font-medium">Hi <?php echo isset($_COOKIE['user_id']) ? $user_name : 'Username'; ?>!</h3>
                     <?php
-                    if ($future_date < $todays) {
+                    if (isset($future_date) && isset($todays) &&  $future_date < $todays) {
                     ?>
                         <span>Your Order is Delivered</span>
                     <?php
@@ -151,13 +151,13 @@ if (isset($_COOKIE['user_id'])) {
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0 mt-12">
             <div>
                 <?php
-                    if($future_date < $todays){
+                    if(isset($future_date) && isset($todays) && $future_date < $todays){
                         ?>
                             <h2 class="font-semibold text-2xl mb-4">Your Order is Delivered</h2>
                         <?php
                     }else{
                         ?>
-                            <h2 class="font-semibold text-2xl mb-4">Shipped on: <span class="text-indigo-500"><?php echo $future_date; ?></span></h2>
+                            <h2 class="font-semibold text-2xl mb-4">Shipped on: <span class="text-indigo-500"><?php echo isset($future_date) ? $future_date : 'Shipping Date'; ?></span></h2>
                         <?php
                     }
                 ?>
@@ -172,8 +172,8 @@ if (isset($_COOKIE['user_id'])) {
                                 <i class="<?php echo $fifth <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-clipboard-check') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fifth <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo $fifth?></h4>
-                                <p class="text-sm font-normal <?php echo $fifth <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products delivered</p>
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fifth <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($fifth) ? $fifth : 'Delivery Date'?></h4>
+                                <p class="text-sm font-normal <?php echo isset($fifth) ? ($fifth <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')) : 'product Devlivery Date'?>">Products delivered</p>
                             </div>
                         </li>
 
@@ -182,7 +182,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <i class="<?php echo $fourday <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-cube') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fourday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo $fourday?></h4>
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fourday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($fourday) ? $fourday : 'Products being delivered Date'?></h4>
                                 <p class="text-sm font-normal <?php echo $fourday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products being delivered</p>
                             </div>
                         </li>
@@ -192,7 +192,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <i class="<?php echo $thirdday <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-warehouse') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 font-semibold <?php echo $thirdday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo $thirdday?></h4>
+                                <h4 class="mb-0.5 font-semibold <?php echo $thirdday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($thirdday) ? $thirdday : 'Products in the couriers warehouse Date'?></h4>
                                 <p class="text-sm font-normal <?php echo $thirdday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products in the courier's warehouse</p>
                             </div>
                         </li>
@@ -202,7 +202,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <i class="<?php echo $secondday <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-truck') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 text-base font-semibold <?php echo $secondday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo $secondday?></h4>
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $secondday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($secondday) ? $secondday : 'Products delivered to the courier Date'?></h4>
                                 <p class="text-sm font-normal <?php echo $secondday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products delivered to the courier</p>
                             </div>
                         </li>
@@ -212,7 +212,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <i class="<?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-credit-card') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo $toDay?></h4>
+                                <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($toDay) ? $toDay : 'Payment accepted Date'?></h4>
                                 <p class="text-sm font-normal <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Payment accepted - <?php echo isset($_COOKIE['user_id']) ? $res['payment_type'] : 'payment_type' ?></p>
                             </div>
                         </li>
@@ -223,7 +223,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <i class="<?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-cart-plus') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo $toDay?></h4>
+                                <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($toDay) ? $toDay : 'Order placed Date'?></h4>
                                 <p class="text-sm font-normal <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Order placed - Receipt #<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'product id' ?></p>
                             </div>
                         </li>
@@ -231,11 +231,11 @@ if (isset($_COOKIE['user_id'])) {
 
                     <div class="flex flex-col items-center gap-4 gap-y-4 sm:flex-row">
                         <?php
-                            if($thirdday < $todays){
+                            if(isset($thirdday) && isset($todays) && $thirdday < $todays){
                                 ?>
                                     <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
                                 <?php
-                                if($fifth < $todays && $return_date >= strtotime('today')){
+                                if(isset($thirdday) && isset($todays) &&  $fifth < $todays && $return_date >= strtotime('today')){
                                     ?>
                                         <a href="return_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
                                     <?php
@@ -245,10 +245,6 @@ if (isset($_COOKIE['user_id'])) {
                                     <a href="cancel_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-black/90">Cancel the order</a>
                                     <h1 class="w-full flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer">Return Order</h1>
                                 <?php
-                            }
-
-                            if($todays == $fifth){
-                                
                             }
                         ?>
                     </div>

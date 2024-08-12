@@ -154,79 +154,81 @@
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black text-center mb-11">Your Orders</h2>
                         <div class="w-full px-3 min-[400px]:px-6">
                             <?php
-                                $retrieve_order = "SELECT * FROM orders WHERE user_id = '$user_id'";
-                                $retrieve_order_query = mysqli_query($con, $retrieve_order);
+                                if(isset($_COOKIE['user_id'])){
+                                    $retrieve_order = "SELECT * FROM orders WHERE user_id = '$user_id'";
+                                    $retrieve_order_query = mysqli_query($con, $retrieve_order);
 
-                                while($res = mysqli_fetch_assoc($retrieve_order_query)){
-                                    $today = date('d-m-Y', strtotime($res['date']));
-                                    $future_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
-    
-                                    ?>
-                                        <div class="flex flex-col md:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
-                                            <div class="img-box max-lg:w-full">
-                                                <a href="">
-                                                    <img class="aspect-square w-full lg:max-w-[140px]" src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="flex flex-row items-center w-full ">
-                                                <div class="grid grid-cols-1 lg:grid-cols-2 w-full">
-                                                    <div class="flex items-center">
-                                                        <div class="">
-                                                            <a href="../order/track_order.php?order_id=<?php echo $res['order_id'];?>">
-                                                                <h2 class="font-semibold text-xl leading-8 text-black mb-3 line-clamp-2 w-[90%]"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product Title' ?></h2>
-                                                            </a>
-                                                            <div class="flex items-center">
-                                                                <p class="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200"> Qty: <span class="text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'product quantity' ?></span></p>
-                                                                <p class="font-medium text-base leading-7 text-black">Price: <span class="text-indigo-600">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'product total_price' ?></span></p>
+                                    while($res = mysqli_fetch_assoc($retrieve_order_query)){
+                                        $today = date('d-m-Y', strtotime($res['date']));
+                                        $future_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+                                    
+                                        ?>
+                                            <div class="flex flex-col md:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
+                                                <div class="img-box max-lg:w-full">
+                                                    <a href="">
+                                                        <img class="aspect-square w-full lg:max-w-[140px]" src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="flex flex-row items-center w-full ">
+                                                    <div class="grid grid-cols-1 lg:grid-cols-2 w-full">
+                                                        <div class="flex items-center">
+                                                            <div class="">
+                                                                <a href="../order/track_order.php?order_id=<?php echo $res['order_id'];?>">
+                                                                    <h2 class="font-semibold text-xl leading-8 text-black mb-3 line-clamp-2 w-[90%]"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product Title' ?></h2>
+                                                                </a>
+                                                                <div class="flex items-center">
+                                                                    <p class="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200"> Qty: <span class="text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'product quantity' ?></span></p>
+                                                                    <p class="font-medium text-base leading-7 text-black">Price: <span class="text-indigo-600">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'product total_price' ?></span></p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="grid grid-cols-5">
-                                                        <div class="col-span-5 lg:col-span-3 flex items-center max-lg:mt-3 ">
-                                                            <div class="flex gap-3 text-center lg:block">
-                                                                <p class="font-medium text-sm leading-7 text-black">Status</p>
-                                                                <?php
-                                                                    if($res['status'] === 'Ready For Delivery'){
+                                                        <div class="grid grid-cols-5">
+                                                            <div class="col-span-5 lg:col-span-3 flex items-center max-lg:mt-3 ">
+                                                                <div class="flex gap-3 text-center lg:block">
+                                                                    <p class="font-medium text-sm leading-7 text-black">Status</p>
+                                                                    <?php
+                                                                        if($res['status'] === 'Ready For Delivery'){
+                                                                            ?>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-emerald-600">Ready for Delivery</p>
+                                                                            <?php
+                                                                        }else if($res['status'] === 'Delivered'){
+                                                                            ?>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-indigo-600">Delivered</p>
+                                                                            <?php
+                                                                        }else if($res['status'] === 'Cancle'){
+                                                                            ?>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-red-600">Cancle</p>
+                                                                            <?php
+                                                                        }
                                                                         ?>
-                                                                            <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-emerald-600">Ready for Delivery</p>
-                                                                        <?php
-                                                                    }else if($res['status'] === 'Delivered'){
-                                                                        ?>
-                                                                            <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-indigo-600">Delivered</p>
-                                                                        <?php
-                                                                    }else if($res['status'] === 'Cancle'){
-                                                                        ?>
-                                                                            <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-red-600">Cancle</p>
-                                                                        <?php
-                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-span-5 lg:col-span-2 flex items-center max-lg:mt-3">
+                                                                <div class="flex flex-col items-center gap-2">
+                                                                    <?php
+                                                                        if($res['status'] === 'Ready For Delivery'){
+                                                                            ?>
+                                                                                <p class="font-medium text-sm whitespace-nowrap leading-6 text-black">Delivery Expected by:</p>
+                                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500"><?php echo isset($_COOKIE['user_id']) ? $future_date : 'Delivery Date' ?></p>
+                                                                            <?php
+                                                                        }else if($res['status'] === 'Delivered'){
+                                                                           ?>
+                                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500">Your Order is Delivered</p>
+                                                                           <?php
+                                                                        }else if($res['status'] === 'Cancle'){
+                                                                            ?>
+                                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-red-500">Your Order is Cancled</p>
+                                                                            <?php
+                                                                        }
                                                                     ?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-span-5 lg:col-span-2 flex items-center max-lg:mt-3">
-                                                            <div class="flex flex-col items-center gap-2">
-                                                                <?php
-                                                                    if($res['status'] === 'Ready For Delivery'){
-                                                                        ?>
-                                                                            <p class="font-medium text-sm whitespace-nowrap leading-6 text-black">Delivery Expected by:</p>
-                                                                            <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500"><?php echo isset($_COOKIE['user_id']) ? $future_date : 'Delivery Date' ?></p>
-                                                                        <?php
-                                                                    }else if($res['status'] === 'Delivered'){
-                                                                       ?>
-                                                                            <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500">Your Order is Delivered</p>
-                                                                       <?php
-                                                                    }else if($res['status'] === 'Cancle'){
-                                                                        ?>
-                                                                            <p class="font-medium text-base whitespace-nowrap leading-7 text-red-500">Your Order is Cancled</p>
-                                                                        <?php
-                                                                    }
-                                                                ?>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>          
-                                    <?php
+                                            </div>          
+                                        <?php
+                                    }
                                 }
                             ?>
                         </div>

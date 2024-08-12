@@ -2,8 +2,8 @@
     include "../include/connect.php";
 
 
-    $product_id = $_GET['product_id'];
     if(isset($product_id)){
+        $product_id = $_GET['product_id'];
         $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
         
@@ -120,7 +120,7 @@
                             </div>
                             <div class="flex item-center gap-1">
                                 <span class="text-lg font-semibold">QTY:</span>
-                                <p class="my-auto"><?php echo $qty;?></p>
+                                <p class="my-auto"><?php echo isset($product_id) ? $qty : 'product Quantity';?></p>
                             </div>
                         </div>
                     </div>

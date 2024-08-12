@@ -296,22 +296,23 @@
                     <div class="border p-5 mt-3">
                         <div class="flex flex-col items-center my-6 md:items-start md:flex-row">
                             <?php
-                                $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
-                                $review_query = mysqli_query($con,$get_reviews);
-                     
-                                if($totalReviews = mysqli_num_rows($review_query)){
-                                    $sum = 0;
-                                    $count = 0;
-
-                                    while ($data = mysqli_fetch_assoc($review_query)) {
-                                        $rating = str_replace(",", "", $data['Rating']);
-                                        $sum += (float)$rating;
-                                        $count++;
+                                if(isset($product_id)){
+                                    $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+                                    $review_query = mysqli_query($con,$get_reviews);
+                         
+                                    if($totalReviews = mysqli_num_rows($review_query)){
+                                        $sum = 0;
+                                        $count = 0;
+    
+                                        while ($data = mysqli_fetch_assoc($review_query)) {
+                                            $rating = str_replace(",", "", $data['Rating']);
+                                            $sum += (float)$rating;
+                                            $count++;
+                                        }
+                                    
+                                        $average = $sum / $count;
+                                        $formatted_average = number_format($average, 1);
                                     }
-                                
-                                    $average = $sum / $count;
-                                    $formatted_average = number_format($average, 1);
-
                                 }
                             ?>
                             <h1 class="text-7xl font-medium"><?php echo isset($formatted_average) ? $formatted_average : '0.0'?></h1>
@@ -345,7 +346,7 @@
                                     ?>
                                         <div class="flex items-center justify-between text-gray-600 text-sm font-medium">
                                             <div class="flex items-center gap-1">
-                                                <p><?php echo isset($_COOKIE['user_id']) ? $star : $rating ; ?></p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
+                                                <p><?php echo isset($_COOKIE['user_id']) ? $star : 'star' ; ?></p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#ffc107" d="m23.363 8.584-7.378-1.127L12.678.413c-.247-.526-1.11-.526-1.357 0L8.015 7.457.637 8.584a.75.75 0 0 0-.423 1.265l5.36 5.494-1.267 7.767a.75.75 0 0 0 1.103.777L12 20.245l6.59 3.643a.75.75 0 0 0 1.103-.777l-1.267-7.767 5.36-5.494a.75.75 0 0 0-.423-1.266z" opacity="1" data-original="#ffc107" class=""></path></g></svg>
                                             </div>
                                             <div class="relative w-full h-2 mx-3 m-auto rounded-md bg-gray-200">
                                                 <div class="absolute top-0 left-0 w-full h-2 rounded-md bg-yellow-400" style="width: <?php echo calculateRating($ratings[$star], $totalReviews); ?>%;"></div>

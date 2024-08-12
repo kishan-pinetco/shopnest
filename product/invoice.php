@@ -2,7 +2,7 @@
 
 include "../include/connect.php";
 
-if($_GET['order_id']){
+if(isset($_GET['order_id'])){
     $order_id = $_GET['order_id'];
     
     $retrieve_order = "SELECT * FROM orders WHERE order_id = '$order_id'";
@@ -62,7 +62,7 @@ if($_GET['order_id']){
             <div class="flex flex-wrap items-center p-4 bg-gray-50 border gap-y-5 border-gray-300 rounded-lg shadow-md">
                 <img src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="Product Image" class="w-32 h-32 object-cover rounded-md border border-gray-300 mr-6">
                 <div>
-                    <h3 class="text-xl font-bold text-gray-800 line-clamp-2"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product title' ?><</h3>
+                    <h3 class="text-xl font-bold text-gray-800 line-clamp-2"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product title'?></h3>
                     <p class="text-gray-700 mt-4">Price: <span class="font-semibold">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
                     <div class="text-gray-700 flex items-center gap-1 mt-1">
                         <span class="max-w-max">Color:</span> 

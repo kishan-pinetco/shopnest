@@ -239,28 +239,6 @@
         </div>
     </div>
 
-    <!-- Successfully -->
-    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
-        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
-            <span class="sr-only">Info</span>
-            <div>
-                <span class="font-medium">Data Updated Properly.</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Error -->
-    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
-        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
-            <span class="sr-only">Info</span>
-            <div>
-                <span class="font-medium">Enter Valid Data.</span>
-            </div>
-        </div>
-    </div>
-
     <!-- display image -->
     <script>
         const profile_picture = document.getElementById('profile_picture');
@@ -277,40 +255,6 @@
             }
         }
         profile_picture.addEventListener('change', previewSelectedImage);
-    </script>
-
-    <script>
-        <!-- error msg -->
-        function displayErrorMessage(message) {
-            let popUp = document.getElementById('EpopUp');
-            let errorMessage = document.getElementById('errorMessage');
-
-            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
-            EpopUp.style.display = 'flex';
-            EpopUp.style.opacity = '100';
-
-            setTimeout(() => {
-                EpopUp.style.display = 'none';
-                EpopUp.style.opacity = '0';
-            }, 2000);
-        };
-    </script>
-
-    <script>
-        <!-- Successfull msg -->
-        function displaySuccessMessage(message) {
-            let popUp = document.getElementById('SpopUp');
-            let errorMessage = document.getElementById('errorMessage');
-
-            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
-            SpopUp.style.display = 'flex';
-            SpopUp.style.opacity = '100';
-
-            setTimeout(() => {
-                SpopUp.style.display = 'none';
-                SpopUp.style.opacity = '0';
-            }, 2000);
-        }
     </script>
 
 </body>
@@ -333,18 +277,26 @@
         $updateQuery = mysqli_query($con,$update_data);
 
         if($updateQuery){
-            echo '<script>displaySuccessMessage("Data Updated Properly.");</script>';
+            ?>
+                <script>alert("Data Updated Properly.")</script>
+            <?php
             if (move_uploaded_file($tempname, $folder)) {
                 $update_dp = "UPDATE user_registration SET profile_image='$file_name' WHERE user_id = '$user_id'";
                 $update_query = mysqli_query($con,$update_dp);
                 if($update_dp){
-                    echo '<script>displaySuccessMessage("Data Updated Properly.");</script>';
+                    ?>
+                        <script>alert("Data Updated Properly.")</script>
+                    <?php
                 }else{
-                    echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
+                    ?>
+                        <script>alert("Enter Valid Data.")</script>
+                    <?php
                 }
             }
         }else{
-            echo '<script>displayErrorMessage("Data Not Updated Properly.");</script>';
+            ?>
+                <script>alert("Data Not Updated Properly.")</script>
+            <?php
         }
     }
 
@@ -361,29 +313,35 @@
         $decod_pass = password_verify($current_pass, $dpass);
 
         if($decod_pass){
-            echo "pass Match";
             if($new_pass === $re_pass){
                 $new_dpass = password_hash($new_pass, PASSWORD_BCRYPT); 
 
                 $up_pass = "UPDATE user_registration SET password = '$new_dpass' WHERE user_id = '$user_id'";
                 $up_query = mysqli_query($con,$up_pass);
 
+                if(isset($_COOKIE['userPassCookie'])){
+                    $expirationTime = time() + (365 * 24 * 60 * 60);
+                    setcookie('userPassCookie', $new_pass, $expirationTime, "/");
+                }
+
                 if($up_query){
-                    // delete old password cookie
-                    setcookie('mypassCookie', '', time() - 3600, "/");
-
-                    // update password cookie
-                    setcookie('mypassCookie', $new_pass, time() + (365 * 24 * 60 * 60), "/");
-
-                    echo '<script>displaySuccessMessage("Password Updated Successfully.");</script>';
+                    ?>
+                        <script>alert("Password Updated Successfully.")</script>
+                    <?php
                 }else{
-                    echo '<script>displayErrorMessage("Password Not Update.");</script>';
+                    ?>
+                        <script>alert("Password Not Update.")</script>
+                    <?php
                 }
             }else{
-                echo '<script>displayErrorMessage("The new password and the re-typed password do not match. Please try again.");</script>';
+                ?>
+                    <script>alert("The new password and the re-typed password do not match. Please try again.")</script>
+                <?php
             }
         }else{
-            echo '<script>displayErrorMessage("Current password not match with new password or re-type password. Please try again.");</script>';
+            ?>
+                <script>alert("Current password not match with new password or re-type password. Please try again.")</script>
+            <?php
         }
     }
 ?>

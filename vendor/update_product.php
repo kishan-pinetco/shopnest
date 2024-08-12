@@ -2,7 +2,7 @@
 
     include "../include/connect.php";
 
-    if($_GET['product_id']){
+    if(isset($_GET['product_id'])){
 
         $product = $_GET['name'];
         
@@ -10,60 +10,61 @@
         $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
         $row = mysqli_fetch_assoc($product_query);
+
+        $options = [
+            'Phones' => [
+                ['value' => '4GB-32GB', 'text' => '4 GB RAM, 32 GB ROM'],
+                ['value' => '4GB-64GB', 'text' => '4 GB RAM, 64 GB ROM'],
+                ['value' => '6GB-64GB', 'text' => '6 GB RAM, 64 GB ROM'],
+                ['value' => '6GB-128GB', 'text' => '6 GB RAM, 128 GB ROM'],
+                ['value' => '8GB-128GB', 'text' => '8 GB RAM, 128 GB ROM'],
+                ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB ROM'],
+                ['value' => '12GB-256GB', 'text' => '12 GB RAM, 256 GB ROM'],
+                ['value' => '12GB-512GB', 'text' => '12 GB RAM, 512 GB ROM'],
+                ['value' => '16GB-512GB', 'text' => '16 GB RAM, 512 GB ROM']
+            ],
+            'Clothes' => [
+                ['value' => 'XS', 'text' => 'XS'],
+                ['value' => 'S', 'text' => 'S'],
+                ['value' => 'M', 'text' => 'M'],
+                ['value' => 'L', 'text' => 'L'],
+                ['value' => 'XL', 'text' => 'XL'],
+                ['value' => 'XXL', 'text' => 'XXL']
+            ],
+            'Laptops/MacBook' => [
+                ['value' => '4GB-128GB', 'text' => '4 GB RAM, 128 GB SSD'],
+                ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB SSD'],
+                ['value' => '8GB-512GB', 'text' => '8 GB RAM, 512 GB SSD'],
+                ['value' => '16GB-512GB', 'text' => '16 GB RAM, 512 GB SSD'],
+                ['value' => '16GB-1TB', 'text' => '16 GB RAM, 1 TB SSD'],
+                ['value' => '32GB-1TB', 'text' => '32 GB RAM, 1 TB SSD'],
+                ['value' => '32GB-2TB', 'text' => '32 GB RAM, 2 TB SSD'],
+                ['value' => '64GB-2TB', 'text' => '64 GB RAM, 2 TB SSD']
+            ],
+            'Tabs/Ipad' => [
+                ['value' => '4GB-64GB', 'text' => '4 GB RAM, 64 GB Storage'],
+                ['value' => '4GB-128GB', 'text' => '4 GB RAM, 128 GB Storage'],
+                ['value' => '6GB-128GB', 'text' => '6 GB RAM, 128 GB Storage'],
+                ['value' => '6GB-256GB', 'text' => '6 GB RAM, 256 GB Storage'],
+                ['value' => '8GB-128GB', 'text' => '8 GB RAM, 128 GB Storage'],
+                ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB Storage'],
+                ['value' => '8GB-512GB', 'text' => '8 GB RAM, 512 GB Storage'],
+                ['value' => '12GB-256GB', 'text' => '12 GB RAM, 256 GB Storage'],
+                ['value' => '12GB-512GB', 'text' => '12 GB RAM, 512 GB Storage']
+            ],
+            'Shoes' => [
+                ['value' => '6 UK', 'text' => '6 UK'],
+                ['value' => '7 UK', 'text' => '7 UK'],
+                ['value' => '8 UK', 'text' => '8 UK'],
+                ['value' => '9 UK', 'text' => '9 UK'],
+                ['value' => '10 UK', 'text' => '10 UK']
+            ]
+        ];
+    
+        $productType = $_GET['name'];
+        $optionsForType = isset($options[$productType]) ? $options[$productType] : [];
     }
 
-    $options = [
-        'Phones' => [
-            ['value' => '4GB-32GB', 'text' => '4 GB RAM, 32 GB ROM'],
-            ['value' => '4GB-64GB', 'text' => '4 GB RAM, 64 GB ROM'],
-            ['value' => '6GB-64GB', 'text' => '6 GB RAM, 64 GB ROM'],
-            ['value' => '6GB-128GB', 'text' => '6 GB RAM, 128 GB ROM'],
-            ['value' => '8GB-128GB', 'text' => '8 GB RAM, 128 GB ROM'],
-            ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB ROM'],
-            ['value' => '12GB-256GB', 'text' => '12 GB RAM, 256 GB ROM'],
-            ['value' => '12GB-512GB', 'text' => '12 GB RAM, 512 GB ROM'],
-            ['value' => '16GB-512GB', 'text' => '16 GB RAM, 512 GB ROM']
-        ],
-        'Clothes' => [
-            ['value' => 'XS', 'text' => 'XS'],
-            ['value' => 'S', 'text' => 'S'],
-            ['value' => 'M', 'text' => 'M'],
-            ['value' => 'L', 'text' => 'L'],
-            ['value' => 'XL', 'text' => 'XL'],
-            ['value' => 'XXL', 'text' => 'XXL']
-        ],
-        'Laptops/MacBook' => [
-            ['value' => '4GB-128GB', 'text' => '4 GB RAM, 128 GB SSD'],
-            ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB SSD'],
-            ['value' => '8GB-512GB', 'text' => '8 GB RAM, 512 GB SSD'],
-            ['value' => '16GB-512GB', 'text' => '16 GB RAM, 512 GB SSD'],
-            ['value' => '16GB-1TB', 'text' => '16 GB RAM, 1 TB SSD'],
-            ['value' => '32GB-1TB', 'text' => '32 GB RAM, 1 TB SSD'],
-            ['value' => '32GB-2TB', 'text' => '32 GB RAM, 2 TB SSD'],
-            ['value' => '64GB-2TB', 'text' => '64 GB RAM, 2 TB SSD']
-        ],
-        'Tabs/Ipad' => [
-            ['value' => '4GB-64GB', 'text' => '4 GB RAM, 64 GB Storage'],
-            ['value' => '4GB-128GB', 'text' => '4 GB RAM, 128 GB Storage'],
-            ['value' => '6GB-128GB', 'text' => '6 GB RAM, 128 GB Storage'],
-            ['value' => '6GB-256GB', 'text' => '6 GB RAM, 256 GB Storage'],
-            ['value' => '8GB-128GB', 'text' => '8 GB RAM, 128 GB Storage'],
-            ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB Storage'],
-            ['value' => '8GB-512GB', 'text' => '8 GB RAM, 512 GB Storage'],
-            ['value' => '12GB-256GB', 'text' => '12 GB RAM, 256 GB Storage'],
-            ['value' => '12GB-512GB', 'text' => '12 GB RAM, 512 GB Storage']
-        ],
-        'Shoes' => [
-            ['value' => '6 UK', 'text' => '6 UK'],
-            ['value' => '7 UK', 'text' => '7 UK'],
-            ['value' => '8 UK', 'text' => '8 UK'],
-            ['value' => '9 UK', 'text' => '9 UK'],
-            ['value' => '10 UK', 'text' => '10 UK']
-        ]
-    ];
-
-    $productType = $_GET['name'];
-    $optionsForType = isset($options[$productType]) ? $options[$productType] : [];
 
 ?>
 
@@ -163,19 +164,21 @@
                                     <div id="keyword-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
                                         <div class="flex items-center relative">
                                             <?php
-                                                $all_keywords = [];
-                                                $key = $row['keywords'];
-                                                $key_array = explode(",", $key);
-                                                foreach($key_array as $ky){
-                                                    $ky = trim($ky);
-                                                    $all_keywords[] = $ky;
-                                                }
-                                                // Convert the array to a JSON string
-                                                $keywords_json = json_encode($all_keywords);
-
-                                                ?>
+                                                if(isset($_COOKIE['vendor_id'])){
+                                                    $all_keywords = [];
+                                                    $key = $row['keywords'];
+                                                    $key_array = explode(",", $key);
+                                                    foreach($key_array as $ky){
+                                                        $ky = trim($ky);
+                                                        $all_keywords[] = $ky;
+                                                    }
+                                                    // Convert the array to a JSON string
+                                                    $keywords_json = json_encode($all_keywords);
+                                                    
+                                                    ?>
                                                     <input type="hidden" id="keyword-data" value='<?php echo $keywords_json; ?>'>
-                                                <?php
+                                                    <?php
+                                                }
                                             ?>
                                         </div>
                                     </div>
@@ -186,18 +189,21 @@
                                     <label for="color">Color:</label>
                                     <div class="flex items-center gap-2 flex-wrap mt-2" id="input-container">
                                     <?php
-                                        $all_color = [];
-                                        $pcolor = $row['color'];
-                                        $pcolor_array = explode(",", $pcolor);
-                                        foreach($pcolor_array as $clor){
-                                            $clor = trim($clor);
-                                            $all_color[] = $clor;
+                                        if(isset($_COOKIE['vendor_id'])){
+
+                                            $all_color = [];
+                                            $pcolor = $row['color'];
+                                            $pcolor_array = explode(",", $pcolor);
+                                            foreach($pcolor_array as $clor){
+                                                $clor = trim($clor);
+                                                $all_color[] = $clor;
+                                            }
+                                            // Convert the array to a JSON string
+                                            $colors_json = json_encode($all_color);
+                                            ?>
+                                            <input type="hidden" id="colors-data" value='<?php echo $colors_json; ?>'>
+                                            <?php
                                         }
-                                        // Convert the array to a JSON string
-                                        $colors_json = json_encode($all_color);
-                                        ?>
-                                        <input type="hidden" id="colors-data" value='<?php echo $colors_json; ?>'>
-                                        <?php
                                     ?>
                                     </div>
                                     <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-input">Add More Colors</button>

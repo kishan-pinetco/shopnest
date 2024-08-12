@@ -1,5 +1,7 @@
 <?php
-    $product = $_GET['name'];
+    if(isset($_GET['name'])){
+        $product = $_GET['name'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +53,7 @@
 
                                 <div class="md:col-span-2">
                                     <label for="category">Category</label>
-                                    <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo $product;?>" placeholder="" />
+                                    <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['name']) ? $product : 'Category'?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-1">
@@ -115,266 +117,268 @@
                                 
 
                                 <?php
-                                    $phone = "Phones";
-                                    if($_GET['name'] === $phone){
-                                        ?>
+                                    if(isset($_GET['name'])){
+                                        $phone = "Phones";
+                                        if($_GET['name'] === $phone){
+                                            ?>
+                                                <div class="md:col-span-5 mt-5">
+                                                    <label for="size">Size:</label>
+                                                    <div class="flex items-center flex-wrap gap-2" id="size_container">
+                                                        <select name="size[]" id="size" class="border mt-1 rounded px-4 bg-gray-50" value="">
+                                                            <option value="4GB-32GB">4 GB RAM, 32 GB ROM</option>
+                                                            <option value="4GB-64GB">4 GB RAM, 64 GB ROM</option>
+                                                            <option value="6GB-64GB">6 GB RAM, 64 GB ROM</option>
+                                                            <option value="6GB-128GB">6 GB RAM, 128 GB ROM</option>
+                                                            <option value="8GB-128GB">8 GB RAM, 128 GB ROM</option>
+                                                            <option value="8GB-256GB">8 GB RAM, 256 GB ROM</option>
+                                                            <option value="12GB-256GB">12 GB RAM, 256 GB ROM</option>
+                                                            <option value="12GB-512GB">12 GB RAM, 512 GB ROM</option>
+                                                            <option value="16GB-512GB">16 GB RAM, 512 GB ROM</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                                    <script>
+                                                        document.getElementById('add-size').addEventListener('click', function() {
+                                                            var sizeContainer = document.getElementById('size_container');
+    
+                                                            // Create a new <select> element
+                                                            var newSelect = document.createElement('select');
+                                                            newSelect.name = 'size[]';
+                                                            newSelect.id = 'size';
+                                                            newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
+    
+                                                            // Array of options
+                                                            var options = [
+                                                                { value: '4GB-32GB', text: '4 GB RAM, 32 GB ROM' },
+                                                                { value: '4GB-64GB', text: '4 GB RAM, 64 GB ROM' },
+                                                                { value: '6GB-64GB', text: '6 GB RAM, 64 GB ROM' },
+                                                                { value: '6GB-128GB', text: '6 GB RAM, 128 GB ROM' },
+                                                                { value: '8GB-128GB', text: '8 GB RAM, 128 GB ROM' },
+                                                                { value: '8GB-256GB', text: '8 GB RAM, 256 GB ROM' },
+                                                                { value: '12GB-256GB', text: '12 GB RAM, 256 GB ROM' },
+                                                                { value: '12GB-512GB', text: '12 GB RAM, 512 GB ROM' },
+                                                                { value: '16GB-512GB', text: '16 GB RAM, 512 GB ROM' }
+                                                            ];
+    
+                                                            // Append options to the <select> element
+                                                            options.forEach(function(option) {
+                                                                var opt = document.createElement('option');
+                                                                opt.value = option.value;
+                                                                opt.textContent = option.text;
+                                                                newSelect.appendChild(opt);
+                                                            });
+    
+                                                            // Append the new <select> element to the container
+                                                            sizeContainer.appendChild(newSelect);
+                                                        });
+                                                    </script>
+                                                </div>
+                                            <?php
+                                        }else if($_GET['name'] === 'Clothes'){
+                                            ?>
+                                                <div class="md:col-span-5 mt-5">
+                                                    <label for="size">Size:</label>
+                                                    <div class="flex items-center flex-wrap gap-2" id="size_container">
+                                                        <select name="size[]" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                                            <option value="XS">XS</option>
+                                                            <option value="S">S</option>
+                                                            <option value="M">M</option>
+                                                            <option value="L">L</option>
+                                                            <option value="XL">XL</option>
+                                                            <option value="XXL">XXL</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                                    <script>
+                                                        document.getElementById('add-size').addEventListener('click', function() {
+                                                            var sizeContainer = document.getElementById('size_container');
+    
+                                                            // Create a new <select> element
+                                                            var newSelect = document.createElement('select');
+                                                            newSelect.name = 'size[]';
+                                                            newSelect.id = 'size';
+                                                            newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
+    
+                                                            // Array of options
+                                                            var options = [
+                                                                { value: 'XS', text: 'XS' },
+                                                                { value: 'S', text: 'S' },
+                                                                { value: 'M', text: 'M' },
+                                                                { value: 'L', text: 'L' },
+                                                                { value: 'XL', text: 'XL' },
+                                                                { value: 'XXL', text: 'XXL' }
+                                                            ];
+    
+                                                            // Append options to the <select> element
+                                                            options.forEach(function(option) {
+                                                                var opt = document.createElement('option');
+                                                                opt.value = option.value;
+                                                                opt.textContent = option.text;
+                                                                newSelect.appendChild(opt);
+                                                            });
+    
+                                                            // Append the new <select> element to the container
+                                                            sizeContainer.appendChild(newSelect);
+                                                        });
+                                                    </script>
+                                                </div>
+                                            <?php
+                                        }else if($_GET['name'] === 'Laptops/MacBook'){
+                                            ?>
+                                                <div class="md:col-span-5 mt-5">
+                                                    <label for="size">Size:</label>
+                                                    <div class="flex items-center flex-wrap gap-2" id="size_container">
+                                                        <select name="size[]" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                                            <option value="4GB-128GB">4 GB RAM, 128 GB SSD</option>
+                                                            <option value="8GB-256GB">8 GB RAM, 256 GB SSD</option>
+                                                            <option value="8GB-512GB">8 GB RAM, 512 GB SSD</option>
+                                                            <option value="16GB-512GB">16 GB RAM, 512 GB SSD</option>
+                                                            <option value="16GB-1TB">16 GB RAM, 1 TB SSD</option>
+                                                            <option value="32GB-1TB">32 GB RAM, 1 TB SSD</option>
+                                                            <option value="32GB-2TB">32 GB RAM, 2 TB SSD</option>
+                                                            <option value="64GB-2TB">64 GB RAM, 2 TB SSD</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                                    <script>
+                                                        document.getElementById('add-size').addEventListener('click', function() {
+                                                            var sizeContainer = document.getElementById('size_container');
+    
+                                                            // Create a new <select> element
+                                                            var newSelect = document.createElement('select');
+                                                            newSelect.name = 'size[]';
+                                                            newSelect.id = 'size';
+                                                            newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
+    
+                                                            // Array of options
+                                                            var options = [
+                                                                { value: '4GB-128GB', text: '4GB RAM, 128GB SSD' },
+                                                                { value: '8GB-256GB', text: '8GB RAM, 256GB SSD' },
+                                                                { value: '8GB-512GB', text: '8GB RAM, 512GB SSD' },
+                                                                { value: '16GB-512GB', text: '16GB RAM, 512GB SSD' },
+                                                                { value: '16GB-1TB', text: '16GB RAM, 1TB SSD' },
+                                                                { value: '32GB-1TB', text: '32GB RAM, 1TB SSD' },
+                                                                { value: '32GB-2TB', text: '32GB RAM, 2TB SSD' },
+                                                                { value: '64GB-2TB', text: '64GB RAM, 2TB SSD' }
+                                                            ];
+    
+                                                            // Append options to the <select> element
+                                                            options.forEach(function(option) {
+                                                                var opt = document.createElement('option');
+                                                                opt.value = option.value;
+                                                                opt.textContent = option.text;
+                                                                newSelect.appendChild(opt);
+                                                            });
+    
+                                                            // Append the new <select> element to the container
+                                                            sizeContainer.appendChild(newSelect);
+                                                        });
+                                                    </script>
+                                                </div>
+                                            <?php
+                                        }else if($_GET['name'] === 'Tabs/Ipad'){
+                                            ?>
                                             <div class="md:col-span-5 mt-5">
-                                                <label for="size">Size:</label>
-                                                <div class="flex items-center flex-wrap gap-2" id="size_container">
-                                                    <select name="size[]" id="size" class="border mt-1 rounded px-4 bg-gray-50" value="">
-                                                        <option value="4GB-32GB">4 GB RAM, 32 GB ROM</option>
-                                                        <option value="4GB-64GB">4 GB RAM, 64 GB ROM</option>
-                                                        <option value="6GB-64GB">6 GB RAM, 64 GB ROM</option>
-                                                        <option value="6GB-128GB">6 GB RAM, 128 GB ROM</option>
-                                                        <option value="8GB-128GB">8 GB RAM, 128 GB ROM</option>
-                                                        <option value="8GB-256GB">8 GB RAM, 256 GB ROM</option>
-                                                        <option value="12GB-256GB">12 GB RAM, 256 GB ROM</option>
-                                                        <option value="12GB-512GB">12 GB RAM, 512 GB ROM</option>
-                                                        <option value="16GB-512GB">16 GB RAM, 512 GB ROM</option>
-                                                    </select>
-                                                </div>
-                                                <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
-                                                <script>
-                                                    document.getElementById('add-size').addEventListener('click', function() {
-                                                        var sizeContainer = document.getElementById('size_container');
-
-                                                        // Create a new <select> element
-                                                        var newSelect = document.createElement('select');
-                                                        newSelect.name = 'size[]';
-                                                        newSelect.id = 'size';
-                                                        newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
-
-                                                        // Array of options
-                                                        var options = [
-                                                            { value: '4GB-32GB', text: '4 GB RAM, 32 GB ROM' },
-                                                            { value: '4GB-64GB', text: '4 GB RAM, 64 GB ROM' },
-                                                            { value: '6GB-64GB', text: '6 GB RAM, 64 GB ROM' },
-                                                            { value: '6GB-128GB', text: '6 GB RAM, 128 GB ROM' },
-                                                            { value: '8GB-128GB', text: '8 GB RAM, 128 GB ROM' },
-                                                            { value: '8GB-256GB', text: '8 GB RAM, 256 GB ROM' },
-                                                            { value: '12GB-256GB', text: '12 GB RAM, 256 GB ROM' },
-                                                            { value: '12GB-512GB', text: '12 GB RAM, 512 GB ROM' },
-                                                            { value: '16GB-512GB', text: '16 GB RAM, 512 GB ROM' }
-                                                        ];
-
-                                                        // Append options to the <select> element
-                                                        options.forEach(function(option) {
-                                                            var opt = document.createElement('option');
-                                                            opt.value = option.value;
-                                                            opt.textContent = option.text;
-                                                            newSelect.appendChild(opt);
+                                                    <label for="size">Size:</label>
+                                                    <div class="flex items-center flex-wrap gap-2" id="size_container">
+                                                        <select name="size[]" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                                            <option value="4GB-64GB">4 GB RAM, 64 GB Storage</option>
+                                                            <option value="4GB-128GB">4 GB RAM, 128 GB Storage</option>
+                                                            <option value="6GB-128GB">6 GB RAM, 128 GB Storage</option>
+                                                            <option value="6GB-256GB">6 GB RAM, 256 GB Storage</option>
+                                                            <option value="8GB-128GB">8 GB RAM, 128 GB Storage</option>
+                                                            <option value="8GB-256GB">8 GB RAM, 256 GB Storage</option>
+                                                            <option value="8GB-512GB">8 GB RAM, 512 GB Storage</option>
+                                                            <option value="2GB-256GB">12 GB RAM, 256 GB Storage</option>
+                                                            <option value="2GB-512GB">12 GB RAM, 512 GB Storage</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                                    <script>
+                                                        document.getElementById('add-size').addEventListener('click', function() {
+                                                            var sizeContainer = document.getElementById('size_container');
+    
+                                                            // Create a new <select> element
+                                                            var newSelect = document.createElement('select');
+                                                            newSelect.name = 'size[]';
+                                                            newSelect.id = 'size';
+                                                            newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
+    
+                                                            // Array of options
+                                                            var options = [
+                                                                { value: '4GB-64GB', text: '4GB RAM, 64GB Storage' },
+                                                                { value: '4GB-128GB', text: '4GB RAM, 128GB Storage' },
+                                                                { value: '6GB-128GB', text: '6GB RAM, 128GB Storage' },
+                                                                { value: '6GB-256GB', text: '6GB RAM, 256GB Storage' },
+                                                                { value: '8GB-128GB', text: '8GB RAM, 128GB Storage' },
+                                                                { value: '8GB-256GB', text: '8GB RAM, 256GB Storage' },
+                                                                { value: '8GB-512GB', text: '8GB RAM, 512GB Storage' },
+                                                                { value: '12GB-256GB', text: '12GB RAM, 256GB Storage' },
+                                                                { value: '12GB-512GB', text: '12GB RAM, 512GB Storage' }
+                                                            ];
+    
+                                                            // Append options to the <select> element
+                                                            options.forEach(function(option) {
+                                                                var opt = document.createElement('option');
+                                                                opt.value = option.value;
+                                                                opt.textContent = option.text;
+                                                                newSelect.appendChild(opt);
+                                                            });
+    
+                                                            // Append the new <select> element to the container
+                                                            sizeContainer.appendChild(newSelect);
                                                         });
-
-                                                        // Append the new <select> element to the container
-                                                        sizeContainer.appendChild(newSelect);
-                                                    });
-                                                </script>
-                                            </div>
-                                        <?php
-                                    }else if($_GET['name'] === 'Clothes'){
-                                        ?>
+                                                    </script>
+                                                </div>
+                                            <?php
+                                        }else if($_GET['name'] === 'Shoes'){
+                                            ?>
                                             <div class="md:col-span-5 mt-5">
-                                                <label for="size">Size:</label>
-                                                <div class="flex items-center flex-wrap gap-2" id="size_container">
-                                                    <select name="size[]" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
-                                                        <option value="XS">XS</option>
-                                                        <option value="S">S</option>
-                                                        <option value="M">M</option>
-                                                        <option value="L">L</option>
-                                                        <option value="XL">XL</option>
-                                                        <option value="XXL">XXL</option>
-                                                    </select>
-                                                </div>
-                                                <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
-                                                <script>
-                                                    document.getElementById('add-size').addEventListener('click', function() {
-                                                        var sizeContainer = document.getElementById('size_container');
-
-                                                        // Create a new <select> element
-                                                        var newSelect = document.createElement('select');
-                                                        newSelect.name = 'size[]';
-                                                        newSelect.id = 'size';
-                                                        newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
-
-                                                        // Array of options
-                                                        var options = [
-                                                            { value: 'XS', text: 'XS' },
-                                                            { value: 'S', text: 'S' },
-                                                            { value: 'M', text: 'M' },
-                                                            { value: 'L', text: 'L' },
-                                                            { value: 'XL', text: 'XL' },
-                                                            { value: 'XXL', text: 'XXL' }
-                                                        ];
-
-                                                        // Append options to the <select> element
-                                                        options.forEach(function(option) {
-                                                            var opt = document.createElement('option');
-                                                            opt.value = option.value;
-                                                            opt.textContent = option.text;
-                                                            newSelect.appendChild(opt);
+                                                    <label for="size">Size:</label>
+                                                    <div class="flex items-center flex-wrap gap-2" id="size_container">
+                                                        <select name="size[]" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                                            <option value="6 UK">6 UK</option>
+                                                            <option value="7 UK">7 UK</option>
+                                                            <option value="8 UK">8 UK</option>
+                                                            <option value="9 UK">9 UK</option>
+                                                            <option value="10 UK">10 UK</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                                    <script>
+                                                        document.getElementById('add-size').addEventListener('click', function() {
+                                                            var sizeContainer = document.getElementById('size_container');
+    
+                                                            // Create a new <select> element
+                                                            var newSelect = document.createElement('select');
+                                                            newSelect.name = 'size[]';
+                                                            newSelect.id = 'size';
+                                                            newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
+    
+                                                            // Array of options
+                                                            var options = [
+                                                                { value: '6 UK', text: '6 UK' },
+                                                                { value: '7 UK', text: '7 UK' },
+                                                                { value: '8 UK', text: '8 UK' },
+                                                                { value: '9 UK', text: '9 UK' },
+                                                                { value: '10 UK', text: '10 UK' }
+                                                            ];
+    
+                                                            // Append options to the <select> element
+                                                            options.forEach(function(option) {
+                                                                var opt = document.createElement('option');
+                                                                opt.value = option.value;
+                                                                opt.textContent = option.text;
+                                                                newSelect.appendChild(opt);
+                                                            });
+    
+                                                            // Append the new <select> element to the container
+                                                            sizeContainer.appendChild(newSelect);
                                                         });
-
-                                                        // Append the new <select> element to the container
-                                                        sizeContainer.appendChild(newSelect);
-                                                    });
-                                                </script>
-                                            </div>
-                                        <?php
-                                    }else if($_GET['name'] === 'Laptops/MacBook'){
-                                        ?>
-                                            <div class="md:col-span-5 mt-5">
-                                                <label for="size">Size:</label>
-                                                <div class="flex items-center flex-wrap gap-2" id="size_container">
-                                                    <select name="size[]" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
-                                                        <option value="4GB-128GB">4 GB RAM, 128 GB SSD</option>
-                                                        <option value="8GB-256GB">8 GB RAM, 256 GB SSD</option>
-                                                        <option value="8GB-512GB">8 GB RAM, 512 GB SSD</option>
-                                                        <option value="16GB-512GB">16 GB RAM, 512 GB SSD</option>
-                                                        <option value="16GB-1TB">16 GB RAM, 1 TB SSD</option>
-                                                        <option value="32GB-1TB">32 GB RAM, 1 TB SSD</option>
-                                                        <option value="32GB-2TB">32 GB RAM, 2 TB SSD</option>
-                                                        <option value="64GB-2TB">64 GB RAM, 2 TB SSD</option>
-                                                    </select>
+                                                    </script>
                                                 </div>
-                                                <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
-                                                <script>
-                                                    document.getElementById('add-size').addEventListener('click', function() {
-                                                        var sizeContainer = document.getElementById('size_container');
-
-                                                        // Create a new <select> element
-                                                        var newSelect = document.createElement('select');
-                                                        newSelect.name = 'size[]';
-                                                        newSelect.id = 'size';
-                                                        newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
-
-                                                        // Array of options
-                                                        var options = [
-                                                            { value: '4GB-128GB', text: '4GB RAM, 128GB SSD' },
-                                                            { value: '8GB-256GB', text: '8GB RAM, 256GB SSD' },
-                                                            { value: '8GB-512GB', text: '8GB RAM, 512GB SSD' },
-                                                            { value: '16GB-512GB', text: '16GB RAM, 512GB SSD' },
-                                                            { value: '16GB-1TB', text: '16GB RAM, 1TB SSD' },
-                                                            { value: '32GB-1TB', text: '32GB RAM, 1TB SSD' },
-                                                            { value: '32GB-2TB', text: '32GB RAM, 2TB SSD' },
-                                                            { value: '64GB-2TB', text: '64GB RAM, 2TB SSD' }
-                                                        ];
-
-                                                        // Append options to the <select> element
-                                                        options.forEach(function(option) {
-                                                            var opt = document.createElement('option');
-                                                            opt.value = option.value;
-                                                            opt.textContent = option.text;
-                                                            newSelect.appendChild(opt);
-                                                        });
-
-                                                        // Append the new <select> element to the container
-                                                        sizeContainer.appendChild(newSelect);
-                                                    });
-                                                </script>
-                                            </div>
-                                        <?php
-                                    }else if($_GET['name'] === 'Tabs/Ipad'){
-                                        ?>
-                                        <div class="md:col-span-5 mt-5">
-                                                <label for="size">Size:</label>
-                                                <div class="flex items-center flex-wrap gap-2" id="size_container">
-                                                    <select name="size[]" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
-                                                        <option value="4GB-64GB">4 GB RAM, 64 GB Storage</option>
-                                                        <option value="4GB-128GB">4 GB RAM, 128 GB Storage</option>
-                                                        <option value="6GB-128GB">6 GB RAM, 128 GB Storage</option>
-                                                        <option value="6GB-256GB">6 GB RAM, 256 GB Storage</option>
-                                                        <option value="8GB-128GB">8 GB RAM, 128 GB Storage</option>
-                                                        <option value="8GB-256GB">8 GB RAM, 256 GB Storage</option>
-                                                        <option value="8GB-512GB">8 GB RAM, 512 GB Storage</option>
-                                                        <option value="2GB-256GB">12 GB RAM, 256 GB Storage</option>
-                                                        <option value="2GB-512GB">12 GB RAM, 512 GB Storage</option>
-                                                    </select>
-                                                </div>
-                                                <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
-                                                <script>
-                                                    document.getElementById('add-size').addEventListener('click', function() {
-                                                        var sizeContainer = document.getElementById('size_container');
-
-                                                        // Create a new <select> element
-                                                        var newSelect = document.createElement('select');
-                                                        newSelect.name = 'size[]';
-                                                        newSelect.id = 'size';
-                                                        newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
-
-                                                        // Array of options
-                                                        var options = [
-                                                            { value: '4GB-64GB', text: '4GB RAM, 64GB Storage' },
-                                                            { value: '4GB-128GB', text: '4GB RAM, 128GB Storage' },
-                                                            { value: '6GB-128GB', text: '6GB RAM, 128GB Storage' },
-                                                            { value: '6GB-256GB', text: '6GB RAM, 256GB Storage' },
-                                                            { value: '8GB-128GB', text: '8GB RAM, 128GB Storage' },
-                                                            { value: '8GB-256GB', text: '8GB RAM, 256GB Storage' },
-                                                            { value: '8GB-512GB', text: '8GB RAM, 512GB Storage' },
-                                                            { value: '12GB-256GB', text: '12GB RAM, 256GB Storage' },
-                                                            { value: '12GB-512GB', text: '12GB RAM, 512GB Storage' }
-                                                        ];
-
-                                                        // Append options to the <select> element
-                                                        options.forEach(function(option) {
-                                                            var opt = document.createElement('option');
-                                                            opt.value = option.value;
-                                                            opt.textContent = option.text;
-                                                            newSelect.appendChild(opt);
-                                                        });
-
-                                                        // Append the new <select> element to the container
-                                                        sizeContainer.appendChild(newSelect);
-                                                    });
-                                                </script>
-                                            </div>
-                                        <?php
-                                    }else if($_GET['name'] === 'Shoes'){
-                                        ?>
-                                        <div class="md:col-span-5 mt-5">
-                                                <label for="size">Size:</label>
-                                                <div class="flex items-center flex-wrap gap-2" id="size_container">
-                                                    <select name="size[]" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
-                                                        <option value="6 UK">6 UK</option>
-                                                        <option value="7 UK">7 UK</option>
-                                                        <option value="8 UK">8 UK</option>
-                                                        <option value="9 UK">9 UK</option>
-                                                        <option value="10 UK">10 UK</option>
-                                                    </select>
-                                                </div>
-                                                <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
-                                                <script>
-                                                    document.getElementById('add-size').addEventListener('click', function() {
-                                                        var sizeContainer = document.getElementById('size_container');
-
-                                                        // Create a new <select> element
-                                                        var newSelect = document.createElement('select');
-                                                        newSelect.name = 'size[]';
-                                                        newSelect.id = 'size';
-                                                        newSelect.className = 'border mt-1 rounded px-4 bg-gray-50';
-
-                                                        // Array of options
-                                                        var options = [
-                                                            { value: '6 UK', text: '6 UK' },
-                                                            { value: '7 UK', text: '7 UK' },
-                                                            { value: '8 UK', text: '8 UK' },
-                                                            { value: '9 UK', text: '9 UK' },
-                                                            { value: '10 UK', text: '10 UK' }
-                                                        ];
-
-                                                        // Append options to the <select> element
-                                                        options.forEach(function(option) {
-                                                            var opt = document.createElement('option');
-                                                            opt.value = option.value;
-                                                            opt.textContent = option.text;
-                                                            newSelect.appendChild(opt);
-                                                        });
-
-                                                        // Append the new <select> element to the container
-                                                        sizeContainer.appendChild(newSelect);
-                                                    });
-                                                </script>
-                                            </div>
-                                        <?php
+                                            <?php
+                                        }
                                     }
                                 ?>
 

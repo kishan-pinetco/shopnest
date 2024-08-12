@@ -1,7 +1,6 @@
 <?php
     include "../include/connect.php";
     session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,10 +71,8 @@
 
                                         $cart_price = str_replace(',', '', $cart_products_price);
                                 
-                                        $number = $_SESSION['quantity'][$cart_products_id];
-
-                                        $all_quantities[] = $number;
-                                        $price = $cart_price;
+                                        $number = (int) $_SESSION['quantity'][$cart_products_id];
+                                        $price = (float) $cart_price;
                                         $result = $number * $price;
 
                                         $resultNumeric = intval($result);
@@ -161,7 +158,26 @@
 
                             <?php
                         ?>
-                        <a href="<?php echo $url?>" class="flex w-full items-center justify-center rounded-lg bg-indigo-600 hover:bg-indigo-700 transition duration-200 text-white px-5 py-2.5 text-sm font-medium cursor-pointer">Proceed to Checkout</a>
+                        <?php
+                            if (isset($_COOKIE['Cart_products'])) {
+                                $cookie_value = $_COOKIE['Cart_products'];
+
+                                $cart_products = json_decode($cookie_value, true);
+                                if (!empty($cart_products) && is_array($cart_products)) {
+                                    $totalCartItems = count($cart_products);
+                                }
+                            }
+
+                            if($totalCartPrice > 0){
+                                ?>
+                                    <a href="<?php echo $url?>" class="flex w-full items-center justify-center rounded-lg bg-indigo-600 hover:bg-indigo-700 transition duration-200 text-white px-5 py-2.5 text-sm font-medium cursor-pointer">Proceed to Checkout</a>
+                                <?php
+                            }else{
+                                ?>
+                                    <h1 class="flex w-full items-center justify-center rounded-lg bg-indigo-600 text-white px-5 py-2.5 text-sm font-medium select-none opacity-20">Proceed to Checkout</h1>
+                                <?php       
+                            }
+                        ?>
 
                         <div class="flex items-center justify-center gap-2">
                             <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> or </span>

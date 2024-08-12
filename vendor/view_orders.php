@@ -147,7 +147,7 @@
                     <section class="container mx-auto p-6">
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Place Orders</h2>
                         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                            <div class="w-full overflow-x-auto h-[80vh] text-center">
+                            <div class="w-full overflow-x-auto h-max text-center">
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
@@ -170,32 +170,34 @@
                                         </tr>
                                     </thead>
                                     <?php 
-                                        $get_orders = "SELECT * FROM orders WHERE vendor_id = '$vendor_id'";
-                                        $get_orders_query = mysqli_query($con,$get_orders);
-
-                                        while($items = mysqli_fetch_assoc($get_orders_query)){
-                                            ?>
-                                                <tbody class="bg-white border">
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_id'] : 'order_id'?></td>
-                                                        <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_title'] : 'order_title'?></td>
-                                                        <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $items['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['total_price'] : 'total_price'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_color'] : 'order_color'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_size'] : 'order_size'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['qty'] : 'qty'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_first_name'] . ' ' . $items['user_last_name'] : 'user name'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_email'] : 'user_email'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_mobile'] : 'user_mobile'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_address'] : 'user_address'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_state'] : 'user_state'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_city'] : 'user_city'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_pin'] : 'user_pin'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['payment_type'] : 'payment_type'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['date'] : 'date'?></td>
-                                                    </tr>
-                                                </tbody>
-                                            <?php
+                                        if(isset($_COOKIE['vendor_id'])){
+                                            $get_orders = "SELECT * FROM orders WHERE vendor_id = '$vendor_id'";
+                                            $get_orders_query = mysqli_query($con,$get_orders);
+    
+                                            while($items = mysqli_fetch_assoc($get_orders_query)){
+                                                ?>
+                                                    <tbody class="bg-white border">
+                                                        <tr class="text-gray-700">
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_id'] : 'order_id'?></td>
+                                                            <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_title'] : 'order_title'?></td>
+                                                            <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $items['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['total_price'] : 'total_price'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_color'] : 'order_color'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_size'] : 'order_size'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['qty'] : 'qty'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_first_name'] . ' ' . $items['user_last_name'] : 'user name'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_email'] : 'user_email'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_mobile'] : 'user_mobile'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_address'] : 'user_address'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_state'] : 'user_state'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_city'] : 'user_city'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['user_pin'] : 'user_pin'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['payment_type'] : 'payment_type'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['date'] : 'date'?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                <?php
+                                            }
                                         }
                                     ?> 
                                 </table>
@@ -207,7 +209,7 @@
                     <section class="container mx-auto p-6">
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Cancle Orders</h2>
                         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                            <div class="w-full overflow-x-auto h-[80vh] text-center">
+                            <div class="w-full overflow-x-auto h-max text-center">
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
@@ -226,28 +228,30 @@
                                         </tr>
                                     </thead>
                                     <?php 
-                                        $get_orders = "SELECT * FROM cancel_orders WHERE vendor_id = '$vendor_id'";
-                                        $get_orders_query = mysqli_query($con,$get_orders);
-
-                                        while($co = mysqli_fetch_assoc($get_orders_query)){
-                                            ?>
-                                                <tbody class="bg-white border">
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancel_order_id'] : 'cancel_order_id'?></td>
-                                                        <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_title'] : 'cancle_order_title'?></td>
-                                                        <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $co['cancle_order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_price'] : 'cancle_order_price'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_color'] : 'cancle_order_color'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_size'] : 'cancle_order_size'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['user_name'] : 'user_name'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['user_email'] : 'user_email'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['user_phone'] : 'user_phone'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['receive_payment'] : 'receive_payment'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['reason'] : 'reason'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['date'] : 'date'?></td>
-                                                    </tr>
-                                                </tbody>
-                                            <?php
+                                        if(isset($_COOKIE['vendor_id'])){
+                                            $get_orders = "SELECT * FROM cancel_orders WHERE vendor_id = '$vendor_id'";
+                                            $get_orders_query = mysqli_query($con,$get_orders);
+    
+                                            while($co = mysqli_fetch_assoc($get_orders_query)){
+                                                ?>
+                                                    <tbody class="bg-white border">
+                                                        <tr class="text-gray-700">
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancel_order_id'] : 'cancel_order_id'?></td>
+                                                            <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_title'] : 'cancle_order_title'?></td>
+                                                            <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $co['cancle_order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_price'] : 'cancle_order_price'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_color'] : 'cancle_order_color'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['cancle_order_size'] : 'cancle_order_size'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['user_name'] : 'user_name'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['user_email'] : 'user_email'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['user_phone'] : 'user_phone'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['receive_payment'] : 'receive_payment'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['reason'] : 'reason'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $co['date'] : 'date'?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                <?php
+                                            }
                                         }
                                     ?> 
                                 </table>
@@ -259,7 +263,7 @@
                     <section class="container mx-auto p-6">
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Return Orders</h2>
                         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                            <div class="w-full overflow-x-auto h-[80vh] text-center">
+                            <div class="w-full overflow-x-auto h-max text-center">
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
@@ -277,27 +281,29 @@
                                         </tr>
                                     </thead>
                                     <?php 
-                                        $get_orders = "SELECT * FROM return_orders WHERE vendor_id = '$vendor_id'";
-                                        $get_orders_query = mysqli_query($con,$get_orders);
+                                        if(isset($_COOKIE['vendor_id'])){
+                                            $get_orders = "SELECT * FROM return_orders WHERE vendor_id = '$vendor_id'";
+                                            $get_orders_query = mysqli_query($con,$get_orders);
 
-                                        while($ro = mysqli_fetch_assoc($get_orders_query)){
-                                            ?>
-                                                <tbody class="bg-white border">
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_id'] : 'return_order_id'?></td>
-                                                        <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_title'] : 'return_order_title'?></td>
-                                                        <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $ro['return_order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_price'] : 'return_order_price'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_color'] : 'return_order_color'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_size'] : 'return_order_size'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['user_name'] : 'user_name'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['user_email'] : 'user_email'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['user_phone'] : 'user_phone'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['payment_type'] : 'payment_type'?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_date'] : 'return_order_date'?></td>
-                                                    </tr>
-                                                </tbody>
-                                            <?php
+                                            while($ro = mysqli_fetch_assoc($get_orders_query)){
+                                                ?>
+                                                    <tbody class="bg-white border">
+                                                        <tr class="text-gray-700">
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_id'] : 'return_order_id'?></td>
+                                                            <td class="px-4 py-3 my-auto h-full line-clamp-4"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_title'] : 'return_order_title'?></td>
+                                                            <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $ro['return_order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_price'] : 'return_order_price'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_color'] : 'return_order_color'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_size'] : 'return_order_size'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['user_name'] : 'user_name'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['user_email'] : 'user_email'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['user_phone'] : 'user_phone'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['payment_type'] : 'payment_type'?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_date'] : 'return_order_date'?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                <?php
+                                            }    
                                         }
                                     ?> 
                                 </table>

@@ -1,9 +1,9 @@
 <?php
     include "../include/connect.php";
 
-    $vendor_id = $_GET['vendor_id'];
     
     if(isset($vendor_id)){
+        $vendor_id = $_GET['vendor_id'];
         $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
         $retrieve_query = mysqli_query($con, $retrieve_data);
 
@@ -62,12 +62,12 @@
             </div>
             <div class="m-auto text-center -mt-28 py-8">
                 <div class="mt-3">
-                    <h2 class="text-2xl font-medium text-gray-950"><?php echo $vendor_userName?></h2>
+                    <h2 class="text-2xl font-medium text-gray-950"><?php echo isset($vendor_id) ? $vendor_userName : 'vendor_userName'?></h2>
                     <span class="text-base font-medium text-gray-400 mt-2 mb-7">Seller</span>
                 </div>
                 <div class="mt-6">
                     <h3 class="text-base font-medium text-indigo-950">About Me</h3>
-                    <p class="text-sm font-normal text-gray-800 mt-4 max-w-3xl m-auto"><?php echo $vendor_Bio?></p>
+                    <p class="text-sm font-normal text-gray-800 mt-4 max-w-3xl m-auto"><?php echo isset($vendor_id) ? $vendor_Bio : 'vendor_Bio'?></p>
                 </div>
             </div>
         </div>
