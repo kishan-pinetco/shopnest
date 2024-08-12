@@ -85,7 +85,7 @@ function displayRandomProducts($con, $limit)
 
     <!-- splide link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.9/dist/css/splide.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide/dist/js/splide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide/dist/js/splide.min.js" defer></script>
 
 
     <style>
@@ -94,6 +94,10 @@ function displayRandomProducts($con, $limit)
             font-optical-sizing: auto;
             font-weight: 500;
             font-style: normal;
+        }
+
+        .show {
+            display: block;
         }
 
         .custom-hover-bg {
@@ -143,6 +147,40 @@ function displayRandomProducts($con, $limit)
             width: 288px;
             margin-right: 16px;
         }
+
+        .splide__slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .categoryCard {
+            width: 11rem;
+            /* Set card width to 72 */
+            height: 10rem;
+            /* Optional: Set card height */
+            border-radius: 1rem;
+            /* Example border radius */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #style-2::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        #style-2::-webkit-scrollbar {
+            width: 12px;
+            height: 5px;
+            background-color: #F5F5F5;
+        }
+
+        #style-2::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
     </style>
 
 </head>
@@ -154,7 +192,7 @@ function displayRandomProducts($con, $limit)
     ?>
     <div class="p-2 flex flex-col max-w-screen-xl m-auto outfit">
         <div>
-            <div class="hidden xl:block xl:grid xl:grid-cols-8 gap-9 text-sm py-5 px-6">
+            <div class="hidden xl:show xl:grid xl:grid-cols-8 gap-9 text-sm py-5 px-6">
                 <div>
                     <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
                 </div>
@@ -180,6 +218,7 @@ function displayRandomProducts($con, $limit)
                     <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
                 </div>
             </div>
+
             <!-- categorySplider2 -->
             <div class="splide xl:hidden" id="categorySplide1">
                 <div class="splide__track">
@@ -261,50 +300,58 @@ function displayRandomProducts($con, $limit)
                 });
             </script>
         </div>
+
         <!-- Swiper -->
         <div class="swiper mySwiper w-full h-full rounded-lg mt-3">
             <div class="swiper-wrapper">
-                <div class="swiper-slide flex items-center justify-center">
-                    <img class="relative w-full h-[30vh] rounded-md md:h-[60vh] object-cover" src="https://i.pinimg.com/originals/db/12/fe/db12fea16a6836ac1a7580921983fa06.jpg" alt="">
-                    <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
-                        <h1 class="text-base md:text-3xl font-bold">Timeless Elegance Awaits</h1>
-                        <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Discover the perfect watch to elevate your style and keep you on time.</p>
-                        <button class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</button>
+                <div class="swiper-slide">
+                    <img class="w-full h-[30vh] md:h-[60vh] rounded-md object-cover" src="https://i.pinimg.com/originals/db/12/fe/db12fea16a6836ac1a7580921983fa06.jpg" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center">
+                        <div class="px-4 md:px-16 text-white">
+                            <h1 class="text-lg md:text-4xl font-bold">Timeless Elegance Awaits</h1>
+                            <p class="text-sm md:text-lg my-2">Discover the perfect watch to elevate your style and keep you on time.</p>
+                            <button class="bg-indigo-600 text-white py-2 px-4 rounded-md">Shop Now</button>
+                        </div>
                     </div>
                 </div>
-                <div class="swiper-slide flex items-center justify-center">
-                    <img class="relative w-full h-[30vh] rounded-md md:h-[60vh] object-cover" src="https://rog.asus.com/Microsite/ROG-X-INTEL-UNLEASH-THE-LEGEND-INSIDE/in/assets/img/list/ROG-STRIX-SCAR-15-17.jpg" alt="">
-                    <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
-                        <h1 class="text-base md:text-3xl font-bold">Unleash Your Productivity</h1>
-                        <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Experience unparalleled performance and style with our cutting-edge laptops.</p>
-                        <button class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</button>
+                <div class="swiper-slide">
+                    <img class="w-full h-[30vh] md:h-[60vh] rounded-md object-cover" src="https://rog.asus.com/Microsite/ROG-X-INTEL-UNLEASH-THE-LEGEND-INSIDE/in/assets/img/list/ROG-STRIX-SCAR-15-17.jpg" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center">
+                        <div class="px-4 md:px-16 text-white">
+                            <h1 class="text-lg md:text-4xl font-bold">Unleash Your Productivity</h1>
+                            <p class="text-sm md:text-lg my-2">Experience unparalleled performance and style with our cutting-edge laptops.</p>
+                            <button class="bg-indigo-600 text-white py-2 px-4 rounded-md">Learn More</button>
+                        </div>
                     </div>
                 </div>
-                <div class="swiper-slide flex items-center justify-center">
-                    <img class="relative w-full h-[30vh] rounded-md md:h-[60vh] object-cover" src="https://global.hisense.com/dam/jcr:3beab097-18ec-497a-acef-b5660937c0fb/uled-8k-tv-u80g-banner.jpg" alt="">
-                    <div class="bg-gradient-to-r from-black/95 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
-                        <h1 class="text-base md:text-3xl font-bold">Elevate Your Viewing Experience</h1>
-                        <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Immerse yourself in stunning clarity and vibrant colors with our latest TVs.</p>
-                        <button class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</button>
+                <div class="swiper-slide">
+                    <img class="w-full h-[30vh] md:h-[60vh] rounded-md object-cover" src="https://global.hisense.com/dam/jcr:3beab097-18ec-497a-acef-b5660937c0fb/uled-8k-tv-u80g-banner.jpg" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center">
+                        <div class="px-4 md:px-16 text-white">
+                            <h1 class="text-lg md:text-4xl font-bold">Elevate Your Viewing Experience</h1>
+                            <p class="text-sm md:text-lg my-2">Immerse yourself in stunning clarity and vibrant colors with our latest TVs.</p>
+                            <button class="bg-indigo-600 text-white py-2 px-4 rounded-md">Shop Now</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="">
-                <div class="bg-white rounded-full prev-button w-8 h-8 z-50 absolute top-[50%] text-center flex items-center justify-center left-3">
-                    <svg class="w-4 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                        <g>
-                            <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
-                        </g>
-                    </svg>
-                </div>
-                <div class="bg-white rounded-full next-button w-8 h-8 z-50 absolute top-[50%] text-center flex items-center justify-center right-3">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                        <g>
-                            <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="#000000" opacity="1" data-original="#000000"></path>
-                        </g>
-                    </svg>
-                </div>
-            </div>
+            <!-- Navigation Arrows -->
+            <!-- <div class="swiper-button-next bg-white rounded-full"></div> -->
+            <!-- <div class="swiper-button-prev"></div> -->
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve" class="bg-white rounded-full w-8 h-8 p-1.5 swiper-button-next">
+                    <g>
+                        <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="#4f46e5 " opacity="1" data-original="#4f46e5 "></path>
+                    </g>
+                </svg>
+            </button>
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve" class="bg-white rounded-full w-8 h-8 p-1.5 swiper-button-prev">
+                    <g>
+                        <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#4f46e5 " opacity="1" data-original="#4f46e5 " class=""></path>
+                    </g>
+                </svg>
+            </button>
         </div>
 
         <!-- Swiper JS -->
@@ -314,12 +361,17 @@ function displayRandomProducts($con, $limit)
         <script>
             var swiper = new Swiper(".mySwiper", {
                 autoplay: {
-                    delay: 2000,
+                    delay: 3000,
                     disableOnInteraction: false,
                 },
+                loop: true,
                 navigation: {
-                    nextEl: ".next-button ",
-                    prevEl: ".prev-button",
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                effect: 'fade', // Optional: Use fade effect
+                fadeEffect: {
+                    crossFade: true
                 },
             });
         </script>
@@ -370,13 +422,13 @@ function displayRandomProducts($con, $limit)
 
 
         <!-- tranding deals -->
-        <div class="mt-12 flex flex-col items-center">
-            <h1 class="mb-5 text-2xl">Trending Deals</h1>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-                <div class="overflow-hidden w-52">
-                    <div class="relative bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-gamerdays.jpg')] text-center h-[350px] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
+        <div class="mt-12">
+            <h1 class="text-2xl w-full">Trending Deals</h1>
+            <div id="style-2" class="flex overflow-x-scroll xl:overflow-hidden gap-8 py-5">
+                <div>
+                    <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-gamerdays.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <a href="">
-                            <div class="relative z-10">
+                            <div class="relative">
                                 <h1 class="text-[#36e318] text-center text-xs font-semibold">LIMITED TIME OFFER</h1>
                                 <span class="flex justify-center my-3">
                                     <svg class="w-32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 81 32">
@@ -401,10 +453,10 @@ function displayRandomProducts($con, $limit)
                 </div>
 
 
-                <div class="overflow-hidden w-52">
-                    <div class="relative bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-neoqled.jpg')] text-center h-[350px] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
+                <div>
+                    <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-neoqled.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <a href="">
-                            <div class="relative z-10">
+                            <div class="relative">
                                 <h1 class="text-black text-center text-xs font-semibold">BEST TV DEALS</h1>
                                 <span class="flex justify-center my-3">
                                     <svg class="w-32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 81 32">
@@ -426,10 +478,10 @@ function displayRandomProducts($con, $limit)
                     </div>
                 </div>
 
-                <div class="overflow-hidden w-52">
-                    <div class="relative bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-getinspired.jpg')] text-center h-[350px] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
+                <div>
+                    <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-getinspired.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <a href="">
-                            <div class="relative z-10">
+                            <div class="relative">
                                 <h1 class="text-black text-center text-xs font-semibold">NEW ARRIVALS</h1>
                                 <span class="flex justify-center my-3">
                                     <svg class="w-32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 32">
@@ -455,10 +507,10 @@ function displayRandomProducts($con, $limit)
                     </div>
                 </div>
 
-                <div class="overflow-hidden w-52">
-                    <div class="relative bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-triphard.jpg')] text-center h-[350px] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
+                <div>
+                    <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-triphard.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <a href="">
-                            <div class="relative z-10">
+                            <div class="relative">
                                 <h1 class="text-[#80f8ff] text-center text-xs font-semibold">BLACK FRIDAY</h1>
                                 <span class="flex justify-center my-3">
                                     <svg class="w-32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 81 32">
@@ -481,10 +533,10 @@ function displayRandomProducts($con, $limit)
                     </div>
                 </div>
 
-                <div class="overflow-hidden w-52">
-                    <div class="relative bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-bestinclass.jpg')] text-center h-[350px] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
+                <div>
+                    <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-bestinclass.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <a href="">
-                            <div class="relative z-10">
+                            <div class="relative">
                                 <h1 class="text-[#fff] text-center text-xs font-semibold">BACK TO SCHOOL</h1>
                                 <span class="flex justify-center my-3">
                                     <svg class="w-32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 32">
@@ -513,7 +565,7 @@ function displayRandomProducts($con, $limit)
         </div>
 
 
-        <!-- card splide 1 -->
+        <!-- card splide 2 -->
         <div class="splide mt-12" id="cardSplide2">
             <h1 class="text-2xl">You Might Also Like</h1>
             <div class="splide__track py-5">
@@ -555,46 +607,46 @@ function displayRandomProducts($con, $limit)
         </script>
 
         <div class="my-5 mt-12 ">
-            <h1 class="text-2xl mb-4">Explore More Categories</h1>
-            <div class="xl:flex w-full gap-10 hidden xl:block">
+            <h1 class="text-2xl mb-5">Explore More Categories</h1>
+            <div class="xl:flex justify-center w-full gap-10 hidden xl:show">
                 <div>
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
+                    <a class="flex flex-col items-center space-y-2 w-32" href="">
                         <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cellphones.jpg?w=640&ssl=1" alt="">
                         <p>Cell Phones</p>
                     </a>
                 </div>
                 <div>
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
+                    <a class="flex flex-col items-center space-y-2 w-32" href="">
                         <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-ipadtablets.jpg?w=640&ssl=1" alt="">
                         <p>iPads & Tablets</p>
                     </a>
                 </div>
                 <div>
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
+                    <a class="flex flex-col items-center space-y-2 w-32" href="">
                         <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-laptops.jpg?w=640&ssl=1" alt="">
                         <p>Laptops</p>
                     </a>
                 </div>
                 <div>
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
+                    <a class="flex flex-col items-center space-y-2 w-32" href="">
                         <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cameras.jpg?w=640&ssl=1" alt="">
                         <p>Cameras</p>
                     </a>
                 </div>
                 <div>
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
+                    <a class="flex flex-col items-center space-y-2 w-32" href="">
                         <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-wearabletech.jpg?w=640&ssl=1" alt="">
                         <p>Wearable Tech</p>
                     </a>
                 </div>
                 <div>
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
+                    <a class="flex flex-col items-center space-y-2 w-32" href="">
                         <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-headphones.jpg?w=640&ssl=1" alt="">
                         <p>Headphones</p>
                     </a>
                 </div>
                 <div>
-                    <a class="flex flex-col items-center space-y-2 w-36" href="">
+                    <a class="flex flex-col items-center space-y-2 w-32" href="">
                         <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-accessories.jpg?w=640&ssl=1" alt="">
                         <p>Accessories</p>
                     </a>
@@ -607,7 +659,7 @@ function displayRandomProducts($con, $limit)
                     <ul class="splide__list">
                         <li class="splide__slide flex justify-center">
                             <div class="categoryCard p-4">
-                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                <a class="flex flex-col items-center space-y-2 w-32" href="">
                                     <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cellphones.jpg?w=640&ssl=1" alt="">
                                     <p>Cell Phones</p>
                                 </a>
@@ -615,7 +667,7 @@ function displayRandomProducts($con, $limit)
                         </li>
                         <li class="splide__slide flex justify-center">
                             <div class="categoryCard flex-shrink-0 p-4">
-                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                <a class="flex flex-col items-center space-y-2 w-32" href="">
                                     <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-ipadtablets.jpg?w=640&ssl=1" alt="">
                                     <p>iPads & Tablets</p>
                                 </a>
@@ -623,7 +675,7 @@ function displayRandomProducts($con, $limit)
                         </li>
                         <li class="splide__slide flex justify-center">
                             <div class="categoryCard flex-shrink-0 p-4">
-                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                <a class="flex flex-col items-center space-y-2 w-32" href="">
                                     <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-laptops.jpg?w=640&ssl=1" alt="">
                                     <p>Laptops</p>
                                 </a>
@@ -631,7 +683,7 @@ function displayRandomProducts($con, $limit)
                         </li>
                         <li class="splide__slide flex justify-center">
                             <div class="categoryCard flex-shrink-0 p-4">
-                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                <a class="flex flex-col items-center space-y-2 w-32" href="">
                                     <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cameras.jpg?w=640&ssl=1" alt="">
                                     <p>Cameras</p>
                                 </a>
@@ -639,7 +691,7 @@ function displayRandomProducts($con, $limit)
                         </li>
                         <li class="splide__slide flex justify-center">
                             <div class="categoryCard flex-shrink-0 p-4">
-                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                <a class="flex flex-col items-center space-y-2 w-32" href="">
                                     <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-wearabletech.jpg?w=640&ssl=1" alt="">
                                     <p>Wearable Tech</p>
                                 </a>
@@ -647,7 +699,7 @@ function displayRandomProducts($con, $limit)
                         </li>
                         <li class="splide__slide flex justify-center">
                             <div class="categoryCard flex-shrink-0 p-4">
-                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                <a class="flex flex-col items-center space-y-2 w-32" href="">
                                     <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-headphones.jpg?w=640&ssl=1" alt="">
                                     <p>Headphones</p>
                                 </a>
@@ -655,7 +707,7 @@ function displayRandomProducts($con, $limit)
                         </li>
                         <li class="splide__slide flex justify-center">
                             <div class="categoryCard flex-shrink-0 p-4">
-                                <a class="flex flex-col items-center space-y-2 w-36" href="">
+                                <a class="flex flex-col items-center space-y-2 w-32" href="">
                                     <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-accessories.jpg?w=640&ssl=1" alt="">
                                     <p>Accessories</p>
                                 </a>
@@ -678,14 +730,18 @@ function displayRandomProducts($con, $limit)
                         pagination: false,
                         breakpoints: {
                             1200: {
-                                perPage: 3,
+                                perPage: 4,
                                 gap: '0.75rem'
                             },
                             992: {
-                                perPage: 2,
+                                perPage: 3,
                                 gap: '0.5rem'
                             },
                             768: {
+                                perPage: 2,
+                                gap: '0.25rem'
+                            },
+                            500: {
                                 perPage: 1,
                                 gap: '0.25rem'
                             }
@@ -696,64 +752,45 @@ function displayRandomProducts($con, $limit)
 
         </div>
 
-        <!-- slider 2 -->
-        <div class="slider-container mt-12">
+        <!-- card splide 3 -->
+        <div class="splide mt-10" id="cardSplide3">
             <h1 class="text-2xl">More to Discover</h1>
-            <div id="slider3" class="card-slider">
-                <?php
-                displayRandomProducts($con, 10);
-                ?>
-            </div>
-            <!-- slider contorl -->
-            <div class="absolute inset-y-0 left-0 flex items-center">
-                <button id="prev3" class="bg-white p-2 rounded-full shadow-lg focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="absolute inset-y-0 right-0 flex items-center">
-                <button id="next3" class="bg-white p-2 rounded-full shadow-lg focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
+            <div class="splide__track py-5">
+                <ul class="splide__list">
+                    <?php
+                    displayRandomProducts($con, 10);
+                    ?>
+                </ul>
             </div>
         </div>
 
+        <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
+
         <script>
-            const slider3 = document.getElementById('slider3');
-            const next3 = document.getElementById('next3');
-            const prev3 = document.getElementById('prev3');
-
-            let currentIndex3 = 0;
-            const cardWidth3 = 18 * 16; // 18rem in pixels (1rem = 16px)
-            const visibleCards3 = Math.floor(document.querySelector('.slider-container').offsetWidth / cardWidth3);
-            const totalCards3 = slider3.children.length;
-
-            function updateButtons3() {
-                prev3.disabled = currentIndex3 === 0;
-                next3.disabled = currentIndex3 >= totalCards3 - visibleCards3;
-            }
-
-            next3.addEventListener('click', () => {
-                if (currentIndex3 < totalCards3 - visibleCards3) {
-                    currentIndex3++;
-                    slider3.style.transform = `translateX(-${currentIndex3 * cardWidth3}px)`;
-                    updateButtons3();
-                }
+            document.addEventListener('DOMContentLoaded', function() {
+                new Splide('#cardSplide3', {
+                    perPage: 4,
+                    perMove: 1,
+                    gap: '1rem', // Adjust gap between slides
+                    rewind: false, // Do not loop back to the start
+                    arrows: true,
+                    pagination: false,
+                    breakpoints: {
+                        1200: {
+                            perPage: 3,
+                            gap: '0.75rem'
+                        },
+                        992: {
+                            perPage: 2,
+                            gap: '0.5rem'
+                        },
+                        768: {
+                            perPage: 1,
+                            gap: '0.25rem'
+                        }
+                    }
+                }).mount();
             });
-
-            prev3.addEventListener('click', () => {
-                if (currentIndex3 > 0) {
-                    currentIndex3--;
-                    slider3.style.transform = `translateX(-${currentIndex3 * cardWidth3}px)`;
-                    updateButtons3();
-                }
-            });
-
-            // Initial button state
-            updateButtons3();
         </script>
 
         <!-- partner -->
