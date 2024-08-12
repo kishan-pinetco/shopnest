@@ -336,8 +336,6 @@ function displayRandomProducts($con, $limit)
                 </div>
             </div>
             <!-- Navigation Arrows -->
-            <!-- <div class="swiper-button-next bg-white rounded-full"></div> -->
-            <!-- <div class="swiper-button-prev"></div> -->
             <button>
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve" class="bg-white rounded-full w-8 h-8 p-1.5 swiper-button-next">
                     <g>
