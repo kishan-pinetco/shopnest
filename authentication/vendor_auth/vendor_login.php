@@ -27,6 +27,8 @@
     <?php
     include "../../include/connect.php";
 
+    session_start();
+
     if (isset($_POST['loginBtn'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -78,10 +80,9 @@
                 <?php
 
                 if (isset($_POST['check'])) {
-                    $expirationTime = time() + (365 * 24 * 60 * 60);
+                    $_SESSION['vendorEmail'] = $email;
+                    $_SESSION['vendorPass'] = $password;
 
-                    setcookie('vendorEmailCookie', $email, $expirationTime, "/");
-                    setcookie('vendorPassCookie', $password, $expirationTime, "/");
                     header("Location:../../vendor/vendor_dashboard.php");
                 } else {
                     header("Location:../../vendor/vendor_dashboard.php");
@@ -214,15 +215,11 @@
                 <div class="space-y-4 p-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="email" name="email" id="email" value="<?php if (isset($_COOKIE['vendorEmailCookie'])) {
-                            echo $_COOKIE['vendorEmailCookie'];
-                        } ?>">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="email" name="email" id="email" value="<?php echo isset($_SESSION['vendorEmail']) ? $_SESSION['vendorEmail'] : '' ?>">
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
-                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password" value="<?php if (isset($_COOKIE['mypassCookie'])) {
-                            echo $_COOKIE['mypassCookie'];
-                        } ?>">
+                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password" value="<?php echo isset($_SESSION['vendorPass']) ? $_SESSION['vendorPass'] : '' ?>">
                         <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                                 <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
