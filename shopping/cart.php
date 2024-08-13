@@ -138,7 +138,7 @@
                         <div class="space-y-4">
                             <dl class="flex items-center justify-between gap-4 border-b pt-2">
                                 <dt class="text-base font-bold">Total</dt>
-                                <dd class="text-base font-bold">₹<?php echo number_format($totalCartPrice)?></dd>
+                                <dd class="text-base font-bold">₹<?php echo isset($_COOKIE['Cart_products']) ? number_format($totalCartPrice) : '0'?></dd>
                             </dl>  
                         </div>
 
@@ -153,10 +153,6 @@
                             }else{
                                 $url = '../authentication/user_auth/user_login.php';
                             }
-
-                            ?>
-
-                            <?php
                         ?>
                         <?php
                             if (isset($_COOKIE['Cart_products'])) {
@@ -168,7 +164,7 @@
                                 }
                             }
 
-                            if($totalCartPrice > 0){
+                            if(isset($_COOKIE['Cart_products']) && $totalCartPrice > 0){
                                 ?>
                                     <a href="<?php echo $url?>" class="flex w-full items-center justify-center rounded-lg bg-indigo-600 hover:bg-indigo-700 transition duration-200 text-white px-5 py-2.5 text-sm font-medium cursor-pointer">Proceed to Checkout</a>
                                 <?php

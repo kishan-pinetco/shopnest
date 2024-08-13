@@ -1,6 +1,8 @@
 <?php
     include "../include/connect.php";
 
+    session_start();
+
     if(isset($_COOKIE['vendor_id'])){
         $vendor_id = $_COOKIE['vendor_id'];
 
@@ -349,6 +351,13 @@
         $update_query = mysqli_query($con, $updateVenodr);
 
         if ($update_query) {
+
+            if(isset($_SESSION['vendorEmail'])){
+                unset($_SESSION['vendorEmail']);
+
+                $_SESSION['vendorEmail'] = $email;
+            }
+
             // Check for Cover file upload
             if(move_uploaded_file($tempname, $folder)){
                 $vendor_id = $_COOKIE['vendor_id'];

@@ -1,7 +1,10 @@
 <?php
     include "../include/connect.php";
 
+    session_start();
+
     if(isset($_COOKIE['user_id'])){
+
         $user_id = $_COOKIE['user_id'];
         $user_name = $_COOKIE['fname'];
 
@@ -277,6 +280,13 @@
         $updateQuery = mysqli_query($con,$update_data);
 
         if($updateQuery){
+
+            if(isset($_SESSION['userEmail'])){
+                unset($_SESSION['userEmail']);
+
+                $_SESSION['userEmail'] = $email;
+            }
+
             ?>
                 <script>alert("Data Updated Properly.")</script>
             <?php
@@ -319,10 +329,12 @@
                 $up_pass = "UPDATE user_registration SET password = '$new_dpass' WHERE user_id = '$user_id'";
                 $up_query = mysqli_query($con,$up_pass);
 
-                if(isset($_COOKIE['userPassCookie'])){
-                    $expirationTime = time() + (365 * 24 * 60 * 60);
-                    setcookie('userPassCookie', $new_pass, $expirationTime, "/");
+                if(isset($_SESSION['userPass'])){
+                    unset($_SESSION['userPass']);
+
+                    $_SESSION['userPass'] = $new_pass;
                 }
+
 
                 if($up_query){
                     ?>
