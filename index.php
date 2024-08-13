@@ -21,7 +21,26 @@ function displayRandomProducts($con, $limit)
     $product_query = mysqli_query($con, $product_find);
 
     if ($product_query) {
+
         while ($res = mysqli_fetch_assoc($product_query)) {
+            $product_id = $res['product_id'];
+            $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+            $review_query = mysqli_query($con, $get_reviews);
+            $totalReviews = mysqli_num_rows($review_query);
+
+            if ($totalRatings = mysqli_num_rows($review_query)) {
+                $sum = 0;
+                $count = 0;
+
+                while ($data = mysqli_fetch_assoc($review_query)) {
+                    $rating = str_replace(",", "", $data['Rating']);
+                    $sum += (float)$rating;
+                    $count++;
+                }
+
+                $average = $sum / $count;
+                $formatted_average = number_format($average, 1);
+            }
 ?>
 
             <li class="splide__slide flex justify-center" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
@@ -37,12 +56,12 @@ function displayRandomProducts($con, $limit)
                         </p>
                         <div class="flex items-center mt-3">
                             <span class="bg-indigo-400 rounded-md px-2 py-0.5 flex items-center gap-1">
-                                <h1 class="font-semibold text-base text-white">0.0</h1>
+                                <h1 class="font-semibold text-base text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                     <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                 </svg>
                             </span>
-                            <span class="text-sm ml-2 mt-0.5">0 Reviews</span>
+                            <span class="text-sm ml-2 mt-0.5">(<?php echo $totalReviews ?>) Peoples</span>
                         </div>
                     </div>
                 </div>
@@ -61,7 +80,7 @@ function displayRandomProducts($con, $limit)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>shopNest</title>
 
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
@@ -165,28 +184,28 @@ function displayRandomProducts($con, $limit)
         <div class="flex justify-center">
             <div class="style-2 flex overflow-x-auto xl:justify-center gap-9 text-sm py-5 px-6">
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Furniture'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Electronics</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Electronics'"><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Electronics</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">15% off Headphone</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Headphone'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">15% off Headphone</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Think Outside The Box</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Processor'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Think Outside The Box</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ... ">Toys</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Toys'"><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ... ">Toys</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Sports</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Sports'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Sports</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">New From Apple</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Apple'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">New From Apple</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href=""><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Women accessories'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
                 </div>
             </div>
         </div>
@@ -303,9 +322,9 @@ function displayRandomProducts($con, $limit)
         <div class="mt-12">
             <h1 class="text-2xl w-full">Trending Deals</h1>
             <div class="style-2 flex overflow-x-scroll xl:overflow-hidden gap-8 py-5">
-                <div>
+                <a href="pages/product_category.php?Category='Game Item'">
                     <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-gamerdays.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
-                        <a href="">
+                        <div>
                             <div class="relative">
                                 <h1 class="text-[#36e318] text-center text-xs font-semibold">LIMITED TIME OFFER</h1>
                                 <span class="flex justify-center my-3">
@@ -323,17 +342,14 @@ function displayRandomProducts($con, $limit)
                                 </span>
                                 <p class="text-[#36e318] text-center underline underline-offset-4 text-sm">Shop Now</p>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-center mt-2">Exclusive limited-time offers & experiences</p>
-                    </div>
-                </div>
+                </a>
 
 
-                <div>
+                <a href="pages/product_category.php?Category='TV'">
                     <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-neoqled.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
-                        <a href="">
+                        <div>
                             <div class="relative">
                                 <h1 class="text-black text-center text-xs font-semibold">BEST TV DEALS</h1>
                                 <span class="flex justify-center my-3">
@@ -349,16 +365,13 @@ function displayRandomProducts($con, $limit)
                                 </span>
                                 <p class="text-black text-center underline underline-offset-4 text-sm">Shop Now</p>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-center mt-2">Save up to $700 on select 4K QLED Tvs</p>
-                    </div>
-                </div>
+                </a>
 
-                <div>
+                <a href="pages/product_category.php?Category='Laptops/MacBook'">
                     <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-getinspired.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
-                        <a href="">
+                        <div>
                             <div class="relative">
                                 <h1 class="text-black text-center text-xs font-semibold">NEW ARRIVALS</h1>
                                 <span class="flex justify-center my-3">
@@ -378,67 +391,37 @@ function displayRandomProducts($con, $limit)
                                 </span>
                                 <p class="text-black text-center underline underline-offset-4 text-sm">Shop Now</p>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-center mt-2">Low prices on computers to succeed in the office</p>
-                    </div>
-                </div>
+                </a>
 
-                <div>
-                    <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-triphard.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
-                        <a href="">
-                            <div class="relative">
-                                <h1 class="text-[#80f8ff] text-center text-xs font-semibold">BLACK FRIDAY</h1>
+                <a href="pages/product_category.php?Category='Kitchen'">
+                    <div class="relative w-56 bg-[url('https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev4-steel-package.jpg?fit=267%2C368&ssl=1')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
+                        <div>
+                            <div class="relative text-[#80f8ff]">
+                                <h1 class="text-center text-xs font-semibold">KITCHEN</h1>
                                 <span class="flex justify-center my-3">
-                                    <svg class="w-32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 81 32">
-                                        <path fill="#80f8ff" style="fill: var(--color3, #80f8ff)" d="M27.615 5.263h-7.074v8.286h-3.595v-8.286h-7.074v-3.152h17.75v3.152z"></path>
-                                        <path fill="#80f8ff" style="fill: var(--color3, #80f8ff)" d="M29.249 2.111h12.766c2.928 0 4.854 1.974 4.854 4.412 0 1.716-0.967 3.2-2.546 3.935l2.029 3.091h-4.167l-1.552-2.614h-7.762v2.614h-3.608v-11.438zM42.015 7.782c0.688 0 1.26-0.558 1.26-1.26s-0.572-1.26-1.26-1.26h-9.151v2.519h9.151z"></path>
-                                        <path fill="#80f8ff" style="fill: var(--color3, #80f8ff)" d="M48.306 2.111h3.595v11.438h-3.595v-11.438z"></path>
-                                        <path fill="#80f8ff" style="fill: var(--color3, #80f8ff)" d="M71.149 6.523c0 2.437-1.927 4.412-4.854 4.412h-9.164v2.614h-3.595v-11.438h12.766c2.921 0 4.848 1.974 4.848 4.412zM67.554 6.523c0-0.701-0.572-1.26-1.26-1.26h-9.164v2.519h9.171c0.681 0 1.253-0.558 1.253-1.26z"></path>
-                                        <path fill="#80f8ff" style="fill: var(--color3, #80f8ff)" d="M20.276 18.451v11.438h-3.595v-4.248h-10.655v4.248h-3.595v-11.438h3.595v4.003h10.655v-4.003h3.595z"></path>
-                                        <path fill="#80f8ff" style="fill: var(--color3, #80f8ff)" d="M36.582 28.078h-10.9l-0.477 1.811h-3.629l3.023-11.438h13.072l3.023 11.438h-3.643l-0.47-1.811zM35.745 24.892l-0.851-3.282h-7.544l-0.851 3.282h9.246z"></path>
-                                        <path fill="#80f8ff" style="fill: var(--color3, #80f8ff)" d="M41.675 18.451h12.766c2.928 0 4.854 1.974 4.854 4.412 0 1.716-0.967 3.2-2.546 3.935l2.029 3.091h-4.174l-1.552-2.614h-7.762v2.614h-3.608v-11.438zM54.441 24.123c0.688 0 1.26-0.558 1.26-1.26s-0.572-1.26-1.26-1.26h-9.151v2.519h9.151z"></path>
-                                        <path fill="#80f8ff" style="fill: var(--color3, #80f8ff)" d="M78.591 24.17c0 3.527-2.71 5.719-6.291 5.719h-11.568v-11.438h11.568c3.581 0 6.291 2.172 6.291 5.719zM74.934 24.17c0-1.471-1.11-2.58-2.628-2.58h-8v5.161h7.993c1.518-0.034 2.635-1.123 2.635-2.58z"></path>
-                                    </svg>
+                                    <h1 class="text-2xl uppercase font-bold">Cooking made catchy.</h1>
                                 </span>
                                 <p class="text-[#80f8ff] text-center underline underline-offset-4 text-sm">Shop Now</p>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-center mt-2">Save up to $80 on select camcorder models.</p>
-                    </div>
-                </div>
+                </a>
 
-                <div>
-                    <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-bestinclass.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
-                        <a href="">
-                            <div class="relative">
-                                <h1 class="text-[#fff] text-center text-xs font-semibold">BACK TO SCHOOL</h1>
+                <a href="pages/product_category.php?Category='Clothes'">
+                    <div class="relative w-56 bg-[url('https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev2-fashion.jpg?fit=728%2C728&ssl=1')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
+                        <div>
+                            <div class="relative text-[#9d1244]">
+                                <h1 class="text-center text-xs font-semibold">CLOTHING</h1>
                                 <span class="flex justify-center my-3">
-                                    <svg class="w-32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 32">
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M19.227 10.32c0 1.633-0.8 3.12-3.667 3.12h-4.227v-10.88h4.227c2.433 0 3.347 1.267 3.347 2.653 0 1.12-0.573 2.173-2.173 2.287v0.253c1.867 0.12 2.493 1.16 2.493 2.567zM13.413 6.64h2.067c0.96 0 1.347-0.24 1.347-1.007 0-0.753-0.387-0.993-1.347-0.993h-2.067v2zM17.147 9.953c0-0.993-0.467-1.233-1.587-1.233h-2.147v2.48h2.147c1.12 0 1.587-0.24 1.587-1.247z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M22.827 4.64v2.24h4.127v2.080h-4.127v2.4h5.247v2.080h-7.167v-10.88h7.167v2.080h-5.247z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M29.753 9.793c1.507 1.027 3.407 1.567 4.847 1.567 1.427 0 2.253-0.127 2.253-1.027 0-0.927-0.893-1.040-2.96-1.52-2.893-0.653-3.987-1.487-3.987-3.267 0-2.080 1.633-2.993 4.113-2.993 1.293 0 2.973 0.387 4.047 0.913v2.113c-1.6-0.593-3.233-0.947-4.253-0.947-1.040 0-1.827 0.093-1.827 0.847 0 0.767 0.833 0.947 2.467 1.313 3.087 0.707 4.48 1.267 4.48 3.473 0 2.227-1.793 3.167-4.333 3.167-1.533 0-3.747-0.573-4.847-1.427v-2.213z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M47.707 4.64h-3.107v8.8h-2.080v-8.8h-3.107v-2.080h8.287v2.080z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M55.54 2.56h2.080v10.88h-2.080v-10.88z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M68.667 2.56v10.88h-2.080l-4.707-6.847h-0.253v6.847h-2.080v-10.88h2.080l4.707 6.847h0.253v-6.847h2.080z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M20.107 18.56c3.053 0 4.573 1.907 4.673 4.147h-2.080c-0.273-1.487-0.813-2.067-2.593-2.067-1.907 0-2.833 0.707-2.833 3.36s0.927 3.36 2.833 3.36c1.773 0 2.32-0.573 2.593-2.067h2.080c-0.093 2.24-1.613 4.147-4.673 4.147-3.567 0-4.913-2.72-4.913-5.44s1.34-5.44 4.913-5.44z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M32.587 27.36v2.080h-6.207v-10.88h2.080v8.8h4.127z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M41.047 27.36h-4.173l-0.627 2.080h-2.227l3.327-10.88h3.213l3.313 10.88h-2.207l-0.62-2.080zM40.427 25.28l-1.347-4.433h-0.253l-1.327 4.433h2.927z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M44.92 25.793c1.507 1.027 3.407 1.567 4.847 1.567 1.427 0 2.253-0.127 2.253-1.027 0-0.927-0.893-1.040-2.96-1.52-2.893-0.653-3.987-1.487-3.987-3.267 0-2.080 1.633-2.993 4.113-2.993 1.293 0 2.973 0.387 4.047 0.913v2.113c-1.6-0.593-3.233-0.947-4.253-0.947-1.040 0-1.827 0.093-1.827 0.847 0 0.767 0.833 0.947 2.467 1.313 3.087 0.707 4.48 1.267 4.48 3.473 0 2.227-1.793 3.167-4.333 3.167-1.533 0-3.747-0.573-4.847-1.427v-2.213z"></path>
-                                        <path fill="#fff" style="fill: var(--color1, #fff)" d="M55.467 25.793c1.507 1.027 3.407 1.567 4.847 1.567 1.427 0 2.253-0.127 2.253-1.027 0-0.927-0.893-1.040-2.96-1.52-2.893-0.653-3.987-1.487-3.987-3.267 0-2.080 1.633-2.993 4.113-2.993 1.293 0 2.973 0.387 4.047 0.913v2.113c-1.6-0.593-3.233-0.947-4.253-0.947-1.040 0-1.827 0.093-1.827 0.847 0 0.767 0.833 0.947 2.467 1.313 3.087 0.707 4.48 1.267 4.48 3.473 0 2.227-1.793 3.167-4.333 3.167-1.533 0-3.747-0.573-4.847-1.427v-2.213z"></path>
-                                    </svg>
+                                    <h1 class="text-2xl uppercase font-bold">FASHION</h1>
                                 </span>
-                                <p class="text-[#fff] text-center underline underline-offset-4 text-sm">Shop Now</p>
+                                <p class="text-center underline underline-offset-4 text-sm">Shop Now</p>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-center mt-2">Gear essentials for preschool</p>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -489,43 +472,43 @@ function displayRandomProducts($con, $limit)
             <div class="flex justify-center w-full">
                 <div class="style-2 flex overflow-x-auto gap-10 py-5">
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cellphones.jpg?w=640&ssl=1" alt="">
-                            <p>Cell Phones</p>
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Men accessories'">
+                            <img class="w-40 h-32 object-cover object-top rounded-full" src="https://amourfragrances.com/cdn/shop/files/Cashmeran.jpg?v=1704756785&width=720" alt="">
+                            <p>Men Accessories</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Tabs/Ipad'">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-ipadtablets.jpg?w=640&ssl=1" alt="">
                             <p>iPads & Tablets</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Laptops/MacBook'">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-laptops.jpg?w=640&ssl=1" alt="">
                             <p>Laptops</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Cameras'">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cameras.jpg?w=640&ssl=1" alt="">
                             <p>Cameras</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-wearabletech.jpg?w=640&ssl=1" alt="">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Watch'">
+                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev2-watches.jpg?w=340&ssl=1" alt="">
                             <p>Wearable Tech</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-headphones.jpg?w=640&ssl=1" alt="">
-                            <p>Headphones</p>
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Shoes'">
+                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-shoes.jpg?w=400&ssl=1" alt="">
+                            <p>Shoes</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Tech Accessories'">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-accessories.jpg?w=640&ssl=1" alt="">
                             <p>Accessories</p>
                         </a>
