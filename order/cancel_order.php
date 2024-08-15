@@ -267,6 +267,101 @@ if (isset($_COOKIE['user_id'])) {
             $update_qty = "UPDATE products SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
             $update_qty_quary = mysqli_query($con, $update_qty);
 
+            // sending email
+
+            include "../pages/mail.php";
+            if (filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
+                $mail->addAddress($user_email);
+            } else {
+                echo 'Invalid email address.';
+            }
+            $mail->isHTML(true);
+
+            // order information
+            if(isset($_GET['product_id'])){
+                $order_id = $_GET['order_id'];
+
+                $retrieve_order = "SELECT * FROM return_orders WHERE order_id = '$order_id'";
+                $retrieve_order_query = mysqli_query($con, $retrieve_order);
+                $retPr = mysqli_fetch_assoc($retrieve_order_query);
+            
+                $username = $retPr['user_name'];
+                $order_id = $retPr['order_id'];
+                $cancle_date = $retPr['date'];
+
+                $return_order_title = $retPr['return_order_title'];
+                $return_order_image = '../src/product_image/product_profile/sport_profile_1.jpg' . $retPr['return_order_image'];
+                $return_order_price = $retPr['return_order_price'];
+                $return_order_color = $retPr['return_order_color'];
+                $return_order_size = $retPr['return_order_size'];
+                $return_order_qty = $retPr['return_order_qty'];
+                $payment_type = $retPr['payment_type'];
+                $reason = $retPr['reason'];
+            
+                $user_email = $retPr['user_email'];
+                $user_phone = $retPr['user_mobile'];
+            
+                $return_order_price = $retPr['return_order_price'];
+            }
+
+
+            $mail->Subject = "Return Request for Your Order";
+            $mail->Body = "<html>
+            <head>
+                <title>Return Request</title>
+            </head>
+            <body>
+                <h1>Return Request Received</h1>
+                <p>Dear $username,</p>
+                <p>We have received your request to return the following order:</p>
+                <p><strong>Order Number:</strong> #$order_id</p>
+                <p><strong>Order Cancle Date:</strong> $cancle_date</p>
+                <h3>Items Ordered:</h3>
+                <table border='1' cellpadding='10'>
+                    <tr>
+                        <td><strong>Product Name:</strong></td>
+                        <td>$return_order_title</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Image:</strong></td>
+                        <td><img src='$return_order_image' alt='Product Image' width='100'></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price:</strong></td>
+                        <td>$order_price</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quantity:</strong></td>
+                        <td>$return_order_qty</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Color:</strong></td>
+                        <td>$return_order_color</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Size:</strong></td>
+                        <td>$return_order_size</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reason:</strong></td>
+                        <td>$reason</td>
+                    </tr>
+                    <tr>
+                        <td><strong>payment Type:</strong></td>
+                        <td>$payment_type</td>
+                    </tr>
+                </table>
+                <p><strong>Mobile Number:</strong> $user_phone</p>
+                <p><strong>Billing E-mail:</strong> $user_email</p>
+                <p><strong>Order Total Price:</strong> $return_order_price</p>
+                <p>Our team will process your return request and get back to you within 2-3 business days.</p>
+                <p>Thank you for shopping with us!</p>
+                <p>Best regards,<br>shopNest</p>
+            </body>
+            </html>";
+            
+            $mail->send();
+
             if($cancle_order_query){
                 echo '<script>displaySuccessMessage("Your order has been successfully canceled.");</script>';
             }

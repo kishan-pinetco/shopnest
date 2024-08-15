@@ -265,25 +265,24 @@
                     <div class="bg-white shadow-xl rounded-md px-4 py-3 mt-12">
                         <h1 class="text-2xl font-bold text-indigo-950">Sales</h1>
                         <div id="chart" style="height: 250px;"></div>
+                        <script>
+                            $(document).ready(function() {
+                                var chartData = <?php echo $data_json; ?>;
 
-    <script>
-        $(document).ready(function() {
-            var chartData = <?php echo $data_json; ?>;
-            
-            new Morris.Bar({
-                element: 'chart',
-                data: chartData,
-                xkey: 'date',
-                ykeys: ['product_count'],
-                labels: ['Number of Products Sold'],
-                barColors: ['#00a65a'],
-                hideHover: 'auto',
-                resize: true,
-                xLabelAngle: 60,
-                xLabels: 'day',
-            });
-        });
-    </script>
+                                new Morris.Bar({
+                                    element: 'chart',
+                                    data: chartData,
+                                    xkey: 'date',
+                                    ykeys: ['product_count'],
+                                    labels: ['Number of Products Sold'],
+                                    barColors: ['#00a65a'],
+                                    hideHover: 'auto',
+                                    resize: true,
+                                    xLabelAngle: 60,
+                                    xLabels: 'day',
+                                });
+                            });
+                        </script>
                     </div>
                 </main>
             </div>
