@@ -1,8 +1,6 @@
 <?php
     include "../include/connect.php";
 
-    session_start();
-
     if(isset($_COOKIE['user_id'])){
 
         $user_id = $_COOKIE['user_id'];
@@ -12,7 +10,113 @@
         $retrieve_query = mysqli_query($con, $retrieve_data);
 
         $row = mysqli_fetch_assoc($retrieve_query);
+
+        // update Password
+        if(isset($_POST['changePass'])){
+
+            $dpass = $row['password'];
+
+            $current_pass = $_POST['current_pass'];
+            $new_pass = $_POST['new_pass'];
+            $re_pass = $_POST['re_pass'];
+
+            $decod_pass = password_verify($current_pass, $dpass);
+
+            if($decod_pass){
+                if($new_pass === $re_pass){
+                    $new_dpass = password_hash($new_pass, PASSWORD_BCRYPT); 
+
+                    $up_pass = "UPDATE user_registration SET password = '$new_dpass' WHERE user_id = '$user_id'";
+                    $up_query = mysqli_query($con,$up_pass);
+
+                    // update user password
+                    $cookie_value = $_COOKIE['userPass'];
+                    $cookie_update = $new_pass;
+
+                    if(!isset($_COOKIE['userPass'])) {
+                        echo "cookie is not set!";
+                    }else {
+                        setcookie('userPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
+                        setcookie('userPass', '', time() - 3600, "/");
+                        setcookie('userPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
+                    }
+
+
+                    if($up_query){
+                        ?>
+                            <script>alert("Password Updated Successfully.")</script>
+                        <?php
+                    }else{
+                        ?>
+                            <script>alert("Password Not Update.")</script>
+                        <?php
+                    }
+                }else{
+                    ?>
+                        <script>alert("The new password and the re-typed password do not match. Please try again.")</script>
+                    <?php
+                }
+            }else{
+                ?>
+                    <script>alert("Current password not match with new password or re-type password. Please try again.")</script>
+                <?php
+            }
+        }
+
+        if(isset($_POST['updateBtn'])){
+
+            $first_name = $_POST['first_name'];
+            $last_name = $_POST['last_name'];
+            $phone = $_POST['phone'];
+            $email = $_POST['email'];
+    
+            $file_name = $_FILES['updateImage']['name'];
+            $tempname = $_FILES['updateImage']['tmp_name'];
+            $folder = '../src/user_dp/'.$file_name;
+                        
+            // Update user data in the database
+            $update_data = "UPDATE user_registration SET first_name='$first_name',last_name='$last_name',phone='$phone',email='$email' WHERE user_id = '$user_id'";
+            $updateQuery = mysqli_query($con,$update_data);
+    
+            if($updateQuery){
+    
+                // update user mail
+                $cookie_mail = $_COOKIE['userEmail'];
+                $cookie_mail_update = $email;
+
+    
+                if(!isset($_COOKIE['userEmail'])) {
+                    echo "cookie is not set!";
+                }else {
+                    setcookie('userEmail', $cookie_mail, time() + (365 * 24 * 60 * 60), "/");
+                    setcookie('userEmail', '', time() - 3600, "/");
+                    setcookie('userEmail', $cookie_mail_update, time() + (365 * 24 * 60 * 60), "/");
+                }
+    
+                ?>
+                    <script>alert("Data Updated Properly.")</script>
+                <?php
+                if (move_uploaded_file($tempname, $folder)) {
+                    $update_dp = "UPDATE user_registration SET profile_image='$file_name' WHERE user_id = '$user_id'";
+                    $update_query = mysqli_query($con,$update_dp);
+                    if($update_dp){
+                        ?>
+                            <script>alert("Data Updated Properly.")</script>
+                        <?php
+                    }else{
+                        ?>
+                            <script>alert("Enter Valid Data.")</script>
+                        <?php
+                    }
+                }
+            }else{
+                ?>
+                    <script>alert("Data Not Updated Properly.")</script>
+                <?php
+            }
+        }
     }
+    
 
 ?>
 
@@ -233,6 +337,7 @@
                                         </span>
                                     </div>
                                     <input type="submit" name="changePass" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7">
+                                    <input type="submit" name="update_cookie" value="update coookie">
                                 </div>
                             </div>
                         </div>
@@ -264,96 +369,8 @@
 </html>
 
 <?php
-    if(isset($_POST['updateBtn'])){
-
-        $first_name = $_POST['first_name'];
-        $last_name = $_POST['last_name'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
-
-        $file_name = $_FILES['updateImage']['name'];
-        $tempname = $_FILES['updateImage']['tmp_name'];
-        $folder = '../src/user_dp/'.$file_name;
-                    
-        // Update user data in the database
-        $update_data = "UPDATE user_registration SET first_name='$first_name',last_name='$last_name',phone='$phone',email='$email' WHERE user_id = '$user_id'";
-        $updateQuery = mysqli_query($con,$update_data);
-
-        if($updateQuery){
-
-            if(isset($_SESSION['userEmail'])){
-                unset($_SESSION['userEmail']);
-
-                $_SESSION['userEmail'] = $email;
-            }
-
-            ?>
-                <script>alert("Data Updated Properly.")</script>
-            <?php
-            if (move_uploaded_file($tempname, $folder)) {
-                $update_dp = "UPDATE user_registration SET profile_image='$file_name' WHERE user_id = '$user_id'";
-                $update_query = mysqli_query($con,$update_dp);
-                if($update_dp){
-                    ?>
-                        <script>alert("Data Updated Properly.")</script>
-                    <?php
-                }else{
-                    ?>
-                        <script>alert("Enter Valid Data.")</script>
-                    <?php
-                }
-            }
-        }else{
-            ?>
-                <script>alert("Data Not Updated Properly.")</script>
-            <?php
-        }
-    }
+    
 
 
-    // update Password
-    if(isset($_POST['changePass'])){
-
-        $dpass = $row['password'];
-
-        $current_pass = $_POST['current_pass'];
-        $new_pass = $_POST['new_pass'];
-        $re_pass = $_POST['re_pass'];
-
-        $decod_pass = password_verify($current_pass, $dpass);
-
-        if($decod_pass){
-            if($new_pass === $re_pass){
-                $new_dpass = password_hash($new_pass, PASSWORD_BCRYPT); 
-
-                $up_pass = "UPDATE user_registration SET password = '$new_dpass' WHERE user_id = '$user_id'";
-                $up_query = mysqli_query($con,$up_pass);
-
-                if(isset($_SESSION['userPass'])){
-                    unset($_SESSION['userPass']);
-
-                    $_SESSION['userPass'] = $new_pass;
-                }
-
-
-                if($up_query){
-                    ?>
-                        <script>alert("Password Updated Successfully.")</script>
-                    <?php
-                }else{
-                    ?>
-                        <script>alert("Password Not Update.")</script>
-                    <?php
-                }
-            }else{
-                ?>
-                    <script>alert("The new password and the re-typed password do not match. Please try again.")</script>
-                <?php
-            }
-        }else{
-            ?>
-                <script>alert("Current password not match with new password or re-type password. Please try again.")</script>
-            <?php
-        }
-    }
+    
 ?>

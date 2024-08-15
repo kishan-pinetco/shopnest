@@ -3,6 +3,6 @@
 $server = "localhost";
 $username = "root";
 $pass = "";
-$db = "ecomm";
+$db = "shopnest_ecom";
 
 $con = mysqli_connect($server,$username,$pass,$db);

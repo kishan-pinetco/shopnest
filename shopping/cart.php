@@ -42,12 +42,12 @@
                 <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
                     <div class="space-y-6">
                         <?php
+                            $quantities = [];
                             if(isset($_COOKIE['Cart_products'])){
                                 $totalCartPrice = 0;
                                 $cookie_value = $_COOKIE['Cart_products'];
 
                                 $cart_products = json_decode($cookie_value, true);
-                                $all_quantities = [];
                                 if (!empty($cart_products) && is_array($cart_products)) {
                                     foreach($cart_products as $Cproducts){
                                         $cart_products_id = $Cproducts['cart_id'];
@@ -68,6 +68,8 @@
                                                 }
                                             }
                                         }
+
+                                        $quantities[] = $_SESSION['quantity'][$cart_products_id];
 
                                         $cart_price = str_replace(',', '', $cart_products_price);
                                 
@@ -143,7 +145,7 @@
                         </div>
 
                         <?php
-                            $quantity_josn = json_encode($all_quantities);
+                            $quantity_josn = json_encode($quantities);
                             $encode_josn = urldecode($quantity_josn);
 
                             if(isset($_COOKIE['user_id'])){

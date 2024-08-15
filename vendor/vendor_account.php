@@ -1,7 +1,61 @@
 <?php
     include "../include/connect.php";
 
-    session_start();
+    ?>
+            <!-- success Message -->
+        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
+            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div id="successMessage"></div>
+            </div>
+        </div>
+
+        <!-- Error message container -->
+        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div id="errorMessage"></div>
+            </div>
+        </div>
+
+        <script>
+            function displayErrorMessage(message) {
+                let EpopUp = document.getElementById('EpopUp');
+                let errorMessage = document.getElementById('errorMessage');
+
+                errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+                EpopUp.style.display = 'flex';
+                EpopUp.style.opacity = '100';
+
+                setTimeout(() => {
+                    EpopUp.style.display = 'none';
+                    EpopUp.style.opacity = '0';
+                    window.location.href = "vendor_account.php";
+                }, 700);
+            }
+
+            function displaySuccessMessage(message) {
+                let SpopUp = document.getElementById('SpopUp');
+                let successMessage = document.getElementById('successMessage');
+
+                successMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+                SpopUp.style.display = 'flex';
+                SpopUp.style.opacity = '100';
+
+                setTimeout(() => {
+                    SpopUp.style.display = 'none';
+                    SpopUp.style.opacity = '0';
+                    window.location.href = "vendor_account.php";
+                }, 700);
+            }
+        </script>
+    <?php
 
     if(isset($_COOKIE['vendor_id'])){
         $vendor_id = $_COOKIE['vendor_id'];
@@ -10,6 +64,84 @@
         $retrieve_query = mysqli_query($con, $retrieve_data);
 
         $row = mysqli_fetch_assoc($retrieve_query);
+
+        if(isset($_POST['updateBtn'])){
+            $CoverImage = $_FILES['CoverImage']['name'];
+            $tempname = $_FILES['CoverImage']['tmp_name'];
+            $folder = '../src/vendor_images/vendor_cover_image/' . $CoverImage;
+    
+    
+            $ProfileImage = $_FILES['ProfileImage']['name'];
+            $tempname2 = $_FILES['ProfileImage']['tmp_name'];
+            $folder2 = '../src/vendor_images/vendor_profile_image/' . $ProfileImage;
+    
+            $full_name = $_POST['full_name'];
+            $phone = $_POST['phone'];
+            $email = $_POST['email'];
+            $userName = $_POST['userName'];
+            $gst = $_POST['gst'];
+            $bio = $_POST['bio'];
+    
+            $updateVenodr = "UPDATE vendor_registration SET name='$full_name', email='$email', username='$userName', phone='$phone', Bio='$bio', GST='$gst' WHERE vendor_id = '$vendor_id'";
+            $update_query = mysqli_query($con, $updateVenodr);
+    
+            if ($update_query) {
+    
+                // update vendor mail
+                $cookie_mail = $_COOKIE['vendorEmail'];
+                $cookie_mail_update = $email;
+    
+    
+                if(!isset($_COOKIE['vendorEmail'])) {
+                    echo "cookie is not set!";
+                }else {
+                    setcookie('vendorEmail', $cookie_mail, time() + (365 * 24 * 60 * 60), "/");
+                    setcookie('vendorEmail', '', time() - 3600, "/");
+                    setcookie('vendorEmail', $cookie_mail_update, time() + (365 * 24 * 60 * 60), "/");
+                }
+    
+                // Check for Cover file upload
+                if(move_uploaded_file($tempname, $folder)){
+                    $vendor_id = $_COOKIE['vendor_id'];
+                    $update_cover = "UPDATE vendor_registration SET cover_image='$CoverImage' WHERE vendor_id = '$vendor_id'";
+                    $updatedcover_query = mysqli_query($con, $update_cover);
+    
+                    if ($updatedcover_query) {
+                        echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
+                    } else {
+                        echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
+                    }
+                }
+                // Check for profile file upload
+                else if(move_uploaded_file($tempname2, $folder2)){
+                    $vendor_id = $_COOKIE['vendor_id'];
+                    $update_dp = "UPDATE vendor_registration SET dp_image='$ProfileImage' WHERE vendor_id = '$vendor_id'";
+                    $updatedp_query = mysqli_query($con, $update_dp);
+    
+                    if ($updatedp_query) {
+                        echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
+                    } else {
+                        echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
+                    }
+                }
+                // Check for Cover and profile file upload
+                else if (move_uploaded_file($tempname, $folder) && move_uploaded_file($tempname2, $folder2)) {
+                    $vendor_id = $_COOKIE['vendor_id'];
+                    $update_img = "UPDATE vendor_registration SET cover_image='$CoverImage', dp_image='$ProfileImage' WHERE vendor_id = '$vendor_id'";
+                    $update_img_query = mysqli_query($con, $update_img);
+    
+                    if ($update_img_query) {
+                        echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
+                    } else {
+                        echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
+                    }
+                } else {
+                    echo '<script>displaySuccessMessage("Data Updated Properly.");</script>';
+                }
+            } else {
+                echo '<script>displayErrorMessage("Data Not Updated Properly.");</script>';
+            }
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -271,134 +403,5 @@
             </div>
         </div>
     </div>
-
-    <!-- success Message -->
-    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
-        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-            </svg>
-            <span class="sr-only">Info</span>
-            <div id="successMessage"></div>
-        </div>
-    </div>
-
-    <!-- Error message container -->
-    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
-        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
-            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-            </svg>
-            <span class="sr-only">Info</span>
-            <div id="errorMessage"></div>
-        </div>
-    </div>
-
-    <script>
-        function displayErrorMessage(message) {
-            let EpopUp = document.getElementById('EpopUp');
-            let errorMessage = document.getElementById('errorMessage');
-
-            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
-            EpopUp.style.display = 'flex';
-            EpopUp.style.opacity = '100';
-
-            setTimeout(() => {
-                EpopUp.style.display = 'none';
-                EpopUp.style.opacity = '0';
-                window.location.href = "vendor_account.php";
-            }, 700);
-        }
-
-        function displaySuccessMessage(message) {
-            let SpopUp = document.getElementById('SpopUp');
-            let successMessage = document.getElementById('successMessage');
-
-            successMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
-            SpopUp.style.display = 'flex';
-            SpopUp.style.opacity = '100';
-
-            setTimeout(() => {
-                SpopUp.style.display = 'none';
-                SpopUp.style.opacity = '0';
-                window.location.href = "vendor_account.php";
-            }, 700);
-        }
-    </script>
 </body>
 </html>
-
-<?php
-
-    if(isset($_POST['updateBtn'])){
-        $CoverImage = $_FILES['CoverImage']['name'];
-        $tempname = $_FILES['CoverImage']['tmp_name'];
-        $folder = '../src/vendor_images/vendor_cover_image/' . $CoverImage;
-
-
-        $ProfileImage = $_FILES['ProfileImage']['name'];
-        $tempname2 = $_FILES['ProfileImage']['tmp_name'];
-        $folder2 = '../src/vendor_images/vendor_profile_image/' . $ProfileImage;
-
-        $full_name = $_POST['full_name'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
-        $userName = $_POST['userName'];
-        $gst = $_POST['gst'];
-        $bio = $_POST['bio'];
-
-        $updateVenodr = "UPDATE vendor_registration SET name='$full_name', email='$email', username='$userName', phone='$phone', Bio='$bio', GST='$gst' WHERE vendor_id = '$vendor_id'";
-        $update_query = mysqli_query($con, $updateVenodr);
-
-        if ($update_query) {
-
-            if(isset($_SESSION['vendorEmail'])){
-                unset($_SESSION['vendorEmail']);
-
-                $_SESSION['vendorEmail'] = $email;
-            }
-
-            // Check for Cover file upload
-            if(move_uploaded_file($tempname, $folder)){
-                $vendor_id = $_COOKIE['vendor_id'];
-                $update_cover = "UPDATE vendor_registration SET cover_image='$CoverImage' WHERE vendor_id = '$vendor_id'";
-                $updatedcover_query = mysqli_query($con, $update_cover);
-
-                if ($updatedcover_query) {
-                    echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
-                } else {
-                    echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
-                }
-            }
-            // Check for profile file upload
-            else if(move_uploaded_file($tempname2, $folder2)){
-                $vendor_id = $_COOKIE['vendor_id'];
-                $update_dp = "UPDATE vendor_registration SET dp_image='$ProfileImage' WHERE vendor_id = '$vendor_id'";
-                $updatedp_query = mysqli_query($con, $update_dp);
-
-                if ($updatedp_query) {
-                    echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
-                } else {
-                    echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
-                }
-            }
-            // Check for Cover and profile file upload
-            else if (move_uploaded_file($tempname, $folder) && move_uploaded_file($tempname2, $folder2)) {
-                $vendor_id = $_COOKIE['vendor_id'];
-                $update_img = "UPDATE vendor_registration SET cover_image='$CoverImage', dp_image='$ProfileImage' WHERE vendor_id = '$vendor_id'";
-                $update_img_query = mysqli_query($con, $update_img);
-
-                if ($update_img_query) {
-                    echo '<script>displaySuccessMessage("Image Updated Properly.");</script>';
-                } else {
-                    echo '<script>displayErrorMessage("Enter Valid Data.");</script>';
-                }
-            } else {
-                echo '<script>displaySuccessMessage("Data Updated Properly.");</script>';
-            }
-        } else {
-            echo '<script>displayErrorMessage("Data Not Updated Properly.");</script>';
-        }
-    }
-
-?>
