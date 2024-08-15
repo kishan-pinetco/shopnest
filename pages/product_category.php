@@ -30,7 +30,90 @@
             font-weight: 500;
             font-style: normal;
         }
+
+        [x-cloak] {
+            display: none;
+        }
+
+        @keyframes openFilterSidebar {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .filter-sidebar-open {
+            animation: openFilterSidebar 0.4s ease-in-out;
+        }
+
+        @keyframes closeFilterSidebar {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .filter-sidebar-close {
+            animation: closeFilterSidebar 0.4s ease-in-out;
+        }
+
+        .sidebarScroll::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        .sidebarScroll::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .sidebarScroll::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
     </style>
+
+    <script>
+        function filterSideBarOpen() {
+            // $("#sidebarContainer").addClass('block');
+            activePopup = 'filterSidebarContainer';
+            let sidebarContainer = $('#filterSidebarContainer');
+            sidebarContainer.show();
+            sidebarContainer.addClass('filter-sidebar-open');
+
+            $('body').css('overflowY', 'hidden');
+            // $('body').fadeTo(700, 0.5);
+            event.preventDefault();
+        }
+
+        // close sidebarContainer using Esc key
+        $(document).keydown(function(event) {
+            if (event.key === 'Escape') {
+                if (activePopup === 'filterSidebarContainer') {
+                    filterSideBarClose();
+                }
+            }
+        });
+
+        function filterSideBarClose() {
+            let closeSidebar = $('#filterSidebarContainer');
+            closeSidebar.addClass('filter-sidebar-close');
+
+            $('body').css('overflow', 'visible');
+
+            setTimeout(function() {
+                closeSidebar.removeClass('filter-sidebar-close').hide();
+            }, 300);
+            // $('body').fadeTo(800,1);   
+        }
+    </script>
 </head>
 
 <body class="outfit">
@@ -93,7 +176,7 @@
                 </div>
 
                 <!-- sidebar button -->
-                <button onclick="showSidebar()" class="lg:hidden focus:outline-none">
+                <button onclick="filterSideBarOpen()" class="lg:hidden focus:outline-none">
                     <svg class="w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" style="enable-background:new 0 0 512 512" xml:space="preserve">
                         <g>
                             <path d="M53.39 8H10.61a5.61 5.61 0 0 0-4.15 9.38L25 37.77V57a2 2 0 0 0 1.13 1.8 1.94 1.94 0 0 0 .87.2 2 2 0 0 0 1.25-.44l3.75-3 6.25-5A2 2 0 0 0 39 49V37.77l18.54-20.39A5.61 5.61 0 0 0 53.39 8z" fill="#808080" opacity="1" data-original="#808080"></path>
@@ -280,13 +363,13 @@
     </div>
     <!-- sidebar -->
     <!-- add hidden in container -->
-    <div id="sidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 right-0 w-fit h-[100vh] overflow-y-auto z-50 sidebarScroll" x-cloak>
-        <div id="sidebarHeader" class="p-2 bg-gray-200 flex justify-between items-center">
+    <div id="filterSidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 right-0 w-fit h-[100vh] overflow-y-auto z-50 sidebarScroll" x-cloak>
+        <div id="filterSidebarHeader" class="p-2 bg-gray-200 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <h1 class="text-black"><a href="">Hello, User</a></h1>
             </div>
             <div>
-                <button onclick="closeSidebar()" class="focus:outline-none"><svg class="relative top-0.5 right-0.5 text-[#ff0000] transition rounded-md" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" style="fill: currentColor;">
+                <button onclick="filterSideBarClose()" class="focus:outline-none"><svg class="relative top-0.5 right-0.5 text-[#ff0000] transition rounded-md" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" style="fill: currentColor;">
                         <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
                     </svg></button>
             </div>
