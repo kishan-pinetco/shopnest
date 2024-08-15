@@ -67,95 +67,315 @@
     <?php
     include "../pages/_navbar.php";
     ?>
-    <div class="max-w-screen-xl m-auto px-5">
-        <div class="h-64 mt-10 flex items-center" style="background-image: url(https://motta.uix.store/wp-content/uploads/2022/07/shop_header.jpg);">
-            <h1 class="text-4xl text-[#b96459] font-bold ml-10">Shop</h1>
-        </div>
-        <div class="sm:flex sm:justify-between gap-x-5">
-            <!-- filter -->
-            <div class="hidden sm:block">
-                <div x-data="{ openItem: null }" class="max-w-xl mx-auto bg-white shadow-lg rounded-lg my-12 w-80">
-                    <h2 class="text-2xl font-bold p-5">Filter</h2>
-                    <hr>
-                    <div class="faq-item border-b" @click="openItem === 1 ? openItem = null : openItem = 1">
-                        <div class="faq-question p-4 cursor-pointer flex justify-between items-center">
-                            <span>Price</span>
-                            <svg :class="{ 'transform rotate-180': openItem === 1 }" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                        <div x-show="openItem === 1" x-transition class="faq-answer p-4">
-                            <ul class="space-y-1.5" @click.stop>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="price1">
-                                    <label for="price1">100 - 1000</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="price2">
-                                    <label for="price2">1000 - 5000</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="price3">
-                                    <label for="price3">500 - 50000</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="price4">
-                                    <label for="price4">50000 - 100000</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="price5">
-                                    <label for="price5">Low To High</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="price6">
-                                    <label for="price6">High To Low</label>
-                                </li>
-                            </ul>
-                        </div>
+    <div class="px-3 sm:px-16 outfit mt-5">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-lg sm:text-3xl">New Arrivals</h1>
+            </div>
+            <div class="flex gap-3 relative">
+                <div x-data="{ open: false, selected: 'Sort' }" class="relative inline-block text-sm">
+                    <!-- Dropdown Button -->
+                    <button @click="open = !open" class="w-fit focus:outline-none">
+                        <span x-text="selected"></span>
+                        <svg class="inline w-5 h-5 ml-2" fill="none" stroke="#808080" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div x-show="open" @keydown.escape.window="open = false" @click.outside="open = false" class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-lg shadow-lg z-10 overflow-hidden text-sm" x-cloak>
+                        <a @click="selected = 'Most Popular'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Most Popular</a>
+                        <a @click="selected = 'Best Rating'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Best Rating</a>
+                        <a @click="selected = 'Newest'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Newest</a>
+                        <a @click="selected = 'Low to High'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Price: Low to High</a>
+                        <a @click="selected = 'High to Low'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Price: High to Low</a>
                     </div>
-
-                    <div class="faq-item border-b" @click="openItem === 2 ? openItem = null : openItem = 2">
-                        <div class="faq-question p-4 cursor-pointer flex justify-between items-center">
-                            <span>User Rating</span>
-                            <svg :class="{ 'transform rotate-180': openItem === 2 }" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                        <div x-show="openItem === 2" x-transition class="faq-answer p-4">
-                            <ul class="space-y-1.5" @click.stop>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="rating1">
-                                    <label for="rating1">1 Star & Up</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="rating2">
-                                    <label for="rating2">2 Stars & Up</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="rating3">
-                                    <label for="rating3">3 Stars & Up</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="rating4">
-                                    <label for="rating4">4 Stars & Up</label>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <input class="rounded" type="checkbox" id="rating5">
-                                    <label for="rating5">5 Stars</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Add more FAQ items as needed -->
-
                 </div>
 
+                <!-- sidebar button -->
+                <button onclick="showSidebar()" class="lg:hidden focus:outline-none">
+                    <svg class="w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path d="M53.39 8H10.61a5.61 5.61 0 0 0-4.15 9.38L25 37.77V57a2 2 0 0 0 1.13 1.8 1.94 1.94 0 0 0 .87.2 2 2 0 0 0 1.25-.44l3.75-3 6.25-5A2 2 0 0 0 39 49V37.77l18.54-20.39A5.61 5.61 0 0 0 53.39 8z" fill="#808080" opacity="1" data-original="#808080"></path>
+                        </g>
+                    </svg>
+                </button>
             </div>
-            <!-- products -->
-            <div class="flex justify-center mt-10">
-                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+        </div>
+        <hr class="mt-2">
+        <div class="flex jutify-center">
+            <div class="mt-7 w-64 hidden lg:block">
+                <div>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="">Totes</a></li>
+                        <li>Backpacks</li>
+                        <li>Travel Bags</li>
+                        <li>Hip Bags</li>
+                        <li>Laptop Sleeves</li>
+                    </ul>
+                </div>
+                <hr class="mt-3">
+                <div>
+                    <!-- color -->
+                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
+                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
+                            <span class="text-sm">Colour</span>
+                            <span class="ml-6 flex items-center">
+                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                </svg>
+                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="White" id="White"><label class="text-sm" for="White">White</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Beige" id="Beige"><label class="text-sm" for="Beige">Beige</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Blue" id="Blue"><label class="text-sm" for="Blue">Blue</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Brown" id="Brown"><label class="text-sm" for="Brown">Brown</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Green" id="Green"><label class="text-sm" for="Green">Green</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Purple" id="Purple"><label class="text-sm" for="Purple">Purple</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- category -->
+                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
+                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
+                            <span class="text-sm">Category</span>
+                            <span class="ml-6 flex items-center">
+                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                </svg>
+                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="New Arrivals" id="New Arrivals"><label class="text-sm" for="New Arrivals">New Arrivals</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Sale" id="Sale"><label class="text-sm" for="Sale">Sale</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Travel" id="Travel"><label class="text-sm" for="Travel">Travel</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Organization" id="Organization"><label class="text-sm" for="Organization">Organization</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Accessories" id="Accessories"><label class="text-sm" for="Accessories">Accessories</label></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- size -->
+                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
+                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
+                            <span class="text-sm">Size</span>
+                            <span class="ml-6 flex items-center">
+                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                </svg>
+                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size2L" id="size2L"><label class="text-sm" for="size2L">2L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size6L" id="size6L"><label class="text-sm" for="size6L">6L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size12L" id="size12L"><label class="text-sm" for="size12L">12L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size18L" id="size18L"><label class="text-sm" for="size18L">18L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size20L" id="size20L"><label class="text-sm" for="size20L">20L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size40L" id="size40L"><label class="text-sm" for="size40L">40L</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- card div -->
+            <div class="flex justify-center lg:ml-10 mt-2 w-full p-5">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                     <!-- include card here -->
+                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
+                        <div>
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 translate-x-2">
+                            <p class="font-medium">Nike Air Force 1 '07</p>
+                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
+                        <div>
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 translate-x-2">
+                            <p class="font-medium">Nike Air Force 1 '07</p>
+                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
+                        <div>
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 translate-x-2">
+                            <p class="font-medium">Nike Air Force 1 '07</p>
+                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
+                        <div>
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 translate-x-2">
+                            <p class="font-medium">Nike Air Force 1 '07</p>
+                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
+                        <div>
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 translate-x-2">
+                            <p class="font-medium">Nike Air Force 1 '07</p>
+                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
+                        <div>
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 translate-x-2 h-fit">
+                            <p class="font-medium">Nike Air Force 1 '07</p>
+                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
+                        <div>
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 translate-x-2">
+                            <p class="font-medium">Nike Air Force 1 '07</p>
+                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
+                        <div>
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 translate-x-2">
+                            <p class="font-medium">Nike Air Force 1 '07</p>
+                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- sidebar -->
+    <!-- add hidden in container -->
+    <div id="sidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 right-0 w-fit h-[100vh] overflow-y-auto z-50 sidebarScroll" x-cloak>
+        <div id="sidebarHeader" class="p-2 bg-gray-200 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <h1 class="text-black"><a href="">Hello, User</a></h1>
+            </div>
+            <div>
+                <button onclick="closeSidebar()" class="focus:outline-none"><svg class="relative top-0.5 right-0.5 text-[#ff0000] transition rounded-md" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" style="fill: currentColor;">
+                        <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
+                    </svg></button>
+            </div>
+        </div>
+        <div id="sidebarBody" class="felx justify-center px-4">
+            <div class="mt-7 w-60">
+                <div>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="">Totes</a></li>
+                        <li>Backpacks</li>
+                        <li>Travel Bags</li>
+                        <li>Hip Bags</li>
+                        <li>Laptop Sleeves</li>
+                    </ul>
+                </div>
+                <hr class="mt-3">
+                <div>
+                    <!-- color -->
+                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
+                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
+                            <span class="text-sm">Colour</span>
+                            <span class="ml-6 flex items-center">
+                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                </svg>
+                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="White" id="White"><label class="text-xs" for="White">White</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Beige" id="Beige"><label class="text-xs" for="Beige">Beige</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Blue" id="Blue"><label class="text-xs" for="Blue">Blue</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Brown" id="Brown"><label class="text-xs" for="Brown">Brown</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Green" id="Green"><label class="text-xs" for="Green">Green</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Purple" id="Purple"><label class="text-xs" for="Purple">Purple</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- category -->
+                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
+                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
+                            <span class="text-sm">Category</span>
+                            <span class="ml-6 flex items-center">
+                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                </svg>
+                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="New Arrivals" id="New Arrivals"><label class="text-xs" for="New Arrivals">New Arrivals</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Sale" id="Sale"><label class="text-xs" for="Sale">Sale</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Travel" id="Travel"><label class="text-xs" for="Travel">Travel</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Organization" id="Organization"><label class="text-xs" for="Organization">Organization</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Accessories" id="Accessories"><label class="text-xs" for="Accessories">Accessories</label></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- size -->
+                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
+                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
+                            <span class="text-sm">Size</span>
+                            <span class="ml-6 flex items-center">
+                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                </svg>
+                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size2L" id="size2L"><label class="text-xs" for="size2L">2L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size6L" id="size6L"><label class="text-xs" for="size6L">6L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size12L" id="size12L"><label class="text-xs" for="size12L">12L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size18L" id="size18L"><label class="text-xs" for="size18L">18L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size20L" id="size20L"><label class="text-xs" for="size20L">20L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size40L" id="size40L"><label class="text-xs" for="size40L">40L</label></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
