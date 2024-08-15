@@ -25,7 +25,6 @@
 <body class="flex justify-center items-center h-[100vh] p-2" style="font-family: 'Outfit', sans-serif;">
 
     <?php
-    session_start();
 
     include "../../include/connect.php";
 
@@ -81,9 +80,9 @@
                 <?php
 
                 if (isset($_POST['check'])) {
+                    setcookie('userEmail', $email, time() + (365 * 24 * 60 * 60), "/");
+                    setcookie('userPass', $password, time() + (365 * 24 * 60 * 60), "/");
 
-                    $_SESSION['userEmail'] = $email;
-                    $_SESSION['userPass'] = $password;
                     header("Location:../../index.php");
                 } else {
                     header("Location:../../index.php");
@@ -177,11 +176,11 @@
                 <div class="space-y-4 p-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="email" name="email" id="email" value="<?php echo isset($_SESSION['userEmail']) ? $_SESSION['userEmail'] : '' ?>">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="email" name="email" id="email" value="<?php echo isset($_COOKIE['userEmail']) ? $_COOKIE['userEmail'] : '' ?>">
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
-                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password" value="<?php echo isset($_SESSION['userPass']) ? $_SESSION['userPass'] : '' ?>">
+                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password" value="<?php echo isset($_COOKIE['userPass']) ? $_COOKIE['userPass'] : '' ?>">
                         <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                                 <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
