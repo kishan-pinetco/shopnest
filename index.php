@@ -43,20 +43,20 @@ function displayRandomProducts($con, $limit)
             }
 ?>
 
-            <li class="splide__slide" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                <div class="card flex flex-col items-center p-3 border-2 rounded-lg   hover:transition w-56">
+            <li class="splide__slide flex justify-center" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
                     <div>
-                        <img src="<?php echo 'src/product_image/product_profile/' . $res['image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-52 w-52 object-cover" loading="lazy" sizes="">
+                        <img src="<?php echo 'src/product_image/product_profile/' . $res['image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-56 object-cover" loading="lazy" sizes="">
                     </div>
-                    <div class="mt-2 translate-x-2 space-y-2">
+                    <div class="mt-2 translate-x-2">
                         <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo $res['title'] ?></a>
                         <p class="space-x-2">
                             <span class="text-lg font-medium text-indigo-500">₹<?php echo $res['MRP'] ?></span>
                             <del class="text-xs font-normal">₹<?php echo $res['Your_Price'] ?></del>
                         </p>
-                        <div class="flex items-center">
+                        <div class="flex items-center mt-3">
                             <span class="bg-indigo-400 rounded-md px-2 py-0.5 flex items-center gap-1">
-                                <h1 class="font-semibold text-sm text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
+                                <h1 class="font-semibold text-base text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                     <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                 </svg>
@@ -97,7 +97,7 @@ function displayRandomProducts($con, $limit)
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="/shopnest/src/logo/favicon.svg">
+    <link rel="shortcut icon" href="src/logo/favicon.svg">
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -113,10 +113,6 @@ function displayRandomProducts($con, $limit)
             font-optical-sizing: auto;
             font-weight: 500;
             font-style: normal;
-        }
-
-        .card:hover {
-            box-shadow: 1px 1.5px 10px black;
         }
 
         .custom-hover-bg {
@@ -146,6 +142,11 @@ function displayRandomProducts($con, $limit)
         .custom-hover-bg>div {
             position: relative;
             z-index: 1;
+        }
+
+        .card {
+            width: 288px;
+            margin-right: 16px;
         }
 
         .splide__slide {
@@ -183,28 +184,28 @@ function displayRandomProducts($con, $limit)
         <div class="flex justify-center">
             <div class="style-2 flex overflow-x-auto xl:justify-center gap-9 text-sm py-5 px-6">
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Furniture'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Furniture"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Electronics'"><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Electronics</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Electronics Item"><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Electronics</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Headphone'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">15% off Headphone</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Headphone"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">15% off Headphone</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Processor'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Think Outside The Box</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Processor"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Think Outside The Box</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Toys'"><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ... ">Toys</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Toys"><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ... ">Toys</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Sports'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Sports</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Sports"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Sports</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Apple'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">New From Apple</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Apple"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">New From Apple</span></a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category='Women accessories'"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
+                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Women accessories"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
                 </div>
             </div>
         </div>
@@ -217,7 +218,7 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Timeless Elegance Awaits</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Discover the perfect watch to elevate your style and keep you on time.</p>
-                        <button class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider"><a href="/shopnest/pages/product_category.php">Click here</a></button>
+                        <a href="pages/product_category.php?Category=Watch" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
                     </div>
                 </div>
                 <div class="swiper-slide flex items-center justify-center">
@@ -225,7 +226,8 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Unleash Your Productivity</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Experience unparalleled performance and style with our cutting-edge laptops.</p>
-                        <button class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider"><a href="/shopnest/pages/product_category.php">Click here</a></button>
+                        <a href="pages/product_category.php?Category=Laptops/MacBook" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
+
                     </div>
                 </div>
                 <div class="swiper-slide flex items-center justify-center">
@@ -233,7 +235,8 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Elevate Your Viewing Experience</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Immerse yourself in stunning clarity and vibrant colors with our latest TVs.</p>
-                        <button class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider"><a href="/shopnest/pages/product_category.php">Click here</a></button>
+                        <a href="pages/product_category.php?Category=TV" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
+
                     </div>
                 </div>
             </div>
@@ -291,7 +294,7 @@ function displayRandomProducts($con, $limit)
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 new Splide('#cardSplide1', {
-                    perPage: 5,
+                    perPage: 4,
                     perMove: 1,
                     gap: '1rem', // Adjust gap between slides
                     rewind: false, // Do not loop back to the start
@@ -321,7 +324,7 @@ function displayRandomProducts($con, $limit)
         <div class="mt-12">
             <h1 class="text-2xl w-full">Trending Deals</h1>
             <div class="style-2 flex overflow-x-scroll xl:overflow-hidden gap-8 py-5">
-                <a href="pages/product_category.php?Category='Game Item'">
+                <a href="pages/product_category.php?Category=Game Item">
                     <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-gamerdays.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <div>
                             <div class="relative">
@@ -346,7 +349,7 @@ function displayRandomProducts($con, $limit)
                 </a>
 
 
-                <a href="pages/product_category.php?Category='TV'">
+                <a href="pages/product_category.php?Category=TV">
                     <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-neoqled.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <div>
                             <div class="relative">
@@ -368,7 +371,7 @@ function displayRandomProducts($con, $limit)
                     </div>
                 </a>
 
-                <a href="pages/product_category.php?Category='Laptops/MacBook'">
+                <a href="pages/product_category.php?Category=Laptops/MacBook">
                     <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-getinspired.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <div>
                             <div class="relative">
@@ -394,7 +397,7 @@ function displayRandomProducts($con, $limit)
                     </div>
                 </a>
 
-                <a href="pages/product_category.php?Category='Kitchen'">
+                <a href="pages/product_category.php?Category=Kitchen">
                     <div class="relative w-56 bg-[url('https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev4-steel-package.jpg?fit=267%2C368&ssl=1')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <div>
                             <div class="relative text-[#80f8ff]">
@@ -408,7 +411,7 @@ function displayRandomProducts($con, $limit)
                     </div>
                 </a>
 
-                <a href="pages/product_category.php?Category='Clothes'">
+                <a href="pages/product_category.php?Category=Clothes">
                     <div class="relative w-56 bg-[url('https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev2-fashion.jpg?fit=728%2C728&ssl=1')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
                         <div>
                             <div class="relative text-[#9d1244]">
@@ -442,7 +445,7 @@ function displayRandomProducts($con, $limit)
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 new Splide('#cardSplide2', {
-                    perPage: 5,
+                    perPage: 4,
                     perMove: 1,
                     gap: '1rem', // Adjust gap between slides
                     rewind: false, // Do not loop back to the start
@@ -471,43 +474,43 @@ function displayRandomProducts($con, $limit)
             <div class="flex justify-center w-full">
                 <div class="style-2 flex overflow-x-auto gap-10 py-5">
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Men accessories'">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Men accessories">
                             <img class="w-40 h-32 object-cover object-top rounded-full" src="https://amourfragrances.com/cdn/shop/files/Cashmeran.jpg?v=1704756785&width=720" alt="">
                             <p>Men Accessories</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Tabs/Ipad'">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Tabs/Ipad">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-ipadtablets.jpg?w=640&ssl=1" alt="">
                             <p>iPads & Tablets</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Laptops/MacBook'">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Laptops/MacBook">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-laptops.jpg?w=640&ssl=1" alt="">
                             <p>Laptops</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Cameras'">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Cameras">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cameras.jpg?w=640&ssl=1" alt="">
                             <p>Cameras</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Watch'">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Watch">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev2-watches.jpg?w=340&ssl=1" alt="">
                             <p>Wearable Tech</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Shoes'">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Shoes">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-shoes.jpg?w=400&ssl=1" alt="">
                             <p>Shoes</p>
                         </a>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category='Tech Accessories'">
+                        <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Tech Accessories">
                             <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-accessories.jpg?w=640&ssl=1" alt="">
                             <p>Accessories</p>
                         </a>
@@ -533,7 +536,7 @@ function displayRandomProducts($con, $limit)
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 new Splide('#cardSplide3', {
-                    perPage: 5,
+                    perPage: 4,
                     perMove: 1,
                     gap: '1rem', // Adjust gap between slides
                     rewind: false, // Do not loop back to the start
