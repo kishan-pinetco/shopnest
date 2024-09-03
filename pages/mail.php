@@ -14,10 +14,10 @@
     $mail->Host = "smtp.gmail.com";
     $mail->SMTPAuth = true;
 
-    $mail->Username = "mottacompany09@gmail.com";
-    $mail->Password = "leca ujns huhb zejz";
+    $mail->Username = "shopnest2603@gmail.com";
+    $mail->Password = "setn bzcp ynps jygc";
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
 
-    $mail->setFrom('mottacompany09@gmail.com');
+    $mail->setFrom('shopnest2603@gmail.com');
 ?>

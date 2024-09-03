@@ -224,7 +224,7 @@ if (isset($_COOKIE['user_id'])) {
                             </span>
                             <div class="ml-2">
                                 <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($toDay) ? $toDay : 'Order placed Date'?></h4>
-                                <p class="text-sm font-normal <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Order placed - Receipt #<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'product id' ?></p>
+                                <p class="text-sm font-normal <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Order placed - Receipt #<?php echo $res['order_id'] ?></p>
                             </div>
                         </li>
                     </ol>
