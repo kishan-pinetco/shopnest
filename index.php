@@ -43,25 +43,30 @@ function displayRandomProducts($con, $limit)
             }
 ?>
 
-            <li class="splide__slide flex justify-center" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                <div class="card flex flex-col items-center p-3 border-2 rounded-lg  hover:shadow-lg hover:shadow-black">
-                    <div>
-                        <img src="<?php echo 'src/product_image/product_profile/' . $res['image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-56 object-cover" loading="lazy" sizes="">
+            <li class="splide__slide flex justify-center px-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                <div class="card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl hover:ring-none w-64 overflow-hidden">
+                    <div class="p-2">
+                        <img src="<?php echo 'src/product_image/product_profile/' . $res['image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
                     </div>
-                    <div class="mt-2 translate-x-2">
-                        <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo $res['title'] ?></a>
-                        <p class="space-x-2">
-                            <span class="text-lg font-medium text-indigo-500">₹<?php echo $res['MRP'] ?></span>
-                            <del class="text-xs font-normal">₹<?php echo $res['Your_Price'] ?></del>
-                        </p>
-                        <div class="flex items-center mt-3">
-                            <span class="bg-indigo-400 rounded-md px-2 py-0.5 flex items-center gap-1">
-                                <h1 class="font-semibold text-base text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
-                                    <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                </svg>
-                            </span>
-                            <span class="text-sm ml-2 mt-0.5">(<?php echo $totalReviews ?>) Peoples</span>
+                    <div class="mt-2 space-y-3">
+                        <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $res['title'] ?></a>
+                        <div class="flex justify-between px-2">
+                            <p class="space-x-1">
+                                <span class="text-lg font-medium text-gray-900">₹<?php echo $res['MRP'] ?></span>
+                                <del class="text-xs font-medium">₹<?php echo $res['Your_Price'] ?></del>
+                            </p>
+                            <div class="flex items-center">
+                                <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                    <h1 class="font-semibold text-xs text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                        <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                    </svg>
+                                </span>
+                                <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo $totalReviews ?>)</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-600 py-1.5 flex justify-center">
+                            <a href="../shopnest/shopping/add_to_cart.php?product_id=<?php echo $product_id ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                         </div>
                     </div>
                 </div>
@@ -82,6 +87,10 @@ function displayRandomProducts($con, $limit)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shopNest</title>
 
+    <!-- Include Splide CSS and JavaScript -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
@@ -89,7 +98,7 @@ function displayRandomProducts($con, $limit)
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- alpinejs CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@latest/dist/cdn.min.js" defer></script>
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -135,6 +144,14 @@ function displayRandomProducts($con, $limit)
             z-index: 0;
         }
 
+        .card:hover {
+            box-shadow: 1px 1px 10px #4b5563;
+            /* card shadow transition */
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 0.2s;
+        }
+
         .custom-hover-bg:hover::before {
             transform: scale(1.05);
         }
@@ -142,11 +159,6 @@ function displayRandomProducts($con, $limit)
         .custom-hover-bg>div {
             position: relative;
             z-index: 1;
-        }
-
-        .card {
-            width: 288px;
-            margin-right: 16px;
         }
 
         .splide__slide {
@@ -171,6 +183,24 @@ function displayRandomProducts($con, $limit)
             border-radius: 10px;
             background-color: #bfbfbf;
         }
+
+        .rings:hover {
+            /* Ring Styles */
+            --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+            --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+
+            /* Box Shadow with Ring */
+            box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+
+            /* Ring Color and Opacity */
+            --tw-ring-color: #374151;
+            /* Tailwind Gray-700 (#374151) */
+
+            /* Ring Transition */
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
     </style>
 
 </head>
@@ -180,32 +210,56 @@ function displayRandomProducts($con, $limit)
     <?php
     include "pages/_navbar.php";
     ?>
-    <div class="p-2 flex flex-col max-w-screen-xl m-auto outfit">
+    <div id="main-content" class="p-4 flex flex-col max-w-screen-xl m-auto outfit">
         <div class="flex justify-center">
             <div class="style-2 flex overflow-x-auto xl:justify-center gap-9 text-sm py-5 px-6">
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Furniture"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Furniture</span></a>
+                    <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Furniture">
+                        <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-homegarden.jpg?resize=150%2C150&ssl=1" alt="">
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">Furniture</span>
+                    </a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Electronics Item"><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Electronics</span></a>
+                    <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Electronics Item">
+                        <img class="rounded-full border rings transition" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2022/09/1-57.jpg?resize=300%2C300&ssl=1" alt="">
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">Electronics</span>
+                    </a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Headphone"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">15% off Headphone</span></a>
+                    <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Headphone">
+                        <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt="">
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">15% off Headphone</span>
+                    </a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Processor"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Think Outside The Box</span></a>
+                    <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Processor">
+                        <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt="">
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">Think Outside The Box</span>
+                    </a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Toys"><img class="rounded-full border" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ... ">Toys</span></a>
+                    <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Toys">
+                        <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-toys.jpg?w=400&ssl=1" alt="">
+                        <span class="text-center text-ellipsis overflow-hidden truncate ... ">Toys</span>
+                    </a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Sports"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Sports</span></a>
+                    <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Sports">
+                        <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-sports.jpg?resize=150%2C150&ssl=1" alt="">
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">Sports</span>
+                    </a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Apple"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">New From Apple</span></a>
+                    <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Apple">
+                        <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt="">
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">New From Apple</span>
+                    </a>
                 </div>
                 <div>
-                    <a class="flex justify-center flex-col w-24 truncate" href="pages/product_category.php?Category=Women accessories"><img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt=""><span class="text-center text-ellipsis overflow-hidden ...">Beauty & Heathy</span></a>
+                    <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Women accessories">
+                        <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev3-beauty.jpg?resize=150%2C150&ssl=1" alt="">
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">Beauty & Heathy</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -289,6 +343,7 @@ function displayRandomProducts($con, $limit)
             </div>
         </div>
 
+
         <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
 
         <script>
@@ -296,8 +351,8 @@ function displayRandomProducts($con, $limit)
                 new Splide('#cardSplide1', {
                     perPage: 4,
                     perMove: 1,
-                    gap: '1rem', // Adjust gap between slides
-                    rewind: false, // Do not loop back to the start
+                    gap: '0.5rem',
+                    rewind: false,
                     arrows: true,
                     pagination: false,
                     breakpoints: {
@@ -309,9 +364,9 @@ function displayRandomProducts($con, $limit)
                             perPage: 2,
                             gap: '0.5rem'
                         },
-                        768: {
+                        500: {
                             perPage: 1,
-                            gap: '0.25rem'
+                            gap: '0rem'
                         }
                     }
                 }).mount();
@@ -447,7 +502,7 @@ function displayRandomProducts($con, $limit)
                 new Splide('#cardSplide2', {
                     perPage: 4,
                     perMove: 1,
-                    gap: '1rem', // Adjust gap between slides
+                    gap: '0.5rem', // Adjust gap between slides
                     rewind: false, // Do not loop back to the start
                     arrows: true,
                     pagination: false,
@@ -460,9 +515,9 @@ function displayRandomProducts($con, $limit)
                             perPage: 2,
                             gap: '0.5rem'
                         },
-                        768: {
+                        500: {
                             perPage: 1,
-                            gap: '0.25rem'
+                            gap: '0rem'
                         }
                     }
                 }).mount();
@@ -472,46 +527,46 @@ function displayRandomProducts($con, $limit)
         <div class="my-5 mt-12">
             <h1 class="text-2xl">Explore More Categories</h1>
             <div class="flex justify-center w-full">
-                <div class="style-2 flex overflow-x-auto gap-10 py-5">
+                <div class="style-2 flex overflow-x-auto gap-10 py-5 px-2">
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Men accessories">
-                            <img class="w-40 h-32 object-cover object-top rounded-full" src="https://amourfragrances.com/cdn/shop/files/Cashmeran.jpg?v=1704756785&width=720" alt="">
+                            <img class="w-32 h-32 object-cover object-top rounded-full rings" src="https://amourfragrances.com/cdn/shop/files/Cashmeran.jpg?v=1704756785&width=720" alt="">
                             <p>Men Accessories</p>
                         </a>
                     </div>
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Tabs/Ipad">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-ipadtablets.jpg?w=640&ssl=1" alt="">
+                            <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-ipadtablets.jpg?w=640&ssl=1" alt="">
                             <p>iPads & Tablets</p>
                         </a>
                     </div>
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Laptops/MacBook">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-laptops.jpg?w=640&ssl=1" alt="">
+                            <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-laptops.jpg?w=640&ssl=1" alt="">
                             <p>Laptops</p>
                         </a>
                     </div>
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Cameras">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cameras.jpg?w=640&ssl=1" alt="">
+                            <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-cameras.jpg?w=640&ssl=1" alt="">
                             <p>Cameras</p>
                         </a>
                     </div>
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Watch">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev2-watches.jpg?w=340&ssl=1" alt="">
+                            <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev2-watches.jpg?w=340&ssl=1" alt="">
                             <p>Wearable Tech</p>
                         </a>
                     </div>
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Shoes">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-shoes.jpg?w=400&ssl=1" alt="">
+                            <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev1-shoes.jpg?w=400&ssl=1" alt="">
                             <p>Shoes</p>
                         </a>
                     </div>
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Tech Accessories">
-                            <img class="rounded-full" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-accessories.jpg?w=640&ssl=1" alt="">
+                            <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/08/homev9-accessories.jpg?w=640&ssl=1" alt="">
                             <p>Accessories</p>
                         </a>
                     </div>
@@ -538,7 +593,7 @@ function displayRandomProducts($con, $limit)
                 new Splide('#cardSplide3', {
                     perPage: 4,
                     perMove: 1,
-                    gap: '1rem', // Adjust gap between slides
+                    gap: '0.5rem', // Adjust gap between slides
                     rewind: false, // Do not loop back to the start
                     arrows: true,
                     pagination: false,
@@ -551,9 +606,9 @@ function displayRandomProducts($con, $limit)
                             perPage: 2,
                             gap: '0.5rem'
                         },
-                        768: {
+                        500: {
                             perPage: 1,
-                            gap: '0.25rem'
+                            gap: '0rem'
                         }
                     }
                 }).mount();
@@ -574,6 +629,9 @@ function displayRandomProducts($con, $limit)
     <?php
     include "pages/_footer.php";
     ?>
+    
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 
 </html>

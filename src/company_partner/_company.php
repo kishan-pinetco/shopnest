@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- alpinejs CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@latest/dist/cdn.min.js" defer></script>
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,7 +77,7 @@
         <!-- tissot -->
         <div>
             <a href="/shopnest/pages/product_category.php">
-                <img src="/shopnest/src/company_partner/tissot.svg" alt="">
+                <img class="pt-1" src="/shopnest/src/company_partner/tissot.svg" alt="">
             </a>
         </div>
 

@@ -18,14 +18,24 @@
     <link rel="shortcut icon" href="../../src/logo/favicon.svg">
 
     <!-- alpinejs CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@latest/dist/cdn.min.js" defer></script>
+
+
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+        }
+    </style>
 </head>
 
 <body class="flex justify-center outfit h-[100%] p-2">
     <div class="lg:w-[45%]">
         <!-- header -->
         <div class="p-2 flex items-center justify-center">
-            <a class="flex items-center mb-2" href="/shopnest/index.php">
+            <a class="flex items-center mb-2 focus:outline-none" href="/shopnest/index.php">
                 <!-- icon logo div -->
                 <div>
                     <img class="w-7 sm:w-12 mt-0.5" src="../../../shopnest/src/logo/black_cart_logo.svg" alt="">
@@ -43,13 +53,13 @@
                 <div class="w-full flex flex-col items-center relative mt-3">
                     <div class="w-full p-5">
                         <div class="w-full relative">
-                            <div class="w-full relative border border-black border-dashed">
+                            <div class="w-full relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden">
                                 <img id="CoverPreview" class="w-full h-40 z-50 object-cover" src="" alt="">
                                 <h2 id="coverText" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">Insert Cover image</h2>
                             </div>
                             <input class="hidden" name="CoverImage" type="file" id="Coverimage" onchange="coverImagePreview(event)">
                             <label for="Coverimage" class="absolute top-2 right-3 cursor-pointer">
-                                <h1 class="bg-indigo-600 text-white max-w-max px-1 h-8 flex items-center rounded-md">Cover Image</h1>
+                                <h1 class="bg-gray-700 text-white max-w-max px-1 h-8 flex items-center rounded-tl-lg rounded-br-lg">Cover Image</h1>
                             </label>
                         </div>
                         <!-- script for cover image preview and hide text (insert cover image) when cover image is inserted  -->
@@ -123,63 +133,63 @@
                         Coverimage.addEventListener('change', previewCoverImage);
                     </script>
                 </div>
-                <div class="grid grid-cols-4 gap-3 p-5">
+                <div class="grid grid-cols-4 gap-5 p-5">
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="name" class="require font-semibold">Name :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="name" id="name">
-                            <small id="vendorName" class="text-red-400 hidden">Enter Valid Name</small>
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" id="name">
+                            <small id="vendorName" class="text-red-500 hidden">Enter Valid Name</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="email" class="require font-semibold">Email :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="email" name="email" id="email">
-                            <small id="vendorEmail" class="text-red-400 hidden">Enter Valid Email</small>
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email">
+                            <small id="vendorEmail" class="text-red-500 hidden">Enter Valid Email</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2 relative" x-data="{ showPassword: false }">
                         <div class="flex flex-col gap-1 ">
                             <label for="password" class="require font-semibold">Password :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password">
                             <span class="absolute top-10 right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                                     <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
                                     <path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
                                 </svg></span>
-                            <small id="vendorPass" class="text-red-400 hidden">Enter Valid Password</small>
+                            <small id="vendorPass" class="text-red-500 hidden">Enter Valid Password</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="username" class="require font-semibold">Username :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="username" id="username">
-                            <small id="vendorUsername" class="text-red-400 hidden">Enter Valid Username</small>
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="username" id="username">
+                            <small id="vendorUsername" class="text-red-500 hidden">Enter Valid Username</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="phone" class="require font-semibold">Phone :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" maxlength="10" name="phone" id="phone">
-                            <small id="vendorPhone" class="text-red-400 hidden">Enter Valid Phone Number</small>
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" maxlength="10" name="phone" id="phone">
+                            <small id="vendorPhone" class="text-red-500 hidden">Enter Valid Phone Number</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="gst" class="require font-semibold">GST :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" name="gst" id="gst">
-                            <small id="vendorGst" class="text-red-400 hidden">Enter Valid GST Number</small>
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="gst" id="gst">
+                            <small id="vendorGst" class="text-red-500 hidden">Enter Valid GST Number</small>
                         </div>
                     </div>
                     <div class="col-span-4">
                         <div class="flex flex-col gap-1 ">
                             <label for="bio" class="require font-semibold">Bio :</label>
-                            <textarea class="h-16 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition resize-none" name="bio" id="bio"></textarea>
-                            <small id="vendorBio" class="text-red-400 hidden">Enter Bio</small>
+                            <textarea class="h-16 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="bio" id="bio"></textarea>
+                            <small id="vendorBio" class="text-red-500 hidden">Enter Bio</small>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-center mb-5">
-                    <input type="submit" name="submitBtn" value="Register" class="bg-indigo-500 font-semibold h-10 w-72 text-lg rounded-md text-white hover:bg-indigo-600 hover:transition cursor-pointer">
+                    <input type="submit" name="submitBtn" value="Register" class="bg-gray-700 hover:bg-gray-800 hover:transition h-10 w-72 text-lg rounded-tl-xl rounded-br-xl text-white cursor-pointer">
                 </div>
             </div>
         </form>
@@ -216,6 +226,9 @@
             }, 1500);
         }
     </script>
+
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 
 </html>

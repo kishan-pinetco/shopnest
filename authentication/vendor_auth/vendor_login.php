@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
     <!-- alpinejs CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@latest/dist/cdn.min.js" defer></script>
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +20,15 @@
 
     <!-- title -->
     <title>Vendor Login</title>
+
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+        }
+    </style>
 </head>
 
 <body class="flex justify-center items-center h-[100vh] p-2" style="font-family: 'Outfit', sans-serif;">
@@ -206,11 +215,11 @@
                 <div class="space-y-4 p-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="email" name="email" id="email" value="<?php echo isset($_COOKIE['vendorEmail']) ? $_COOKIE['vendorEmail'] : '' ?>">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email" value="<?php echo isset($_COOKIE['vendorEmail']) ? $_COOKIE['vendorEmail'] : '' ?>">
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
-                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password" value="<?php echo isset($_COOKIE['vendorPass']) ? $_COOKIE['vendorPass'] : '' ?>">
+                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password" value="<?php echo isset($_COOKIE['vendorPass']) ? $_COOKIE['vendorPass'] : '' ?>">
                         <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                                 <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
@@ -220,13 +229,13 @@
                     </div>
                     <div class="flex items-center justify-between flex-wrap">
                         <label class="keep group flex items-center gap-2 cursor-pointer max-w-max">
-                            <input type="checkbox" class="border-2 text-indigo-600 border-[#bbb] group-hover:border-black transition duration-300 rounded-sm cursor-pointer" name="check" id="" required>
+                            <input type="checkbox" class="border-2 text-gray-700 border-[#bbb] group-hover:border-black transition duration-300 rounded-sm cursor-pointer focus:ring-gray-700" name="check" id="" required>
                             <p class="text-[#8b929c] group-hover:text-black transition duration-300">Remember me</p>
                         </label>
-                        <a href="" class="text-sm font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
+                        <a href="../../../shopnest/authentication/forgotPassword.php" class="text-sm font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
                     </div>
                     <div class="text-center">
-                        <input type="submit" class="bg-indigo-600 font-semibold py-1 h-10 w-full text-lg rounded-md text-white cursor-pointer hover:bg-indigo-700 hover:transition" name="loginBtn" value="Login">
+                        <input type="submit" class="bg-gray-700 hover:bg-gray-800 py-1 h-10 w-full text-lg rounded-tl-xl rounded-br-xl text-white cursor-pointer hover:transition" name="loginBtn" value="Login">
                     </div>
                     <div>
                         <a href="vendor_register.php" class="text-sm font-semibold tracking-wide flex justify-center underline">New Vendor? Create account</a>
@@ -235,7 +244,9 @@
             </form>
         </div>
     </div>
-
+    
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 
 </html>

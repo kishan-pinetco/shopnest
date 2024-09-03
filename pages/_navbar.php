@@ -17,17 +17,11 @@ if (isset($_COOKIE['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
 
-    <!-- css file link -->
-    <!-- <link rel="stylesheet" href="pages.css"> -->
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <!-- Js link -->
-    <!-- <script src="navbar.js"></script> -->
 
     <!-- alpinejs CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -143,17 +137,34 @@ if (isset($_COOKIE['user_id'])) {
                 </div>
             </div>
             <!-- search -->
-            <div class="relative hidden lg:block">
-                <div class="flex items-center">
-                    <input id="SearchInput" class="lg:w-[26vw] xl:w-[40vw] h-12 focus:ring-[#08091b] border-0 focus:border-[#08091b] text-black focus:outline-none rounded-s-md text-lg" type="text" name="searchInputItems" placeholder="search for anything...">
-                    <div class="search-btn bg-[#b7ff1d] px-3 h-12 flex items-center justify-center rounded-e-md hover:bg-[#81b909] transition duration-300 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                            <g>
-                                <path d="M115.97 101.597 88.661 74.286a47.75 47.75 0 0 0 7.333-25.488c0-26.509-21.49-47.996-47.998-47.996S0 22.289 0 48.798c0 26.51 21.487 47.995 47.996 47.995a47.776 47.776 0 0 0 27.414-8.605l26.984 26.986a9.574 9.574 0 0 0 6.788 2.806 9.58 9.58 0 0 0 6.791-2.806 9.602 9.602 0 0 0-.003-13.577zM47.996 81.243c-17.917 0-32.443-14.525-32.443-32.443s14.526-32.444 32.443-32.444c17.918 0 32.443 14.526 32.443 32.444S65.914 81.243 47.996 81.243z" fill="#000000" opacity="1" data-original="#000000"></path>
-                            </g>
-                        </svg>
+            <div class="relative h-full hidden lg:block">
+                <form action="#" method="post">
+                    <div class="flex items-center">
+                        <input id="SearchInput" name="searchInputItems" class="lg:w-[26vw] xl:w-[40vw] h-12 focus:ring-[#08091b] border-0 focus:border-[#08091b] text-black focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything...">
+                        <label for="searchBtn">
+                            <div class="search-btn bg-[#b7ff1d] px-3 h-12 flex items-center justify-center rounded-e-md hover:bg-[#81b909] transition duration-300 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                    <g>
+                                        <path d="M115.97 101.597 88.661 74.286a47.75 47.75 0 0 0 7.333-25.488c0-26.509-21.49-47.996-47.998-47.996S0 22.289 0 48.798c0 26.51 21.487 47.995 47.996 47.995a47.776 47.776 0 0 0 27.414-8.605l26.984 26.986a9.574 9.574 0 0 0 6.788 2.806 9.58 9.58 0 0 0 6.791-2.806 9.602 9.602 0 0 0-.003-13.577zM47.996 81.243c-17.917 0-32.443-14.525-32.443-32.443s14.526-32.444 32.443-32.444c17.918 0 32.443 14.526 32.443 32.444S65.914 81.243 47.996 81.243z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                        </label>
+                        <input type="submit" id="searchBtn" name="searchBtn" class="hidden">
+                        <div id="productList" class="w-full bg-white absolute top-10 left-0 rounded-md z-[100]"></div>
                     </div>
-                </div>
+                </form>
+                <?php
+                if (isset($_POST["searchBtn"])) {
+                    $searchName = $_POST['searchInputItems'];
+                    $filterName = str_replace(' ', '+', $searchName);
+                ?>
+                    <script>
+                        window.location.href = "../../shopnest/search/search_items.php?searchName=<?php echo $filterName; ?>"
+                    </script>
+                <?php
+                }
+                ?>
             </div>
             <!-- user & cart -->
             <div class="flex items-center gap-4 md:gap-10 pr-4 ">
@@ -306,17 +317,35 @@ if (isset($_COOKIE['user_id'])) {
                 </div>
             </div>
         </div>
-        <div class=" lg:hidden px-5 my-4">
-            <div class="flex justify-center items-center">
-                <input id="SearchInput" class="w-full h-10 focus:ring-[#08091b] border-0 focus:border-[#08091b] text-black focus:outline-none rounded-s-md text-lg" type="text" name="searchInputItems" placeholder="search for anything...">
-                <div class="search-btn bg-[#b7ff1d] px-3 h-10 flex items-center justify-center rounded-e-md transition duration-300 cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                        <g>
-                            <path d="M115.97 101.597 88.661 74.286a47.75 47.75 0 0 0 7.333-25.488c0-26.509-21.49-47.996-47.998-47.996S0 22.289 0 48.798c0 26.51 21.487 47.995 47.996 47.995a47.776 47.776 0 0 0 27.414-8.605l26.984 26.986a9.574 9.574 0 0 0 6.788 2.806 9.58 9.58 0 0 0 6.791-2.806 9.602 9.602 0 0 0-.003-13.577zM47.996 81.243c-17.917 0-32.443-14.525-32.443-32.443s14.526-32.444 32.443-32.444c17.918 0 32.443 14.526 32.443 32.444S65.914 81.243 47.996 81.243z" fill="#000000" opacity="1" data-original="#000000"></path>
-                        </g>
-                    </svg>
+        <div class="lg:hidden px-5 my-4">
+            <form action="" method="post">
+                <div class="flex justify-center items-center">
+                    <input id="SearchInput2" name="searchInputItems2" class="w-full h-10 focus:ring-[#08091b] border-0 focus:border-[#08091b] text-black focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything...">
+                    <label for="searchBtn2">
+                        <div class="search-btn bg-[#b7ff1d] px-3 h-10 flex items-center justify-center rounded-e-md transition duration-300 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                <g>
+                                    <path d="M115.97 101.597 88.661 74.286a47.75 47.75 0 0 0 7.333-25.488c0-26.509-21.49-47.996-47.998-47.996S0 22.289 0 48.798c0 26.51 21.487 47.995 47.996 47.995a47.776 47.776 0 0 0 27.414-8.605l26.984 26.986a9.574 9.574 0 0 0 6.788 2.806 9.58 9.58 0 0 0 6.791-2.806 9.602 9.602 0 0 0-.003-13.577zM47.996 81.243c-17.917 0-32.443-14.525-32.443-32.443s14.526-32.444 32.443-32.444c17.918 0 32.443 14.526 32.443 32.444S65.914 81.243 47.996 81.243z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                </g>
+                            </svg>
+                        </div>
+                    </label>
+                    <input type="submit" id="searchBtn2" name="searchBtn2" class="hidden">
+                    <div id="productList2" class="w-full bg-white absolute top-[190px] left-0 rounded-md z-[100]"></div>
                 </div>
-            </div>
+            </form>
+            <?php
+            if (isset($_POST["searchBtn2"])) {
+                $searchName = $_POST['searchInputItems2'];
+                $filterName = str_replace(' ', '+', $searchName);
+            ?>
+                <script>
+                    window.location.href = "../search/search_items.php?searchName=<?php echo $filterName; ?>"
+                </script>
+            <?php
+            }
+            ?>
+        </div>
         </div>
     </header>
     <!-- sidebar -->
@@ -466,6 +495,75 @@ if (isset($_COOKIE['user_id'])) {
             </div>
         </div>
     </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let SearchInput = document.getElementById("SearchInput");
+            let productList = document.getElementById("productList");
+
+            SearchInput.addEventListener("keyup", function() {
+                let query = SearchInput.value;
+                if (query != '') {
+                    let xhr = new XMLHttpRequest();
+                    xhr.open('POST', '../search/suggestion.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onload = function() {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            productList.style.display = 'block';
+                            productList.innerHTML = xhr.responseText;
+                        }
+                    };
+                    xhr.send('query=' + encodeURIComponent(query));
+
+                } else {
+                    productList.style.display = 'none';
+                    productList.innerHTML = '';
+                }
+            });
+
+            document.addEventListener('click', function() {
+                if (event.target.tagName === 'li') {
+                    SearchInput.value = event.target.textContent;
+                    productList.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let SearchInput2 = document.getElementById("SearchInput2");
+            let productList2 = document.getElementById("productList2");
+
+            SearchInput2.addEventListener("keyup", () => {
+                let query2 = SearchInput2.value;
+                if (query2 != '') {
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("POST", '../search/suggestion.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onload = function() {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            productList2.style.display = 'block';
+                            productList2.innerHTML = xhr.responseText;
+                        }
+                    }
+                    xhr.send('query2=' + encodeURIComponent(query2));
+                } else {
+                    productList2.style.display = 'none';
+                    productList2.innerHTML = '';
+                }
+            });
+
+            document.addEventListener('click', () => {
+                if (event.target.tagName === 'li') {
+                    SearchInput2.value = event.target.textContent;
+                    productList2.style.display = 'none';
+                }
+            })
+        });
+    </script>
+
 </body>
 
 </html>

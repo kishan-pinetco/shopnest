@@ -13,7 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- alpinejs CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@latest/dist/cdn.min.js" defer></script>
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,18 @@
             font-optical-sizing: auto;
             font-weight: 500;
             font-style: normal;
+        }
+
+        .card:hover {
+            box-shadow: 1px 1px 10px #4b5563;
+            /* card shadow transition */
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 0.2s;
+        }
+
+        .opacityTransition {
+            transition: opacity 0.4s ease;
         }
 
         [x-cloak] {
@@ -89,7 +101,9 @@
             sidebarContainer.addClass('filter-sidebar-open');
 
             $('body').css('overflowY', 'hidden');
-            // $('body').fadeTo(700, 0.5);
+
+            $('#header, #main-content, #topBar').addClass('disabled-content opacityTransition');
+
             event.preventDefault();
         }
 
@@ -108,6 +122,8 @@
 
             $('body').css('overflow', 'visible');
 
+            $('#header, #main-content, #topBar').removeClass('disabled-content');
+
             setTimeout(function() {
                 closeSidebar.removeClass('filter-sidebar-close').hide();
             }, 300);
@@ -117,7 +133,7 @@
 </head>
 
 <body class="outfit">
-    <div class="p-1 flex justify-between items-center gap-3 px-5">
+    <div id="topBar" class="p-1 flex justify-between items-center gap-3 px-5">
         <div class="flex items-center gap-1">
             <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 68 68" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                 <g>
@@ -150,15 +166,15 @@
     <?php
     include "../pages/_navbar.php";
     ?>
-    <div class="px-3 sm:px-16 outfit mt-5">
-        <div class="flex justify-between items-center">
+    <div class="px-3 sm:px-16 outfit mt-5" id="main-content">
+        <div class="flex justify-between items-center border-b-2 border-gray-300 pb-3">
             <div>
-                <h1 class="text-lg sm:text-3xl">New Arrivals</h1>
+                <h1 class="text-lg sm:text-3xl text-gray-800">New Arrivals</h1>
             </div>
-            <div class="flex gap-3 relative">
-                <div x-data="{ open: false, selected: 'Sort' }" class="relative inline-block text-sm">
+            <div class="flex gap-2 relative">
+                <div x-data="{ open: false, selected: 'Sort' }" class="relative inline-block text-sm text-gray-800">
                     <!-- Dropdown Button -->
-                    <button @click="open = !open" class="w-fit focus:outline-none">
+                    <button @click="open = !open" class="w-fit focus:outline-none cursor-pointer">
                         <span x-text="selected"></span>
                         <svg class="inline w-5 h-5 ml-2" fill="none" stroke="#808080" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -166,12 +182,13 @@
                     </button>
 
                     <!-- Dropdown Menu -->
-                    <div x-show="open" @keydown.escape.window="open = false" @click.outside="open = false" class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-lg shadow-lg z-10 overflow-hidden text-sm" x-cloak>
-                        <a @click="selected = 'Most Popular'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Most Popular</a>
-                        <a @click="selected = 'Best Rating'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Best Rating</a>
-                        <a @click="selected = 'Newest'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Newest</a>
-                        <a @click="selected = 'Low to High'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Price: Low to High</a>
-                        <a @click="selected = 'High to Low'; open = false" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Price: High to Low</a>
+                    <div x-show="open" @keydown.escape.window="open = false" @click.outside="open = false" class="transition absolute right-0 mt-2 w-40 bg-white border-2 border-gray-300 text-gray-700 rounded-xl shadow-lg z-10 overflow-hidden text-sm divide-y-2 divide-gray-300" x-cloak>
+                        <a @click="selected = 'All'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">All</a>
+                        <a @click="selected = 'Most Popular'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Most Popular</a>
+                        <a @click="selected = 'Best Rating'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Best Rating</a>
+                        <a @click="selected = 'Newest'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Newest</a>
+                        <a @click="selected = 'Low to High'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Price: Low to High</a>
+                        <a @click="selected = 'High to Low'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Price: High to Low</a>
                     </div>
                 </div>
 
@@ -179,95 +196,64 @@
                 <button onclick="filterSideBarOpen()" class="lg:hidden focus:outline-none">
                     <svg class="w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" style="enable-background:new 0 0 512 512" xml:space="preserve">
                         <g>
-                            <path d="M53.39 8H10.61a5.61 5.61 0 0 0-4.15 9.38L25 37.77V57a2 2 0 0 0 1.13 1.8 1.94 1.94 0 0 0 .87.2 2 2 0 0 0 1.25-.44l3.75-3 6.25-5A2 2 0 0 0 39 49V37.77l18.54-20.39A5.61 5.61 0 0 0 53.39 8z" fill="#808080" opacity="1" data-original="#808080"></path>
+                            <path d="M53.39 8H10.61a5.61 5.61 0 0 0-4.15 9.38L25 37.77V57a2 2 0 0 0 1.13 1.8 1.94 1.94 0 0 0 .87.2 2 2 0 0 0 1.25-.44l3.75-3 6.25-5A2 2 0 0 0 39 49V37.77l18.54-20.39A5.61 5.61 0 0 0 53.39 8z" fill="#4b5563" opacity="1" data-original="#4b5563"></path>
                         </g>
                     </svg>
                 </button>
             </div>
         </div>
-        <hr class="mt-2">
+
         <div class="flex jutify-center">
             <div class="mt-7 w-64 hidden lg:block">
-                <div>
-                    <ul class="space-y-2 text-sm">
+                <div class="border-b-2 border-gray-300 pb-4">
+                    <ul class="space-y-2 text-sm text-gray-800">
                         <li><a href="">Totes</a></li>
-                        <li>Backpacks</li>
-                        <li>Travel Bags</li>
-                        <li>Hip Bags</li>
-                        <li>Laptop Sleeves</li>
+                        <li><a href="">Backpacks</a></li>
+                        <li><a href="">Travel Bags</a></li>
+                        <li><a href="">Hip Bags</a></li>
+                        <li><a href="">Laptop Sleeves</a></li>
                     </ul>
                 </div>
-                <hr class="mt-3">
                 <div>
                     <!-- color -->
-                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
-                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
-                            <span class="text-sm">Colour</span>
-                            <span class="ml-6 flex items-center">
-                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                                </svg>
-                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
-                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
-                        </button>
-                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
-                            <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="White" id="White"><label class="text-sm" for="White">White</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Beige" id="Beige"><label class="text-sm" for="Beige">Beige</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Blue" id="Blue"><label class="text-sm" for="Blue">Blue</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Brown" id="Brown"><label class="text-sm" for="Brown">Brown</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Green" id="Green"><label class="text-sm" for="Green">Green</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Purple" id="Purple"><label class="text-sm" for="Purple">Purple</label></li>
+                    <div class="border-b-2 border-gray-300 pb-4 mt-3">
+                        <h1 class="text-gray-800 font-medium text-sm">Colour</h1>
+                        <div class="mt-3 text-gray-600">
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="White1" id="White1"><label class="text-sm" for="White1">White</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Beige1" id="Beige1"><label class="text-sm" for="Beige1">Beige</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Blue1" id="Blue1"><label class="text-sm" for="Blue1">Blue</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Brown1" id="Brown1"><label class="text-sm" for="Brown1">Brown</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Green1" id="Green1"><label class="text-sm" for="Green1">Green</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Purple1" id="Purple1"><label class="text-sm" for="Purple1">Purple</label></li>
                             </ul>
                         </div>
                     </div>
                     <!-- category -->
-                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
-                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
-                            <span class="text-sm">Category</span>
-                            <span class="ml-6 flex items-center">
-                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                                </svg>
-                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
-                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
-                        </button>
-                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                    <div class="border-b-2 border-gray-300 pb-4 mt-3">
+                        <h1 class="text-gray-800 font-medium text-sm">Category</h1>
+                        <div class="mt-2 text-gray-700">
                             <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="New Arrivals" id="New Arrivals"><label class="text-sm" for="New Arrivals">New Arrivals</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Sale" id="Sale"><label class="text-sm" for="Sale">Sale</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Travel" id="Travel"><label class="text-sm" for="Travel">Travel</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Organization" id="Organization"><label class="text-sm" for="Organization">Organization</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Accessories" id="Accessories"><label class="text-sm" for="Accessories">Accessories</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="New Arrivals" id="New Arrivals"><label class="text-sm" for="New Arrivals">New Arrivals</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Sale" id="Sale"><label class="text-sm" for="Sale">Sale</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Travel" id="Travel"><label class="text-sm" for="Travel">Travel</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Organization" id="Organization"><label class="text-sm" for="Organization">Organization</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Accessories" id="Accessories"><label class="text-sm" for="Accessories">Accessories</label></li>
                             </ul>
                         </div>
                     </div>
 
                     <!-- size -->
-                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
-                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
-                            <span class="text-sm">Size</span>
-                            <span class="ml-6 flex items-center">
-                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                                </svg>
-                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
-                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
-                        </button>
-                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                    <div class="border-b-2 border-gray-300 pb-4 mt-3">
+                        <h1 class="text-gray-800 font-medium text-sm">Size</h1>
+                        <div class="mt-2 text-gray-700">
                             <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size2L" id="size2L"><label class="text-sm" for="size2L">2L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size6L" id="size6L"><label class="text-sm" for="size6L">6L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size12L" id="size12L"><label class="text-sm" for="size12L">12L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size18L" id="size18L"><label class="text-sm" for="size18L">18L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size20L" id="size20L"><label class="text-sm" for="size20L">20L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size40L" id="size40L"><label class="text-sm" for="size40L">40L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size2L" id="size2L"><label class="text-sm" for="size2L">2L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size6L" id="size6L"><label class="text-sm" for="size6L">6L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size12L" id="size12L"><label class="text-sm" for="size12L">12L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size18L" id="size18L"><label class="text-sm" for="size18L">18L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size20L" id="size20L"><label class="text-sm" for="size20L">20L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size40L" id="size40L"><label class="text-sm" for="size40L">40L</label></li>
                             </ul>
                         </div>
                     </div>
@@ -276,87 +262,217 @@
 
             <!-- card div -->
             <div class="flex justify-center lg:ml-10 mt-2 w-full p-5">
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+                <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
                     <!-- include card here -->
-                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
-                        <div>
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
-                        <div class="mt-2 translate-x-2">
-                            <p class="font-medium">Nike Air Force 1 '07</p>
-                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
-                        </div>
-                    </div>
-
-                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
-                        <div>
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 translate-x-2">
-                            <p class="font-medium">Nike Air Force 1 '07</p>
-                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
-                        </div>
-                    </div>
-
-                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
-                        <div>
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 translate-x-2">
-                            <p class="font-medium">Nike Air Force 1 '07</p>
-                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
-                        <div>
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
-                        <div class="mt-2 translate-x-2">
-                            <p class="font-medium">Nike Air Force 1 '07</p>
-                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
-                        </div>
-                    </div>
-
-                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
-                        <div>
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 translate-x-2">
-                            <p class="font-medium">Nike Air Force 1 '07</p>
-                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
-                        </div>
-                    </div>
-
-                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
-                        <div>
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 translate-x-2 h-fit">
-                            <p class="font-medium">Nike Air Force 1 '07</p>
-                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
-                        <div>
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
-                        <div class="mt-2 translate-x-2">
-                            <p class="font-medium">Nike Air Force 1 '07</p>
-                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition">
-                        <div>
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-44" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
-                        <div class="mt-2 translate-x-2">
-                            <p class="font-medium">Nike Air Force 1 '07</p>
-                            <p class="font-medium mt-3 space-x-3 text-sm"><span class="text-indigo-500">₹ 9 695.00</span><del class="text-xs">12540.00</del></p>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- add more card here -->
                 </div>
             </div>
         </div>
@@ -400,14 +516,14 @@
                                 </svg>
                             </span>
                         </button>
-                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                        <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
                             <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="White" id="White"><label class="text-xs" for="White">White</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Beige" id="Beige"><label class="text-xs" for="Beige">Beige</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Blue" id="Blue"><label class="text-xs" for="Blue">Blue</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Brown" id="Brown"><label class="text-xs" for="Brown">Brown</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Green" id="Green"><label class="text-xs" for="Green">Green</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Purple" id="Purple"><label class="text-xs" for="Purple">Purple</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="White2" id="White2"><label class="text-xs" for="White2">White</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Beige2" id="Beige2"><label class="text-xs" for="Beige2">Beige</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Blue2" id="Blue2"><label class="text-xs" for="Blue2">Blue</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Brown2" id="Brown2"><label class="text-xs" for="Brown2">Brown</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Green2" id="Green2"><label class="text-xs" for="Green2">Green</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Purple2" id="Purple2"><label class="text-xs" for="Purple2">Purple</label></li>
                             </ul>
                         </div>
                     </div>
@@ -424,13 +540,13 @@
                                 </svg>
                             </span>
                         </button>
-                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                        <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
                             <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="New Arrivals" id="New Arrivals"><label class="text-xs" for="New Arrivals">New Arrivals</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Sale" id="Sale"><label class="text-xs" for="Sale">Sale</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Travel" id="Travel"><label class="text-xs" for="Travel">Travel</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Organization" id="Organization"><label class="text-xs" for="Organization">Organization</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="Accessories" id="Accessories"><label class="text-xs" for="Accessories">Accessories</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="New Arrivals2" id="New Arrivals2"><label class="text-xs" for="New Arrivals2">New Arrivals</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Sale2" id="Sale2"><label class="text-xs" for="Sale2">Sale</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Travel2" id="Travel2"><label class="text-xs" for="Travel2">Travel</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Organization2" id="Organization2"><label class="text-xs" for="Organization2">Organization</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Accessories2" id="Accessories2"><label class="text-xs" for="Accessories2">Accessories</label></li>
                             </ul>
                         </div>
                     </div>
@@ -448,14 +564,14 @@
                                 </svg>
                             </span>
                         </button>
-                        <div x-show="open" x-transition class="mt-2 text-gray-600" style="display: none;">
+                        <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
                             <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size2L" id="size2L"><label class="text-xs" for="size2L">2L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size6L" id="size6L"><label class="text-xs" for="size6L">6L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size12L" id="size12L"><label class="text-xs" for="size12L">12L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size18L" id="size18L"><label class="text-xs" for="size18L">18L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size20L" id="size20L"><label class="text-xs" for="size20L">20L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px]" name="size40L" id="size40L"><label class="text-xs" for="size40L">40L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size2L2" id="size2L2"><label class="text-xs" for="size2L2">2L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size6L2" id="size6L2"><label class="text-xs" for="size6L2">6L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size12L2" id="size12L2"><label class="text-xs" for="size12L2">12L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size18L2" id="size18L2"><label class="text-xs" for="size18L2">18L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size20L2" id="size20L2"><label class="text-xs" for="size20L2">20L</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size40L2" id="size40L2"><label class="text-xs" for="size40L2">40L</label></li>
                             </ul>
                         </div>
                     </div>
@@ -468,6 +584,9 @@
     <?php
     include "../pages/_footer.php";
     ?>
+
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 
 </html>

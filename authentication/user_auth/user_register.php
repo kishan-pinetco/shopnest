@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- css file link -->
-    <link rel="stylesheet" href="authentication.css">
-
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
@@ -20,17 +17,26 @@
     <link rel="shortcut icon" href="../../src/logo/favicon.svg">
 
     <!-- alpinejs CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@latest/dist/cdn.min.js" defer></script>
 
     <!-- title -->
     <title>User Registration</title>
+
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+        }
+    </style>
 </head>
 
 <body class="flex justify-center h-[100%] p-2" style="font-family: 'Outfit', sans-serif;">
     <div class="lg:w-[45%]">
         <!-- header -->
         <div class="p-2 flex items-center justify-center">
-            <a class="flex items-center mb-2" href="/shopnest/index.php">
+            <a class="flex items-center mb-2 focus:outline-none" href="/shopnest/index.php">
                 <!-- icon logo div -->
                 <div>
                     <img class="w-7 sm:w-12 mt-0.5" src="../../../shopnest/src/logo/black_cart_logo.svg" alt="">
@@ -76,57 +82,57 @@
                 <div class="grid grid-cols-1 p-5 md:grid-cols-2 gap-5">
                     <div class="flex flex-col gap-1 ">
                         <label for="fname" class="require font-semibold">First Name :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="fname" id="fname">
-                        <small id="FnameValid" class="text-red-400 hidden">name must be 2-10 character long and shuld not start with a number</small>
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="fname" id="fname">
+                        <small id="FnameValid" class="text-red-500 hidden translate-x-1">name must be 2-10 character long and shuld not start with a number</small>
                     </div>
                     <div class="flex flex-col gap-1 ">
                         <label for="lname" class="require font-semibold">Last Name :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="lname" id="lname">
-                        <small id="LnameValid" class="text-red-400 hidden">name must be 2-10 character long and shuld not start with a number</small>
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="lname" id="lname">
+                        <small id="LnameValid" class="text-red-500 hidden translate-x-1">name must be 2-10 character long and shuld not start with a number</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="email" name="email" id="email">
-                        <small id="MailValid" class="text-red-400 hidden">Enter Valid Email</small>
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email">
+                        <small id="MailValid" class="text-red-500 hidden translate-x-1">Enter Valid Email</small>
 
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
-                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-indigo-500 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password">
+                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" x-bind:type="showPassword ? 'text' : 'password'" type="password" name="password" id="password">
                         <span class="absolute top-10 right-2.5 cursor-pointer" x-on:click="showPassword = !showPassword"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                                 <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
                                 <path d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"></path>
                             </svg></span>
-                        <small id="passValid" class="text-red-400 hidden">password contains At least 8 digits</small>
+                        <small id="passValid" class="text-red-500 hidden translate-x-1">password contains At least 8 digits</small>
                     </div>
                     <div class="flex flex-col gap-1 md:col-span-2">
                         <label for="address" class="require font-semibold">Address :</label>
-                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition resize-none" name="address" id="address"></textarea>
-                        <small id="addressValid" class="text-red-400 hidden">Enter Valid Address</small>
+                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" id="address"></textarea>
+                        <small id="addressValid" class="text-red-500 hidden translate-x-1">Enter Valid Address</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="mobileno" class="require font-semibold">Mobile No :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" name="mobileno" id="mobileno" maxlength="10">
-                        <small id="mobilenoValid" class="text-red-400 hidden">Enter Valid Numbers</small>
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="mobileno" id="mobileno" maxlength="10">
+                        <small id="mobilenoValid" class="text-red-500 hidden translate-x-1">Enter Valid Numbers</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="state" class="require font-semibold">State :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="state" id="state">
-                        <small id="stateValid" class="text-red-400 hidden">Enter Valid State</small>
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="state" id="state">
+                        <small id="stateValid" class="text-red-500 hidden translate-x-1">Enter Valid State</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="city" class="require font-semibold">City :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="text" name="city" id="city">
-                        <small id="cityValid" class="text-red-400 hidden">Enter Valid City</small>
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="city" id="city">
+                        <small id="cityValid" class="text-red-500 hidden translate-x-1">Enter Valid City</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="pincode" class="require font-semibold">Pincode :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-indigo-500 hover:transition" type="tel" name="pincode" id="pincode" maxlength="6">
-                        <small id="pincodeValid" class="text-red-400 hidden">Enter Valid Pincode</small>
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="pincode" id="pincode" maxlength="6">
+                        <small id="pincodeValid" class="text-red-500 hidden translate-x-1">Enter Valid Pincode</small>
                     </div>
                 </div>
                 <div class="flex justify-center mb-5">
-                    <input type="submit" value="Register" name="regBtn" class="bg-indigo-600 font-semibold h-10 w-72 text-lg rounded-md text-white cursor-pointer hover:bg-indigo-700 hover:transition">
+                    <input type="submit" value="Register" name="regBtn" class="bg-gray-700 hover:bg-gray-800 hover:transition h-10 w-72 text-lg rounded-tl-xl rounded-br-xl text-white cursor-pointer">
                 </div>
             </div>
         </form>
@@ -168,6 +174,8 @@
         }
     </script>
 
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 
 </html>
