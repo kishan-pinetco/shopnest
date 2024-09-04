@@ -90,6 +90,40 @@
             border-radius: 10px;
             background-color: #bfbfbf;
         }
+
+
+        .product-card {
+            display: none;
+            /* Hide all cards initially */
+            box-sizing: border-box;
+            /* Include padding and border in the element's total width and height */
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination-btn {
+            background-color: #4b5563;
+            border: none;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin: 0 5px;
+            cursor: pointer;
+            font-weight: 500;
+            color: white;
+            border-top-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        .pagination-btn:hover {
+            background-color: #586474;
+        }
+
+        .pagination-btn:focus {
+            background-color: #586474;
+        }
     </style>
 
     <script>
@@ -262,10 +296,10 @@
             </div>
 
             <!-- card div -->
-            <div class="flex justify-center lg:ml-10 mt-2 w-full p-5">
-                <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
-                    <!-- include card here -->
-                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+            <div class="flex flex-col items-center mt-10 lg:ml-10 w-full">
+                <div class="product-container grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
+                    <!-- Product cards will be displayed here -->
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                         <div class="p-2 flex justify-center">
                             <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
@@ -291,9 +325,9 @@
                         </div>
                     </div>
 
-                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                         <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
                         <div class="mt-2 space-y-3">
                             <div class="px-2">
@@ -317,9 +351,9 @@
                         </div>
                     </div>
 
-                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                         <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
                         <div class="mt-2 space-y-3">
                             <div class="px-2">
@@ -343,9 +377,9 @@
                         </div>
                     </div>
 
-                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                         <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
                         <div class="mt-2 space-y-3">
                             <div class="px-2">
@@ -355,7 +389,7 @@
                                 <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
                                 <div class="flex items-center">
                                     <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
                                             <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                         </svg>
@@ -369,9 +403,9 @@
                         </div>
                     </div>
 
-                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                         <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
                         <div class="mt-2 space-y-3">
                             <div class="px-2">
@@ -381,7 +415,7 @@
                                 <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
                                 <div class="flex items-center">
                                     <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
                                             <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                         </svg>
@@ -395,9 +429,9 @@
                         </div>
                     </div>
 
-                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                         <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
                         <div class="mt-2 space-y-3">
                             <div class="px-2">
@@ -407,7 +441,7 @@
                                 <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
                                 <div class="flex items-center">
                                     <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
                                             <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                         </svg>
@@ -421,9 +455,9 @@
                         </div>
                     </div>
 
-                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                         <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
                         <div class="mt-2 space-y-3">
                             <div class="px-2">
@@ -433,7 +467,32 @@
                                 <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
                                 <div class="flex items-center">
                                     <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
                                             <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                         </svg>
@@ -447,9 +506,9 @@
                         </div>
                     </div>
 
-                    <div class="card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                         <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
                         </div>
                         <div class="mt-2 space-y-3">
                             <div class="px-2">
@@ -459,7 +518,33 @@
                                 <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
                                 <div class="flex items-center">
                                     <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white mt-0.5">0.0</h1>
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-indigo-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
                                             <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                         </svg>
@@ -473,11 +558,315 @@
                         </div>
                     </div>
 
-                    <!-- add more card here -->
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                        <div class="p-2 flex justify-center">
+                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
+                        </div>
+                        <div class="mt-2 space-y-3">
+                            <div class="px-2">
+                                <p class="font-medium">Nike Air Force 1 '07</p>
+                            </div>
+                            <div class="px-2 flex justify-between items-center">
+                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-600 py-1.5 flex justify-center">
+                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add more product cards as needed -->
+                </div>
+
+                <div class="pagination flex justify-center items-center gap-2">
+                    <button class=" bg-gray-600 h-6 w-6 flex justify-center items-center text-white rounded-tl-md rounded-br-md cursor-pointer" id="prev-page"><svg class="w-3" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                            <g>
+                                <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                            </g>
+                        </svg></button> <!-- Left Arrow -->
+
+                    <div class="pagination-buttons"></div>
+
+                    <button class="bg-gray-600 h-6 w-6 flex justify-center items-center text-white rounded-tl-md rounded-br-md cursor-pointer" id="next-page"><svg class="w-3" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                            <g>
+                                <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                            </g>
+                        </svg>
+                    </button> <!-- Right Arrow -->
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- pagination js -->
+    <script>
+        $(document).ready(function() {
+            var rowsPerPage = 2; // Always show 2 rows per page
+            var currentPage = 1;
+            var totalPages = 0;
+            var maxVisiblePages = 3; // Maximum number of visible pages
+
+            function getCardsPerRow() {
+                if (window.innerWidth >= 1536) {
+                    return 4; // 2xl:grid-cols-4
+                } else if (window.innerWidth >= 1280) {
+                    return 3; // xl:grid-cols-3
+                } else if (window.innerWidth >= 1024) {
+                    return 2; // lg:grid-cols-2
+                } else {
+                    return 1; // sm:grid-cols-1
+                }
+            }
+
+            function showPage(page) {
+                var cardsPerRow = getCardsPerRow();
+                var itemsPerPage = cardsPerRow * rowsPerPage;
+                var $productCards = $('.product-card');
+                var totalItems = $productCards.length;
+
+                // Recalculate total pages when columns per row changes
+                totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                // Ensure the current page is within the valid range
+                if (page > totalPages) {
+                    page = totalPages;
+                    currentPage = page;
+                }
+
+                // Hide all product cards
+                $productCards.hide();
+
+                // Calculate the range of product cards to show
+                var startIndex = (page - 1) * itemsPerPage;
+                var endIndex = startIndex + itemsPerPage;
+
+                // Show product cards for the current page
+                $productCards.slice(startIndex, endIndex).show();
+
+                // Update pagination buttons
+                createPagination();
+
+                // Update arrow buttons
+                $('#prev-page').prop('disabled', page === 1);
+                $('#next-page').prop('disabled', page === totalPages);
+            }
+
+            function createPagination() {
+                var $paginationButtons = $('.pagination-buttons');
+                $paginationButtons.empty(); // Clear existing pagination buttons
+
+                if (totalPages <= maxVisiblePages) {
+                    // Show all pages if total pages are less than or equal to maxVisiblePages
+                    for (var i = 1; i <= totalPages; i++) {
+                        $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
+                    }
+                } else {
+                    // Show pagination with dots
+                    if (currentPage <= Math.floor(maxVisiblePages / 2) + 1) {
+                        // Show first few pages and last page with dots
+                        for (var i = 1; i <= maxVisiblePages - 1; i++) {
+                            $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
+                        }
+                        $paginationButtons.append('<span class="dots">...</span>');
+                        $paginationButtons.append('<button class="pagination-btn" data-page="' + totalPages + '">' + totalPages + '</button>');
+                    } else if (currentPage > Math.floor(maxVisiblePages / 2) && currentPage <= totalPages - Math.floor(maxVisiblePages / 2)) {
+                        // Show first page, dots, current page, dots, and last page
+                        $paginationButtons.append('<button class="pagination-btn" data-page="1">1</button>');
+                        $paginationButtons.append('<span class="dots">...</span>');
+
+                        // Ensure three pages around the current page
+                        var startPage = Math.max(currentPage - 1, 2);
+                        var endPage = Math.min(currentPage + 1, totalPages - 1);
+                        for (var i = startPage; i <= endPage; i++) {
+                            $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
+                        }
+
+                        $paginationButtons.append('<span class="dots">...</span>');
+                        $paginationButtons.append('<button class="pagination-btn" data-page="' + totalPages + '">' + totalPages + '</button>');
+                    } else {
+                        // Show first page, dots, and last few pages
+                        $paginationButtons.append('<button class="pagination-btn" data-page="1">1</button>');
+                        $paginationButtons.append('<span class="dots">...</span>');
+
+                        // Ensure last few pages are shown
+                        for (var i = totalPages - (maxVisiblePages - 2); i <= totalPages; i++) {
+                            $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
+                        }
+                    }
+                }
+
+                // Add event listeners for pagination buttons
+                $('.pagination-btn').on('click', function() {
+                    var page = $(this).data('page');
+                    currentPage = page;
+                    showPage(page);
+                });
+            }
+
+            // Initialize pagination
+            showPage(1);
+
+            // Recalculate layout on window resize
+            $(window).on('resize', function() {
+                showPage(currentPage); // Show the correct page after resizing
+            });
+
+            // Add event listeners for arrows
+            $('#prev-page').on('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showPage(currentPage);
+                }
+            });
+
+            $('#next-page').on('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    showPage(currentPage);
+                }
+            });
+        });
+    </script>
+
     <!-- sidebar -->
     <!-- add hidden in container -->
     <div id="filterSidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 right-0 w-fit h-[100vh] overflow-y-auto z-50 sidebarScroll" x-cloak>
@@ -496,10 +885,10 @@
                 <div>
                     <ul class="space-y-2 text-sm">
                         <li><a href="">Totes</a></li>
-                        <li>Backpacks</li>
-                        <li>Travel Bags</li>
-                        <li>Hip Bags</li>
-                        <li>Laptop Sleeves</li>
+                        <li><a href="">Backpacks</a></li>
+                        <li><a href="">Travel Bags</a></li>
+                        <li><a href="">Hip Bags</a></li>
+                        <li><a href="">Laptop Sleeves</a></li>
                     </ul>
                 </div>
                 <hr class="mt-3">
