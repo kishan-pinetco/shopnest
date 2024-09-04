@@ -1,75 +1,76 @@
 <?php
 
-    include "../include/connect.php";
+include "../include/connect.php";
 
-    if(isset($_GET['product_id'])){
+if (isset($_GET['product_id'])) {
 
-        $product = $_GET['name'];
-        
-        $product_id = $_GET['product_id'];
-        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
-        $product_query = mysqli_query($con,$product_find);
-        $row = mysqli_fetch_assoc($product_query);
+    $product = $_GET['name'];
 
-        $options = [
-            'Phones' => [
-                ['value' => '4GB-32GB', 'text' => '4 GB RAM, 32 GB ROM'],
-                ['value' => '4GB-64GB', 'text' => '4 GB RAM, 64 GB ROM'],
-                ['value' => '6GB-64GB', 'text' => '6 GB RAM, 64 GB ROM'],
-                ['value' => '6GB-128GB', 'text' => '6 GB RAM, 128 GB ROM'],
-                ['value' => '8GB-128GB', 'text' => '8 GB RAM, 128 GB ROM'],
-                ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB ROM'],
-                ['value' => '12GB-256GB', 'text' => '12 GB RAM, 256 GB ROM'],
-                ['value' => '12GB-512GB', 'text' => '12 GB RAM, 512 GB ROM'],
-                ['value' => '16GB-512GB', 'text' => '16 GB RAM, 512 GB ROM']
-            ],
-            'Clothes' => [
-                ['value' => 'XS', 'text' => 'XS'],
-                ['value' => 'S', 'text' => 'S'],
-                ['value' => 'M', 'text' => 'M'],
-                ['value' => 'L', 'text' => 'L'],
-                ['value' => 'XL', 'text' => 'XL'],
-                ['value' => 'XXL', 'text' => 'XXL']
-            ],
-            'Laptops/MacBook' => [
-                ['value' => '4GB-128GB', 'text' => '4 GB RAM, 128 GB SSD'],
-                ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB SSD'],
-                ['value' => '8GB-512GB', 'text' => '8 GB RAM, 512 GB SSD'],
-                ['value' => '16GB-512GB', 'text' => '16 GB RAM, 512 GB SSD'],
-                ['value' => '16GB-1TB', 'text' => '16 GB RAM, 1 TB SSD'],
-                ['value' => '32GB-1TB', 'text' => '32 GB RAM, 1 TB SSD'],
-                ['value' => '32GB-2TB', 'text' => '32 GB RAM, 2 TB SSD'],
-                ['value' => '64GB-2TB', 'text' => '64 GB RAM, 2 TB SSD']
-            ],
-            'Tabs/Ipad' => [
-                ['value' => '4GB-64GB', 'text' => '4 GB RAM, 64 GB Storage'],
-                ['value' => '4GB-128GB', 'text' => '4 GB RAM, 128 GB Storage'],
-                ['value' => '6GB-128GB', 'text' => '6 GB RAM, 128 GB Storage'],
-                ['value' => '6GB-256GB', 'text' => '6 GB RAM, 256 GB Storage'],
-                ['value' => '8GB-128GB', 'text' => '8 GB RAM, 128 GB Storage'],
-                ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB Storage'],
-                ['value' => '8GB-512GB', 'text' => '8 GB RAM, 512 GB Storage'],
-                ['value' => '12GB-256GB', 'text' => '12 GB RAM, 256 GB Storage'],
-                ['value' => '12GB-512GB', 'text' => '12 GB RAM, 512 GB Storage']
-            ],
-            'Shoes' => [
-                ['value' => '6 UK', 'text' => '6 UK'],
-                ['value' => '7 UK', 'text' => '7 UK'],
-                ['value' => '8 UK', 'text' => '8 UK'],
-                ['value' => '9 UK', 'text' => '9 UK'],
-                ['value' => '10 UK', 'text' => '10 UK']
-            ]
-        ];
-    
-        $productType = $_GET['name'];
-        $optionsForType = isset($options[$productType]) ? $options[$productType] : [];
-    }
+    $product_id = $_GET['product_id'];
+    $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
+    $product_query = mysqli_query($con, $product_find);
+    $row = mysqli_fetch_assoc($product_query);
+
+    $options = [
+        'Phones' => [
+            ['value' => '4GB-32GB', 'text' => '4 GB RAM, 32 GB ROM'],
+            ['value' => '4GB-64GB', 'text' => '4 GB RAM, 64 GB ROM'],
+            ['value' => '6GB-64GB', 'text' => '6 GB RAM, 64 GB ROM'],
+            ['value' => '6GB-128GB', 'text' => '6 GB RAM, 128 GB ROM'],
+            ['value' => '8GB-128GB', 'text' => '8 GB RAM, 128 GB ROM'],
+            ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB ROM'],
+            ['value' => '12GB-256GB', 'text' => '12 GB RAM, 256 GB ROM'],
+            ['value' => '12GB-512GB', 'text' => '12 GB RAM, 512 GB ROM'],
+            ['value' => '16GB-512GB', 'text' => '16 GB RAM, 512 GB ROM']
+        ],
+        'Clothes' => [
+            ['value' => 'XS', 'text' => 'XS'],
+            ['value' => 'S', 'text' => 'S'],
+            ['value' => 'M', 'text' => 'M'],
+            ['value' => 'L', 'text' => 'L'],
+            ['value' => 'XL', 'text' => 'XL'],
+            ['value' => 'XXL', 'text' => 'XXL']
+        ],
+        'Laptops/MacBook' => [
+            ['value' => '4GB-128GB', 'text' => '4 GB RAM, 128 GB SSD'],
+            ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB SSD'],
+            ['value' => '8GB-512GB', 'text' => '8 GB RAM, 512 GB SSD'],
+            ['value' => '16GB-512GB', 'text' => '16 GB RAM, 512 GB SSD'],
+            ['value' => '16GB-1TB', 'text' => '16 GB RAM, 1 TB SSD'],
+            ['value' => '32GB-1TB', 'text' => '32 GB RAM, 1 TB SSD'],
+            ['value' => '32GB-2TB', 'text' => '32 GB RAM, 2 TB SSD'],
+            ['value' => '64GB-2TB', 'text' => '64 GB RAM, 2 TB SSD']
+        ],
+        'Tabs/Ipad' => [
+            ['value' => '4GB-64GB', 'text' => '4 GB RAM, 64 GB Storage'],
+            ['value' => '4GB-128GB', 'text' => '4 GB RAM, 128 GB Storage'],
+            ['value' => '6GB-128GB', 'text' => '6 GB RAM, 128 GB Storage'],
+            ['value' => '6GB-256GB', 'text' => '6 GB RAM, 256 GB Storage'],
+            ['value' => '8GB-128GB', 'text' => '8 GB RAM, 128 GB Storage'],
+            ['value' => '8GB-256GB', 'text' => '8 GB RAM, 256 GB Storage'],
+            ['value' => '8GB-512GB', 'text' => '8 GB RAM, 512 GB Storage'],
+            ['value' => '12GB-256GB', 'text' => '12 GB RAM, 256 GB Storage'],
+            ['value' => '12GB-512GB', 'text' => '12 GB RAM, 512 GB Storage']
+        ],
+        'Shoes' => [
+            ['value' => '6 UK', 'text' => '6 UK'],
+            ['value' => '7 UK', 'text' => '7 UK'],
+            ['value' => '8 UK', 'text' => '8 UK'],
+            ['value' => '9 UK', 'text' => '9 UK'],
+            ['value' => '10 UK', 'text' => '10 UK']
+        ]
+    ];
+
+    $productType = $_GET['name'];
+    $optionsForType = isset($options[$productType]) ? $options[$productType] : [];
+}
 
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,48 +108,48 @@
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
                                     <label for="full_name">Product Tital</label>
-                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['title'] : 'title'?>" />
+                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['title'] : 'title' ?>" />
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="Company_name">Company Name</label>
-                                    <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['company_name'] : 'company_name'?>" placeholder="" />
+                                    <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['company_name'] : 'company_name' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="category">Category</label>
-                                    <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Category'] : 'Category'?>" placeholder="" />
+                                    <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Category'] : 'Category' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-1">
                                     <label for="type">Type</label>
-                                    <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Type'] : 'Type'?>" placeholder="" />
+                                    <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Type'] : 'Type' ?>" placeholder="" />
                                 </div>
-                                
+
                                 <div class="md:col-span-3">
                                     <label for="MRP">MRP</label>
                                     <div class="relative">
-                                        <input type="text" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10" value="<?php echo isset($_GET['product_id']) ? $row['MRP'] : 'MRP'?>" placeholder="" />
+                                        <input type="text" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10" value="<?php echo isset($_GET['product_id']) ? $row['MRP'] : 'MRP' ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="md:col-span-2">
                                     <label for="your_price">Your Price</label>
                                     <div class="relative">
-                                        <input type="text" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10" value="<?php echo isset($_GET['product_id']) ? $row['Your_Price'] : 'Your_Price'?>" placeholder="" />
+                                        <input type="text" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10" value="<?php echo isset($_GET['product_id']) ? $row['Your_Price'] : 'Your_Price' ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
 
                                 <div class="md:col-span-3">
                                     <label for="quantity">Quantity</label>
-                                    <input type="text" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Quantity'] : 'Quantity'?>" placeholder="" />
+                                    <input type="text" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Quantity'] : 'Quantity' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="condition">Item Condition</label>
-                                    <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Item_Condition'] : 'Item_Condition'?>">
+                                    <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Item_Condition'] : 'Item_Condition' ?>">
                                         <option value="New Condition">New Condition</option>
                                         <option value="Old Condition">Old Condition</option>
                                     </select>
@@ -156,7 +157,7 @@
 
                                 <div class="md:col-span-5">
                                     <label for="description">Description</label>
-                                    <input type="text" name="description" id="description" class="h-full border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Description'] : 'Description'?>" >
+                                    <input type="text" name="description" id="description" class="h-full border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['Description'] : 'Description' ?>">
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
@@ -164,21 +165,21 @@
                                     <div id="keyword-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
                                         <div class="flex items-center relative">
                                             <?php
-                                                if(isset($_COOKIE['vendor_id'])){
-                                                    $all_keywords = [];
-                                                    $key = $row['keywords'];
-                                                    $key_array = explode(",", $key);
-                                                    foreach($key_array as $ky){
-                                                        $ky = trim($ky);
-                                                        $all_keywords[] = $ky;
-                                                    }
-                                                    // Convert the array to a JSON string
-                                                    $keywords_json = json_encode($all_keywords);
-                                                    
-                                                    ?>
-                                                    <input type="hidden" id="keyword-data" value='<?php echo $keywords_json; ?>'>
-                                                    <?php
+                                            if (isset($_COOKIE['vendor_id'])) {
+                                                $all_keywords = [];
+                                                $key = $row['keywords'];
+                                                $key_array = explode(",", $key);
+                                                foreach ($key_array as $ky) {
+                                                    $ky = trim($ky);
+                                                    $all_keywords[] = $ky;
                                                 }
+                                                // Convert the array to a JSON string
+                                                $keywords_json = json_encode($all_keywords);
+
+                                            ?>
+                                                <input type="hidden" id="keyword-data" value='<?php echo $keywords_json; ?>'>
+                                            <?php
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -188,27 +189,27 @@
                                 <div class="md:col-span-5 mt-5">
                                     <label for="color">Color:</label>
                                     <div class="flex items-center gap-2 flex-wrap mt-2" id="input-container">
-                                    <?php
-                                        if(isset($_COOKIE['vendor_id'])){
+                                        <?php
+                                        if (isset($_COOKIE['vendor_id'])) {
 
                                             $all_color = [];
                                             $pcolor = $row['color'];
                                             $pcolor_array = explode(",", $pcolor);
-                                            foreach($pcolor_array as $clor){
+                                            foreach ($pcolor_array as $clor) {
                                                 $clor = trim($clor);
                                                 $all_color[] = $clor;
                                             }
                                             // Convert the array to a JSON string
                                             $colors_json = json_encode($all_color);
-                                            ?>
+                                        ?>
                                             <input type="hidden" id="colors-data" value='<?php echo $colors_json; ?>'>
-                                            <?php
+                                        <?php
                                         }
-                                    ?>
+                                        ?>
                                     </div>
                                     <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-input">Add More Colors</button>
                                 </div>
-                                
+
 
                                 <div class="md:col-span-5 mt-5">
                                     <label for="size">Size:</label>
@@ -231,14 +232,14 @@
 
                                             // Options array defined in PHP is now available in JavaScript
                                             var options = <?php echo json_encode($optionsForType); ?>;
-                                        
+
                                             options.forEach(function(option) {
                                                 var opt = document.createElement('option');
                                                 opt.value = option.value;
                                                 opt.textContent = option.text;
                                                 newSelect.appendChild(opt);
                                             });
-                                        
+
                                             sizeContainer.appendChild(newSelect);
                                         });
                                     </script>
@@ -280,16 +281,15 @@
     </div>
 
     <script>
-
         // displaly error msg
         function displayErrorMessage(message) {
             let EpopUp = document.getElementById('EpopUp');
             let errorMessage = document.getElementById('errorMessage');
-        
+
             errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
             EpopUp.style.display = 'flex';
             EpopUp.style.opacity = '100';
-        
+
             setTimeout(() => {
                 EpopUp.style.display = 'none';
                 EpopUp.style.opacity = '0';
@@ -300,11 +300,11 @@
         function displaySuccessMessage(message) {
             let SpopUp = document.getElementById('SpopUp');
             let successMessage = document.getElementById('successMessage');
-        
+
             successMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
             SpopUp.style.display = 'flex';
             SpopUp.style.opacity = '100';
-        
+
             setTimeout(() => {
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
@@ -364,12 +364,12 @@
         });
 
 
-        document.addEventListener('DOMContentLoaded', function(){
+        document.addEventListener('DOMContentLoaded', function() {
             let keywordContainer = document.getElementById('keyword-container');
             let keywordsData = document.getElementById('keyword-data').value;
             let keywordsArray = JSON.parse(keywordsData);
 
-            function createKeywordItem(keyword){
+            function createKeywordItem(keyword) {
                 let keywordItem = document.createElement('div');
                 keywordItem.className = 'flex items-center relative mb-2';
 
@@ -392,18 +392,18 @@
                 removeButton.addEventListener('click', function() {
                     keywordContainer.removeChild(keywordItem);
                 });
-            
+
                 keywordItem.appendChild(keywordInput);
                 keywordItem.appendChild(removeButton);
-            
+
                 return keywordItem;
             }
 
             keywordsArray.forEach(keyword => {
                 let keywordItem = createKeywordItem(keyword);
                 keywordContainer.appendChild(keywordItem);
-            });  
-            
+            });
+
             document.getElementById('add-keyword').addEventListener('click', function(event) {
                 event.preventDefault(); // Prevent default button behavior
                 let keywordItem = createKeywordItem('');
@@ -413,57 +413,58 @@
     </script>
 
 </body>
+
 </html>
 
 <?php
 
-    include "../include/connect.php";
+include "../include/connect.php";
 
-    if(isset($_POST['updateBtn'])){
+if (isset($_POST['updateBtn'])) {
 
-        if(isset($_COOKIE['vendor_id'])){
-            $vendor_id = $_COOKIE['vendor_id'];
-        }
-
-        $Product_insert_Date = date('d-m-Y');
-
-        $full_name = mysqli_real_escape_string($con, $_POST['full_name']);
-        $Company_name = mysqli_real_escape_string($con, $_POST['Company_name']);
-        $Category = mysqli_real_escape_string($con, $_POST['Category']);
-        $type = mysqli_real_escape_string($con, $_POST['type']);
-        $your_price = mysqli_real_escape_string($con, $_POST['your_price']);
-        $MRP = mysqli_real_escape_string($con, $_POST['MRP']);
-        $quantity = mysqli_real_escape_string($con, $_POST['quantity']);
-        $condition = mysqli_real_escape_string($con, $_POST['condition']);
-        $description = mysqli_real_escape_string($con, $_POST['description']);
-    
-        $keyword = $_POST['keyword'];
-        $color = $_POST['color'];
-        $size = $_POST['size'];
-
-        foreach($keyword as $key){
-            $key = $_POST['keyword'];
-        }
-
-        foreach($color as $clr){
-            $clr = $_POST['color'];
-        }
-
-        foreach($size as $sz){
-            $sz = $_POST['size'];
-        }
-
-
-        $key_value = implode(',', $key);
-        $color_value = implode(',' ,$clr);
-        $size_value = implode(',', $sz);
-
-        $product_update = "UPDATE products SET title='$full_name',company_name='$Company_name',Category='$Category',Type='$type',Your_Price='$your_price',MRP='$MRP',Quantity='$quantity',Item_Condition='$condition',Description='$description',color='$color_value',size='$size_value',keywords='$key_value' WHERE product_id = '$product_id'";
-        $product_query = mysqli_query($con,$product_update);
-        if($product_query){
-            echo '<script>displaySuccessMessage("Data update Successfully.");</script>';
-        }else{
-            echo '<script>displayErrorMessage("Data not update Properly.");</script>';
-        }
+    if (isset($_COOKIE['vendor_id'])) {
+        $vendor_id = $_COOKIE['vendor_id'];
     }
+
+    $Product_insert_Date = date('d-m-Y');
+
+    $full_name = mysqli_real_escape_string($con, $_POST['full_name']);
+    $Company_name = mysqli_real_escape_string($con, $_POST['Company_name']);
+    $Category = mysqli_real_escape_string($con, $_POST['Category']);
+    $type = mysqli_real_escape_string($con, $_POST['type']);
+    $your_price = mysqli_real_escape_string($con, $_POST['your_price']);
+    $MRP = mysqli_real_escape_string($con, $_POST['MRP']);
+    $quantity = mysqli_real_escape_string($con, $_POST['quantity']);
+    $condition = mysqli_real_escape_string($con, $_POST['condition']);
+    $description = mysqli_real_escape_string($con, $_POST['description']);
+
+    $keyword = $_POST['keyword'];
+    $color = $_POST['color'];
+    $size = $_POST['size'];
+
+    foreach ($keyword as $key) {
+        $key = $_POST['keyword'];
+    }
+
+    foreach ($color as $clr) {
+        $clr = $_POST['color'];
+    }
+
+    foreach ($size as $sz) {
+        $sz = $_POST['size'];
+    }
+
+
+    $key_value = implode(',', $key);
+    $color_value = implode(',', $clr);
+    $size_value = implode(',', $sz);
+
+    $product_update = "UPDATE products SET title='$full_name',company_name='$Company_name',Category='$Category',Type='$type',Your_Price='$your_price',MRP='$MRP',Quantity='$quantity',Item_Condition='$condition',Description='$description',color='$color_value',size='$size_value',keywords='$key_value' WHERE product_id = '$product_id'";
+    $product_query = mysqli_query($con, $product_update);
+    if ($product_query) {
+        echo '<script>displaySuccessMessage("Data update Successfully.");</script>';
+    } else {
+        echo '<script>displayErrorMessage("Data not update Properly.");</script>';
+    }
+}
 ?>
