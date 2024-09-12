@@ -62,14 +62,6 @@ if (isset($_GET['name'])) {
                                     <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
                                 </div>
 
-                                <div class="md:col-span-2">
-                                    <label for="your_price">Your Price</label>
-                                    <div class="relative">
-                                        <input type="text" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10" value="" placeholder="" />
-                                        <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
-                                    </div>
-                                </div>
-
                                 <div class="md:col-span-3">
                                     <label for="MRP">MRP</label>
                                     <div class="relative">
@@ -77,7 +69,15 @@ if (isset($_GET['name'])) {
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
-
+                                
+                                <div class="md:col-span-2">
+                                    <label for="your_price">Your Price</label>
+                                    <div class="relative">
+                                        <input type="text" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10" value="" placeholder="" />
+                                        <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
+                                    </div>
+                                </div>
+                                
                                 <div class="md:col-span-3">
                                     <label for="quantity">Quantity</label>
                                     <input type="text" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
@@ -109,9 +109,20 @@ if (isset($_GET['name'])) {
                                 <div class="md:col-span-5 mt-5">
                                     <label for="color">Color:</label>
                                     <div class="flex items-center gap-1 flex-wrap mt-2" id="input-container">
-                                        <div class="flex items-center mb-2 pl-1 rounded-sm border p-1">
-                                            <input type="color" name="color[]" class="w-20 h-8">
-                                        </div>
+                                        <input list="colors" id="colorInput" name="color" placeholder="Type a color..." class="relative h-10 border rounded px-4 w-full bg-gray-50" autocomplete="off">
+                                        <datalist id="colors" class="h-20">
+                                            <option value="Red">
+                                            <option value="Green">
+                                            <option value="Blue">
+                                            <option value="Yellow">
+                                            <option value="Pink">
+                                            <option value="Purple">
+                                            <option value="Orange">
+                                            <option value="Brown">
+                                            <option value="Black">
+                                            <option value="White">
+                                            <option value="Gray">
+                                        </datalist>
                                     </div>
                                     <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-input">Add More Colors</button>
                                 </div>
@@ -634,6 +645,7 @@ if (isset($_GET['name'])) {
         </div>
     </div>
 
+
     <!-- success Message -->
     <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
         <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -700,11 +712,6 @@ if (isset($_POST['submitBtn'])) {
     }
     $keywords_value = implode(', ', $kwrd);
 
-    $clr = [];
-    foreach ($color as $clr) {
-        $clr = $_POST['color'];
-    }
-    $color_value = implode(', ', $clr);
 
     if (isset($_POST['size'])) {
         $sz = [];
@@ -779,8 +786,27 @@ if (isset($_POST['submitBtn'])) {
     $CoverImage3 = $_FILES['CoverImage3']['error'] === UPLOAD_ERR_OK ? $CoverImage3 : '';
     $CoverImage4 = $_FILES['CoverImage4']['error'] === UPLOAD_ERR_OK ? $CoverImage4 : '';
 
+    $color_img = [
+        $color => [
+            'img1' => $ProfileImage1,
+            'img2' => $ProfileImage2,
+            'img3' => $ProfileImage3,
+            'img4' => $ProfileImage4
+        ],
+    ];
+
+    $color_img_json = json_encode($color_img);
+
+    $product_titles = [
+        $color => [
+            'product_name' => $full_name
+        ],
+    ];
+
+    $product_titles_json = json_encode($product_titles);
+
     if ($allFilesUploaded) {
-        $product_insert = "INSERT INTO products(vendor_id, title, image_1, image_2, image_3, image_4, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, Your_Price, MRP, Quantity, Item_Condition, Description, color, size, keywords, date) VALUES ('$vendor_id','$full_name','$ProfileImage1','$ProfileImage2','$ProfileImage3','$ProfileImage4','$CoverImage1','$CoverImage2','$CoverImage3','$CoverImage4','$Company_name','$Category','$type','$your_price','$MRP','$quantity','$condition','$description','$color_value','$size_value','$keywords_value','$Product_insert_Date')";
+        $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, Your_Price, MRP, Quantity, Item_Condition, Description, color, size, keywords, date) VALUES ('$vendor_id','$product_titles_json','$color_img_json','$CoverImage1','$CoverImage2','$CoverImage3','$CoverImage4','$Company_name','$Category','$type','$your_price','$MRP','$quantity','$condition','$description','$color','$size_value','$keywords_value','$Product_insert_Date')";
         $product_query = mysqli_query($con, $product_insert);
         if ($product_query) {
             echo '<script>displaySuccessMessage("Data Inserted.");</script>';

@@ -1,13 +1,33 @@
 <?php
     include "../include/connect.php";
 
-    if(isset($_GET['product_id'])){
+    if(isset($_GET['product_id'])) {
         $product_id = $_GET['product_id'];
         
-        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
+        $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
         
         $row = mysqli_fetch_assoc($product_query);
+
+        $json_img = $row['image'];
+
+        $decodeImg = json_decode($json_img, true);
+
+        $color_of_image = $_GET['color'];
+
+        foreach($decodeImg as $key => $value){
+            $first_color_img = $key;
+            if($first_color_img == $color_of_image){
+                break;
+            }
+        }
+
+        $first_img = isset($decodeImg[$first_color_img]) ? $decodeImg[$first_color_img] : '';
+
+        $first_images = $first_img['img1'];
+
+        // title 
+        $title = $_GET['title'];
     }
 
     if(isset($_COOKIE['user_id'])){
@@ -19,6 +39,7 @@
 
         $userFirstName = $fetchUser['first_name'];
         $userLastName = $fetchUser['last_name'];
+        $userprofileImage = $fetchUser['profile_image'];
     }
 ?>
 <!DOCTYPE html>
@@ -53,8 +74,8 @@
         <div class="grid grid-col-1 gap-y-4">
             <h2 class="font-bold text-2xl text-black">Create Review</h2>
             <div class="flex flex-col item-center justify-start gap-2 md:flex-row">
-                <img class="w-20 h-auto" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $row['image_1'] : '../src/sample_images/product_1.jpg'?>" alt="">
-                <span class="text-xl font-medium line-clamp-1 my-auto h-7 cursor-default" title="<?php echo isset($product_id) ? $row['title'] : 'product_title'?>"><?php echo isset($product_id) ? $row['title'] : 'product_title'?></span>
+                <img class="w-20 h-auto" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $first_images : '../src/sample_images/product_1.jpg'?>" alt="">
+                <span class="text-xl font-medium line-clamp-1 my-auto h-7 cursor-default" title="<?php echo isset($product_id) ? $title : 'product_title'?>"><?php echo isset($product_id) ? $title : 'product_title'?></span>
             </div>
         </div>
         <hr class="my-5">
@@ -89,7 +110,7 @@
                 <div class="public_Name">
                     <p class="cursor-default font-semibold text-2xl">Choose your public name</p>
                     <div class="flex item-center justify-center m-auto gap-2">
-                        <img class="w-12 h-12 mt-2" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                        <img class="w-12 h-12 mt-2 rounded-full object-cover" src="<?php echo '../src/user_dp/' . $userprofileImage?>" alt="">
                         <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-black focus:ring-0 mt-2" type="text" id="public_Name" name="public_Name" value="<?php echo isset($_COOKIE['user_id']) ? $userFirstName . ' ' . $userLastName : 'user Name'?>" required>
                     </div>
                 </div>
@@ -136,7 +157,7 @@
             $selectedStars = $_POST['stars'];
             $starString = implode(", ", $selectedStars);
 
-            $insertReview = "INSERT INTO user_review(product_id, user_id, Rating, Headline, description, public_name, date) VALUES ('$product_id','$userId','$starString','$headline','$description','$public_Name', '$review_insert_Date')";
+            $insertReview = "INSERT INTO user_review(product_id, user_id, Rating, Headline, description, public_name, profile_image, date) VALUES ('$product_id','$userId','$starString','$headline','$description','$public_Name','$userprofileImage','$review_insert_Date')";
             $review_query = mysqli_query($con, $insertReview);
 
             if($review_query){

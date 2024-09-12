@@ -13,12 +13,15 @@
                     $cart_products_id = $Cproducts['cart_id'];
                     $cart_products_image = $Cproducts['cart_image'];
                     $cart_products_title = $Cproducts['cart_title'];
-                    $cart_products_price = $Cproducts['cart_price'];
+                    $cart_products_price = $Cproducts['cart_price_per_unit'];
+                    $cart_products_color = $Cproducts['cart_color'];
+                    $cart_products_size = $Cproducts['cart_size'];
+                    $cart_products_qty = $Cproducts['cart_qty'];
                 }
             }
         }
 
-        $product_find = "SELECT * FROM products WHERE product_id = '$cart_products_id'";
+        $product_find = "SELECT * FROM items WHERE product_id = '$cart_products_id'";
         $product_query = mysqli_query($con,$product_find);
 
         $row = mysqli_fetch_assoc($product_query);
@@ -84,22 +87,17 @@
                             $cookie_value = $_COOKIE['Cart_products'];
                 
                             $cart_products = json_decode($cookie_value, true);
-                            $cart_products_ids = [];
-
-                            // for the color or size
-                            // $crl_array = [];
-                            // $sz = [];
 
                             if (!empty($cart_products) && is_array($cart_products)) {
                                 foreach($cart_products as $index => $Cproducts){
                                     $cart_products_id = $Cproducts['cart_id'];
                                     $cart_products_image = $Cproducts['cart_image'];
                                     $cart_products_title = $Cproducts['cart_title'];
-                                    $cart_products_price = $Cproducts['cart_price'];
+                                    $cart_products_price = $Cproducts['cart_price_per_unit'];
                                     $cart_products_color = $Cproducts['cart_color'];
                                     $cart_products_size = $Cproducts['cart_size'];
 
-                                    $product_quantity = isset($quantityMap[$index]) ? $quantityMap[$index] : 'N/A'; // Get the quantity for the product
+                                    $product_quantity = isset($quantityMap[$index]) ? $quantityMap[$index] : 'N/A';
                                     $cart_price = str_replace(',', '', $cart_products_price);
 
                                     $total_price = (int)$product_quantity * (int)$cart_price;
@@ -113,19 +111,11 @@
                                                     <div class="flex item-center justify-between">
                                                         <div class="flex item-center gap-1">
                                                             <span class="text-lg font-semibold">Color:</span>
-                                                            <div class="h-4 w-8 my-auto border" style="background-color: <?php echo isset($myCookie) ? htmlspecialchars($cart_products_color) : 'product color' ?>"></div>
+                                                            <div class="my-auto"><?php echo isset($myCookie) ? htmlspecialchars($cart_products_color) : 'product color' ?></div>
                                                         </div>
                                                         <div class="flex item-center gap-1">
-                                                            <?php
-                                                                if(isset($size) == null){
-                                                                    echo "";
-                                                                }else{
-                                                                    ?>
-                                                                        <span class="text-lg font-semibold">Size:</span>
-                                                                        <p class="my-auto"><?php echo isset($myCookie) ? $cart_products_size : 'product Size' ?></p>
-                                                                    <?php
-                                                                }
-                                                            ?>
+                                                            <span class="text-lg font-semibold">Size:</span>
+                                                            <p class="my-auto"><?php echo isset($myCookie) ? $cart_products_size : 'product Size' ?></p>
                                                         </div>
                                                     </div>
                                                     <div class="flex item-center gap-1">
@@ -231,12 +221,10 @@
                                     $products_price = explode(",", $product_mrp);
 
                                     $productPrice = implode("", $products_price);
+
+                                    $total = $totalPrice + $shipping;
                                                             
-                                    $totalPriceWithQty = $productPrice * $product_quantity;
-                                                                
-                                    $total = $totalPriceWithQty + $shipping;
-                                                            
-                                    $formattedTotalPriceWithQty = number_format($totalPriceWithQty, 0);
+                                    $formattedTotalPriceWithQty = number_format($totalPrice, 0);
                                     $formattedTotal = number_format($total, 0);
                                                                 
                                     echo $formattedTotal;
@@ -252,12 +240,10 @@
                                     $products_price = explode(",", $product_mrp);
 
                                     $productPrice = implode("", $products_price);
+
+                                    $total = $totalPrice + $shipping;
                                                             
-                                    $totalPriceWithQty = $productPrice * $product_quantity;
-                                                                
-                                    $total = $totalPriceWithQty + $shipping;
-                                                            
-                                    $formattedTotalPriceWithQty = number_format($totalPriceWithQty, 0);
+                                    $formattedTotalPriceWithQty = number_format($totalPrice, 0);
                                     $formattedTotal = number_format($total, 0);
                                                                 
                                     echo $formattedTotal;
@@ -282,19 +268,20 @@
 </html>
 
 <?php
+
     if(isset($_POST['placeOrder'])){
         if(isset($_COOKIE['Cart_products'])){
             $cookie_value = $_COOKIE['Cart_products'];
             $cart_products = json_decode($cookie_value, true);
             if (!empty($cart_products) && is_array($cart_products)) {
-                foreach($cart_products as $Cproducts){
+                foreach($cart_products as $index => $Cproducts){
                     // Escape special characters
                     $order_image = mysqli_real_escape_string($con, $Cproducts['cart_image']);
                     $order_title = mysqli_real_escape_string($con, $Cproducts['cart_title']);
                     $order_price = mysqli_real_escape_string($con, $Cproducts['cart_price']);
                     $order_color = mysqli_real_escape_string($con, $Cproducts['cart_color']);
                     $order_size = mysqli_real_escape_string($con, $Cproducts['cart_size']);
-                    $product_qty = $product_quantity;
+                    
     
                     $user_id = mysqli_real_escape_string($con, $_COOKIE['user_id']);
                     $product_id = mysqli_real_escape_string($con, $Cproducts['cart_id']);
@@ -334,23 +321,24 @@
                     $review_insert_Date = date('d-m-Y');
     
                     if(!empty($FirstName) && !empty($lastName) && !empty($Phone_number) && !empty($user_email) && !empty($Address) && !empty($state) && !empty($city) && !empty($pin) && !empty($paymentType)){
+                        
+                        // remove quantity of products
+                        $product_id = mysqli_real_escape_string($con, $Cproducts['cart_id']);
+                        
+                        $product_qty = $product_quantity = isset($quantityMap[$index]) ? $quantityMap[$index] : 'N/A';
+                        
+                        $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
+                        $get_qty_query = mysqli_query($con, $get_qty);
+                        
+                        $qty = mysqli_fetch_assoc($get_qty_query);
+                        $product_quty = $qty['Quantity'];
+                        $qty_replace = str_replace(",", "",$product_quty);
+                        $remove_quty = $qty_replace - $product_qty;
+
                         $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, status, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$status', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";                        
                         $order_insert_query = mysqli_query($con, $order_insert_sql);
 
-                        // remove quantity of products
-                        $products_id = $Cproducts['cart_id'];
-
-                        $get_qty = "SELECT * FROM products WHERE product_id = '$products_id'";
-                        $get_qty_query = mysqli_query($con, $get_qty);
-
-                        $qty = mysqli_fetch_assoc($get_qty_query);
-                        $product_quty = $qty['Quantity'];
-
-                        $qty_replace = str_replace(",", "",$product_quty);
-
-                        $remove_quty = $qty_replace - $product_qty;
-
-                        $update_qty = "UPDATE products SET Quantity='$remove_quty' WHERE product_id = '$products_id'";
+                        $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
                         $update_qty_quary = mysqli_query($con, $update_qty);
     
                         if(!$order_insert_query){
@@ -362,6 +350,10 @@
                         error_log("Missing fields in the order data.");
                     }
                 }
+
+                // remove cart_items
+                $cookie_name = 'Cart_products';
+                setcookie($cookie_name, '', time() - 3600);
 
                 // sending email
 
@@ -452,7 +444,6 @@
                 
                 // Success Message Outside the Loop
                 if(isset($order_insert_query) && isset($update_qty_quary)){
-
                     ?>
                         <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
                             <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">

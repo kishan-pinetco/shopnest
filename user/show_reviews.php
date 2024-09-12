@@ -163,7 +163,7 @@
                                             <a href="">
                                                 <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row">
                                                     <div class="flex item-center justify-center gap-3">
-                                                        <img class="w-12 h-12" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                                                        <img class="w-12 h-12" src="<?php echo $rev['profile_image']?>" alt="">
                                                         <div class="flex flex-col gap-0">
                                                             <h2 class="font-medium text-base text-neutral-800"><?php echo isset($_COOKIE['user_id']) ? $rev['public_name'] : 'public_name'?></span></h2>
                                                             <p class="font-medium text-sm text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $rev['date'] : 'date'?></p>

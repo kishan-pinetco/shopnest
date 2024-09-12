@@ -1,26 +1,28 @@
 <?php
     include "../include/connect.php";
 
-
     if(isset($_GET['product_id'])){
         $product_id = $_GET['product_id'];
-        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
+        $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
-        
-        $res = mysqli_fetch_assoc($product_query);
-        if($_GET['color'] == ''){
-            $product_colors[] = $res['color'];
-            foreach ($product_colors as $colors){
-                $color_array = explode(',', $colors);
-                
-                foreach($color_array as $clrs){
-                    $color = trim($clrs);
-                    break;
-                }
-            }
-        }else{
+
+        $pimg = '';
+
+        while($res = mysqli_fetch_assoc($product_query)){
             $color = $_GET['color'];
+             
+            $json_img = $res['image'];
+
+            $color_img = json_decode($json_img, true);
+
+            $product_imge = isset($color_img[$color]) ? $color_img[$color] :'';
+
+            $pimg = $product_imge['img1'];
         }
+
+        $title = $_GET['title'];
+
+        $color = $_GET['color'];
 
         if($_GET['size'] == ''){
             $size = '-';
@@ -30,7 +32,7 @@
 
         $qty = $_GET['qty'];
 
-        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
+        $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
         
         $row = mysqli_fetch_assoc($product_query);
@@ -96,14 +98,14 @@
                 <p class="text-gray-400">Check your items. And select a suitable shipping method.</p>
                 <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
                     <div class="flex flex-col rounded-lg bg-white sm:flex-row">
-                        <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $row['image_1'] : '../src/sample_images/product_1.jpg' ?>" alt="" />
+                        <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $pimg : '../src/sample_images/product_1.jpg' ?>" alt="" />
                         <div class="flex w-full flex-col px-4 py-4 gap-y-3">
-                            <span class="font-semibold line-clamp-2"><?php echo isset($product_id) ? $row['title'] : 'product title' ?></span>
+                            <span class="font-semibold line-clamp-2"><?php echo isset($product_id) ? $title : 'product title' ?></span>
                             <p class="text-lg font-semibold text-indigo-600">₹<?php echo isset($product_id) ? $totalPriceWithQty : 'MRP' ?></p>
                             <div class="flex item-center justify-between">
                                 <div class="flex item-center gap-1">
-                                    <span class="text-lg font-semibold">Color:</span>
-                                    <div class="h-4 w-8 my-auto border" style="background-color: <?php echo isset($product_id) ? htmlspecialchars($color) : 'product color' ?>"></div>
+                                    <h1 class="text-lg font-semibold">Color:</h1>
+                                    <span class="my-auto"><?php echo isset($product_id) ? $color : 'product color' ?></span>
                                 </div>
                                 <div class="flex item-center gap-1">
                                     <?php
@@ -202,7 +204,22 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
-                            <p class="font-semibold text-gray-900">₹<?php echo isset($product_id) ? ($totalPriceWithQty <= 599 ? $shipping = 40 : $shipping = 0) : $shipping = 0?></p>
+                            <p class="font-semibold text-gray-900">₹<?php
+                                if (isset($product_id)) {
+                                    $totalPriceWithQty = str_replace(',', '', $totalPriceWithQty);
+                                    $totalPriceWithQty = (int) $totalPriceWithQty;
+                                    if ($totalPriceWithQty <= 599) {
+                                        $shipping = 40;
+                                    } else {
+                                        $shipping = 0;
+                                    }
+                                } else {
+                                    $shipping = 0;
+                                }
+
+                                // Output the shipping value
+                                echo $shipping;
+                            ?></p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
@@ -263,8 +280,8 @@
 
 <?php
     if(isset($_POST['placeOrder'])){
-        $order_title = mysqli_real_escape_string($con, $row['title']);
-        $order_image = mysqli_real_escape_string($con, $row['image_1']);
+        $order_title = mysqli_real_escape_string($con, $title);
+        $order_image = mysqli_real_escape_string($con, $pimg);
         $order_price = mysqli_real_escape_string($con, $totalPriceWithQty);
         $order_color = mysqli_real_escape_string($con, $color);
         $order_size = mysqli_real_escape_string($con, $size);
@@ -303,22 +320,22 @@
         $review_insert_Date = date('d-m-Y');
 
         if(!empty($FirstName) && !empty($lastName) && !empty($Phone_number) && !empty($user_email) && !empty($Address) && !empty($state) && !empty($city) && !empty($pin) && !empty($paymentType)){
-            $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, status, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$status', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";                        
-            $order_insert_query = mysqli_query($con, $order_insert_sql);
-
+            
             // remove quantity of products
-
-            $get_qty = "SELECT * FROM products WHERE product_id = '$product_id'";
+            $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
             $get_qty_query = mysqli_query($con, $get_qty);
 
             $qty = mysqli_fetch_assoc($get_qty_query);
             $product_quty = $qty['Quantity'];
 
             $qty_replace = str_replace(",", "",$product_quty);
-
+            
             $remove_quty = $qty_replace - $product_qty;
+            
+            $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, status, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$status', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";                        
+            $order_insert_query = mysqli_query($con, $order_insert_sql);
 
-            $update_qty = "UPDATE products SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
+            $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
             $update_qty_quary = mysqli_query($con, $update_qty);
 
             if(!$order_insert_query){

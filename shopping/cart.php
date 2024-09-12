@@ -54,31 +54,35 @@
                                         $cart_products_image = $Cproducts['cart_image'];
                                         $cart_products_title = $Cproducts['cart_title'];
                                         $cart_products_price = $Cproducts['cart_price'];
+                                        $cart_price_per_unit = $Cproducts['cart_price_per_unit'];
+                                        $cart_products_color = $Cproducts['cart_color'];
+                                        $cart_products_size = $Cproducts['cart_size'];
+                                        $cart_products_qty = $Cproducts['cart_qty'];
 
-                                        if (!isset($_SESSION['quantity'][$cart_products_id])) {
-                                            $_SESSION['quantity'][$cart_products_id] = 1;
+                                        if (!isset($_SESSION['selected_qty'][$cart_products_id])) {
+                                            $_SESSION['selected_qty'][$cart_products_id] = (int)$cart_products_qty;
                                         }
-                                
-                                        if (isset($_POST['action']) && isset($_POST['product_id']) && $_POST['product_id'] == $cart_products_id) {
-                                            if ($_POST['action'] === 'increment') {
-                                                $_SESSION['quantity'][$cart_products_id]++;
-                                            } elseif ($_POST['action'] === 'decrement') {
-                                                if ($_SESSION['quantity'][$cart_products_id] > 1) {
-                                                    $_SESSION['quantity'][$cart_products_id]--;
-                                                }
+                                    
+                                        // Update quantity if form is submitted
+                                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                                            if (isset($_POST['qty']) && isset($_POST['cart_products_id'])) {
+                                                $submitted_product_id = (int)$_POST['cart_products_id'];
+                                                $qty = (int)$_POST['qty'];
+                                                $_SESSION['selected_qty'][$submitted_product_id] = $qty;
                                             }
                                         }
+                                        
+                                        
+                                        // Retrieve the selected value from session
+                                        $selected_qty = isset($_SESSION['selected_qty'][$cart_products_id]) ? $_SESSION['selected_qty'][$cart_products_id] : 1;
 
-                                        $quantities[] = $_SESSION['quantity'][$cart_products_id];
+                                        $quantities[] = $selected_qty;
+                                        $price = (float) $cart_price_per_unit;
+                                        $result = $selected_qty * $price;
 
-                                        $cart_price = str_replace(',', '', $cart_products_price);
-                                
-                                        $number = (int) $_SESSION['quantity'][$cart_products_id];
-                                        $price = (float) $cart_price;
-                                        $result = $number * $price;
-
+                                        // Update the total cart price
                                         $resultNumeric = intval($result);
-                                        $totalCartPrice += $resultNumeric;
+                                        $totalCartPrice = isset($totalCartPrice) ? $totalCartPrice + $resultNumeric : $resultNumeric;
 
                                         ?>
                                         <div class="rounded-lg bg-white p-4 shadow-md md:p-6">
@@ -89,23 +93,28 @@
 
                                                 <label for="counter-input" class="sr-only">Choose quantity:</label>
                                                 <div class="flex items-center justify-between md:order-3 md:justify-end">
-                                                    <form action="" method="post" class="flex items-center justify-center mb-4">
-                                                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($cart_products_id); ?>">
-                                                        <button type="submit" name="action" value="decrement" class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600">
-                                                            <svg class="h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" /></svg>
-                                                        </button>
-                                                        <input type="text" name="qty" id="count" class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium focus:outline-none focus:ring-0" value="<?php echo htmlspecialchars($number); ?>" readonly>
-                                                        <button type="submit" name="action" value="increment" class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600">
-                                                            <svg class="h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" /></svg>
-                                                        </button>
+                                                    <form method="post" action="">
+                                                        <select name="qty" id="qty_<?php echo $cart_products_id; ?>" class="border mt-1 rounded pr-9 pl-4 bg-gray-50" onchange="this.form.submit()">
+                                                            <?php
+                                                                for ($i = 1; $i <= 10; $i++) {
+                                                                    $selected = ($i == $selected_qty) ? 'selected' : '';
+                                                                    echo "<option value=\"$i\" $selected>$i</option>";
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                        <input type="hidden" name="cart_products_id" value="<?php echo $cart_products_id; ?>">
                                                     </form>
                                                     <div class="text-end md:order-4 md:w-32">
-                                                        <p class="text-base font-bold">₹<?php echo isset($_COOKIE['Cart_products']) ? number_format($number * $price) : ''?></p>
+                                                        <p class="text-base font-bold">₹<?php echo isset($_COOKIE['Cart_products']) ? number_format($selected_qty * $price) : ''?></p>
                                                     </div>
                                                 </div>
 
                                                 <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                                                    <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['Cart_products']) ? $cart_products_id : '' ?>" class="text-base font-medium hover:underline "><?php echo isset($_COOKIE['Cart_products']) ? $cart_products_title : ''?></a>
+                                                    <div class="flex flex-col gap-y-2">
+                                                        <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['Cart_products']) ? $cart_products_id : '' ?>" class="text-base font-medium hover:underline line-clamp-2"><?php echo isset($_COOKIE['Cart_products']) ? $cart_products_title : ''?></a>
+                                                        <h1>Color: <?php echo isset($_COOKIE['Cart_products']) ? $cart_products_color : '' ?></h1>
+                                                        <h1>Size: <?php echo isset($_COOKIE['Cart_products']) ? $cart_products_size : '' ?></h1>
+                                                    </div>
                                                     <div class="flex items-center gap-4">            
                                                         <div class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500 cursor-pointer">
                                                             <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" /></svg>
@@ -151,7 +160,7 @@
                             if(isset($_COOKIE['user_id'])){
                                 $color = 'color';
                                 $size = 'size';
-                                $url = 'checkout_from_cart.php?totalPrice=' . urlencode($totalCartPrice) . '&color=null' . $color .'&size=null' . $size .'&qty=' . urlencode($encode_josn);
+                                $url = 'checkout_from_cart.php?totalPrice=' . urlencode($totalCartPrice) .'&qty=' . urlencode($encode_josn);
                             }else{
                                 $url = '../authentication/user_auth/user_login.php';
                             }

@@ -120,7 +120,7 @@
 
                             include "../include/connect.php";
                             if(isset($_COOKIE['adminEmail'])){
-                                $product_find = "SELECT * FROM products";
+                                $product_find = "SELECT * FROM items";
                                 $product_query = mysqli_query($con,$product_find);
     
                                 while($res = mysqli_fetch_assoc($product_query)){
@@ -128,14 +128,40 @@
                                     $get_vendor = "SELECT * FROM `vendor_registration` WHERE vendor_id = '$vendor_id'";
                                     $vendor_query = mysqli_query($con, $get_vendor);
                                     $row = mysqli_fetch_assoc($vendor_query);
+
+                                    $json_img = $res['image'];
+
+                                    $decodeImg = json_decode($json_img, true);
+
+                                    foreach($decodeImg as $key => $value){
+                                        $first_color_img = $key;
+                                        break;
+                                    }
+
+                                    $first_img = isset($decodeImg[$first_color_img]) ? $decodeImg[$first_color_img] : '';
+
+                                    $first_images = $first_img['img1'];
+
+                                    // for the title
+                                    $json_title = $res['title'];
+                                    $decoded_title = json_decode($json_title, true);
+                                    $first_title = '';
+                                    foreach($decoded_title as $key => $title){
+                                        $first_title = $key;
+                                        break;
+                                    }
+
+                                    $first_name = isset($decoded_title[$first_title]) ? $decoded_title[$first_title] :'';
+                                    $first_titles = $first_name['product_name'];
+
                                     ?>
                                         <div class="bg-white rounded-lg shadow-sm overflow-hidden max-w-xs w-full">
                                             <div class="relative">
-                                                <img src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg'?>" alt="Product Image" class="w-full h-full object-cover">
+                                                <img src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $first_images : '../src/sample_images/product_1.jpg'?>" alt="Product Image" class="w-full h-full object-cover">
                                                 <span class="absolute top-2 right-2 bg-green-500 text-white text-xs font-semibold py-1 px-2 rounded-full"><?php echo isset($_COOKIE['adminEmail']) ? $res['Item_Condition'] : 'Item_Condition'?></span>
                                             </div>
                                             <div class="p-4">
-                                                <h2 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $res['title'] : 'title'?></h2>
+                                                <h2 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $first_titles : 'title'?></h2>
                                                 <a href="../vendor/vendor_store.php?vendor_id=<?php echo $res['vendor_id'] ?>" class="text-sm text-gray-600 mb-3">By <span class="font-bold text-base text-indigo-600"><?php echo isset($_COOKIE['adminEmail']) ? $row['username'] : 'username'?></span></a>
                                                 <div class="text-gray-600 text-sm mb-2 space-y-1">
                                                     <p>Company: <span class="font-medium"><?php echo isset($_COOKIE['adminEmail']) ? $res['company_name'] : 'company_name'?></span></p>

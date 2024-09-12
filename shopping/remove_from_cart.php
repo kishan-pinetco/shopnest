@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
     if(isset($_GET['product_id'])){
         $product_id = $_GET['product_id'];
 
@@ -16,6 +18,13 @@
             $update_cart = json_encode($cart_products);
 
             setcookie('Cart_products', $update_cart, time() +  (365 * 24 * 60 * 60), "/");
+
+            $product_id = (int)$_GET['product_id'];
+        
+            // Check if the product ID exists in the session before attempting to delete it
+            if (isset($_SESSION['selected_qty'][$product_id])) {
+                unset($_SESSION['selected_qty'][$product_id]); // Remove the specific product from the session
+            }
             
         ?>
             <!-- Tailwind Script  -->

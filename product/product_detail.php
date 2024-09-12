@@ -4,10 +4,154 @@
     if(isset($_GET['product_id'])){
         $product_id = $_GET['product_id'];
         
-        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
+        $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
         
         $res = mysqli_fetch_assoc($product_query);
+
+        $select = "SELECT * FROM items WHERE product_id = '$product_id'";
+        $query = mysqli_query($con, $select);
+
+        $first_img = '';
+
+        $first_img1 = '';
+        $first_img2 = '';
+        $first_img3 = '';
+        $first_img4 = '';
+
+        $Color_of_image = '';
+        $first_title = '';
+
+        while($row = mysqli_fetch_array($query)) {
+            
+            $json_img = $row["image"];
+
+            $color_img = json_decode($json_img, true);
+
+            foreach($color_img as $key => $value) {
+                $first_color = $key;
+                break;
+            }
+
+            $first_img = isset($color_img[$first_color]) ? $color_img[$first_color] : '';
+
+            $first_img1 = $first_img['img1'];
+            $first_img2 = $first_img['img2'];
+            $first_img3 = $first_img['img3'];
+            $first_img4 = $first_img['img4'];
+
+            $colors = $row['color'];
+
+            // for the title
+            $json_title = $row['title'];
+            $title_json = json_decode($json_title, true);
+
+            foreach($title_json as $key => $value) {
+                $first_color_title = $key;
+                break;
+            }
+
+            $first_name = isset($title_json[$first_color_title]) ? $title_json[$first_color_title] : ''; 
+            $first_title = $first_name['product_name'];
+
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST['colorName'])) {
+                $colorName = htmlspecialchars($_POST['colorName'], ENT_QUOTES, 'UTF-8');
+                
+                $first_img = isset($color_img[$colorName]) ? $color_img[$colorName] : '';
+                
+                $Color_of_image = $_POST['colorName'];
+
+                $first_img1 = $first_img['img1'];
+                $first_img2 = $first_img['img2'];
+                $first_img3 = $first_img['img3'];
+                $first_img4 = $first_img['img4'];
+
+                $first_name = isset($title_json[$colorName]) ? $title_json[$colorName] : ''; 
+                $first_title = $first_name['product_name'];
+            }
+        }
+
+        session_start();
+
+        $defaultColor = '';
+
+        foreach($color_img as $key => $value) {
+            $defaultColor = $key;
+            break;
+        }
+        
+        // for buy button
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['colorChoice'])) {
+                $_SESSION['selectedColors'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                $_SESSION['product_titles'] = $first_title;
+            } else {
+                if (!isset($_SESSION['selectedColors'])) {
+                    $_SESSION['selectedColors'] = $defaultColor;
+                    $_SESSION['product_titles'] = $first_title; 
+                }
+            }
+        
+            $selectedColor = $_SESSION['selectedColors'];
+            $product_first_name = $_SESSION['product_titles'];
+            
+            if (isset($_POST['buyBtn'])) {
+                $myColor = isset($_SESSION['selectedColors']) ? $_SESSION['selectedColors'] : $defaultColor;
+                $myTitle = isset($_SESSION['product_titles']) ? $_SESSION['product_titles'] : '';
+
+                $size = isset($_POST['size']) ? $_POST['size'] : null;
+                $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
+
+                if(isset($_COOKIE['user_id'])){
+                    $encoded_product_id = urlencode($product_id);
+                    $encoded_size = urlencode($size);
+                    $encoded_qty = urlencode($qty);
+
+                    ?>
+                        <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $size; ?>&qty=<?php echo $qty;?>'</script>
+                    <?php
+
+                }else{
+                    ?>
+                        <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
+                    <?php
+                }
+            }
+        }
+
+        // for add to cart
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['colorChoice'])) {
+                $_SESSION['selectedColor'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                $_SESSION['product_title'] = $first_title;
+            } else {
+                if (!isset($_SESSION['selectedColor'])) {
+                    $_SESSION['selectedColor'] = $defaultColor;
+                }
+            }
+        
+            $selectedColor = $_SESSION['selectedColor'];
+            
+            if (isset($_POST['AddtoCart'])) {
+                $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
+                $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : '';
+
+                $size = isset($_POST['size']) ? $_POST['size'] : null;
+                $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
+
+                $encoded_product_id = urlencode($product_id);
+                $encoded_size = urlencode($size);
+                $encoded_qty = urlencode($qty);
+
+                ?>
+                    <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script>
+                <?php
+            }
+        }
+
 
         $vendor_id = $res['vendor_id'];
 
@@ -21,6 +165,7 @@
         $rev = mysqli_fetch_assoc($review_query);
         $totalReviews = mysqli_num_rows($review_query);
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +190,7 @@
     <link rel="shortcut icon" href="../src/logo/favIcon.svg">
 
     <!-- title -->
-    <title><?php echo isset($_GET['product_id']) ? $res['title'] : 'Product Details' ?></title>
+    <title><?php echo isset($_GET['product_id']) ? $first_title : 'Product Details' ?></title>
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -88,32 +233,32 @@
             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2 w-auto h-auto md:h-96">
                 <div class="swiper-wrapper h-52 md:h-full">
                     <div class="swiper-slide w-auto h-auto">
-                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg' ?>" />
+                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img1 : '../src/sample_images/product_1.jpg' ?>" />
                     </div>
                     <div class="swiper-slide h-auto">
-                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_2'] : '../src/sample_images/product_2.jpg' ?>" />
+                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img2 : '../src/sample_images/product_2.jpg' ?>" />
                     </div>
                     <div class="swiper-slide h-auto">
-                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_3'] : '../src/sample_images/product_3.jpg' ?>" />
+                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img3 : '../src/sample_images/product_3.jpg' ?>" />
                     </div>
                     <div class="swiper-slide h-auto">
-                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_4'] : '../src/sample_images/product_4.jpg' ?>" />
+                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img4 : '../src/sample_images/product_4.jpg' ?>" />
                     </div>
                 </div>
             </div>
             <div thumbsSlider="" class="swiper mySwiper md:w-80 h-auto mt-6 px-2">
                 <div class="swiper-wrapper flex item-center justify-center">
                     <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_1'] : '../src/sample_images/product_1.jpg' ?>" />
+                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img1 : '../src/sample_images/product_1.jpg' ?>" />
                     </div>
                     <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_2'] : '../src/sample_images/product_2.jpg' ?>" />
+                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img2 : '../src/sample_images/product_2.jpg' ?>" />
                     </div>
                     <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_3'] : '../src/sample_images/product_3.jpg' ?>" />
+                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img3 : '../src/sample_images/product_3.jpg' ?>" />
                     </div>
                     <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $res['image_4'] : '../src/sample_images/product_4.jpg' ?>" />
+                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img4 : '../src/sample_images/product_4.jpg' ?>" />
                     </div>
                 </div>
             </div>
@@ -121,7 +266,7 @@
         <form action="" Method="post">
             <div class="flex flex-col gap-3 w-full mt-12 px-2">
                 <div class="flex flex-col gap-2">
-                    <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]"><?php echo isset($_GET['product_id']) ? $res['title'] : 'Product title' ?></h1>
+                    <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]"><?php echo isset($_GET['product_id']) ? $first_title : 'Product title' ?></h1>
                 </div>
                 <!-- vendor Store -->
                 <a href="../vendor/vendor_store.php?vendor_id=<?php echo $ven['vendor_id'];?>" class="text-lg text-indigo-600 font-bold hover:underline cursor-pointer max-w-max">Visit a <span><?php echo isset($product_id) ? $ven['username'] : 'vendor store Name';?></span> Store</a>
@@ -136,33 +281,22 @@
                 <!-- color -->
                 <div class="mt-3">
                     <h1 class="text-xl font-medium">Colors:</h1>
-                    <div class="flex item-center gap-4 mt-2" x-data="{ selectedColor: '' }">
-                        <?php
-                            if(isset($product_id)){
-                                $product_colors = [];
-                                $product_colors[] = $res['color'];
-                                foreach ($product_colors as $colors){
-                                    $color_array = explode(',', $colors);
-
-                                    $i = 0;
-                                    foreach($color_array as $color){
-                                        $clr = trim($color);
-                                        $unique_id = 'color-' . $i;
-                                        ?>
-                                            <div>
-                                                <label for="<?php echo $unique_id; ?>" @click="selectedColor = '<?php echo $clr?>'">
-                                                    <div :class="{'ring-2': selectedColor === '<?php echo $clr?>'}" class="h-7 w-7 rounded-full cursor-pointer border" style="background-color: <?php echo htmlspecialchars($clr) ?>;"></div>
-                                                </label>
-                                                <input type="radio" class="hidden" name="products_colors" value="<?php echo htmlspecialchars($clr)?>" id="<?php echo $unique_id; ?>">
-                                            </div>
-                                        <?php
-                                        $i++; 
-                                    }
-                                }
-                            }else{
-                                echo "Colors of products";
-                            }
-                        ?>
+                    <div class="flex item-center gap-4 mt-2">
+                    <?php
+                        $filter_pcolor = explode(',', $colors);
+                        foreach($filter_pcolor as $index => $pcolor){
+                           ?>
+                                <form method="post" action="" style="display: inline;">
+                                    <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
+                                    <button type="submit" style="display: none;"></button>
+                                    <label for="submit_<?php echo $index; ?>" class="border border-dotted flex items-center gap-2 py-1 px-3 border-black cursor-pointer hover:bg-indigo-200">
+                                        <h1 class="text-lg"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?></h1>
+                                    </label>
+                                    <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="this.form.submit();" style="display: none;">
+                                </form>
+                            <?php
+                        }
+                    ?>
                     </div>
                 </div>
                 <!-- size -->
@@ -228,38 +362,13 @@
                 </div>
                 <hr>
                 <div class="mt-4 flex flex-col gap-3 md:flex-row">
-                    <a href="../shopping/add_to_cart.php?product_id=<?php echo $product_id?>" class="text-sm font-medium text-white bg-indigo-600 px-12 py-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-200">Add To Cart</a>
+                    <input type="submit" name="AddtoCart" value="Add To Cart" class="text-sm font-medium text-white bg-indigo-600 px-12 py-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-200">
                     <input type="submit" name="buyBtn" value="Buy now" class="text-sm font-medium text-indigo-500 border-2 border-indigo-500 px-12 py-4 rounded-md text-center cursor-pointer">
                 </div>
             </div>
         </form>
 
-        <?php
-            if(isset($_POST['buyBtn'])){
-                $color = $_POST['products_colors'];
-                if(isset($size)){
-                    $size = $_POST['size'];
-                }else{
-                    $size = null;
-                }
-
-                $encoded_color = urlencode($color);
-                $encoded_size = urlencode($size);
-
-                $qty = $_POST['qty'];
-
-                if(isset($_COOKIE['user_id'])){
-                    ?>
-                        <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&color=<?php echo $encoded_color; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script>
-                    <?php
-                }else{
-                    ?>
-                        <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
-                    <?php
-                }
-                
-            }
-        ?>
+        
     </div>
 
     <!-- product Details -->
@@ -269,7 +378,7 @@
                 <h1 class="text-3xl font-semibold md:text-5xl"><?php echo isset($_GET['product_id']) ? $res['Type'] : 'Product Name' ?></h1>
                 <hr class="my-6">
                 <div class="">
-                    <span class="text-xl font-medium"><?php echo isset($_GET['product_id']) ? $res['title'] : 'Product Name' ?></span>
+                    <span class="text-xl font-medium"><?php echo isset($_GET['product_id']) ? $first_title : 'Product Name' ?></span>
                 </div>
                 <div class="grid grid-cols-1 mt-8 gap-2 md:grid-cols-1 m-auto">
                     <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_1'] : '../src/sample_images/cover_1.jpg' ?>" alt="">
@@ -361,7 +470,15 @@
                         <div class="flex flex-col gap-y-3">
                             <h1 class="text-lg font-medium">Review this product</h1>
                             <span class="text-sm font-normal">Share your thoughts with other customers</span>
-                            <a href="<?php echo isset($_COOKIE['user_id']) ? 'add_review.php?product_id=' . htmlspecialchars($product_id) : '../authentication/user_auth/user_login.php'; ?>" class="text-sm font-medium text-white text-center bg-indigo-600 py-4 hover:bg-indigo-700 transition duration-200">Write a review</a>
+
+                            <?php
+                                $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
+                                $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : '';
+                
+                                $encoded_product_id = urlencode($product_id);
+
+                            ?>
+                            <a href="add_review.php?product_id=<?php echo $product_id; ?>&title=<?php echo urlencode($myTitle); ?>&color=<?php echo urlencode($myColor); ?>" class="text-sm font-medium text-white text-center bg-indigo-600 py-4 hover:bg-indigo-700 transition duration-200">Write a review</a>
                         </div>
                     </div>
                 </div>
