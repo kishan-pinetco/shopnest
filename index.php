@@ -17,7 +17,7 @@ include "include/connect.php";
 
 function displayRandomProducts($con, $limit)
 {
-    $product_find = "SELECT * FROM products ORDER BY RAND() LIMIT $limit";
+    $product_find = "SELECT * FROM items ORDER BY RAND() LIMIT $limit";
     $product_query = mysqli_query($con, $product_find);
 
     if ($product_query) {
@@ -27,6 +27,7 @@ function displayRandomProducts($con, $limit)
             $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
             $review_query = mysqli_query($con, $get_reviews);
             $totalReviews = mysqli_num_rows($review_query);
+
 
             if ($totalRatings = mysqli_num_rows($review_query)) {
                 $sum = 0;
@@ -41,15 +42,50 @@ function displayRandomProducts($con, $limit)
                 $average = $sum / $count;
                 $formatted_average = number_format($average, 1);
             }
+
+            // for image
+            $json_img = $res['image'];
+            $decode_img = json_decode($json_img, true);
+
+            foreach ($decode_img as $key => $value) {
+                $first_color = $key;
+                break;
+            }
+
+            $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
+            $first_image = $first_photo['img1'];
+
+            // for the title
+            $json_title = $res['title'];
+            $decode_title = json_decode($json_title, true);
+
+            foreach ($decode_title as $key => $value) {
+                $first_color_title = $key;
+                break;
+            }
+
+            $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
+            $first_title = $first_image_title['product_name'];
+
+            // for qty
+            $qty = 1;
+
+            // for the size
+            $size = $res['size'];
+            $filter_size = explode(',', $size);
+            foreach ($filter_size as $product_size) {
+                $product_size;
+                break;
+            }
 ?>
 
-            <li class="splide__slide flex justify-center px-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+            <li class="splide__slide flex justify-center px-2">
                 <div class="card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl hover:ring-none w-64 overflow-hidden">
-                    <div class="p-2">
-                        <img src="<?php echo 'src/product_image/product_profile/' . $res['image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
+                    <div class="p-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                        <img src="<?php echo 'src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
                     </div>
-                    <div class="mt-2 space-y-3">
-                        <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $res['title'] ?></a>
+                    <div class="mt-2 space-y-3" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                        <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
                         <div class="flex justify-between px-2">
                             <p class="space-x-1">
                                 <span class="text-lg font-medium text-gray-900">₹<?php echo $res['MRP'] ?></span>
@@ -65,9 +101,9 @@ function displayRandomProducts($con, $limit)
                                 <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo $totalReviews ?>)</span>
                             </div>
                         </div>
-                        <div class="bg-gray-600 py-1.5 flex justify-center">
-                            <a href="../shopnest/shopping/add_to_cart.php?product_id=<?php echo $product_id ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                        </div>
+                    </div>
+                    <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
+                        <a href="shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                     </div>
                 </div>
             </li>
@@ -272,7 +308,7 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Timeless Elegance Awaits</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Discover the perfect watch to elevate your style and keep you on time.</p>
-                        <a href="pages/product_category.php?Category=Watch" class="bg-gray-700 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
+                        <a href="pages/product_category.php?Category=Watch" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
                     </div>
                 </div>
                 <div class="swiper-slide flex items-center justify-center">
@@ -280,7 +316,7 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Unleash Your Productivity</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Experience unparalleled performance and style with our cutting-edge laptops.</p>
-                        <a href="pages/product_category.php?Category=Laptops/MacBook" class="bg-gray-700 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
+                        <a href="pages/product_category.php?Category=Laptops/MacBook" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
 
                     </div>
                 </div>
@@ -289,7 +325,7 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Elevate Your Viewing Experience</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Immerse yourself in stunning clarity and vibrant colors with our latest TVs.</p>
-                        <a href="pages/product_category.php?Category=TV" class="bg-gray-700 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
+                        <a href="pages/product_category.php?Category=TV" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
 
                     </div>
                 </div>

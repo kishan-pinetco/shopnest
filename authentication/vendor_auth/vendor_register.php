@@ -237,16 +237,19 @@
 include "../../include/connect.php";
 
 if (isset($_POST['submitBtn'])) {
+    // Validate images
+    if (empty($_FILES['CoverImage']['name']) || empty($_FILES['ProfileImage']['name'])) {
+        echo '<script>displayErrorMessage("Error: Please select both cover and profile images.");</script>';
+        exit();
+    }
+
     $CoverImage = $_FILES['CoverImage']['name'];
     $tempname = $_FILES['CoverImage']['tmp_name'];
     $folder = '../../src/vendor_images/vendor_cover_image/' . $CoverImage;
 
-
     $ProfileImage = $_FILES['ProfileImage']['name'];
     $tempname2 = $_FILES['ProfileImage']['tmp_name'];
     $folder2 = '../../src/vendor_images/vendor_profile_image/' . $ProfileImage;
-
-
 
     $name = $_POST['name'];
     $email = $_POST['email'];
@@ -262,36 +265,42 @@ if (isset($_POST['submitBtn'])) {
     $password_pattern = "/^.{8,}$/";
     $username_pattern = "/^[a-zA-Z0-9_]{3,20}$/";
     $phone_pattern = "/^[6-9]\d{9}$/";
-    $gst_pattern = "/^[a-zA-Z0-9]{1,15}$/ ";
+    $gst_pattern = "/^[a-zA-Z0-9]{1,15}$/";
     $bio_pattern = "/^[\w\s.,!?'()-]{1,500}$/";
 
     if (!preg_match($name_pattern, $name)) {
         echo '<script>displayErrorMessage("Enter Valid Name");</script>';
+        exit();
     }
     if (!preg_match($email_pattern, $email)) {
         echo '<script>displayErrorMessage("Enter Valid Email");</script>';
+        exit();
     }
     if (!preg_match($password_pattern, $password)) {
         echo '<script>displayErrorMessage("Enter Valid password");</script>';
+        exit();
     }
     if (!preg_match($username_pattern, $username)) {
         echo '<script>displayErrorMessage("Enter Valid username");</script>';
+        exit();
     }
     if (!preg_match($phone_pattern, $phone)) {
         echo '<script>displayErrorMessage("Enter Valid phone");</script>';
+        exit();
     }
     if (!preg_match($gst_pattern, $gst)) {
-        echo '<script>displayErrorMessage("Enter Valid gst");</script>';
+        echo '<script>displayErrorMessage("Enter Valid GST");</script>';
+        exit();
     }
     if (!preg_match($bio_pattern, $bio)) {
-        echo '<script>displayErrorMessage("Enter Valid bio");</script>';
+        echo '<script>displayErrorMessage("Enter Valid Bio");</script>';
+        exit();
     }
 
-
-
-    // hash pass
+    // Hash password
     $pass = password_hash($password, PASSWORD_BCRYPT);
 
+    // Check if email already exists
     $email_check = "SELECT * FROM vendor_registration WHERE email = '$email'";
     $check_query = mysqli_query($con, $email_check);
 
@@ -299,13 +308,16 @@ if (isset($_POST['submitBtn'])) {
 
     if ($emailCount > 0) {
         echo '<script>displayErrorMessage("Email already Exists.");</script>';
-    } else if (move_uploaded_file($tempname, $folder) && move_uploaded_file($tempname2, $folder2)) {
+        exit();
+    }
+
+    // Move uploaded files
+    if (move_uploaded_file($tempname, $folder) && move_uploaded_file($tempname2, $folder2)) {
         $insert_data = "INSERT INTO vendor_registration(name, email, password, username, phone, Bio, GST, cover_image, dp_image, date) VALUES ('$name','$email','$pass','$username','$phone','$bio','$gst','$CoverImage','$ProfileImage','$Vendor_reg_date')";
         $insert_sql = mysqli_query($con, $insert_data);
 
         if ($insert_sql) {
 ?>
-
             <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
                 <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                     <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -313,7 +325,7 @@ if (isset($_POST['submitBtn'])) {
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                        <span class="font-medium">Inserted successful.</span>
+                        <span class="font-medium">Inserted successfully.</span>
                     </div>
                 </div>
             </div>
@@ -336,6 +348,7 @@ if (isset($_POST['submitBtn'])) {
         } else {
             echo '<script>displayErrorMessage("Insertion Failed.");</script>';
         }
+    } else {
+        echo '<script>displayErrorMessage("Error uploading files.");</script>';
     }
 }
-?>
