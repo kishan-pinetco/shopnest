@@ -50,7 +50,7 @@ if (isset($_COOKIE['user_id'])) {
                     <div>
                         <div class="flex items-center">
                             <p class="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200"> Qty: <span class="text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'qty' ?></span></p> 
-                            <p class="font-medium text-base leading-7 text-black">Price: <span class="text-indigo-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
+                            <p class="font-medium text-base leading-7 text-black">Price: <span class="text-gray-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@ if (isset($_COOKIE['user_id'])) {
                     </div>
                 </div>
                 <div class="submit mt-6">
-                    <input name="CancelProduct" class="rounded-md text-center bg-indigo-600 py-3 px-6 text-white hover:bg-indigo-700 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Cancel Order">
+                    <input name="CancelProduct" class="rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white hover:bg-gray-700 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Cancel Order">
                 </div>
             </div>
         </form>

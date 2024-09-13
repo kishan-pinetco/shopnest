@@ -127,7 +127,7 @@
 
                                 <div class="md:col-span-5 text-right mt-10">
                                     <div class="inline-flex items-end">
-                                        <input type="submit" value="Submit" name="submitBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-8 rounded cursor-pointer">
+                                        <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
                                     </div>
                                 </div>
                             </div>

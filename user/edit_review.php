@@ -24,6 +24,7 @@
 
         $userFirstName = $fetchUser['first_name'];
         $userLastName = $fetchUser['last_name'];
+        $userprofileImage = $fetchUser['profile_image'];
     }
 ?>
 <!DOCTYPE html>
@@ -94,12 +95,12 @@
                 <div class="public_Name">
                     <p class="cursor-default font-semibold text-2xl">Choose your public name</p>
                     <div class="flex item-center justify-center m-auto gap-2">
-                        <img class="w-12 h-12 mt-2" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                        <img class="w-12 h-12 mt-2 rounded-full object-cover" src="<?php echo '../src/user_dp/' . $userprofileImage?>" alt="">
                         <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-black focus:ring-0 mt-2" type="text" id="public_Name" name="public_Name" value="<?php echo isset($product_id) ? $rev['public_name'] : 'public_name'?>" required>
                     </div>
                 </div>
                 <div class="submit mt-6">
-                    <input name="updateReview" class="rounded-md text-center bg-indigo-600 py-3 px-6 text-white hover:bg-indigo-700 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Update">
+                    <input name="updateReview" class="rounded-tl-xl rounded-br-xl text-center font-medium bg-gray-600 py-3 px-6 text-white hover:bg-gray-700 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Update">
                 </div>
             </div>
         </form>

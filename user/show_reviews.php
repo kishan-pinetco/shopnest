@@ -106,7 +106,7 @@
             </div>
 
             <div class="flex flex-col flex-1">
-                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
+                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
                     <div class="flex items-center justify-between">
                         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -140,9 +140,9 @@
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
-                                <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
-                                <a href="show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Orders</a>
-                                <a href="user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                                <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                                <a href="show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Orders</a>
+                                <a href="user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -159,18 +159,18 @@
 
                                 while($rev = mysqli_fetch_assoc($retrive_reivew_query)){
                                     ?>
-                                        <div class="bg-white shadow-lg h-max p-3 rounded-md">
+                                        <div class="bg-white shadow-lg h-max rounded-tl-xl rounded-br-xl overflow-hidden">
                                             <a href="">
-                                                <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row">
+                                                <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row px-3 pt-3">
                                                     <div class="flex item-center justify-center gap-3">
-                                                        <img class="w-12 h-12" src="<?php echo $rev['profile_image']?>" alt="">
+                                                        <img class="w-12 h-12 rounded-full object-cover" src="<?php echo '../src/user_dp/' . $rev['profile_image']?>" alt="">
                                                         <div class="flex flex-col gap-0">
                                                             <h2 class="font-medium text-base text-neutral-800"><?php echo isset($_COOKIE['user_id']) ? $rev['public_name'] : 'public_name'?></span></h2>
                                                             <p class="font-medium text-sm text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $rev['date'] : 'date'?></p>
                                                         </div>
                                                     </div>
                                                     <div class="flex item-center gap-1">
-                                                        <span class="bg-indigo-500 rounded-md px-2 py-1 flex items-center gap-1">
+                                                        <span class="bg-gray-900 rounded-tl-lg rounded-br-lg px-2 py-0.5 flex items-center gap-1">
                                                             <h1 class="font-semibold text-base text-white"><?php echo isset($_COOKIE['user_id']) ? $rev['Rating'] : 'Rating'?></h1>
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                                                 <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
@@ -178,14 +178,14 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="mt-6">
-                                                    <h1 class="font-medium mb-3"><?php echo isset($_COOKIE['user_id']) ? $rev['Headline'] : 'Headline'?></h1>
-                                                    <p><?php echo isset($_COOKIE['user_id']) ? $rev['description'] : 'description'?></p>
+                                                <div class="mt-3 px-3 space-y-1">
+                                                    <h1 class="font-medium"><?php echo isset($_COOKIE['user_id']) ? $rev['Headline'] : 'Headline'?></h1>
+                                                    <p class="text-sm"><?php echo isset($_COOKIE['user_id']) ? $rev['description'] : 'description'?></p>
                                                 </div>
                                             </a> 
-                                            <div class="flex item-center justify-between mt-4">
-                                                <a href="edit_review.php?product_id=<?php echo $rev['product_id']?>" class="text-green-600 underline underline-offset-4">Edit</a>
-                                                <a href="delete_review.php?product_id=<?php echo $rev['product_id']?>" class="text-red-600 underline underline-offset-4">Delete</a>
+                                            <div class="flex item-center justify-between mt-4 bg-gray-600 px-3 py-2">
+                                                <a href="edit_review.php?product_id=<?php echo $rev['product_id']?>" class="text-green-600 bg-white border-2 border-gray-800 px-4 py-0.5 rounded-tl-lg rounded-br-lg">Edit</a>
+                                                <a href="delete_review.php?product_id=<?php echo $rev['product_id']?>" class="text-red-600 bg-white border-2 border-gray-800 px-4 py-0.5 rounded-tl-lg rounded-br-lg">Delete</a>
                                             </div>
                                         </div>
                                     <?php

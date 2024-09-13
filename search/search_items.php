@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $searchName;?></title>
 
-    <!-- Tailwind Script  -->
+    <!-- Tailw Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
     <!-- jQuery CDN -->
@@ -185,20 +185,20 @@
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:ml-10 mt-2 w-full p-5 z-40">
             <?php 
                 if ($selectedValue === 'High to Low') {
-                    $find_items = "SELECT * FROM products WHERE keywords LIKE '%$searchName%' ORDER BY MRP ASC";
+                    $find_items = "SELECT * FROM items WHERE keywords LIKE '%$searchName%' ORDER BY MRP ASC";
                 }elseif ($selectedValue === "Low to High") { 
-                    $find_items = "SELECT * FROM products WHERE keywords LIKE '%$searchName%' ORDER BY MRP DESC";
+                    $find_items = "SELECT * FROM items WHERE keywords LIKE '%$searchName%' ORDER BY MRP DESC";
                 }elseif ($selectedValue === 'Newest'){
-                    $find_items = "SELECT * FROM products WHERE keywords LIKE '%$searchName%'";
+                    $find_items = "SELECT * FROM items WHERE keywords LIKE '%$searchName%'";
                 }elseif ($selectedValue === 'Best Rating'){
                     $find_items = "SELECT p.*, AVG(r.Rating) AS AverageRating
-                        FROM products p
+                        FROM items p
                         LEFT JOIN user_review r ON p.product_id = r.product_id
                        WHERE p.keywords LIKE '%$searchName%'
                         GROUP BY p.product_id
                         ORDER BY AverageRating DESC";
                 }else{
-                    $find_items = "SELECT * FROM products WHERE keywords LIKE '%$searchName%'";
+                    $find_items = "SELECT * FROM items WHERE keywords LIKE '%$searchName%'";
                 }
                 $find_query = mysqli_query($con, $find_items);
 
@@ -223,28 +223,69 @@
                             $average = $sum / $count;
                             $formatted_average = number_format($average, 1);
                         }
+                        // for image
+                        $json_img = $item['image'];
+                        $decode_img = json_decode($json_img, true);
+            
+                        foreach ($decode_img as $key => $value) {
+                            $first_color = $key;
+                            break;
+                        }
+            
+                        $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
+                        $first_image = $first_photo['img1'];
+            
+                        // for the title
+                        $json_title = $item['title'];
+                        $decode_title = json_decode($json_title, true);
+            
+                        foreach ($decode_title as $key => $value) {
+                            $first_color_title = $key;
+                            break;
+                        }
+            
+                        $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
+                        $first_title = $first_image_title['product_name'];
+            
+                        // for qty
+                        $qty = 1;
+            
+                        // for the size
+                        $size = $item['size'];
+                        $filter_size = explode(',', $size);
+                        foreach ($filter_size as $product_size) {
+                            $product_size;
+                            break;
+                        }
                         ?>
-                            <div class="p-3 border rounded-lg h-fit hover:shadow-xl transition cursor-pointer" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $item['product_id']; ?>'">
-                                <div>
-                                    <img src="<?php echo '../src/product_image/product_profile/' . $item['image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-56 object-cover m-auto" loading="lazy" sizes="">
-                                </div>
-                                <div class="mt-2 translate-x-2">
-                                    <a href="../product/product_detail.php?product_id=<?php echo $item['product_id'] ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo $item['title'] ?></a>
-                                    <p class="space-x-2">
-                                        <span class="text-lg font-medium text-indigo-500">₹<?php echo $item['MRP'] ?></span>
-                                        <del class="text-xs font-normal">₹<?php echo $item['Your_Price'] ?></del>
-                                    </p>
-                                    <div class="flex items-center mt-3">
-                                        <span class="bg-indigo-400 rounded-md px-2 py-0.5 flex items-center gap-1">
-                                            <h1 class="font-semibold text-base text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
-                                                <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                            </svg>
-                                        </span>
-                                        <span class="text-sm ml-2 mt-0.5">(<?php echo $totalReviews ?>) Peoples</span>
+                            <li class="splide__slide flex justify-center px-2">
+                                <div class="card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl hover:ring-none w-64 overflow-hidden">
+                                    <div class="p-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $item['product_id']; ?>'">
+                                        <img src="<?php echo '../src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
+                                    </div>
+                                    <div class="mt-2 space-y-3" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $item['product_id']; ?>'">
+                                        <a href="product/product_detail.php?product_id=<?php echo $item['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
+                                        <div class="flex justify-between px-2">
+                                            <p class="space-x-1">
+                                                <span class="text-lg font-medium text-gray-900">₹<?php echo $item['MRP'] ?></span>
+                                                <del class="text-xs font-medium">₹<?php echo $item['Your_Price'] ?></del>
+                                            </p>
+                                            <div class="flex items-center">
+                                                <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                                    <h1 class="font-semibold text-xs text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                                        <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                                    </svg>
+                                                </span>
+                                                <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo $totalReviews ?>)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
+                                        <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                                     </div>
                                 </div>
-                            </div>
+                            </li>
                         <?php
                     }
                 }else{

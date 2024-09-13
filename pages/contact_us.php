@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-gray-200 rounded-md w-full md:w-[80%] m-auto py-12 px-5 md:px-12">
+        <div class="bg-gray-200 rounded-xl w-full md:w-[80%] m-auto py-12 px-5 md:px-12">
             <div class="text-center mb-5">
                 <h2 class="text-3xl font-medium">Contact Form</h2>
                 <p class="text-lg font-medium mt-2">We look forward to hearing from you and will try to respond within three days.</p>
@@ -99,10 +99,10 @@
                 <div>
                     <div class="flex flex-col gap-1 mt-4">
                         <label for="message" class="text-sm font-medium">Message</label>
-                        <textarea name="sub" id="message" rows="5" class="border-none w-full focus:border-0 focus:ring-0 rounded-md" placeholder="Can You Provide Some More Details?"></textarea>
+                        <textarea name="sub" id="message" rows="5" class="border-none w-full focus:border-0 focus:ring-0 rounded-md resize-none" placeholder="Can You Provide Some More Details?"></textarea>
                     </div>
                 </div>
-                <input type="submit" value="Get In Touch" class="text-sm font-medium text-center w-full bg-indigo-600 text-white mt-5 py-5 cursor-pointer hover:bg-indigo-700">
+                <input type="submit" value="Get In Touch" class=" font-medium text-center rounded-tl-xl rounded-br-xl w-full bg-gray-700 text-white mt-5 py-4 cursor-pointer hover:bg-gray-800">
             </form>
         </div>
     </div>
@@ -112,5 +112,7 @@
     <?php
         include "_footer.php";
     ?>
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 </html>

@@ -108,7 +108,7 @@
             </div>
 
             <div class="flex flex-col flex-1">
-                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
+                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
                     <div class="flex items-center justify-between">
                         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,9 +142,9 @@
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
-                                <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
-                                <a href="show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Orders</a>
-                                <a href="user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                                <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                                <a href="show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Orders</a>
+                                <a href="user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                                                                 </a>
                                                                 <div class="flex items-center">
                                                                     <p class="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200"> Qty: <span class="text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'product quantity' ?></span></p>
-                                                                    <p class="font-medium text-base leading-7 text-black">Price: <span class="text-indigo-600">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'product total_price' ?></span></p>
+                                                                    <p class="font-medium text-base leading-7 text-black">Price: <span class="text-gray-600">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'product total_price' ?></span></p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -186,21 +186,21 @@
                                                             <div class="col-span-5 lg:col-span-3 flex items-center max-lg:mt-3 ">
                                                                 <div class="flex gap-3 text-center lg:block">
                                                                     <p class="font-medium text-sm leading-7 text-black">Status</p>
-                                                                    <?php
-                                                                        if($res['status'] === 'Ready For Delivery'){
+                                                                        <?php
+                                                                           if($res['status'] === 'Ready For Delivery'){
                                                                             ?>
-                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-emerald-600">Ready for Delivery</p>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-emerald-100 text-emerald-600">Ready for Delivery</p>
                                                                             <?php
                                                                         }else if($res['status'] === 'Delivered'){
                                                                             ?>
-                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-indigo-600">Delivered</p>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-indigo-100 text-indigo-600">Delivered</p>
                                                                             <?php
                                                                         }else if($res['status'] === 'Cancle'){
                                                                             ?>
-                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-full lg:mt-3 bg-emerald-50 text-red-600">Cancle</p>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-red-100 text-red-600">Cancle</p>
                                                                             <?php
                                                                         }
-                                                                        ?>
+                                                                    ?>
                                                                 </div>
                                                             </div>
                                                             <div class="col-span-5 lg:col-span-2 flex items-center max-lg:mt-3">

@@ -107,7 +107,7 @@
                                                 <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($myCookie) ? '../src/product_image/product_profile/' . $cart_products_image : '../src/sample_images/product_1.jpg' ?>" alt="" />
                                                 <div class="flex w-full flex-col px-4 py-4 gap-y-3">
                                                     <span class="font-semibold line-clamp-2"><?php echo isset($myCookie) ? $cart_products_title : 'product title' ?></span>
-                                                    <p class="text-lg font-semibold text-indigo-600">₹<?php echo isset($myCookie) ? number_format($total_price) : 'MRP' ?></p>
+                                                    <p class="text-lg font-semibold text-gray-600">₹<?php echo isset($myCookie) ? number_format($total_price) : 'MRP' ?></p>
                                                     <div class="flex item-center justify-between">
                                                         <div class="flex item-center gap-1">
                                                             <span class="text-lg font-semibold">Color:</span>
@@ -253,7 +253,7 @@
                             ?>" dir="rtl">
                     </div>
                 </div>
-                <input type="submit" name="placeOrder" value="Place Order" class="mt-4 mb-8 w-full rounded-md bg-indigo-600 px-6 py-3 font-medium text-white cursor-pointer hover:bg-indigo-700 transition duration-200">
+                <input type="submit" name="placeOrder" value="Place Order" class="mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white cursor-pointer hover:bg-gray-800 transition duration-200">
             </div>
         </div>
     </form>

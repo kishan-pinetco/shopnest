@@ -103,7 +103,7 @@ if (isset($_GET['name'])) {
                                             <input type="text" name="keyword[]" placeholder="Enter keyword" class="relative h-10 border rounded px-4 w-full bg-gray-50">
                                         </div>
                                     </div>
-                                    <button id="add-keyword" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2">Add More Keyword</button>
+                                    <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Keyword</button>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
@@ -124,7 +124,6 @@ if (isset($_GET['name'])) {
                                             <option value="Gray">
                                         </datalist>
                                     </div>
-                                    <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-input">Add More Colors</button>
                                 </div>
 
 
@@ -148,7 +147,7 @@ if (isset($_GET['name'])) {
                                                     <option value="16GB-512GB">16 GB RAM, 512 GB ROM</option>
                                                 </select>
                                             </div>
-                                            <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                            <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-size">Add More Size</button>
                                             <script>
                                                 document.getElementById('add-size').addEventListener('click', function() {
                                                     var sizeContainer = document.getElementById('size_container');
@@ -226,7 +225,7 @@ if (isset($_GET['name'])) {
                                                     <option value="XXL">XXL</option>
                                                 </select>
                                             </div>
-                                            <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                            <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-size">Add More Size</button>
                                             <script>
                                                 document.getElementById('add-size').addEventListener('click', function() {
                                                     var sizeContainer = document.getElementById('size_container');
@@ -294,7 +293,7 @@ if (isset($_GET['name'])) {
                                                     <option value="64GB-2TB">64 GB RAM, 2 TB SSD</option>
                                                 </select>
                                             </div>
-                                            <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                            <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-size">Add More Size</button>
                                             <script>
                                                 document.getElementById('add-size').addEventListener('click', function() {
                                                     var sizeContainer = document.getElementById('size_container');
@@ -371,7 +370,7 @@ if (isset($_GET['name'])) {
                                                     <option value="2GB-512GB">12 GB RAM, 512 GB Storage</option>
                                                 </select>
                                             </div>
-                                            <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                            <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-size">Add More Size</button>
                                             <script>
                                                 document.getElementById('add-size').addEventListener('click', function() {
                                                     var sizeContainer = document.getElementById('size_container');
@@ -448,7 +447,7 @@ if (isset($_GET['name'])) {
                                                     <option value="10 UK">10 UK</option>
                                                 </select>
                                             </div>
-                                            <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                            <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-size">Add More Size</button>
                                             <script>
                                                 document.getElementById('add-size').addEventListener('click', function() {
                                                     var sizeContainer = document.getElementById('size_container');
@@ -634,7 +633,7 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-5 text-right mt-7">
                                     <div class="inline-flex items-end">
-                                        <input type="submit" value="Submit" name="submitBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-8 rounded cursor-pointer">
+                                        <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
                                     </div>
                                 </div>
                             </div>

@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div class="submit mt-6">
-                    <input name="submitReview" class="rounded-md text-center bg-indigo-600 py-3 px-6 text-white hover:bg-indigo-700 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Submit">
+                    <input name="submitReview" class="rounded-tl-xl rounded-br-xl text-center bg-gray-700 py-3 px-6 text-white hover:bg-gray-800 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Submit">
                 </div>
             </div>
         </form>

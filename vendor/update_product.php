@@ -183,7 +183,7 @@ if (isset($_GET['product_id'])) {
                                             ?>
                                         </div>
                                     </div>
-                                    <button id="add-keyword" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2">Add More Keyword</button>
+                                    <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Keyword</button>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
@@ -207,7 +207,7 @@ if (isset($_GET['product_id'])) {
                                         }
                                         ?>
                                     </div>
-                                    <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-input">Add More Colors</button>
+                                    <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-input">Add More Colors</button>
                                 </div>
 
 
@@ -222,7 +222,7 @@ if (isset($_GET['product_id'])) {
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
-                                    <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded mt-2" id="add-size">Add More Size</button>
+                                    <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-size">Add More Size</button>
                                     <script>
                                         document.getElementById('add-size').addEventListener('click', function() {
                                             var sizeContainer = document.getElementById('size_container');
@@ -247,7 +247,7 @@ if (isset($_GET['product_id'])) {
 
                                 <div class="md:col-span-5 text-right mt-7">
                                     <div class="inline-flex items-end">
-                                        <input type="submit" value="Update" name="updateBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-8 rounded cursor-pointer">
+                                        <input type="submit" value="Update" name="updateBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
                                     </div>
                                 </div>
                             </div>

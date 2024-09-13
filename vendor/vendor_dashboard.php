@@ -185,7 +185,7 @@ if (isset($_COOKIE['vendor_id'])) {
             </div>
 
             <div class="flex flex-col flex-1 overflow-hidden">
-                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
+                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
                     <div class="flex items-center">
                         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -206,9 +206,9 @@ if (isset($_COOKIE['vendor_id'])) {
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
-                                <a href="vendor_profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
-                                <a href="view_products.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
-                                <a href="vendor_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                                <a href="vendor_profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                                <a href="view_products.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Products</a>
+                                <a href="vendor_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -216,8 +216,8 @@ if (isset($_COOKIE['vendor_id'])) {
                 <main id="main" class="px-4 md:px-12 py-12 overflow-y-scroll overflow-hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
-                            <div class="bg-indigo-50 rounded-md max-w-max p-2">
-                                <svg class="w-8 h-8 fill-indigo-600" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 511.999 511.999" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                            <div class="bg-gray-50 rounded-md max-w-max p-2">
+                                <svg class="w-8 h-8 fill-gray-600" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 511.999 511.999" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                     <g>
                                         <path d="M508.745 246.041c-4.574-6.257-113.557-153.206-252.748-153.206S7.818 239.784 3.249 246.035a16.896 16.896 0 0 0 0 19.923c4.569 6.257 113.557 153.206 252.748 153.206s248.174-146.95 252.748-153.201a16.875 16.875 0 0 0 0-19.922zM255.997 385.406c-102.529 0-191.33-97.533-217.617-129.418 26.253-31.913 114.868-129.395 217.617-129.395 102.524 0 191.319 97.516 217.617 129.418-26.253 31.912-114.868 129.395-217.617 129.395z" fill="" opacity="1" data-original="#000000"></path>
                                         <path d="M255.997 154.725c-55.842 0-101.275 45.433-101.275 101.275s45.433 101.275 101.275 101.275S357.272 311.842 357.272 256s-45.433-101.275-101.275-101.275zm0 168.791c-37.23 0-67.516-30.287-67.516-67.516s30.287-67.516 67.516-67.516 67.516 30.287 67.516 67.516-30.286 67.516-67.516 67.516z" fill="" opacity="1" data-original="#000000"></path>
@@ -225,13 +225,13 @@ if (isset($_COOKIE['vendor_id'])) {
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold text-indigo-500"><?php echo isset($_COOKIE['vendor_id']) ? '₹' . number_format($totalSale) : '0' ?></h3>
+                                <h3 class="text-2xl font-bold text-gray-500"><?php echo isset($_COOKIE['vendor_id']) ? '₹' . number_format($totalSale) : '0' ?></h3>
                                 <span class="text-sm font-medium text-gray-500">Total Sale</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
-                            <div class="bg-indigo-50 rounded-md max-w-max p-2">
-                                <svg class="w-8 h-8 fill-indigo-600" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 511 511.999" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                            <div class="bg-gray-50 rounded-md max-w-max p-2">
+                                <svg class="w-8 h-8 fill-gray-600" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 511 511.999" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                     <g>
                                         <path d="M216.5 366c5.52 0 10-4.48 10-10s-4.48-10-10-10-10 4.48-10 10 4.48 10 10 10zm0 0" fill="" opacity="1" data-original="#000000"></path>
                                         <path d="m3.43 389.07 120 120a9.996 9.996 0 0 0 14.14 0l66-66a9.996 9.996 0 0 0 0-14.14l-2.93-2.93h144.15c12.66 0 24.741-4.746 34.058-13.395l121.316-113.699c11.613-10.785 15.461-27.918 9.57-42.629a38.492 38.492 0 0 0-23.851-22.355 38.492 38.492 0 0 0-32.453 3.957c-.063.039-26.934 17.672-26.934 17.672-.183-54.207-32.945-112.012-78.043-138.035a30.088 30.088 0 0 0 5.887-10.375c5.16-15.7-3.418-32.692-19.14-37.883-.493-.164-.985-.309-1.477-.461l25.742-46.242a9.989 9.989 0 0 0 .512-8.664 9.984 9.984 0 0 0-6.457-5.801C335.063 2.723 315.879 0 296.5 0c-19.375 0-38.562 2.723-57.02 8.086a9.997 9.997 0 0 0-5.945 14.469l25.742 46.242c-.5.156-1 .305-1.5.469-15.699 5.183-24.273 22.171-19.113 37.882a30.052 30.052 0 0 0 5.91 10.36C198.804 143.918 166.5 202.316 166.5 256c0 1.465.035 2.91.082 4.344-17.91 4.886-34.562 13.789-48.566 26.05l-30.391 26.59-4.055-4.054a9.996 9.996 0 0 0-14.14 0l-66 66a9.996 9.996 0 0 0 0 14.14zM257.332 24.184C270.145 21.402 283.27 20 296.5 20s26.355 1.402 39.172 4.184L313.387 64.21a121.925 121.925 0 0 0-33.77 0zm6.688 64.082c20.52-6.715 42.89-7.223 64.933-.008 5.246 1.73 8.11 7.402 6.387 12.637a9.94 9.94 0 0 1-8.887 6.855c-19.719-6.27-40.2-6.281-59.91-.02h-.004c-4.11-.257-7.598-2.945-8.879-6.832-1.723-5.242 1.14-10.914 6.36-12.632zm5.53 39.55c17.34-6.246 35.305-6.394 52.688-.421C368.7 143.37 406.5 201.063 406.5 256c0 4.656-.293 9.094-.871 13.242l-48.067 31.535C350.123 291.56 338.844 286 326.5 286h-20v-11.719c11.64-4.129 20-15.246 20-28.281 0-16.543-13.457-30-30-30-5.512 0-10-4.484-10-10s4.488-10 10-10c3.543 0 7.281 1.809 10.816 5.227 3.97 3.84 10.301 3.734 14.141-.23 3.84-3.97 3.734-10.302-.234-14.142-5.075-4.914-10.153-7.69-14.723-9.207V166c0-5.523-4.477-10-10-10s-10 4.477-10 10v11.719c-11.637 4.129-20 15.246-20 28.281 0 16.543 13.457 30 30 30 5.516 0 10 4.484 10 10s-4.484 10-10 10c-4.273 0-8.883-2.688-12.984-7.566-3.555-4.227-9.864-4.774-14.09-1.22-4.227 3.556-4.774 9.864-1.219 14.09 5.344 6.36 11.633 10.79 18.293 13.024V286h-3.328c-4.914 0-7.121-3.203-10.582-5.441-21.13-15.836-47.3-24.559-73.7-24.559-4.128 0-8.265.215-12.382.633 0-.211-.008-.418-.008-.633 0-54.168 37.258-111.668 83.05-128.184zM131.189 301.441C149.977 284.988 174.12 276 198.89 276c22.101 0 44.011 7.3 61.691 20.555 2.55 1.492 9.652 9.445 22.586 9.445H326.5c11.383 0 20 9.254 20 20 0 11.027-8.973 20-20 20h-70c-5.523 0-10 4.477-10 10s4.477 10 10 10h70c22.055 0 40-17.945 40-40 0-2.293-.203-4.555-.586-6.781l98.2-64.43a18.573 18.573 0 0 1 15.558-1.86 18.562 18.562 0 0 1 11.492 10.778c2.887 7.203 1.074 15.27-4.644 20.578L365.207 397.98a29.917 29.917 0 0 1-20.418 8.02H180.641l-78.84-78.844zm-54.688 28.7L182.36 436l-51.86 51.86L24.64 382zm0 0" fill="" opacity="1" data-original="#000000"></path>
@@ -244,21 +244,21 @@ if (isset($_COOKIE['vendor_id'])) {
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
-                            <div class="bg-indigo-50 rounded-md max-w-max p-2">
-                                <svg class="w-8 h-8 fill-indigo-600" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 96 96" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                            <div class="bg-gray-50 rounded-md max-w-max p-2">
+                                <svg class="w-8 h-8 fill-gray-600" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 96 96" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                     <g>
                                         <path d="m90.895 25.211-42-21a2.004 2.004 0 0 0-1.789 0l-42 21A2 2 0 0 0 4 27v42a2 2 0 0 0 1.105 1.789l42 21a1.998 1.998 0 0 0 1.79 0l42-21A2 2 0 0 0 92 69V27a2 2 0 0 0-1.105-1.789zM48 8.236 85.528 27 77.5 31.014 39.973 12.25zm13.5 30.778L23.972 20.25 35.5 14.486 73.028 33.25zm1.5 3.722 12-6v14.877l-3.838-2.741a2.006 2.006 0 0 0-1.506-.343 2.007 2.007 0 0 0-1.301.832L63 57.098zm-43.5-20.25L57.027 41.25 48 45.764 10.472 27zM8 30.236l38 19v37.527l-38-19zm42 56.528V49.236l9-4.5V63.5a2 2 0 0 0 3.645 1.139l7.845-11.331 5.349 3.82A1.997 1.997 0 0 0 79 55.5V34.736l9-4.5v37.527z" fill="" opacity="1" data-original="#000000"></path>
                                     </g>
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold text-indigo-950"><?php echo isset($_COOKIE['vendor_id']) ? $products : '0' ?></h3>
+                                <h3 class="text-2xl font-bold text-gray-950"><?php echo isset($_COOKIE['vendor_id']) ? $products : '0' ?></h3>
                                 <span class="text-sm font-medium text-gray-500">Total Product</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
-                            <div class="bg-indigo-50 rounded-md max-w-max p-2">
-                                <svg class="w-8 h-8 fill-indigo-600" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 438.891 438.891" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                            <div class="bg-gray-50 rounded-md max-w-max p-2">
+                                <svg class="w-8 h-8 fill-gray-600" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 438.891 438.891" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M347.968 57.503h-39.706V39.74c0-5.747-6.269-8.359-12.016-8.359h-30.824C258.108 10.483 239.822.034 218.924.034c-20.668-.777-39.467 11.896-46.498 31.347h-30.302c-5.747 0-11.494 2.612-11.494 8.359v17.763H90.923c-23.53.251-42.78 18.813-43.886 42.318v299.363c0 22.988 20.898 39.706 43.886 39.706h257.045c22.988 0 43.886-16.718 43.886-39.706V99.822c-1.106-23.506-20.356-42.068-43.886-42.319zm-196.441-5.224h28.735a11.496 11.496 0 0 0 9.927-9.404c3.094-13.474 14.915-23.146 28.735-23.51 13.692.415 25.335 10.117 28.212 23.51a11.494 11.494 0 0 0 10.449 9.404h29.78v41.796H151.527V52.279zm219.429 346.906c0 11.494-11.494 18.808-22.988 18.808H90.923c-11.494 0-22.988-7.314-22.988-18.808V99.822c1.066-11.964 10.978-21.201 22.988-21.42h39.706v26.645c.552 5.854 5.622 10.233 11.494 9.927h154.122a11.493 11.493 0 0 0 12.016-9.927V78.401h39.706c12.009.22 21.922 9.456 22.988 21.42v299.364z" fill="" opacity="1" data-original="#000000"></path>
                                         <path d="M179.217 233.569c-3.919-4.131-10.425-4.364-14.629-.522l-33.437 31.869-14.106-14.629c-3.919-4.131-10.425-4.363-14.629-.522a10.971 10.971 0 0 0 0 15.151l21.42 21.943a9.403 9.403 0 0 0 7.314 3.135 10.446 10.446 0 0 0 7.314-3.135l40.751-38.661c4.04-3.706 4.31-9.986.603-14.025a8.78 8.78 0 0 0-.601-.604zM329.16 256.034H208.997c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449H329.16c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM179.217 149.977c-3.919-4.131-10.425-4.364-14.629-.522l-33.437 31.869-14.106-14.629c-3.919-4.131-10.425-4.364-14.629-.522a10.971 10.971 0 0 0 0 15.151l21.42 21.943a9.403 9.403 0 0 0 7.314 3.135 10.446 10.446 0 0 0 7.314-3.135l40.751-38.661c4.04-3.706 4.31-9.986.603-14.025a8.78 8.78 0 0 0-.601-.604zM329.16 172.442H208.997c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449H329.16c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM179.217 317.16c-3.919-4.131-10.425-4.363-14.629-.522l-33.437 31.869-14.106-14.629c-3.919-4.131-10.425-4.363-14.629-.522a10.971 10.971 0 0 0 0 15.151l21.42 21.943a9.403 9.403 0 0 0 7.314 3.135 10.446 10.446 0 0 0 7.314-3.135l40.751-38.661c4.04-3.706 4.31-9.986.603-14.025a9.253 9.253 0 0 0-.601-.604zM329.16 339.626H208.997c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449H329.16c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449z" fill="" opacity="1" data-original="#000000"></path>
@@ -266,13 +266,13 @@ if (isset($_COOKIE['vendor_id'])) {
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold text-indigo-950"><?php echo isset($_COOKIE['vendor_id']) ? $order : '0' ?></h3>
+                                <h3 class="text-2xl font-bold text-gray-950"><?php echo isset($_COOKIE['vendor_id']) ? $order : '0' ?></h3>
                                 <span class="text-sm font-medium text-gray-500">Total Orders</span>
                             </div>
                         </div>
                     </div>
                     <div class="bg-white shadow-xl rounded-md px-4 py-3 mt-12">
-                        <h1 class="text-2xl font-bold text-indigo-950">Sales</h1>
+                        <h1 class="text-2xl font-bold text-gray-950">Sales</h1>
                         <div id="chart" style="height: 250px;"></div>
                         <script>
                             $(document).ready(function() {

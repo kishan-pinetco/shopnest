@@ -33,7 +33,7 @@
             <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"></div>
             <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0">
                 <div class="flex items-center justify-center mt-8">
-                   <a href="../index.php" class="p-2 flex items-center justify-center">
+                   <a href="" class="p-2 flex items-center justify-center">
             <!-- icon logo div -->
             <div>
                 <svg class="w-14 mb-2" id="svg" version="1.1" viewBox="0 0 235 245" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +88,7 @@
             </div>
 
             <div class="flex flex-col flex-1 overflow-hidden">
-                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
+                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
                     <div class="flex items-center">
                         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,9 +107,9 @@
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
-                                <a href="dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Dashboard</a>
-                                <a href="view_product.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
-                                <a href="logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                                <a href="dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Dashboard</a>
+                                <a href="view_product.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Products</a>
+                                <a href="logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -158,11 +158,11 @@
                                         <div class="bg-white rounded-lg shadow-sm overflow-hidden max-w-xs w-full">
                                             <div class="relative">
                                                 <img src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $first_images : '../src/sample_images/product_1.jpg'?>" alt="Product Image" class="w-full h-full object-cover">
-                                                <span class="absolute top-2 right-2 bg-green-500 text-white text-xs font-semibold py-1 px-2 rounded-full"><?php echo isset($_COOKIE['adminEmail']) ? $res['Item_Condition'] : 'Item_Condition'?></span>
+                                                <span class="absolute top-2 right-2 bg-green-500 px-2 pt-0.5 pb-1 text-white text-xs font-semibold tracking-wide rounded-tl-lg rounded-br-lg"><?php echo isset($_COOKIE['adminEmail']) ? $res['Item_Condition'] : 'Item_Condition'?></span>
                                             </div>
                                             <div class="p-4">
                                                 <h2 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $first_titles : 'title'?></h2>
-                                                <a href="../vendor/vendor_store.php?vendor_id=<?php echo $res['vendor_id'] ?>" class="text-sm text-gray-600 mb-3">By <span class="font-bold text-base text-indigo-600"><?php echo isset($_COOKIE['adminEmail']) ? $row['username'] : 'username'?></span></a>
+                                                <a href="../vendor/vendor_store.php?vendor_id=<?php echo $res['vendor_id'] ?>" class="text-sm text-gray-600 mb-3">By: <span class="font-bold text-base text-gray-600"><?php echo isset($_COOKIE['adminEmail']) ? $row['username'] : 'username'?></span></a>
                                                 <div class="text-gray-600 text-sm mb-2 space-y-1">
                                                     <p>Company: <span class="font-medium"><?php echo isset($_COOKIE['adminEmail']) ? $res['company_name'] : 'company_name'?></span></p>
                                                     <p>Category: <span class="font-medium"><?php echo isset($_COOKIE['adminEmail']) ? $res['Category'] : 'Category'?></span></p>
@@ -174,8 +174,8 @@
                                                         <p class="text-sm font-medium text-gray-500 line-through">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['Your_Price'] : 'Delete Price'?></p>
                                                     </div>
                                                     <div class="flex space-x-2">
-                                                        <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="bg-blue-600 text-white text-xs py-1 px-2 rounded-full shadow hover:bg-blue-700 transition">View</a>
-                                                        <button class="bg-red-600 text-white text-xs py-1 px-2 rounded-full shadow hover:bg-red-700 transition">Remove</button>
+                                                        <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="bg-blue-200 text-blue-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-blue-300 transition">View</a>
+                                                        <button class="bg-red-200 text-red-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-red-300 transition">Remove</button>
                                                     </div>
                                                 </div>
                                             </div>

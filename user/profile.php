@@ -218,7 +218,7 @@
             </div>
 
             <div class="flex flex-col flex-1">
-                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
+                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
                     <div class="flex items-center justify-between">
                         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -252,9 +252,9 @@
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl border" style="display: none;">
-                                <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
-                                <a href="show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Orders</a>
-                                <a href="user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                                <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                                <a href="show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Orders</a>
+                                <a href="user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -298,7 +298,7 @@
                                         <label for="email">Email</label>
                                         <input type="email" name="email" value="<?php echo isset($_COOKIE['user_id']) ? $row['email'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     </div>
-                                    <input type="submit" name="updateBtn" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7">
+                                    <input type="submit" name="updateBtn" value="Update Now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
                                 </div>
                             </div>
                             <div class="bg-white max-h-max rounded-md shadow-lg p-8">
@@ -336,8 +336,7 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <input type="submit" name="changePass" value="Update Now" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mt-7">
-                                    <input type="submit" name="update_cookie" value="update coookie">
+                                    <input type="submit" name="changePass" value="Update Now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
                                 </div>
                             </div>
                         </div>

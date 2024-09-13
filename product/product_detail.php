@@ -111,11 +111,20 @@
                     $encoded_qty = urlencode($qty);
 
                     ?>
+                        <?php
+                            unset($_SESSION['selectedColors']);
+                            unset($_SESSION['product_titles']);
+                        ?>
                         <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $size; ?>&qty=<?php echo $qty;?>'</script>
                     <?php
 
                 }else{
+                    
                     ?>
+                        <?php
+                            unset($_SESSION['selectedColors']);
+                            unset($_SESSION['product_titles']);
+                        ?>
                         <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
                     <?php
                 }
@@ -130,14 +139,16 @@
             } else {
                 if (!isset($_SESSION['selectedColor'])) {
                     $_SESSION['selectedColor'] = $defaultColor;
+                    $_SESSION['product_title'] = $first_title; 
                 }
             }
         
             $selectedColor = $_SESSION['selectedColor'];
+            // $products_first_name = $_SESSION['product_title'];
             
             if (isset($_POST['AddtoCart'])) {
                 $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
-                $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : '';
+                $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : $first_title;
 
                 $size = isset($_POST['size']) ? $_POST['size'] : null;
                 $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
@@ -147,8 +158,13 @@
                 $encoded_qty = urlencode($qty);
 
                 ?>
+                    <?php
+                        unset($_SESSION['selectedColor']);
+                        unset($_SESSION['product_title']);
+                    ?>
                     <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script>
                 <?php
+                
             }
         }
 
@@ -269,14 +285,28 @@
                     <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]"><?php echo isset($_GET['product_id']) ? $first_title : 'Product title' ?></h1>
                 </div>
                 <!-- vendor Store -->
-                <a href="../vendor/vendor_store.php?vendor_id=<?php echo $ven['vendor_id'];?>" class="text-lg text-indigo-600 font-bold hover:underline cursor-pointer max-w-max">Visit a <span><?php echo isset($product_id) ? $ven['username'] : 'vendor store Name';?></span> Store</a>
+                <a href="../vendor/vendor_store.php?vendor_id=<?php echo $ven['vendor_id'];?>" class="text-lg text-gray-600 font-bold hover:underline cursor-pointer max-w-max">Visit a <span><?php echo isset($product_id) ? $ven['username'] : 'vendor store Name';?></span> Store</a>
                 <!-- price -->
-                <div class="flex items-center justify-between flex-wrap gap-y-3">
-                    <div class="flex items-baseline gap-1">
-                        <span class="text-xl font-medium">₹<?php echo isset($_GET['product_id']) ? $res['MRP'] : 'MRP' ?></span>
+                <div class="flex items-center justify-between flex-wrap gap-y-3 mt-3">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-2xl font-medium">₹<?php echo isset($_GET['product_id']) ? $res['MRP'] : 'MRP' ?></span>
                         <del class="text-sm font-normal">₹<?php echo isset($_GET['product_id']) ? $res['Your_Price'] : 'Product price' ?></del>
                     </div>
-                    <p class="text-[#13bc96] text-sm font-medium">Available in stock</p>
+                    <?php 
+                    
+                        $product_qty = $res['Quantity'];
+
+                        if($product_qty > 5){
+                            ?>
+                                <p class="text-[#13bc96] text-sm font-medium">Available in stock</p>
+                            <?php
+                        }else{
+                            ?>
+                                <p class="text-red-500 text-sm font-medium">Only Few Product in stock</p>
+                            <?php
+                        }
+                    
+                    ?>
                 </div>
                 <!-- color -->
                 <div class="mt-3">
@@ -289,7 +319,7 @@
                                 <form method="post" action="" style="display: inline;">
                                     <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
                                     <button type="submit" style="display: none;"></button>
-                                    <label for="submit_<?php echo $index; ?>" class="border border-dotted flex items-center gap-2 py-1 px-3 border-black cursor-pointer hover:bg-indigo-200">
+                                    <label for="submit_<?php echo $index; ?>" class="border flex items-center gap-2 py-1 px-3 border-black rounded-tl-xl rounded-br-xl text-center cursor-pointer hover:bg-gray-200">
                                         <h1 class="text-lg"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?></h1>
                                     </label>
                                     <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="this.form.submit();" style="display: none;">
@@ -308,7 +338,7 @@
                                     echo '';
                                 }else{
                                     ?>
-                                        <label for="size">Size</label>
+                                        <label for="size" class="text-xl font-medium">Size:</label>
                                         <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
                                             <?php
                                                 $product_size[] = $res['size'];
@@ -350,7 +380,7 @@
                 </div>
                 <div class="flex justify-between items-center mt-6">
                     <div class="flex item-center gap-1">
-                        <span class="bg-indigo-500 rounded-md px-2 py-1 flex items-center gap-1">
+                        <span class="bg-gray-600 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
                             <h1 class="font-semibold text-base text-white">0.0</h1>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                 <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
@@ -362,8 +392,8 @@
                 </div>
                 <hr>
                 <div class="mt-4 flex flex-col gap-3 md:flex-row">
-                    <input type="submit" name="AddtoCart" value="Add To Cart" class="text-sm font-medium text-white bg-indigo-600 px-12 py-4 rounded-md cursor-pointer hover:bg-indigo-700 transition duration-200">
-                    <input type="submit" name="buyBtn" value="Buy now" class="text-sm font-medium text-indigo-500 border-2 border-indigo-500 px-12 py-4 rounded-md text-center cursor-pointer">
+                    <input type="submit" name="AddtoCart" value="Add To Cart" class="text-sm font-medium text-white bg-gray-700 px-12 py-4 rounded-tl-xl rounded-br-xl cursor-pointer hover:bg-gray-800 transition duration-200">
+                    <input type="submit" name="buyBtn" value="Buy now" class="text-sm font-medium text-gray-700 border-2 border-gray-700 px-12 py-4 rounded-tl-xl rounded-br-xl text-center cursor-pointer">
                 </div>
             </div>
         </form>
@@ -478,7 +508,7 @@
                                 $encoded_product_id = urlencode($product_id);
 
                             ?>
-                            <a href="add_review.php?product_id=<?php echo $product_id; ?>&title=<?php echo urlencode($myTitle); ?>&color=<?php echo urlencode($myColor); ?>" class="text-sm font-medium text-white text-center bg-indigo-600 py-4 hover:bg-indigo-700 transition duration-200">Write a review</a>
+                            <a href="add_review.php?product_id=<?php echo $product_id; ?>&title=<?php echo urlencode($myTitle); ?>&color=<?php echo urlencode($myColor); ?>" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
                         </div>
                     </div>
                 </div>
@@ -492,7 +522,7 @@
                             <?php
                             if(!$rev){
                                 ?>
-                                    <h1 class="text-[#0f86ff] text-sm font-medium bg-[#ecf6ff] text-center py-3 border mt-3">Ther are no review yet.</h1>
+                                    <h1 class="text-gray-700 text-sm font-medium bg-gray-100 text-center py-3 border mt-3">Ther are no review yet.</h1>
                                 <?php
                             }
                             ?>
@@ -506,14 +536,14 @@
                                                 <div>
                                                     <div class="flex flex-col gap-y-4 items-start justify-between md:flex-row">
                                                         <div class="flex item-center justify-center gap-3">
-                                                            <img class="w-12 h-12" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                                                            <img class="w-12 h-12" src="<?php echo isset($_GET['product_id']) ? '../src/user_dp/' . $row['profile_image'] : 'profile_image' ?>" alt="">
                                                             <div class="flex flex-col gap-0">
                                                                 <h2 class="font-medium text-base text-neutral-800"><?php echo isset($_GET['product_id']) ? $row['public_name'] : 'user Name' ?></span></h2>
                                                                 <p class="font-medium text-sm text-gray-500"><?php echo isset($_GET['product_id']) ? $row['date'] : 'review date' ?></p>
                                                             </div>
                                                         </div>
                                                         <div class="flex item-center gap-1">
-                                                            <span class="bg-indigo-500 rounded-md px-2 py-1 flex items-center gap-1">
+                                                            <span class="bg-gray-500 rounded-md px-2 py-1 flex items-center gap-1">
                                                                 <h1 class="font-semibold text-base text-white"><?php echo isset($_GET['product_id']) ? floatval($row['Rating']) : 'Rating' ?></h1>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                                                     <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
@@ -537,7 +567,7 @@
                             ?>
                                 <span class="text-2xl font-medium">Customer Reviews (<?php echo isset($totalReviews) ? $totalReviews : '0' ?>)</span>
                                 <hr class="mt-3">
-                                <h1 class="text-[#0f86ff] text-sm font-medium bg-[#ecf6ff] text-center py-3 border mt-3">Ther are no review yet.</h1>
+                                <h1 class="text-gray-700 text-sm font-medium bg-gray-100 text-center py-3 border mt-3">Ther are no review yet.</h1>
                             <?php
                         }
                     ?>

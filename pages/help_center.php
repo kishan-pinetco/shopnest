@@ -45,9 +45,9 @@
     </div>
 
     <div class="max-w-screen-xl m-auto mt-8 py-12 px-5">
-        <div id="accordion-color" data-accordion="collapse" data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white"">
+        <div id="accordion-color" data-accordion="collapse" data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white">
             <h2 id="accordion-color-heading-1">
-                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-b-0 border-gray-200 rounded-t-lg dark:text-gray-900 hover:bg-indigo-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-1" aria-expanded="true" aria-controls="accordion-color-body-1">
+                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-b-0 border-gray-300 rounded-t-lg dark:text-gray-900 hover:bg-gray-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-1" aria-expanded="true" aria-controls="accordion-color-body-1">
                     <span>Orders & Purchases</span>
                     <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
@@ -92,7 +92,7 @@
             </div>
 
             <h2 id="accordion-color-heading-2">
-                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-b-0 border-gray-200 dark:text-gray-900 hover:bg-indigo-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-2" aria-expanded="false" aria-controls="accordion-color-body-2">
+                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-b-0 border-gray-300 dark:text-gray-900 hover:bg-gray-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-2" aria-expanded="false" aria-controls="accordion-color-body-2">
                     <span>Returns & Refunds</span>
                     <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
@@ -137,7 +137,7 @@
             </div>
 
             <h2 id="accordion-color-heading-3">
-                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-gray-200 dark:text-gray-900 hover:bg-indigo-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-3" aria-expanded="false" aria-controls="accordion-color-body-3">
+                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-gray-300 dark:text-gray-900 hover:bg-gray-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-3" aria-expanded="false" aria-controls="accordion-color-body-3">
                     <span>Shipping & Tracking</span>
                     <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
@@ -182,7 +182,7 @@
             </div>
 
             <h2 id="accordion-color-heading-4">
-                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-gray-200 dark:text-gray-900 hover:bg-indigo-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-4" aria-expanded="false" aria-controls="accordion-color-body-4">
+                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-gray-300 dark:text-gray-900 hover:bg-gray-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-4" aria-expanded="false" aria-controls="accordion-color-body-4">
                     <span>Fees & billing</span>
                     <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
@@ -222,10 +222,10 @@
         </div>
     </div>
 
-    <div class="bg-[#fff9e0] text-[rgb(29,33,40)] w-[90%] flex flex-col items-center justify-center gap-10 m-auto text-center p-12 md:w-[70%] md:p-36 mb-12">
+    <div class="bg-[#fff9e0] text-[rgb(29,33,40)] w-[90%] flex flex-col items-center justify-center gap-10 m-auto  ring-2 ring-[#1d2128] text-center p-12 md:w-[70%] md:p-36 mb-12">
         <p class="text-lg font-medium">Still need help?</p>
         <h1 class="text-3xl font-medium lg:text-6xl">Get help with common <br> questions or reach out to our <br> support team.</h1>
-        <button class="text-white font-semibold text-sm bg-black px-8 py-3 rounded-sm">Contact Us</button>
+        <button class="text-white font-semibold text-sm bg-black px-8 py-3 rounded-tl-xl rounded-br-xl">Contact Us</button>
     </div>
     
 
@@ -237,5 +237,7 @@
     <!-- flowbite Script -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 </html>

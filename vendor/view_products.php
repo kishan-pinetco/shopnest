@@ -127,7 +127,7 @@ if (isset($_COOKIE['vendor_id'])) {
             </div>
 
             <div class="flex flex-col flex-1 overflow-hidden">
-                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
+                <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
                     <div class="flex items-center">
                         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -148,9 +148,9 @@ if (isset($_COOKIE['vendor_id'])) {
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
                             <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
-                                <a href="vendor_profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
-                                <a href="view_products.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
-                                <a href="vendor_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                                <a href="vendor_profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                                <a href="view_products.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Products</a>
+                                <a href="vendor_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -216,7 +216,7 @@ if (isset($_COOKIE['vendor_id'])) {
                                                 <div class="space-y-1">
                                                     <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id' ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $first_titles : 'product Name' ?></a>
                                                     <p class="space-x-2">
-                                                        <span class="text-lg font-medium text-indigo-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['MRP'] : 'MRP' ?></span>
+                                                        <span class="text-lg font-medium text-gray-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['MRP'] : 'MRP' ?></span>
                                                         <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['Your_Price'] : 'Delete Price' ?></del>
                                                     </p>
                                                     <h2>QTY: <?php echo isset($_COOKIE['vendor_id']) ? $res['Quantity'] : 'product Quantity' ?></h2>

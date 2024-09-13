@@ -63,13 +63,13 @@ if(isset($_GET['order_id'])){
                 <img src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="Product Image" class="w-32 h-32 object-cover rounded-md border border-gray-300 mr-6">
                 <div>
                     <h3 class="text-xl font-bold text-gray-800 line-clamp-2"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product title'?></h3>
-                    <p class="text-gray-700 mt-4">Price: <span class="font-semibold">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
-                    <div class="text-gray-700 flex items-center gap-1 mt-1">
-                        <span class="max-w-max">Color:</span> 
-                        <h1 class="h-4 w-4 rounded-full my-auto border border-gray-300" style="background-color: <?php echo isset($_COOKIE['user_id']) ? htmlspecialchars($product_colo) : 'Product Color' ?>"></h1>
+                    <p class="text-gray-700 mt-4 font-semibold">Price: <span class="font-normal">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
+                    <div class="text-gray-700 flex items-center gap-2 mt-1">
+                        <span class="max-w-max font-semibold">Color:</span> 
+                        <h1 class="my-auto"><?php echo isset($_COOKIE['user_id']) ? htmlspecialchars($product_colo) : 'Product Color' ?></h1>
                     </div>
-                    <p class="text-gray-700 mt-1">Size: <span class="font-semibold"><?php echo isset($_COOKIE['user_id']) ? $res['order_size'] : 'Product size' ?></span></p>
-                    <p class="text-gray-700 mt-1">Quantity: <span class="font-semibold"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'Product size' ?></span></p>
+                    <p class="text-gray-700 mt-1 font-semibold">Size: <span class="font-normal"><?php echo isset($_COOKIE['user_id']) ? $res['order_size'] : 'Product size' ?></span></p>
+                    <p class="text-gray-700 mt-1 font-semibold">Quantity: <span class="font-normal"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'Product size' ?></span></p>
                 </div>
             </div>
         </section>
@@ -95,7 +95,7 @@ if(isset($_GET['order_id'])){
         <!-- Payment Type -->
         <section class="mb-8">
             <h2 class="text-2xl font-semibold text-gray-800 mb-6">Payment Type</h2>
-            <div class="p-4 bg-gray-50 border border-gray-300 rounded-lg shadow-sm border-l-4 border-l-indigo-600">
+            <div class="p-4 bg-gray-50 border border-gray-300 rounded-lg shadow-sm border-l-4 border-l-gray-600">
                 <p class="text-gray-700 text-sm">Payment Method: <span class="font-semibold"><?php echo isset($_COOKIE['user_id']) ? $res['payment_type'] : 'user first name' ?></span></p>
             </div>
         </section>
@@ -106,12 +106,11 @@ if(isset($_GET['order_id'])){
                 <span>Total Price:</span>
                 <span>₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total price' ?></span>
             </div>
-            <p class="text-gray-600 text-sm">Includes ₹40 shipping cost</p>
         </section>
 
         <!-- Download PDF Button -->
         <div class="mt-8">
-            <button id="downloadPdf" class="bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <button id="downloadPdf" class="bg-gray-700 text-white py-2 px-4 rounded-tl-xl rounded-br-xl shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
                 Download PDF
             </button>
         </div>

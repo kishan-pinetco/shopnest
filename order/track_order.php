@@ -138,10 +138,10 @@ if (isset($_COOKIE['user_id'])) {
                 <div class="p-6 flex-1">
                     <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product title' ?></h2>
                     <p class="font-medium text-base leading-7 text-black pr-4">Quantity: <span class="font-medium"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'qty' ?></span></p>
-                    <p class="font-medium text-base leading-7 text-black pr-4">Price: <span class="font-bold text-indigo-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
+                    <p class="font-medium text-base leading-7 text-black pr-4">Price: <span class="font-bold text-gray-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
                     <div class="text-gray-700 flex items-center gap-1 mt-1">
                         <span class="font-medium text-base leading-7 text-black">Color:</span> 
-                        <h1 class="h-4 w-4 rounded-full my-auto border border-gray-300" style="background-color: <?php echo isset($_COOKIE['user_id']) ? htmlspecialchars($product_color) : 'Product Color' ?>"></h1>
+                        <h1 class="my-auto"><?php echo isset($_COOKIE['user_id']) ? htmlspecialchars($product_color) : 'Product Color' ?></h1>
                     </div>
                     <p class="font-medium text-base leading-7 text-black pr-4">Size: <span class="font-medium"><?php echo isset($_COOKIE['user_id']) ? $res['order_size'] : 'order_size' ?></span></p>
                 </div>
@@ -157,7 +157,7 @@ if (isset($_COOKIE['user_id'])) {
                         <?php
                     }else{
                         ?>
-                            <h2 class="font-semibold text-2xl mb-4">Shipped on: <span class="text-indigo-500"><?php echo isset($future_date) ? $future_date : 'Shipping Date'; ?></span></h2>
+                            <h2 class="font-semibold text-2xl mb-4">Shipped on: <span class="text-gray-500"><?php echo isset($future_date) ? $future_date : 'Shipping Date'; ?></span></h2>
                         <?php
                     }
                 ?>
@@ -233,17 +233,17 @@ if (isset($_COOKIE['user_id'])) {
                         <?php
                             if(isset($thirdday) && isset($todays) && $thirdday < $todays){
                                 ?>
-                                    <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
+                                    <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
                                 <?php
                                 if(isset($thirdday) && isset($todays) &&  $fifth < $todays && $return_date >= strtotime('today')){
                                     ?>
-                                        <a href="return_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
+                                        <a href="return_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
                                     <?php
                                 }
                             }else{
                                 ?>
-                                    <a href="cancel_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-black/90">Cancel the order</a>
-                                    <h1 class="w-full flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer">Return Order</h1>
+                                    <a href="cancel_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-red-600 px-5 py-2.5 text-sm font-medium text-white">Cancel the order</a>
+                                    <h1 class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer ">Return Order</h1>
                                 <?php
                             }
                         ?>
@@ -264,8 +264,13 @@ if (isset($_COOKIE['user_id'])) {
 </html>
 
 <?php
+    $today = date('d-m-Y', strtotime($res['date']));
+    $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+
     if(strtotime('today') === $fifth){
-        $update_delivery = "UPDATE `orders` SET status='Delivered' WHERE order_id = '$order_id'";
+        $order_id = $_GET['order_id'];
+
+        $update_delivery = "UPDATE orders SET status='Delivered' WHERE order_id = '$order_id'";
         $update_query = mysqli_query($con,$update_delivery);
     }else{
         echo '';

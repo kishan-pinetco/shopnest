@@ -43,9 +43,9 @@
 
     <div class="bg-amber-100 py-12">
         <div class=" max-w-screen-xl m-auto px-5">
-            <span class="text-indigo-500 text-lg font-medium">Our Story</span>
+            <span class="text-gray-500 text-lg font-medium">Our Story</span>
             <h1 class="text-gray-900 text-3xl font-bold mt-3">From Vision to Reality: Our E-commerce Journey</h1>
-            <p class="text-lg text-gray-700 mt-4">Welcome to <a href="../index.php" class="text-indigo-500 font-medium underline">Shopnest</a>, where our journey in e-commerce began with a vision to revolutionize how people shop and connect online. Founded on principles of innovation and customer-centricity, we embarked on this adventure to redefine convenience and accessibility in the digital marketplace.</p>
+            <p class="text-lg text-gray-700 mt-4">Welcome to <a href="../index.php" class="text-gray-500 font-medium underline">Shopnest</a>, where our journey in e-commerce began with a vision to revolutionize how people shop and connect online. Founded on principles of innovation and customer-centricity, we embarked on this adventure to redefine convenience and accessibility in the digital marketplace.</p>
             <p class="text-lg text-gray-700 mt-7">Our story is one of perseverance and passion, starting from humble beginnings to becoming a trusted destination for millions of shoppers worldwide. From the early days of navigating technological advancements to crafting intuitive user experiences, every milestone has been a testament to our commitment to excellence.</p>
         </div>
     </div>
@@ -56,7 +56,7 @@
             <img src="https://govtech.justica.gov.pt/wp-content/uploads/2023/02/govtechw_home-img-8.png" alt="">
         </div>
         <div class="text-gray-900 flex flex-col gap-5">
-            <span class="text-lg text-indigo-500">Technology At Shopnest</span>
+            <span class="text-lg text-gray-500">Technology At Shopnest</span>
             <h2 class="text-4xl font-semibold uppercase">Innovation</h2>
             <p class="text-lg">Shopnest technology drives path-breaking, customer-focused innovation that makes high quality products accessible to Indian shoppers, besides making the online shopping experience convenient, intuitive and seamless.</p>
         </div>

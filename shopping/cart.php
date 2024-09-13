@@ -177,11 +177,11 @@
 
                             if(isset($_COOKIE['Cart_products']) && $totalCartPrice > 0){
                                 ?>
-                                    <a href="<?php echo $url?>" class="flex w-full items-center justify-center rounded-lg bg-indigo-600 hover:bg-indigo-700 transition duration-200 text-white px-5 py-2.5 text-sm font-medium cursor-pointer">Proceed to Checkout</a>
+                                    <a href="<?php echo $url?>" class="flex w-full items-center justify-center rounded-tl-xl rounded-br-xl bg-gray-600 hover:bg-indigo-700 transition duration-200 text-white px-5 py-2.5 text-sm font-medium cursor-pointer">Proceed to Checkout</a>
                                 <?php
                             }else{
                                 ?>
-                                    <h1 class="flex w-full items-center justify-center rounded-lg bg-indigo-600 text-white px-5 py-2.5 text-sm font-medium select-none opacity-20">Proceed to Checkout</h1>
+                                    <h1 class="flex w-full items-center justify-center rounded-tl-xl rounded-br-xl bg-gray-600 text-white px-5 py-2.5 text-sm font-medium select-none opacity-20">Proceed to Checkout</h1>
                                 <?php       
                             }
                         ?>
