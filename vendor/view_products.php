@@ -85,8 +85,8 @@ if (isset($_COOKIE['vendor_id'])) {
                         <span class="mx-3">Account Setting</span>
                     </a>
 
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="choose_product.php">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="choose_product.php">
+                        <svg class="w-6 h-6 stroke-gray-500 group-hover:stroke-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
                         <span class="mx-3">Add Product</span>
@@ -99,7 +99,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         <span class="mx-3">Orders</span>
                     </a>
 
-                    <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="view_products.php">
+                    <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="view_products.php">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
@@ -200,7 +200,7 @@ if (isset($_COOKIE['vendor_id'])) {
                                         </div>
                                         <div class="p-3 border rounded-lg transition transform hover:shadow-lg bg-white">
                                             <div>
-                                                <img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $first_image : '../src/sample_images/product_1.jpg' ?>" class="h-full w-full object-contai mix-blend-multiply" alt="">
+                                                <img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $first_image : '../src/sample_images/product_1.jpg' ?>" class="h-56 w-full object-cover mix-blend-multiply" alt="">
                                             </div>
                                             <div class="mt-2">
                                                 <div class="space-y-1">

@@ -76,7 +76,7 @@ if (isset($_GET['vendor_id'])) {
 
         <div>
             <h1 class="text-2xl font-bold">All Products</h1>
-            <div class="grid grid-cols-4 gap-2">
+            <div class="grid grid-cols-4 gap-4">
                 <?php
                 if (isset($_GET['vendor_id'])) {
                     $vendor_products = "SELECT * FROM items WHERE vendor_id = '$vendor_id'";
@@ -84,23 +84,27 @@ if (isset($_GET['vendor_id'])) {
 
                     while ($res = mysqli_fetch_assoc($vendorProduct_query)) {
                         $product_id = $res['product_id'];
+
                         $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
                         $review_query = mysqli_query($con, $get_reviews);
+
                         $totalReviews = mysqli_num_rows($review_query);
 
-                        if ($totalRatings = mysqli_num_rows($review_query)) {
-                            $sum = 0;
-                            $count = 0;
-                        
+                        $sum = 0;
+                        $count = 0;
+                        if ($totalReviews > 0) {         
                             while ($data = mysqli_fetch_assoc($review_query)) {
                                 $rating = str_replace(",", "", $data['Rating']);
                                 $sum += (float)$rating;
                                 $count++;
                             }
-                        
+                            
                             $average = $sum / $count;
                             $formatted_average = number_format($average, 1);
+                        }else {
+                            $formatted_average = "0.0";
                         }
+                        
                         // for image
                         $json_img = $res['image'];
                         $decode_img = json_decode($json_img, true);
@@ -138,11 +142,11 @@ if (isset($_GET['vendor_id'])) {
                 ?>
                             <li class="splide__slide flex justify-center mt-3">
                                 <div class="card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl hover:ring-none w-64 overflow-hidden">
-                                    <div class="p-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                                    <div class="p-2" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
                                         <img src="<?php echo '../src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
                                     </div>
-                                    <div class="mt-2 space-y-3" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                                        <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
+                                    <div class="mt-2 space-y-3" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                                        <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
                                         <div class="flex justify-between px-2">
                                             <p class="space-x-1">
                                                 <span class="text-lg font-medium text-gray-900">₹<?php echo $res['MRP'] ?></span>
