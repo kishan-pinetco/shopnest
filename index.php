@@ -24,15 +24,15 @@ function displayRandomProducts($con, $limit)
 
         while ($res = mysqli_fetch_assoc($product_query)) {
             $product_id = $res['product_id'];
+
             $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
             $review_query = mysqli_query($con, $get_reviews);
+
             $totalReviews = mysqli_num_rows($review_query);
 
-
-            if ($totalRatings = mysqli_num_rows($review_query)) {
-                $sum = 0;
-                $count = 0;
-
+            $sum = 0;
+            $count = 0;
+            if ($totalReviews > 0) {
                 while ($data = mysqli_fetch_assoc($review_query)) {
                     $rating = str_replace(",", "", $data['Rating']);
                     $sum += (float)$rating;
@@ -41,6 +41,8 @@ function displayRandomProducts($con, $limit)
 
                 $average = $sum / $count;
                 $formatted_average = number_format($average, 1);
+            } else {
+                $formatted_average = "0.0";
             }
 
             // for image
