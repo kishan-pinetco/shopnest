@@ -501,10 +501,10 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-5 mt-4">
                                     <label for="" class="text-lg">Images:</label>
-                                    <div class="grid grid-cols-1 min-[321px]:grid-cols-2 md:grid-cols-4 gap-y-12 gap-5 mt-9">
+                                    <div class="grid grid-cols-1 min-[700px]:grid-cols-3 md:grid-cols-4 gap-y-12 gap-5 mt-9">
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
-                                                <img id="previewImage1" class="w-60 h-40 border border-dashed object-cover border-gray-500" alt="" src="">
+                                                <img id="previewImage1" class="w-80 h-48 border border-dashed object-cover border-gray-500" alt="" src="">
                                                 <input class="hidden" name="ProfileImage1" type="file" id="imageInput1">
                                                 <label for="imageInput1" id="imageLabel1" class="absolute top-[2.7rem] flex flex-col items-center justify-center p-1 font-semibold cursor-pointer">
                                                     <svg class="w-9 bg-gray-200 p-1 rounded-full" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.056 512.056" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -519,7 +519,7 @@ if (isset($_GET['name'])) {
                                         </div>
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
-                                                <img id="previewImage2" class="w-60 h-40 border border-dashed object-cover border-gray-500" alt="" src="">
+                                                <img id="previewImage2" class="w-80 h-48 border border-dashed object-cover border-gray-500" alt="" src="">
                                                 <input class="hidden" name="ProfileImage2" type="file" id="imageInput2">
                                                 <label for="imageInput2" id="imageLabel2" class="absolute top-[2.7rem] flex flex-col items-center justify-center p-1 font-semibold cursor-pointer">
                                                     <svg class="w-9 bg-gray-200 p-1 rounded-full" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.056 512.056" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -534,7 +534,7 @@ if (isset($_GET['name'])) {
                                         </div>
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
-                                                <img id="previewImage3" class="w-60 h-40 border border-dashed object-cover border-gray-500" alt="" src="">
+                                                <img id="previewImage3" class="w-80 h-48 border border-dashed object-cover border-gray-500" alt="" src="">
                                                 <input class="hidden" name="ProfileImage3" type="file" id="imageInput3">
                                                 <label for="imageInput3" id="imageLabel3" class="absolute top-[2.7rem] flex flex-col items-center justify-center p-1 font-semibold cursor-pointer">
                                                     <svg class="w-9 bg-gray-200 p-1 rounded-full" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.056 512.056" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -549,7 +549,7 @@ if (isset($_GET['name'])) {
                                         </div>
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
-                                                <img id="previewImage4" class="w-60 h-40 border border-dashed object-cover border-gray-500" alt="" src="">
+                                                <img id="previewImage4" class="w-80 h-48 border border-dashed object-cover border-gray-500" alt="" src="">
                                                 <input class="hidden" name="ProfileImage4" type="file" id="imageInput4">
                                                 <label for="imageInput4" id="imageLabel4" class="absolute top-[2.7rem] flex flex-col items-center justify-center p-1 font-semibold cursor-pointer">
                                                     <svg class="w-9 bg-gray-200 p-1 rounded-full" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.056 512.056" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -570,7 +570,7 @@ if (isset($_GET['name'])) {
                                     <div class="grid grid-cols-1 min-[321px]:grid-cols-2 md:grid-cols-4 gap-y-12 gap-5 mt-9">
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
-                                                <img id="previewCoverImage1" class="w-60 h-40 border border-dashed object-cover border-gray-500" alt="" src="">
+                                                <img id="previewCoverImage1" class="w-80 h-48 border border-dashed object-cover border-gray-500" alt="" src="">
                                                 <input class="hidden" name="CoverImage1" type="file" id="CoverimageInput1">
                                                 <label for="CoverimageInput1" id="CoverimageLabel1" class="absolute top-[2.7rem] flex flex-col items-center justify-center p-1 font-semibold cursor-pointer">
                                                     <svg class="w-9 bg-gray-200 p-1 rounded-full" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.056 512.056" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -585,7 +585,7 @@ if (isset($_GET['name'])) {
                                         </div>
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
-                                                <img id="previewCoverImage2" class="w-60 h-40 border border-dashed object-cover border-gray-500" alt="" src="">
+                                                <img id="previewCoverImage2" class="w-80 h-48 border border-dashed object-cover border-gray-500" alt="" src="">
                                                 <input class="hidden" name="CoverImage2" type="file" id="CoverimageInput2">
                                                 <label for="CoverimageInput2" id="CoverimageLabel2" class="absolute top-[2.7rem] flex flex-col items-center justify-center p-1 font-semibold cursor-pointer">
                                                     <svg class="w-9 bg-gray-200 p-1 rounded-full" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.056 512.056" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -600,7 +600,7 @@ if (isset($_GET['name'])) {
                                         </div>
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
-                                                <img id="previewCoverImage3" class="w-60 h-40 border border-dashed object-cover border-gray-500" alt="" src="">
+                                                <img id="previewCoverImage3" class="w-80 h-48 border border-dashed object-cover border-gray-500" alt="" src="">
                                                 <input class="hidden" name="CoverImage3" type="file" id="CoverimageInput3">
                                                 <label for="CoverimageInput3" id="CoverimageLabel3" class="absolute top-[2.7rem] flex flex-col items-center justify-center p-1 font-semibold cursor-pointer">
                                                     <svg class="w-9 bg-gray-200 p-1 rounded-full" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.056 512.056" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -615,7 +615,7 @@ if (isset($_GET['name'])) {
                                         </div>
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
-                                                <img id="previewCoverImage4" class="w-60 h-40 border border-dashed object-cover border-gray-500" alt="" src="">
+                                                <img id="previewCoverImage4" class="w-80 h-48 border border-dashed object-cover border-gray-500" alt="" src="">
                                                 <input class="hidden" name="CoverImage4" type="file" id="CoverimageInput4">
                                                 <label for="CoverimageInput4" id="CoverimageLabel4" class="absolute top-[2.7rem] flex flex-col items-center justify-center p-1 font-semibold cursor-pointer">
                                                     <svg class="w-9 bg-gray-200 p-1 rounded-full" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.056 512.056" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
