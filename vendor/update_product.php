@@ -7,7 +7,7 @@ if (isset($_GET['product_id'])) {
     $product = $_GET['name'];
 
     $product_id = $_GET['product_id'];
-    $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
+    $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
     $product_query = mysqli_query($con, $product_find);
     $row = mysqli_fetch_assoc($product_query);
 
@@ -63,6 +63,17 @@ if (isset($_GET['product_id'])) {
 
     $productType = $_GET['name'];
     $optionsForType = isset($options[$productType]) ? $options[$productType] : [];
+
+    $json_title = $row['title'];
+    $title_json = json_decode($json_title, true);
+
+    foreach($title_json as $key => $value) {
+        $first_color_title = $key;
+        break;
+    }
+
+    $first_name = isset($title_json[$first_color_title]) ? $title_json[$first_color_title] : ''; 
+    $first_title = $first_name['product_name'];
 }
 
 
@@ -108,7 +119,7 @@ if (isset($_GET['product_id'])) {
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
                                     <label for="full_name">Product Tital</label>
-                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $row['title'] : 'title' ?>" />
+                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['product_id']) ? $first_title : 'title' ?>" />
                                 </div>
 
                                 <div class="md:col-span-2">
@@ -186,65 +197,50 @@ if (isset($_GET['product_id'])) {
                                     <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Keyword</button>
                                 </div>
 
-                                <div class="md:col-span-5 mt-5">
-                                    <label for="color">Color:</label>
-                                    <div class="flex items-center gap-2 flex-wrap mt-2" id="input-container">
-                                        <?php
-                                        if (isset($_COOKIE['vendor_id'])) {
+                                <?php
+                                    $size = $row['size'];
 
-                                            $all_color = [];
-                                            $pcolor = $row['color'];
-                                            $pcolor_array = explode(",", $pcolor);
-                                            foreach ($pcolor_array as $clor) {
-                                                $clor = trim($clor);
-                                                $all_color[] = $clor;
-                                            }
-                                            // Convert the array to a JSON string
-                                            $colors_json = json_encode($all_color);
+                                    if($size == '-'){
+                                        echo '';
+                                    }else{
                                         ?>
-                                            <input type="hidden" id="colors-data" value='<?php echo $colors_json; ?>'>
+                                            <div class="md:col-span-5 mt-5">
+                                                <label for="size">Size:</label>
+                                                <div class="flex items-center flex-wrap gap-2" id="size_container">
+                                                    <select name="size[]" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                                        <?php foreach ($optionsForType as $option): ?>
+                                                            <option value="<?php echo $option['value']; ?>">
+                                                                <?php echo $option['text']; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-size">Add More Size</button>
+                                                <script>
+                                                    document.getElementById('add-size').addEventListener('click', function() {
+                                                        var sizeContainer = document.getElementById('size_container');
+                                                        var newSelect = document.createElement('select');
+                                                        newSelect.name = 'size[]';
+                                                        newSelect.className = 'h-10 border mt-1 rounded px-4 w-full bg-gray-50';
+                                                    
+                                                        // Options array defined in PHP is now available in JavaScript
+                                                        var options = <?php echo json_encode($optionsForType); ?>;
+                                                    
+                                                        options.forEach(function(option) {
+                                                            var opt = document.createElement('option');
+                                                            opt.value = option.value;
+                                                            opt.textContent = option.text;
+                                                            newSelect.appendChild(opt);
+                                                        });
+                                                    
+                                                        sizeContainer.appendChild(newSelect);
+                                                    });
+                                                </script>
+                                            </div>
                                         <?php
-                                        }
-                                        ?>
-                                    </div>
-                                    <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-input">Add More Colors</button>
-                                </div>
-
-
-                                <div class="md:col-span-5 mt-5">
-                                    <label for="size">Size:</label>
-                                    <div class="flex items-center flex-wrap gap-2" id="size_container">
-                                        <select name="size[]" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                                            <?php foreach ($optionsForType as $option): ?>
-                                                <option value="<?php echo $option['value']; ?>">
-                                                    <?php echo $option['text']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2" id="add-size">Add More Size</button>
-                                    <script>
-                                        document.getElementById('add-size').addEventListener('click', function() {
-                                            var sizeContainer = document.getElementById('size_container');
-                                            var newSelect = document.createElement('select');
-                                            newSelect.name = 'size[]';
-                                            newSelect.className = 'h-10 border mt-1 rounded px-4 w-full bg-gray-50';
-
-                                            // Options array defined in PHP is now available in JavaScript
-                                            var options = <?php echo json_encode($optionsForType); ?>;
-
-                                            options.forEach(function(option) {
-                                                var opt = document.createElement('option');
-                                                opt.value = option.value;
-                                                opt.textContent = option.text;
-                                                newSelect.appendChild(opt);
-                                            });
-
-                                            sizeContainer.appendChild(newSelect);
-                                        });
-                                    </script>
-                                </div>
-
+                                    }
+                                ?>
+                            
                                 <div class="md:col-span-5 text-right mt-7">
                                     <div class="inline-flex items-end">
                                         <input type="submit" value="Update" name="updateBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">

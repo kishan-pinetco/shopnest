@@ -234,6 +234,23 @@
         .mySwiper .swiper-slide-thumb-active {
             opacity: 1;
         }
+
+        .zoom-container {
+            position: relative;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+
+        .zoom-image {
+            transition: transform 0.1s ease;
+        }
+
+        /* When zooming in */
+        .zoom-container.zoomed-in .zoom-image {
+            transform: scale(2.5);
+            /* Adjust this value for zoom intensity */
+            cursor: zoom-out;
+        }
     </style>
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
@@ -246,22 +263,50 @@
     <!-- product -->
     <div class="max-w-screen-xl m-auto grid grid-cols-1 md:grid-cols-2 gap-y-1 mt-12 px-8 lg:px-0">
         <div class="">
-            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2 w-auto h-auto md:h-96">
+        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2 w-auto h-auto md:h-96">
                 <div class="swiper-wrapper h-52 md:h-full">
-                    <div class="swiper-slide w-auto h-auto">
-                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img1 : '../src/sample_images/product_1.jpg' ?>" />
+                    <div class="swiper-slide w-auto h-auto zoom-container">
+                        <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img1 : '../src/sample_images/product_1.jpg' ?>" />
                     </div>
-                    <div class="swiper-slide h-auto">
-                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img2 : '../src/sample_images/product_2.jpg' ?>" />
+                    <div class="swiper-slide h-auto zoom-container">
+                        <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img2 : '../src/sample_images/product_2.jpg' ?>" />
                     </div>
-                    <div class="swiper-slide h-auto">
-                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img3 : '../src/sample_images/product_3.jpg' ?>" />
+                    <div class="swiper-slide h-auto zoom-container">
+                        <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img3 : '../src/sample_images/product_3.jpg' ?>" />
                     </div>
-                    <div class="swiper-slide h-auto">
-                        <img class="h-full" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img4 : '../src/sample_images/product_4.jpg' ?>" />
+                    <div class="swiper-slide h-auto zoom-container">
+                        <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img4 : '../src/sample_images/product_4.jpg' ?>" />
                     </div>
                 </div>
             </div>
+            <!-- image zoom effect js -->
+            <script>
+                document.querySelectorAll('.zoom-container').forEach(function(container) {
+                    const zoomImage = container.querySelector('.zoom-image');
+
+                    // Handle zoom on hover
+                    container.addEventListener('mouseenter', function() {
+                        container.classList.add('zoomed-in');
+                    });
+
+                    // Handle zoom out on mouse leave
+                    container.addEventListener('mouseleave', function() {
+                        container.classList.remove('zoomed-in');
+                        zoomImage.style.transformOrigin = 'center center'; // Reset zoom origin
+                    });
+
+                    // Handle cursor move and zoom positioning
+                    container.addEventListener('mousemove', function(e) {
+                        // Get the position of the container
+                        const containerRect = container.getBoundingClientRect();
+                        const xPercent = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+                        const yPercent = ((e.clientY - containerRect.top) / containerRect.height) * 100;
+
+                        // Set the transform origin of the image based on mouse position
+                        zoomImage.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+                    });
+                });
+            </script>
             <div thumbsSlider="" class="swiper mySwiper md:w-80 h-auto mt-6 px-2">
                 <div class="swiper-wrapper flex item-center justify-center">
                     <div class="swiper-slide border border-black p-1">
@@ -601,4 +646,3 @@
     </script>
 </body>
 </html>
-
