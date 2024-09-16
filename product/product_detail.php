@@ -23,7 +23,28 @@
         $first_title = '';
 
         while($row = mysqli_fetch_array($query)) {
+
+            $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+            $review_query = mysqli_query($con, $get_reviews);
+
+            $totalReviews = mysqli_num_rows($review_query);
+
+            $sum = 0;
+            $count = 0;
+            if ($totalReviews > 0) {         
+                while ($data = mysqli_fetch_assoc($review_query)) {
+                    $rating = str_replace(",", "", $data['Rating']);
+                    $sum += (float)$rating;
+                    $count++;
+                }
+
+                $average = $sum / $count;
+                $formatted_average = number_format($average, 1);
+            }else {
+                $formatted_average = "0.0";
+            }
             
+            // for image
             $json_img = $row["image"];
 
             $color_img = json_decode($json_img, true);
@@ -144,7 +165,7 @@
             }
         
             $selectedColor = $_SESSION['selectedColor'];
-            // $products_first_name = $_SESSION['product_title'];
+            $products_first_name = $_SESSION['product_title'];
             
             if (isset($_POST['AddtoCart'])) {
                 $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
@@ -426,12 +447,12 @@
                 <div class="flex justify-between items-center mt-6">
                     <div class="flex item-center gap-1">
                         <span class="bg-gray-600 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
-                            <h1 class="font-semibold text-base text-white">0.0</h1>
+                            <h1 class="font-semibold text-base text-white"><?php echo $formatted_average?></h1>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                 <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                             </svg>
                         </span>
-                        <span class="text-sm ml-2 mt-0.5">0 Reviews</span>
+                        <span class="text-sm ml-2 mt-0.5">(<?php echo $totalReviews ?>)</span>
                     </div>
                     <p class="text-sm font-medium text-[red]">Free Delivery</p>
                 </div>
@@ -547,13 +568,45 @@
                             <span class="text-sm font-normal">Share your thoughts with other customers</span>
 
                             <?php
-                                $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
-                                $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : '';
-                
-                                $encoded_product_id = urlencode($product_id);
+                                if (isset($_POST['colorChoice'])) {
+                                    $_SESSION['selectedColors'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                                    $_SESSION['product_titles'] = $first_title;
+                                } else {
+                                    if (!isset($_SESSION['selectedColors'])) {
+                                        $_SESSION['selectedColors'] = $defaultColor;
+                                        $_SESSION['product_titles'] = $first_title; 
+                                    }
+                                }
 
+                                $selectedColor = $_SESSION['selectedColors'];
+                                $products_first_name = $_SESSION['product_titles'];
+
+                                if(isset($_COOKIE['user_id'])){
+                                    $myColor = isset($_SESSION['selectedColors']) ? $_SESSION['selectedColors'] : $defaultColor;
+                                    $myTitle = isset($_SESSION['product_titles']) ? $_SESSION['product_titles'] : '';
+                                    
+                                    $encoded_product_id = urlencode($product_id);
+                                    $encoded_product_id = urlencode($product_id);
+                
+                                    ?>
+                                        <?php
+                                            unset($_SESSION['selectedColors']);
+                                            unset($_SESSION['product_titles']);
+                                        ?>
+                                        <a href="add_review.php?product_id=<?php echo $product_id; ?>&title=<?php echo urlencode($myTitle); ?>&color=<?php echo urlencode($myColor); ?>" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
+                                    <?php
+                
+                                }else{
+                                    
+                                    ?>
+                                        <?php
+                                            unset($_SESSION['selectedColors']);
+                                            unset($_SESSION['product_titles']);
+                                        ?>
+                                        <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
+                                    <?php
+                                }
                             ?>
-                            <a href="add_review.php?product_id=<?php echo $product_id; ?>&title=<?php echo urlencode($myTitle); ?>&color=<?php echo urlencode($myColor); ?>" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
                         </div>
                     </div>
                 </div>

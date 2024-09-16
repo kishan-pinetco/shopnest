@@ -3,13 +3,15 @@
 
     if(isset($_GET['product_id'])){
         $product_id = $_GET['product_id'];
+        $review_id = $_GET['review_id'];
         
-        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
+        $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
         
         $row = mysqli_fetch_assoc($product_query);
 
-        $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+        // for the review
+        $get_reviews = "SELECT * FROM user_review WHERE review_id = '$review_id'";
         $review_query = mysqli_query($con,$get_reviews);
 
         $rev = mysqli_fetch_assoc($review_query);
@@ -59,8 +61,8 @@
         <div class="grid grid-col-1 gap-y-4">
             <h2 class="font-bold text-2xl text-black">Create Review</h2>
             <div class="flex flex-col item-center justify-start gap-2 md:flex-row">
-                <img class="w-20 h-auto" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $row['image_1'] : '../src/sample_images/product_1.jpg'?>" alt="">
-                <span class="text-xl font-medium line-clamp-1 my-auto h-7 cursor-default" title="<?php echo isset($product_id) ? $row['title'] : 'product_title'?>"><?php echo isset($product_id) ? $row['title'] : 'product_title'?></span>
+                <img class="w-20 h-auto" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $rev['product_img'] : '../src/sample_images/product_1.jpg'?>" alt="">
+                <span class="text-xl font-medium line-clamp-1 my-auto h-7 cursor-default" title="<?php echo isset($product_id) ? $rev['product_title'] : 'product_title'?>"><?php echo isset($product_id) ? $rev['product_title'] : 'product_title'?></span>
             </div>
         </div>
         <hr class="my-5">
@@ -142,10 +144,33 @@
             $selectedStars = $_POST['stars'];
             $starString = implode(", ", $selectedStars);
 
-            $updateReview = "UPDATE user_review SET Rating='$starString',Headline='$headline',description='$description',public_name='$public_Name',date='$review_insert_Date' WHERE product_id = '$product_id'";
+            $updateReview = "UPDATE user_review SET Rating='$starString',Headline='$headline',description='$description',public_name='$public_Name',date='$review_insert_Date' WHERE review_id = '$review_id'";
             $review_query = mysqli_query($con, $updateReview);
 
             if($review_query){
+                $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+                $review_query = mysqli_query($con, $get_reviews);
+
+                $totalReviews = mysqli_num_rows($review_query);
+
+                $sum = 0;
+                $count = 0;
+                if ($totalReviews > 0) {         
+                    while ($data = mysqli_fetch_assoc($review_query)) {
+                        $rating = str_replace(",", "", $data['Rating']);
+                        $sum += (float)$rating;
+                        $count++;
+                    }
+                
+                    $average = $sum / $count;
+                    $formatted_average = number_format($average, 1);
+                }else {
+                    $formatted_average = "0.0";
+                }
+            
+                $update_review = "UPDATE items SET avg_rating='$formatted_average',total_reviews='$totalReviews' WHERE product_id = '$product_id'";
+                $update_review_query = mysqli_query($con, $update_review);
+
                 ?>
                 <!-- Successfully -->
                 <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">

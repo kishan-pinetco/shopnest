@@ -49,7 +49,7 @@ if (isset($_COOKIE['vendor_id'])) {
     }
 
     // for total products
-    $products = "SELECT * FROM products WHERE vendor_id = '$vendor_id'";
+    $products = "SELECT * FROM items WHERE vendor_id = '$vendor_id'";
     $products_query = mysqli_query($con, $products);
 
     $products = mysqli_num_rows($products_query);

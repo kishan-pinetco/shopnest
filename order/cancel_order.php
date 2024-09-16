@@ -254,7 +254,7 @@ if (isset($_COOKIE['user_id'])) {
 
             // insert quantity of products
 
-            $get_qty = "SELECT * FROM products WHERE product_id = '$product_id'";
+            $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
             $get_qty_query = mysqli_query($con, $get_qty);
  
             $qty = mysqli_fetch_assoc($get_qty_query);
@@ -264,7 +264,7 @@ if (isset($_COOKIE['user_id'])) {
  
             $remove_quty = number_format($qty_replace + $cancle_order_qty);
  
-            $update_qty = "UPDATE products SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
+            $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
             $update_qty_quary = mysqli_query($con, $update_qty);
 
             // sending email

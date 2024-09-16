@@ -284,7 +284,7 @@ if(isset($_COOKIE['adminEmail'])){
                                                 $i = 1;
                                                 while ($tr = mysqli_fetch_array($topRated_query)) {
                                                     $product_id = $tr['product_id'];
-                                                    $selectProducts = "SELECT * FROM products WHERE product_id = '$product_id'";
+                                                    $selectProducts = "SELECT * FROM items WHERE product_id = '$product_id'";
                                                     $pQeury = mysqli_query($con, $selectProducts);
                                                 
                                                     $row = mysqli_fetch_assoc($pQeury);

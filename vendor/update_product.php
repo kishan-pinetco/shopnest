@@ -455,7 +455,7 @@ if (isset($_POST['updateBtn'])) {
     $color_value = implode(',', $clr);
     $size_value = implode(',', $sz);
 
-    $product_update = "UPDATE products SET title='$full_name',company_name='$Company_name',Category='$Category',Type='$type',Your_Price='$your_price',MRP='$MRP',Quantity='$quantity',Item_Condition='$condition',Description='$description',color='$color_value',size='$size_value',keywords='$key_value' WHERE product_id = '$product_id'";
+    $product_update = "UPDATE items SET title='$full_name',company_name='$Company_name',Category='$Category',Type='$type',Your_Price='$your_price',MRP='$MRP',Quantity='$quantity',Item_Condition='$condition',Description='$description',color='$color_value',size='$size_value',keywords='$key_value' WHERE product_id = '$product_id'";
     $product_query = mysqli_query($con, $product_update);
     if ($product_query) {
         echo '<script>displaySuccessMessage("Data update Successfully.");</script>';

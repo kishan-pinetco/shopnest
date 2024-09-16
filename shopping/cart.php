@@ -136,7 +136,7 @@
                                         <h1 class="text-3xl font-semibold text-gray-800">Your Cart is Empty</h1>
                                         <p class="text-gray-600 mt-2">Looks like you haven’t added any products to your cart yet.</p>
                                     </div>
-                                    <?php
+                                <?php
                             }
                         ?>
                         

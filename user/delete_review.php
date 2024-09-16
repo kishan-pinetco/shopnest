@@ -4,9 +4,34 @@
 
     if(isset($_GET['product_id'])){   
         $product_id = $_GET['product_id'];
+        $review_id = $_GET['review_id'];
         
-        $delete_review = "DELETE FROM user_review WHERE product_id = '$product_id'";
+        $delete_review = "DELETE FROM user_review WHERE review_id = '$review_id'";
         $delete_query = mysqli_query($con, $delete_review);
+
+        // update the product rating or reviews
+        $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+        $review_query = mysqli_query($con, $get_reviews);
+
+        $totalReviews = mysqli_num_rows($review_query);
+
+        $sum = 0;
+        $count = 0;
+        if ($totalReviews > 0) {         
+            while ($data = mysqli_fetch_assoc($review_query)) {
+                $rating = str_replace(",", "", $data['Rating']);
+                $sum += (float)$rating;
+                $count++;
+            }
+
+            $average = $sum / $count;
+            $formatted_average = number_format($average, 1);
+        }else {
+            $formatted_average = "0.0";
+        }
+
+        $update_review = "UPDATE items SET avg_rating='$formatted_average',total_reviews='$totalReviews' WHERE product_id = '$product_id'";
+        $update_review_query = mysqli_query($con, $update_review);
 
         if($delete_query){
             ?>

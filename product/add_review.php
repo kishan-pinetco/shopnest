@@ -157,10 +157,35 @@
             $selectedStars = $_POST['stars'];
             $starString = implode(", ", $selectedStars);
 
-            $insertReview = "INSERT INTO user_review(product_id, user_id, Rating, Headline, description, public_name, profile_image, date) VALUES ('$product_id','$userId','$starString','$headline','$description','$public_Name','$userprofileImage','$review_insert_Date')";
+            $insertReview = "INSERT INTO user_review(product_id, user_id, product_img, product_title, Rating, Headline, description, public_name, profile_image, date) VALUES ('$product_id','$userId','$first_images','$title','$starString','$headline','$description','$public_Name','$userprofileImage','$review_insert_Date')";
             $review_query = mysqli_query($con, $insertReview);
 
             if($review_query){
+                $product_id = $_GET['product_id'];
+        
+                $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+                $review_query = mysqli_query($con, $get_reviews);
+
+                $totalReviews = mysqli_num_rows($review_query);
+
+                $sum = 0;
+                $count = 0;
+                if ($totalReviews > 0) {         
+                    while ($data = mysqli_fetch_assoc($review_query)) {
+                        $rating = str_replace(",", "", $data['Rating']);
+                        $sum += (float)$rating;
+                        $count++;
+                    }
+
+                    $average = $sum / $count;
+                    $formatted_average = number_format($average, 1);
+                }else {
+                    $formatted_average = "0.0";
+                }
+
+                $update_review = "UPDATE items SET avg_rating='$formatted_average',total_reviews='$totalReviews' WHERE product_id = '$product_id'";
+                $update_review_query = mysqli_query($con, $update_review);
+
                 ?>
                 <!-- Successfully -->
                 <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
