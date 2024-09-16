@@ -405,20 +405,32 @@ if (isset($_COOKIE['user_id'])) {
                 <div class=" py-3">
                     <ul class="lg:text-lg">
                         <!-- tv -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 30 30" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=TV">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 30 30" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M26.315 3.687H3.685a3.432 3.432 0 0 0-3.427 3.43v12.742a3.43 3.43 0 0 0 3.427 3.429h8.307L9 24.875c-.887.412-.27 1.769.626 1.363.051-.039 5.312-2.809 5.374-2.85l5.293 2.813a.74.74 0 0 0 .351.088c.765.031 1.045-1.079.356-1.414l-2.992-1.587h8.307a3.431 3.431 0 0 0 3.427-3.428V7.117a3.432 3.432 0 0 0-3.427-3.43zm1.927 16.171a1.928 1.928 0 0 1-1.927 1.929H3.685a1.93 1.93 0 0 1-1.927-1.928V7.117c0-1.065.862-1.928 1.927-1.929h22.63a1.93 1.93 0 0 1 1.927 1.928z" fill="#000000" opacity="1" data-original="#000000"></path>
                                         <path d="M13.678 10.024H8.032a.75.75 0 0 0 0 1.5h2.073V16.2a.75.75 0 0 0 1.5 0v-4.676h2.073c.981-.004.981-1.495 0-1.5zM22.297 10.1a.75.75 0 0 0-1.003.345l-1.972 4.042-1.971-4.044c-.435-.88-1.779-.226-1.351.66l2.648 5.426c.258.545 1.089.549 1.348 0l2.646-5.426a.75.75 0 0 0-.345-1.003z" fill="#000000" opacity="1" data-original="#000000"></path>
                                     </g>
-                                </svg> TVs </a></li>
+                                </svg>
+                                TVs
+                            </a>
+                        </li>
                         <!-- laptop -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.021 512.021" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=Laptops/MacBook">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512.021 512.021" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M304.947 385.93v8.714h-97.382v-8.714H0v3.584c0 5.642 2.048 11.274 6.154 15.38 4.096 4.096 9.738 6.154 15.38 6.154h468.951c5.642 0 11.274-2.048 15.38-6.154 4.096-4.096 6.154-9.738 6.154-15.38v-3.584H304.947zM68.68 400.276H47.155v-2.56H68.68v2.56zM60.989 377.728H451.01c3.584 0 7.178-1.536 9.738-4.096s4.096-6.154 4.096-9.738V114.806c0-3.584-1.536-7.178-4.096-9.738s-6.154-4.096-9.738-4.096H60.989c-3.584 0-7.178 1.536-9.738 4.096s-4.096 6.154-4.096 9.738v249.078c0 3.584 1.536 7.178 4.096 9.738 3.072 3.082 6.154 4.106 9.738 4.106zm195.267-270.602c2.56 0 4.608 2.048 4.608 4.608s-2.048 4.608-4.608 4.608-4.608-2.048-4.608-4.608 2.048-4.608 4.608-4.608zm-187.064 15.37h374.139v233.707H69.192V122.496z" fill="#000000" opacity="1" data-original="#000000"></path>
                                     </g>
-                                </svg> Laptops & Computers </a></li>
+                                </svg>
+                                Laptops & Computers
+                            </a>
+                        </li>
                         <!-- ipad/tab -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=Tabs/Ipad">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <g fill="#222020">
                                             <ellipse cx="32" cy="4.872" rx="1.221" ry="1.204" fill="#222020" opacity="1" data-original="#222020"></ellipse>
@@ -427,37 +439,62 @@ if (isset($_COOKIE['user_id'])) {
                                             <ellipse cx="32" cy="58.236" rx="2.009" ry="1.982" fill="#222020" opacity="1" data-original="#222020"></ellipse>
                                         </g>
                                     </g>
-                                </svg> iPads & Tablets </a></li>
+                                </svg>
+                                iPads & Tablets
+                            </a>
+                        </li>
                         <!-- mobille -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=Phones">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M381.333 124.87c-.089 0-.162.048-.249.05V77.366c0-26.234-21.347-47.581-47.581-47.581H178.478c-26.234 0-47.581 21.347-47.581 47.581v47.551c-.081-.002-.149-.047-.23-.047a9.805 9.805 0 0 0-9.811 9.811v29.166a9.805 9.805 0 0 0 9.811 9.811c.081 0 .148-.044.23-.047v10.173c-.081-.002-.149-.047-.23-.047a9.805 9.805 0 0 0-9.811 9.811v29.166a9.805 9.805 0 0 0 9.811 9.811c.081 0 .148-.044.23-.047v202.155c0 26.234 21.347 47.581 47.581 47.581h155.026c26.234 0 47.581-21.347 47.581-47.581V173.608c.087.002.16.05.249.05a9.805 9.805 0 0 0 9.811-9.811v-29.166a9.807 9.807 0 0 0-9.812-9.811zm-19.872 309.764c0 15.407-12.532 27.958-27.958 27.958H178.478c-15.426 0-27.958-12.552-27.958-27.958V77.366c0-15.407 12.532-27.958 27.958-27.958h22.153V62.23a8.673 8.673 0 0 0 8.672 8.672h93.382a8.673 8.673 0 0 0 8.672-8.672V49.408h22.146c15.426 0 27.958 12.552 27.958 27.958z" fill="#000000" opacity="1" data-original="#000000"></path>
                                     </g>
-                                </svg> Cell Phone </a></li>
+                                </svg>
+                                Cell Phone
+                            </a>
+                        </li>
                         <!-- headphone -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=Headphone">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <g data-name="STATIONERY AND OFFICE">
                                             <path d="M87.37 393.24c18.81 47.81 34.24 78.54 37 82.51 4.55 6.53 13.93 10.5 21.42 8.9a89.71 89.71 0 0 0 18.15-6.31 92.11 92.11 0 0 0 16.53-9.8c6.06-4.67 9.22-14.14 7.45-21.56-1-4.57-13.93-34.85-31.94-80.65s-29.06-76.82-31.44-80.84c-3.76-6.64-12.5-11.43-20.12-10.74a92.74 92.74 0 0 0-18.79 4.06A89.74 89.74 0 0 0 68 286.53c-6.58 3.92-10.75 13.21-9.65 21.09.7 4.77 10.29 37.78 29.02 85.62zM453.66 307.62c1.1-7.88-3.07-17.17-9.65-21.09a89.74 89.74 0 0 0-17.6-7.72 92.74 92.74 0 0 0-18.79-4.06c-7.62-.69-16.36 4.1-20.12 10.74-2.38 4-13.49 35-31.44 80.84s-30.95 76.08-31.94 80.67c-1.76 7.42 1.39 16.89 7.45 21.56a92.11 92.11 0 0 0 16.53 9.8 89.71 89.71 0 0 0 18.15 6.31c7.49 1.6 16.87-2.37 21.42-8.9 2.72-4 18.15-34.7 37-82.51s28.33-80.87 28.99-85.64z" fill="#000000" opacity="1" data-original="#000000"></path>
                                             <path d="M502 303.3v-30.55A19 19 0 0 0 512 256 256 256 0 0 0 75 75 254.37 254.37 0 0 0 0 256a19 19 0 0 0 10 16.73v30.57a24 24 0 0 0-9 26.12 975.06 975.06 0 0 0 66.49 169.4 24 24 0 1 0 42.84-21.65 926.57 926.57 0 0 1-63.2-161 24 24 0 0 0-19.08-17v-26.42A19 19 0 0 0 38 256a218 218 0 0 1 372.17-154.15A216.63 216.63 0 0 1 474 256a19 19 0 0 0 10 16.73v26.37a24 24 0 0 0-19.08 17 926.57 926.57 0 0 1-63.2 161 24 24 0 1 0 42.85 21.65 975.82 975.82 0 0 0 66.48-169.4A24 24 0 0 0 502 303.3z" fill="#000000" opacity="1" data-original="#000000"></path>
                                         </g>
                                     </g>
-                                </svg> Headphones </a></li>
+                                </svg>
+                                Headphones
+                            </a>
+                        </li>
                         <!-- cloths -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=Clothes">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M26.516 5.65A4.383 4.383 0 0 0 23.4 4.36h-.005l-2.934.002c-.191 0-.37.074-.537.158-2.693 1.717-5.313 1.72-8.007 0-.167-.084-.346-.159-.537-.158L8.44 4.36h-.004a4.38 4.38 0 0 0-3.115 1.29L3.538 7.435a5.261 5.261 0 0 0-.003 7.425l2.496 2.5v5.028a5.258 5.258 0 0 0 5.252 5.252h9.277a5.258 5.258 0 0 0 5.252-5.252v-4.714l2.65-2.65a5.259 5.259 0 0 0 0-7.427zm-7.602 1.587a3.533 3.533 0 0 1-2.992 1.667 3.534 3.534 0 0 1-2.993-1.666c1.992.743 3.993.743 5.985 0zm8.134 6.373-1.236 1.236v-2.632a1 1 0 1 0-2 0v10.174a3.256 3.256 0 0 1-3.252 3.252h-9.277a3.256 3.256 0 0 1-3.252-3.252V12.373a1 1 0 1 0-2 0v2.156l-1.08-1.082a3.258 3.258 0 0 1 .001-4.598l1.784-1.784a2.389 2.389 0 0 1 1.701-.705h.002l2.036.002c.473 2.58 2.733 4.542 5.447 4.542s4.973-1.963 5.446-4.542l2.03-.002h.003c.642 0 1.245.25 1.7.704l1.947 1.947a3.257 3.257 0 0 1 0 4.6z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
                                     </g>
-                                </svg> Cloths </a></li>
+                                </svg>
+                                Cloths
+                            </a>
+                        </li>
                         <!-- watch -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=Watch">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M10.5 6.5h.41a2.34 2.34 0 0 0 .377-.884l.562-3.203A.497.497 0 0 1 12.34 2h6.32c.243 0 .45.174.492.414l.564 3.213c.064.321.193.616.373.873h.411c.743 0 1.415.28 1.938.728A.48.48 0 0 0 22.5 7a.5.5 0 0 0-.5-.5c-.632 0-1.18-.449-1.301-1.057l-.562-3.201A1.496 1.496 0 0 0 18.66 1h-6.32c-.731 0-1.352.522-1.477 1.241l-.559 3.19A1.333 1.333 0 0 1 9 6.5a.5.5 0 0 0-.5.5.48.48 0 0 0 .062.228A2.968 2.968 0 0 1 10.5 6.5zM20.5 25.5h-.41a2.34 2.34 0 0 0-.377.884l-.562 3.203a.497.497 0 0 1-.491.413h-6.32a.499.499 0 0 1-.492-.414l-.564-3.213a2.304 2.304 0 0 0-.373-.873H10a1.988 1.988 0 0 1-1.469-.652A.478.478 0 0 0 8.5 25a.5.5 0 0 0 .5.5c.632 0 1.18.449 1.301 1.057l.562 3.201c.125.72.746 1.242 1.477 1.242h6.32c.731 0 1.352-.522 1.477-1.241l.559-3.19A1.333 1.333 0 0 1 22 25.5a.5.5 0 0 0 .5-.5.48.48 0 0 0-.062-.228 2.968 2.968 0 0 1-1.938.728zM24 10h-.5v1h.5v2h-.5v1h.5c.551 0 1-.449 1-1v-2c0-.551-.449-1-1-1zm0 3.5V13z" fill="#000000" opacity="1" data-original="#000000"></path>
                                         <path d="M20.5 26h-10C8.57 26 7 24.43 7 22.5v-13C7 7.57 8.57 6 10.5 6h10C22.43 6 24 7.57 24 9.5v13c0 1.93-1.57 3.5-3.5 3.5zm-10-19A2.503 2.503 0 0 0 8 9.5v13c0 1.378 1.122 2.5 2.5 2.5h10c1.378 0 2.5-1.122 2.5-2.5v-13C23 8.122 21.878 7 20.5 7z" fill="#000000" opacity="1" data-original="#000000"></path>
                                     </g>
-                                </svg> Wearable Technology </a></li>
-                        <!-- stationary -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                </svg>
+                                Watch
+                            </a>
+                        </li>
+                        <!-- Stationary -->
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=Stationary">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M359.167 231.568a7.498 7.498 0 0 1-3.24-10.099L436.323 65.1 398.72 45.832l-93.788 182.495a7.5 7.5 0 0 1-13.342-6.857l97.213-189.157a7.502 7.502 0 0 1 10.091-3.247l50.953 26.11a7.502 7.502 0 0 1 3.25 10.104l-83.831 163.047a7.499 7.499 0 0 1-10.099 3.241z" fill="#000000" opacity="1" data-original="#000000"></path>
                                         <path d="M404.194 225.931a7.498 7.498 0 0 1-3.235-10.101l47.367-92.001-77.918-39.93a7.5 7.5 0 1 1 6.842-13.349l84.604 43.357a7.503 7.503 0 0 1 3.247 10.108l-50.807 98.682a7.499 7.499 0 0 1-10.1 3.234zM180.704 228.525l-62.368-110.7-55.14-37.905 8.939 68.027 42.232 73.146a7.5 7.5 0 0 1-12.99 7.5l-42.979-74.439a7.493 7.493 0 0 1-.941-2.773L46.13 65.176a7.5 7.5 0 0 1 11.685-7.158l70.452 48.43a7.5 7.5 0 0 1 2.286 2.5l63.221 112.215a7.5 7.5 0 0 1-2.853 10.215 7.5 7.5 0 0 1-10.217-2.853z" fill="#000000" opacity="1" data-original="#000000"></path>
@@ -468,15 +505,23 @@ if (isset($_COOKIE['user_id'])) {
                                         <path d="M356.44 432.336a7.5 7.5 0 0 1-6.891-8.063l14.835-189.204H104.72l14.823 189.204a7.5 7.5 0 0 1-6.891 8.063c-4.131.328-7.739-2.762-8.063-6.892l-15.456-197.29c-.341-4.356 3.104-8.086 7.477-8.086h275.886c4.369 0 7.82 3.727 7.477 8.086l-15.469 197.289a7.502 7.502 0 0 1-8.064 6.893z" fill="#000000" opacity="1" data-original="#000000"></path>
                                         <path d="M370.402 483.76H98.689a7.5 7.5 0 0 1-7.5-7.5v-47.977a7.5 7.5 0 0 1 7.5-7.5h271.713c4.143 0 7.5 3.357 7.5 7.5v47.977c0 4.143-3.357 7.5-7.5 7.5zm-264.213-15h256.713v-32.977H106.189zM368.364 287.76H101.219c-4.142 0-7.5-3.357-7.5-7.5s3.358-7.5 7.5-7.5h267.145c4.143 0 7.5 3.357 7.5 7.5s-3.358 7.5-7.5 7.5z" fill="#000000" opacity="1" data-original="#000000"></path>
                                     </g>
-                                </svg> Stationary </a></li>
+                                </svg>
+                                Stationary
+                            </a>
+                        </li>
                         <!-- camera -->
-                        <li><a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="../../shopnest/pages/product_category.php"><svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <li>
+                            <a class="px-9 h-12 flex items-center gap-3 hover:bg-gray-200" href="/shopnest/pages/product_category.php?Category=Cameras">
+                                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M27.348 7h-4.294l-.5-1.5A3.645 3.645 0 0 0 19.089 3h-6.178a3.646 3.646 0 0 0-3.464 2.5L8.946 7H4.652A3.656 3.656 0 0 0 1 10.652v14.7A3.656 3.656 0 0 0 4.652 29h22.7A3.656 3.656 0 0 0 31 25.348v-14.7A3.656 3.656 0 0 0 27.348 7ZM29 25.348A1.654 1.654 0 0 1 27.348 27H4.652A1.654 1.654 0 0 1 3 25.348v-14.7A1.654 1.654 0 0 1 4.652 9h5.015a1 1 0 0 0 .948-.684l.729-2.187A1.65 1.65 0 0 1 12.911 5h6.178a1.649 1.649 0 0 1 1.567 1.13l.729 2.186a1 1 0 0 0 .948.684h5.015A1.654 1.654 0 0 1 29 10.652Z" fill="#000000" opacity="1" data-original="#000000"></path>
                                         <path d="M16 10a7.5 7.5 0 1 0 7.5 7.5A7.508 7.508 0 0 0 16 10Zm0 13a5.5 5.5 0 1 1 5.5-5.5A5.506 5.506 0 0 1 16 23Z" fill="#000000" opacity="1" data-original="#000000"></path>
                                         <circle cx="26" cy="12" r="1" fill="#000000" opacity="1" data-original="#000000"></circle>
                                     </g>
-                                </svg> Cameras </a></li>
+                                </svg>
+                                Cameras
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
