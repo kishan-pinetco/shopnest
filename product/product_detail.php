@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include "../include/connect.php";
 
     if(isset($_GET['product_id'])){
@@ -95,8 +97,6 @@
             }
         }
 
-        session_start();
-
         $defaultColor = '';
 
         foreach($color_img as $key => $value) {
@@ -173,19 +173,16 @@
 
                 $size = isset($_POST['size']) ? $_POST['size'] : null;
                 $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
-
+                
                 $encoded_product_id = urlencode($product_id);
                 $encoded_size = urlencode($size);
                 $encoded_qty = urlencode($qty);
 
+                unset($_SESSION['selectedColor']);
+                unset($_SESSION['product_titles']);
                 ?>
-                    <?php
-                        unset($_SESSION['selectedColor']);
-                        unset($_SESSION['product_title']);
-                    ?>
                     <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script>
                 <?php
-                
             }
         }
 
@@ -603,7 +600,7 @@
                                             unset($_SESSION['selectedColors']);
                                             unset($_SESSION['product_titles']);
                                         ?>
-                                        <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
+                                        <a href="../authentication/user_auth/user_login.php" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
                                     <?php
                                 }
                             ?>
