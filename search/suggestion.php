@@ -16,9 +16,13 @@
                     $keyword = trim($keyword);
                     if (!empty($keyword)) { 
                         $encodedKey = urlencode($keyword);
-                        $output .= '<li class="bg-white z-50 hover:bg-gray-300 px-1 py-2 border cursor-pointer rounded-md">';
-                        $output .= '<a href="/shopnest/search/search_items.php?searchName=' . $encodedKey . '">' . htmlspecialchars($keyword) . '</a>';
-                        $output .= '</li>';
+                        ?>
+                            <li class="list-none bg-white z-50 hover:bg-gray-300 px-1 py-2 border cursor-pointer rounded-md" onclick="window.location.href='<?php echo '/shopnest/search/search_items.php?searchName=' . $encodedKey ?>'">
+                                <a href="<?php echo '/shopnest/search/search_items.php?searchName=' . $encodedKey ?>">
+                                    <?php echo htmlspecialchars($keyword) ?>
+                                </a>
+                            </li>
+                        <?php
                     }
                 }
             } 
@@ -42,9 +46,13 @@
                     $keyword = trim($keyword);
                     if (!empty($keyword)) {
                         $encodedKey = urlencode($keyword);
-                        $output .= '<li class="bg-white z-50 hover:bg-gray-300 px-1 py-2 border cursor-pointer rounded-md">';
-                        $output .= '<a href="../search/search_items.php?searchName=' . $encodedKey . '">' . htmlspecialchars($keyword) . '</a>';
-                        $output .= '</li>';
+                        ?>
+                            <li class="list-none bg-white z-50 hover:bg-gray-300 px-1 py-2 border cursor-pointer rounded-md" onclick="window.location.href='<?php echo '/shopnest/search/search_items.php?searchName=' . $encodedKey ?>'">
+                                <a href="<?php echo '/shopnest/search/search_items.php?searchName=' . $encodedKey ?>">
+                                    <?php echo htmlspecialchars($keyword) ?>
+                                </a>
+                            </li>
+                        <?php
                     }
                 }
             }
