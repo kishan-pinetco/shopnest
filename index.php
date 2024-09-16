@@ -25,26 +25,6 @@ function displayRandomProducts($con, $limit)
         while ($res = mysqli_fetch_assoc($product_query)) {
             $product_id = $res['product_id'];
 
-            $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
-            $review_query = mysqli_query($con, $get_reviews);
-
-            $totalReviews = mysqli_num_rows($review_query);
-
-            $sum = 0;
-            $count = 0;
-            if ($totalReviews > 0) {
-                while ($data = mysqli_fetch_assoc($review_query)) {
-                    $rating = str_replace(",", "", $data['Rating']);
-                    $sum += (float)$rating;
-                    $count++;
-                }
-
-                $average = $sum / $count;
-                $formatted_average = number_format($average, 1);
-            } else {
-                $formatted_average = "0.0";
-            }
-
             // for image
             $json_img = $res['image'];
             $decode_img = json_decode($json_img, true);
@@ -95,12 +75,12 @@ function displayRandomProducts($con, $limit)
                             </p>
                             <div class="flex items-center">
                                 <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                    <h1 class="font-semibold text-xs text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
+                                    <h1 class="font-semibold text-xs text-white"><?php echo isset($res['avg_rating']) ? $res['avg_rating'] : '0.0' ?></h1>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
                                         <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                     </svg>
                                 </span>
-                                <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo $totalReviews ?>)</span>
+                                <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo $res['total_reviews'] ?>)</span>
                             </div>
                         </div>
                     </div>
