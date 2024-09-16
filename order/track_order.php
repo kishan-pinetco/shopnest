@@ -267,11 +267,15 @@ if (isset($_COOKIE['user_id'])) {
     $today = date('d-m-Y', strtotime($res['date']));
     $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
 
-    if(strtotime('today') === $fifth){
-        $order_id = $_GET['order_id'];
+    $todays_date = date('d-m-Y', strtotime('today'));
 
-        $update_delivery = "UPDATE orders SET status='Delivered' WHERE order_id = '$order_id'";
-        $update_query = mysqli_query($con,$update_delivery);
+    if($todays_date === $fifth){
+        $order_id = mysqli_real_escape_string($con, $_GET['order_id']);
+        $delivered = 'Delivered';
+
+        $update_delivery = "UPDATE orders SET status='$delivered' WHERE order_id = '$order_id'";
+        $update_query = mysqli_query($con, $update_delivery);
+
     }else{
         echo '';
     }
