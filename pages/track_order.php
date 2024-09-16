@@ -37,17 +37,67 @@
             <h1 class="text-3xl font-bold md:text-5xl">Track Your Order</h1>
             <p class="text-base font-normal m-auto">To track your order please enter your Order ID in the box below and press the "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
         </div>
-        <div class="tracker_form flex flex-col gap-8 border mt-8 p-8 w-full lg:p-12">
+        <form action="" method="post" class="flex flex-col gap-8 border mt-8 p-8 w-full lg:p-12">
             <div class="order_id">
-                <p>Order ID</p>
-                <input class="w-[100%] h-14 border rounded-md mt-2 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" type="text" placeholder="Found in your order confirmation email.">
+                <label for="order_id">Order ID</label>
+                <div class="relative">
+                    <input type="text" name="order_id" id="order_id" class="w-full h-14 border rounded-md mt-1 px-4 pl-12 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" value="" placeholder="Enter Your Order ID" />
+                    <div class="absolute left-0 rounded-l top-1 w-10 h-14 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">#</div>
+                </div>
             </div>
             <div class="billing_email">
                 <p>Billing email</p>
-                <input class="w-[100%] h-14 border rounded-md mt-2 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" type="text" placeholder="Email you see during checkout.">
+                <input name="billing_email" class="w-[100%] h-14 border rounded-md mt-2 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" type="email" placeholder="Email you see during checkout.">
             </div>
-            <button class="bg-gray-700 hover:bg-gray-800 text-white font-semibold h-14 rounded-tl-xl rounded-br-xl">Track Order</button>
-        </div>
+            <input name="track_order" type="submit" class="bg-gray-700 hover:bg-gray-800 text-white font-semibold h-14 text-center rounded-tl-xl rounded-br-xl cursor-pointer" value="Track Order">
+        </form>
+
+
+        <?php
+            include "../include/connect.php";
+            if(isset($_POST['track_order'])){
+                $order_id = $_POST['order_id'];
+                $billing_email = $_POST['billing_email'];
+
+                $find_id = "SELECT * FROM orders WHERE order_id = '$order_id' AND user_email = '$billing_email'";
+                $find_query = mysqli_query($con, $find_id);
+
+                if(mysqli_num_rows($find_query) > 0){
+                    ?>
+                        <script>window.location.href = '../order/track_order.php?order_id=<?php echo $order_id ?>'</script>
+                    <?php
+                }else{
+                    ?>
+                        <!-- Error -->
+                        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp_2" style="display: none;">
+                            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div>
+                                    <span class="font-medium">Enter Valid Order ID or Billing Email.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            let EpopUp_2 = document.getElementById('EpopUp_2');
+
+                            EpopUp_2.style.display = 'flex';
+                            EpopUp_2.style.opacity = '100';
+
+                            setTimeout(() => {
+                                EpopUp_2.style.display = 'none';
+                                EpopUp_2.style.opacity = '0';
+                            }, 1500);
+                        </script>
+                    <?php
+                }
+
+
+            }        
+        ?>
     </div>
 
     <!-- footer -->

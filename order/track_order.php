@@ -232,10 +232,13 @@ if (isset($_COOKIE['user_id'])) {
                     <div class="flex flex-col items-center gap-4 gap-y-4 sm:flex-row">
                         <?php
                             if(isset($thirdday) && isset($todays) && $thirdday < $todays){
-                                ?>
-                                    <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
-                                <?php
-                                if(isset($thirdday) && isset($todays) &&  $fifth < $todays && $return_date >= strtotime('today')){
+                                $todays_dates = date('d-m-Y', strtotime('today'));
+                                if(isset($future_date) && isset($todays) && $future_date <= $todays_dates){
+                                    ?>
+                                        <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
+                                    <?php
+                                }
+                                if(isset($thirdday) && isset($todays) &&  $fifth > $todays && $return_date >= $todays_dates){
                                     ?>
                                         <a href="return_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
                                     <?php
