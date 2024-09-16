@@ -160,7 +160,7 @@ if (isset($_COOKIE['user_id'])) {
                     $filterName = str_replace(' ', '+', $searchName);
                 ?>
                     <script>
-                        window.location.href = "../../shopnest/search/search_items.php?searchName=<?php echo $filterName; ?>"
+                        window.location.href = "/shopnest/search/search_items.php?searchName=<?php echo $filterName; ?>"
                     </script>
                 <?php
                 }
@@ -345,7 +345,7 @@ if (isset($_COOKIE['user_id'])) {
                 $filterName = str_replace(' ', '+', $searchName);
             ?>
                 <script>
-                    window.location.href = "../search/search_items.php?searchName=<?php echo $filterName; ?>"
+                    window.location.href = "/shopnest/search/search_items.php?searchName=<?php echo $filterName; ?>"
                 </script>
             <?php
             }
@@ -511,7 +511,7 @@ if (isset($_COOKIE['user_id'])) {
                 let query = SearchInput.value;
                 if (query != '') {
                     let xhr = new XMLHttpRequest();
-                    xhr.open('POST', '../search/suggestion.php', true);
+                    xhr.open('POST', '/shopnest/search/suggestion.php', true);
                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xhr.onload = function() {
                         if (xhr.status >= 200 && xhr.status < 300) {
@@ -545,7 +545,7 @@ if (isset($_COOKIE['user_id'])) {
                 let query2 = SearchInput2.value;
                 if (query2 != '') {
                     let xhr = new XMLHttpRequest();
-                    xhr.open("POST", '../search/suggestion.php', true);
+                    xhr.open("POST", '/shopnest/search/suggestion.php', true);
                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xhr.onload = function() {
                         if (xhr.status >= 200 && xhr.status < 300) {
