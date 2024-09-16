@@ -76,12 +76,12 @@
             <div class="flex flex-col">
                 <label for="OTP" class="require">OTP:</label>
                 <div class="flex space-x-3 mt-2 -translate-x-0.5" id="otp-container">
-                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" />
-                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" />
-                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" />
-                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" />
-                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" />
-                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" />
+                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
                 </div>
             </div>
             <small class="w-full text-red-500 text-sm mt-0.5">Error!</small>
@@ -97,7 +97,7 @@
             <div class="flex flex-col gap-2">
                 <div class="relative" x-data="{newPass: false}">
                     <label for="newPass" class="require">New Password:</label>
-                    <input type="password" name="newPass" id="newPass" x-bind:type="newPass ? 'text' : 'password'" class="w-80 mt-2 h-12 pr-10 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition">
+                    <input type="password" name="newPass" id="newPass" x-bind:type="newPass ? 'text' : 'password'" class="w-80 mt-2 h-12 pr-10 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" autocomplete="off">
                     <span class="absolute top-[2.8rem] right-10 cursor-pointer" x-on:click="newPass = !newPass">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                             <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="relative" x-data="{confirmPass: false}">
                     <label for="confirmPass" class="require">Confirm Password:</label>
-                    <input type="password" name="confirmPass" id="confirmPass" x-bind:type="confirmPass ? 'text' : 'password'" class="w-80 mt-2 h-12 pr-10 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition">
+                    <input type="password" name="confirmPass" id="confirmPass" x-bind:type="confirmPass ? 'text' : 'password'" class="w-80 mt-2 h-12 pr-10 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" autocomplete="off">
                     <span class="absolute top-[2.8rem] right-10 cursor-pointer" x-on:click="confirmPass = !confirmPass">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                             <path d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"></path>
