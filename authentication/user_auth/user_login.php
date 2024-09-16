@@ -32,6 +32,59 @@
 </head>
 
 <body class="flex justify-center items-center h-[100vh] p-2" style="font-family: 'Outfit', sans-serif;">
+    <!-- Successfully message container -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="Successfully"></div>
+        </div>
+    </div>
+
+    <!-- Error message container -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="errorMessage"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript function -->
+    <script>
+        function displayErrorMessage(message) {
+            let popUp = document.getElementById('popUp');
+            let errorMessage = document.getElementById('errorMessage');
+
+            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+            popUp.style.display = 'flex';
+            popUp.style.opacity = '100';
+
+            setTimeout(() => {
+                popUp.style.display = 'none';
+                popUp.style.opacity = '0';
+            }, 1500);
+        }
+
+        function displaySuccessMessage(message) {
+            let SpopUp = document.getElementById('SpopUp');
+            let Successfully = document.getElementById('Successfully');
+
+            Successfully.innerHTML = '<span class="font-medium">' + message + '</span>';
+            SpopUp.style.display = 'flex';
+            SpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                SpopUp.style.display = 'none';
+                SpopUp.style.opacity = '0';
+            }, 1500);
+            window.location.href = "../../index.php";
+        }
+    </script>
 
     <?php
 
@@ -60,33 +113,8 @@
             $pass_decode = password_verify($password, $dbpass);
 
             if ($pass_decode) {
-    ?>
-                <!-- Successfully -->
-                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
-                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                        <div>
-                            <span class="font-medium">Login successful.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    let popUp = document.getElementById('popUp');
-
-                    popUp.style.display = 'flex';
-                    popUp.style.opacity = '100';
-
-                    setTimeout(() => {
-                        popUp.style.display = 'none';
-                        popUp.style.opacity = '0';
-                        window.location.href = "../../index.php";
-                    }, 1500);
-                </script>
-                <?php
+                // Successfully
+                echo '<script>displaySuccessMessage("Login successful.");</script>';
 
                 if (isset($_POST['check'])) {
                     setcookie('userEmail', $email, time() + (365 * 24 * 60 * 60), "/");
@@ -98,60 +126,12 @@
                     exit;
                 }
             } else {
-                ?>
-                <!-- Error -->
-                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
-                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                        <div>
-                            <span class="font-medium">Enter Valid Password.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    let popUp = document.getElementById('popUp');
-
-                    popUp.style.display = 'flex';
-                    popUp.style.opacity = '100';
-
-                    setTimeout(() => {
-                        popUp.style.display = 'none';
-                        popUp.style.opacity = '0';
-                    }, 1500);
-                </script>
-            <?php
+                // error Message
+                echo '<script>displayErrorMessage("Enter Valid Password.");</script>';
             }
         } else {
-            ?>
-            <!-- Error -->
-            <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp_2" style="display: none;">
-                <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                    </svg>
-                    <span class="sr-only">Info</span>
-                    <div>
-                        <span class="font-medium">Enter Valid Email or Password.</span>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                let popUp_2 = document.getElementById('popUp_2');
-
-                popUp_2.style.display = 'flex';
-                popUp_2.style.opacity = '100';
-
-                setTimeout(() => {
-                    popUp_2.style.display = 'none';
-                    popUp_2.style.opacity = '0';
-                }, 1500);
-            </script>
-    <?php
+            // error Message
+            echo '<script>displayErrorMessage("Enter Valid Email or Password.");</script>';
         }
     }
     ?>

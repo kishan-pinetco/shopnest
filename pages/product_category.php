@@ -1,10 +1,15 @@
+<?php
+include "../include/connect.php";
+$Category = $_GET['Category'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Category</title>
+    <title><?php echo isset($Category) ? $Category : 'Product Categorys' ?></title>
 
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
@@ -167,9 +172,6 @@
 </head>
 
 <body class="outfit">
-    <?php
-    include "../include/connect.php";
-    ?>
     <div id="topBar" class="p-1 flex justify-between items-center gap-3 px-5">
         <div class="flex items-center gap-1">
             <svg class="w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 68 68" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -206,13 +208,20 @@
     <div class="px-3 sm:px-16 outfit mt-5" id="main-content">
         <div class="flex justify-between items-center border-b-2 border-gray-300 pb-3">
             <div>
-                <h1 class="text-lg sm:text-3xl text-gray-800">New Arrivals</h1>
+                <h1 class="text-lg sm:text-3xl text-gray-800"><?php echo $Category; ?></h1>
             </div>
             <div class="flex gap-2 relative">
                 <div x-data="{ open: false, selected: 'Sort' }" class="relative inline-block text-sm text-gray-800">
+                    <?php
+                    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                        $selected = isset($_POST['selected']) ? $_POST['selected'] : '';
+                    } else {
+                        $selected = 'Sort';
+                    }
+                    ?>
                     <!-- Dropdown Button -->
                     <button @click="open = !open" class="w-fit focus:outline-none cursor-pointer">
-                        <span x-text="selected"></span>
+                        <span><?php echo $selected ?></span>
                         <svg class="inline w-5 h-5 ml-2" fill="none" stroke="#808080" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
@@ -220,15 +229,19 @@
 
                     <!-- Dropdown Menu -->
                     <div x-show="open" @keydown.escape.window="open = false" @click.outside="open = false" class="transition absolute right-0 mt-2 w-40 bg-white border-2 border-gray-300 text-gray-700 rounded-xl shadow-lg z-10 overflow-hidden text-sm divide-y-2 divide-gray-300" x-cloak>
-                        <a @click="selected = 'All'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">All</a>
-                        <a @click="selected = 'Most Popular'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Most Popular</a>
-                        <a @click="selected = 'Best Rating'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Best Rating</a>
-                        <a @click="selected = 'Newest'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Newest</a>
-                        <a @click="selected = 'Low to High'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Price: Low to High</a>
-                        <a @click="selected = 'High to Low'; open = false" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Price: High to Low</a>
+                        <a @click="selected = 'All'; $refs.form.submit()" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">All</a>
+                        <a @click="selected = 'Most Popular'; $refs.form.submit()" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Most Popular</a>
+                        <a @click="selected = 'Best Rating'; $refs.form.submit()" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Best Rating</a>
+                        <a @click="selected = 'Newest'; $refs.form.submit()" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Newest</a>
+                        <a @click="selected = 'Low to High'; $refs.form.submit()" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Price: Low to High</a>
+                        <a @click="selected = 'High to Low'; $refs.form.submit()" class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">Price: High to Low</a>
                     </div>
-                </div>
 
+                    <!-- Hidden Form -->
+                    <form x-ref="form" method="POST" action="" class="hidden">
+                        <input type="hidden" name="selected" :value="selected">
+                    </form>
+                </div>
 
                 <!-- sidebar button -->
                 <button onclick="filterSideBarOpen()" class="lg:hidden focus:outline-none">
@@ -243,482 +256,356 @@
 
         <div class="flex jutify-center">
             <div class="mt-7 w-64 hidden lg:block">
-                <div class="border-b-2 border-gray-300 pb-4">
-                    <ul class="space-y-2 text-sm text-gray-800">
-                        <li><a href="">Totes</a></li>
-                        <li><a href="">Backpacks</a></li>
-                        <li><a href="">Travel Bags</a></li>
-                        <li><a href="">Hip Bags</a></li>
-                        <li><a href="">Laptop Sleeves</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <!-- color -->
-                    <div class="border-b-2 border-gray-300 pb-4 mt-3">
-                        <h1 class="text-gray-800 font-medium text-sm">Colour</h1>
+                <form method="post">
+                    <!-- Price -->
+                    <div class="border-b-2 border-gray-300 pb-4">
+                        <h1 class="text-gray-800 font-medium text-sm">Price:</h1>
                         <div class="mt-3 text-gray-600">
-                            <ul class="space-y-2 text-gray-700">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="White1" id="White1"><label class="text-sm" for="White1">White</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Beige1" id="Beige1"><label class="text-sm" for="Beige1">Beige</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Blue1" id="Blue1"><label class="text-sm" for="Blue1">Blue</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Brown1" id="Brown1"><label class="text-sm" for="Brown1">Brown</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Green1" id="Green1"><label class="text-sm" for="Green1">Green</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Purple1" id="Purple1"><label class="text-sm" for="Purple1">Purple</label></li>
+                            <ul class="space-y-2 text-sm text-gray-800">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1000" name="price[]" id="under_1k"><label class="text-sm" for="under_1k">Under ₹1000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5000" name="price[]" id="under_5k"><label class="text-sm" for="under_5k">Under ₹5000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="10,000" name="price[]" id="under_10k"><label class="text-sm" for="under_10k">Under ₹10,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="30,000" name="price[]" id="under_30k"><label class="text-sm" for="under_30k">Under ₹30,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="50,000" name="price[]" id="under_50k"><label class="text-sm" for="under_50k">Under ₹50,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1,00,000" name="price[]" id="under_100k"><label class="text-sm" for="under_100k">Under ₹1,00,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5,00,000" name="price[]" id="under_500k"><label class="text-sm" for="under_500k">Over ₹5,00,000</label></li>
                             </ul>
                         </div>
                     </div>
-                    <!-- category -->
+
+                    <!-- color -->
                     <div class="border-b-2 border-gray-300 pb-4 mt-3">
-                        <h1 class="text-gray-800 font-medium text-sm">Category</h1>
-                        <div class="mt-2 text-gray-700">
-                            <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="New Arrivals" id="New Arrivals"><label class="text-sm" for="New Arrivals">New Arrivals</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Sale" id="Sale"><label class="text-sm" for="Sale">Sale</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Travel" id="Travel"><label class="text-sm" for="Travel">Travel</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Organization" id="Organization"><label class="text-sm" for="Organization">Organization</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="Accessories" id="Accessories"><label class="text-sm" for="Accessories">Accessories</label></li>
+                        <h1 class="text-gray-800 font-medium text-sm">Color:</h1>
+                        <div class="mt-3 text-gray-600">
+                            <ul class="space-y-2 text-gray-700">
+                                <?php
+                                $select_color = "SELECT * FROM items WHERE Category = '$Category'";
+                                $color_query = mysqli_query($con, $select_color);
+
+                                $color_array = [];
+
+                                while ($row = mysqli_fetch_array($color_query)) {
+                                    $colors = explode(",", $row["color"]);
+                                    foreach ($colors as $clr) {
+                                        $clr = trim($clr); // Remove any leading or trailing whitespace
+                                        if (!empty($clr) && !in_array($clr, $color_array)) {
+                                            $color_array[] = $clr;
+                                        }
+                                    }
+                                }
+
+                                sort($color_array);
+
+                                foreach ($color_array as $clr) {
+                                    $checkbox_id = 'color_' . $clr;
+                                ?>
+                                    <li class="flex items-center gap-2">
+                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                            name="color[]"
+                                            id="<?php echo $checkbox_id; ?>"
+                                            value="<?php echo $clr; ?>">
+                                        <label class="text-sm" for="<?php echo $checkbox_id; ?>">
+                                            <?php echo $clr; ?>
+                                        </label>
+                                    </li>
+                                <?php
+                                }
+                                ?>
                             </ul>
                         </div>
                     </div>
 
                     <!-- size -->
                     <div class="border-b-2 border-gray-300 pb-4 mt-3">
-                        <h1 class="text-gray-800 font-medium text-sm">Size</h1>
+                        <h1 class="text-gray-800 font-medium text-sm">Size:</h1>
                         <div class="mt-2 text-gray-700">
                             <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size2L" id="size2L"><label class="text-sm" for="size2L">2L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size6L" id="size6L"><label class="text-sm" for="size6L">6L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size12L" id="size12L"><label class="text-sm" for="size12L">12L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size18L" id="size18L"><label class="text-sm" for="size18L">18L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size20L" id="size20L"><label class="text-sm" for="size20L">20L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" name="size40L" id="size40L"><label class="text-sm" for="size40L">40L</label></li>
+                                <?php
+                                $select_size = "SELECT size FROM items WHERE Category = '$Category'";
+                                $size_query = mysqli_query($con, $select_size);
+
+
+                                if ($size_query) {
+                                    $size_array = [];
+                                    if (mysqli_num_rows($size_query) > 0) {
+
+                                        while ($row = mysqli_fetch_assoc($size_query)) {
+                                            $sizes = explode(',', $row['size']);
+
+                                            foreach ($sizes as $sz) {
+                                                $size = trim($sz);
+                                                if ($size === '-' || empty($size)) {
+                                                    continue;
+                                                }
+
+                                                if (!in_array($size, $size_array)) {
+                                                    $size_array[] = $size;
+                                                }
+                                            }
+                                        }
+
+                                        if (empty($size_array)) {
+                                            echo "-";
+                                        } else {
+                                            // Display sizes if available
+                                            implode(', ', $size_array);
+                                        }
+                                    } else {
+                                        echo "-";
+                                    }
+                                }
+
+                                foreach ($size_array as $size) {
+                                    $checkbox_id = 'size_' . $size;
+                                ?>
+                                    <li class="flex items-center gap-2">
+                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                            name="size[]"
+                                            id="<?php echo $checkbox_id; ?>"
+                                            value="<?php echo $size ?>">
+                                        <label class="text-sm" for="<?php echo $checkbox_id ?>"><?php echo $size; ?></label>
+                                    </li>
+                                <?php
+                                }
+
+                                ?>
                             </ul>
                         </div>
                     </div>
-                </div>
+
+                    <!-- rating -->
+                    <div class="border-b-2 border-gray-300 pb-4 mt-3">
+                        <h1 class="text-gray-800 font-medium text-sm">Rating:</h1>
+                        <div class="mt-2 text-gray-700">
+                            <ul class="space-y-2">
+                                <?php
+                                for ($i = 1; $i <= 5; $i++) {
+                                ?>
+                                    <li class="flex items-center gap-2">
+                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                            value="<?php echo $i . '.0' ?>"
+                                            name="stars[]"
+                                            id="<?php echo 'star_' . $i ?>">
+                                        <label class="text-sm" for="<?php echo 'star_' . $i ?>"><?php echo $i . " & above" ?></label>
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <input class="rounded-tl-xl rounded-br-xl mt-2 text-center w-full bg-gray-700 py-2 px-12 text-white hover:bg-gray-800 cursor-pointer transition duration-300" type="submit" value="Search" name="submit">
+                </form>
+                <?php
+                $filters = [];
+                if (isset($_POST['submit'])) {
+                    // for the price
+                    if (isset($_POST['price'])) {
+                        $selected_price = $_POST['price'];
+
+                        foreach ($selected_price as $price) {
+                            $price_limit_num = str_replace(',', '', $price);
+                            $price_limit_numeric = (int)$price_limit_num;
+
+                            // Add appropriate filter based on the price value
+                            if ($price === '5,00,000') {
+                                $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) > $price_limit_numeric";
+                            } else {
+                                $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
+                            }
+                        }
+                    }
+
+                    // for the colors
+                    if (isset($_POST['color'])) {
+                        $selected_colors = $_POST['color'];
+
+                        foreach ($selected_colors as $color) {
+                            $filters[] = "color LIKE ('%$color%')";
+                        }
+                    }
+
+                    // for the size
+                    if (isset($_POST['size'])) {
+                        $selected_size = $_POST['size'];
+
+                        foreach ($selected_size as $size) {
+                            $filters[] = "size LIKE ('%$size%')";
+                        }
+                    }
+
+                    // for the rating
+                    $range = 0.9;
+                    if (isset($_POST['stars'])) {
+                        $selected_rating = $_POST['stars'];
+
+                        foreach ($selected_rating as $rating) {
+                            if (is_numeric($rating)) {
+                                $rating = floatval($rating);
+                                $filters[] = "avg_rating BETWEEN " . ($rating) . " AND " . ($rating + $range) . " ORDER BY avg_rating DESC";
+                            }
+                        }
+                    }
+                }
+                $filter_query = implode(" AND ", $filters);
+
+                $sort_column = 'MRP'; // Column to sort by
+                $sort_order = 'ASC';
+
+                $Category = $_GET['Category'];
+                if ($filter_query) {
+                    $products = "SELECT * FROM items WHERE Category = '$Category' AND $filter_query";
+                } elseif ($selected === 'Newest') {
+                    $products = "SELECT * FROM items WHERE Category = '$Category'";
+                } elseif ($selected === 'All') {
+                    $products = "SELECT * FROM items WHERE Category = '$Category'";
+                } elseif ($selected === 'Low to High') {
+                    $products = "SELECT * FROM items WHERE Category = '$Category' ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) $sort_order";
+                } elseif ($selected === 'High to Low') {
+                    $products = "SELECT * FROM items WHERE Category = '$Category' ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) DESC";
+                } elseif ($selected === 'Most Popular') {
+                    $products = "SELECT
+                            pr.product_id,
+                            pr.image,
+                            pr.title,
+                            pr.MRP,
+                            pr.Your_Price,
+                            pr.size,
+                            pr.color,
+                            pr.Quantity,
+                            pr.avg_rating,
+                            pr.total_reviews,
+                            COUNT(o.product_id) AS order_count
+                        FROM items pr
+                        LEFT JOIN orders o ON pr.product_id = o.product_id
+                        WHERE pr.Category = '$Category'
+                        GROUP BY pr.product_id, pr.image, pr.title, pr.MRP, pr.Your_Price, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
+                        ORDER BY order_count DESC";
+                } elseif ($selected === 'Best Rating') {
+                    $products = "SELECT * FROM items WHERE Category = '$Category' ORDER BY avg_rating DESC";
+                } else {
+                    $products = "SELECT * FROM items WHERE Category = '$Category'";
+                }
+
+                $Product_query = mysqli_query($con, $products);
+                ?>
             </div>
 
             <!-- card div -->
             <div class="flex flex-col items-center mt-10 lg:ml-10 w-full">
-                <div class="product-container grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
-                    <!-- Product cards will be displayed here -->
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Product cards will be displayed here -->
+                <?php
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                if (mysqli_num_rows($Product_query) > 0) {
+                ?>
+                    <div class="product-container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
+                        <?php
+                        while ($res = mysqli_fetch_assoc($Product_query)) {
+                            $product_id = $res['product_id'];
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                            $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
+                            $review_query = mysqli_query($con, $get_reviews);
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                            $totalReviews = mysqli_num_rows($review_query);
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                            $sum = 0;
+                            $count = 0;
+                            if ($totalReviews > 0) {
+                                while ($data = mysqli_fetch_assoc($review_query)) {
+                                    $rating = str_replace(",", "", $data['Rating']);
+                                    $sum += (float)$rating;
+                                    $count++;
+                                }
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                                $average = $sum / $count;
+                                $formatted_average = number_format($average, 1);
+                            } else {
+                                $formatted_average = "0.0";
+                            }
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                            // for image
+                            $json_img = $res['image'];
+                            $decode_img = json_decode($json_img, true);
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
+                            foreach ($decode_img as $key => $value) {
+                                $first_color = $key;
+                                break;
+                            }
+
+                            $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
+                            $first_image = $first_photo['img1'];
+
+                            // for the title
+                            $json_title = $res['title'];
+                            $decode_title = json_decode($json_title, true);
+
+                            foreach ($decode_title as $key => $value) {
+                                $first_color_title = $key;
+                                break;
+                            }
+
+                            $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
+                            $first_title = $first_image_title['product_name'];
+
+                            // for qty
+                            $qty = 1;
+
+                            // for the size
+                            $size = $res['size'];
+                            $filter_size = explode(',', $size);
+                            foreach ($filter_size as $product_size) {
+                                $product_size;
+                                break;
+                            }
+
+                        ?>
+                            <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
+                                <div class="p-2" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                                    <img src="<?php echo '../src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
+                                </div>
+                                <div class="mt-2 space-y-3" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                                    <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
+                                    <div class="flex justify-between px-2">
+                                        <p class="space-x-1">
+                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $res['MRP'] ?></span>
+                                            <del class="text-xs font-medium">₹<?php echo $res['Your_Price'] ?></del>
+                                        </p>
+                                        <div class="flex items-center">
+                                            <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                                <h1 class="font-semibold text-xs text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                                    <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                                </svg>
+                                            </span>
+                                            <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo isset($totalReviews) ? $totalReviews : '0' ?>)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
+                                    <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                                 </div>
                             </div>
-                            <div class="bg-indigo-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                        <?php
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
+                        }
+                        ?>
                     </div>
-
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
+                <?php
+                } else {
+                ?>
+                    <div class="text-center w-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6M9 16h6M10.29 8.293a1 1 0 011.42 0L12 9.414l.29-.29a1 1 0 011.42 1.42L13.414 12l.293.293a1 1 0 01-1.42 1.42L12 13.414l-.293.293a1 1 0 01-1.42-1.42L10.586 12l-.293-.293a1 1 0 010-1.42z" />
+                        </svg>
+                        <h1 class="text-3xl font-semibold text-gray-800">No Products Found</h1>
+                        <p class="text-gray-600 mt-2">It looks like no products match your selected filters.</p>
                     </div>
+                <?php
+                }
+                ?>
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
-                        <div class="p-2 flex justify-center">
-                            <img alt="Nike Air Force 1 '07 Men's Shoes" class="product-card__hero-image css-1fxh5tw sm:w-56 rounded-tl-xl rounded-br-xl" loading="lazy" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/71e80796-373d-46fe-a161-088d7a1ca383/air-force-1-07-shoes-VWCc04.png">
-                        </div>
-                        <div class="mt-2 space-y-3">
-                            <div class="px-2">
-                                <p class="font-medium">Nike Air Force 1 '07</p>
-                            </div>
-                            <div class="px-2 flex justify-between items-center">
-                                <p class="font-medium space-x-1.5"><span class="text-gray-900">₹1,23,566</span><del class="text-xs">₹1,23,566</del></p>
-                                <div class="flex items-center">
-                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                        <h1 class="font-semibold text-xs text-white">0.0</h1>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm ml-2 text-gray-700 tracking-wide font-semibold">(0)</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-600 py-1.5 flex justify-center">
-                                <a href="" class="bg-white text-gray-900 border-2 border-gray-800 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Add more product cards as needed -->
-                </div>
+                <!-- Add more product cards as needed -->
 
                 <div class="pagination flex justify-center items-center gap-2">
                     <button class=" bg-gray-600 h-6 w-6 flex justify-center items-center text-white rounded-tl-md rounded-br-md cursor-pointer" id="prev-page"><svg class="w-3" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve">
@@ -750,13 +637,13 @@
 
             function getCardsPerRow() {
                 if (window.innerWidth >= 1536) {
-                    return 4; // 2xl:grid-cols-4
+                    return 6;
                 } else if (window.innerWidth >= 1280) {
-                    return 3; // xl:grid-cols-3
+                    return 5;
                 } else if (window.innerWidth >= 1024) {
-                    return 2; // lg:grid-cols-2
+                    return 3;
                 } else {
-                    return 1; // sm:grid-cols-1
+                    return 2;
                 }
             }
 
@@ -875,31 +762,23 @@
     <div id="filterSidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 right-0 w-fit h-[100vh] overflow-y-auto z-50 sidebarScroll" x-cloak>
         <div id="filterSidebarHeader" class="p-2 bg-gray-200 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <h1 class="text-black"><a href="">Hello, User</a></h1>
+                <h1 class="text-black"><a href="">Hello, <?php echo isset($_COOKIE['fname']) ? $_COOKIE['fname'] : 'User' ?></a></h1>
             </div>
             <div>
-                <button onclick="filterSideBarClose()" class="focus:outline-none"><svg class="relative top-0.5 right-0.5 text-[#ff0000] transition rounded-md" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" style="fill: currentColor;">
+                <button onclick="filterSideBarClose()" class="focus:outline-none">
+                    <svg class="relative top-0.5 right-0.5 text-[#ff0000] transition rounded-md" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" style="fill: currentColor;">
                         <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
-                    </svg></button>
+                    </svg>
+                </button>
             </div>
         </div>
         <div id="sidebarBody" class="felx justify-center px-4">
             <div class="mt-7 w-60">
-                <div>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="">Totes</a></li>
-                        <li><a href="">Backpacks</a></li>
-                        <li><a href="">Travel Bags</a></li>
-                        <li><a href="">Hip Bags</a></li>
-                        <li><a href="">Laptop Sleeves</a></li>
-                    </ul>
-                </div>
-                <hr class="mt-3">
-                <div>
-                    <!-- color -->
+                <form method="post">
+                    <!-- Price -->
                     <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
                         <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
-                            <span class="text-sm">Colour</span>
+                            <span class="text-sm">Price</span>
                             <span class="ml-6 flex items-center">
                                 <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
@@ -910,41 +789,71 @@
                             </span>
                         </button>
                         <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
-                            <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="White2" id="White2"><label class="text-xs" for="White2">White</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Beige2" id="Beige2"><label class="text-xs" for="Beige2">Beige</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Blue2" id="Blue2"><label class="text-xs" for="Blue2">Blue</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Brown2" id="Brown2"><label class="text-xs" for="Brown2">Brown</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Green2" id="Green2"><label class="text-xs" for="Green2">Green</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Purple2" id="Purple2"><label class="text-xs" for="Purple2">Purple</label></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- category -->
-                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
-                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
-                            <span class="text-sm">Category</span>
-                            <span class="ml-6 flex items-center">
-                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                                </svg>
-                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
-                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
-                        </button>
-                        <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
-                            <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="New Arrivals2" id="New Arrivals2"><label class="text-xs" for="New Arrivals2">New Arrivals</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Sale2" id="Sale2"><label class="text-xs" for="Sale2">Sale</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Travel2" id="Travel2"><label class="text-xs" for="Travel2">Travel</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Organization2" id="Organization2"><label class="text-xs" for="Organization2">Organization</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="Accessories2" id="Accessories2"><label class="text-xs" for="Accessories2">Accessories</label></li>
+                            <ul class="space-y-2 text-sm text-gray-800">
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1000" name="price[]" id="under_1k"><label class="text-sm" for="under_1k">Under ₹1000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5000" name="price[]" id="under_5k"><label class="text-sm" for="under_5k">Under ₹5000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="10,000" name="price[]" id="under_10k"><label class="text-sm" for="under_10k">Under ₹10,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="30,000" name="price[]" id="under_30k"><label class="text-sm" for="under_30k">Under ₹30,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="50,000" name="price[]" id="under_50k"><label class="text-sm" for="under_50k">Under ₹50,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1,00,000" name="price[]" id="under_100k"><label class="text-sm" for="under_100k">Under ₹1,00,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5,00,000" name="price[]" id="under_500k"><label class="text-sm" for="under_500k">Over ₹5,00,000</label></li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- size -->
+                    <!-- color -->
+                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
+                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
+                            <span class="text-sm">Color</span>
+                            <span class="ml-6 flex items-center">
+                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                </svg>
+                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
+                            <ul class="space-y-2 text-gray-700">
+                                <?php
+                                $select_color = "SELECT * FROM items WHERE Category = '$Category'";
+                                $color_query = mysqli_query($con, $select_color);
+
+                                $color_array = [];
+
+                                while ($row = mysqli_fetch_array($color_query)) {
+                                    $colors = explode(",", $row["color"]);
+                                    foreach ($colors as $clr) {
+                                        $clr = trim($clr); // Remove any leading or trailing whitespace
+                                        if (!empty($clr) && !in_array($clr, $color_array)) {
+                                            $color_array[] = $clr;
+                                        }
+                                    }
+                                }
+
+                                sort($color_array);
+
+                                foreach ($color_array as $clr) {
+                                    $checkbox_id = 'color_' . $clr;
+                                ?>
+                                    <li class="flex items-center gap-2">
+                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                            name="color[]"
+                                            id="<?php echo $checkbox_id; ?>"
+                                            value="<?php echo $clr; ?>">
+                                        <label class="text-sm" for="<?php echo $checkbox_id; ?>">
+                                            <?php echo $clr; ?>
+                                        </label>
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Size -->
                     <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
                         <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
                             <span class="text-sm">Size</span>
@@ -959,16 +868,93 @@
                         </button>
                         <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
                             <ul class="space-y-2">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size2L2" id="size2L2"><label class="text-xs" for="size2L2">2L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size6L2" id="size6L2"><label class="text-xs" for="size6L2">6L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size12L2" id="size12L2"><label class="text-xs" for="size12L2">12L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size18L2" id="size18L2"><label class="text-xs" for="size18L2">18L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size20L2" id="size20L2"><label class="text-xs" for="size20L2">20L</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-indigo-600 focus:ring-indigo-600" name="size40L2" id="size40L2"><label class="text-xs" for="size40L2">40L</label></li>
+                                <?php
+                                $select_size = "SELECT size FROM items WHERE Category = '$Category'";
+                                $size_query = mysqli_query($con, $select_size);
+
+
+                                if ($size_query) {
+                                    $size_array = [];
+                                    if (mysqli_num_rows($size_query) > 0) {
+
+                                        while ($row = mysqli_fetch_assoc($size_query)) {
+                                            $sizes = explode(',', $row['size']);
+
+                                            foreach ($sizes as $sz) {
+                                                $size = trim($sz);
+                                                if ($size === '-' || empty($size)) {
+                                                    continue;
+                                                }
+
+                                                if (!in_array($size, $size_array)) {
+                                                    $size_array[] = $size;
+                                                }
+                                            }
+                                        }
+
+                                        if (empty($size_array)) {
+                                            echo "-";
+                                        } else {
+                                            // Display sizes if available
+                                            implode(', ', $size_array);
+                                        }
+                                    } else {
+                                        echo "-";
+                                    }
+                                }
+
+                                foreach ($size_array as $size) {
+                                    $checkbox_id = 'size_' . $size;
+                                ?>
+                                    <li class="flex items-center gap-2">
+                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                            name="size[]"
+                                            id="<?php echo $checkbox_id; ?>"
+                                            value="<?php echo $size ?>">
+                                        <label class="text-sm" for="<?php echo $checkbox_id ?>"><?php echo $size; ?></label>
+                                    </li>
+                                <?php
+                                }
+
+                                ?>
                             </ul>
                         </div>
                     </div>
-                </div>
+
+                    <!-- Rating -->
+                    <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
+                        <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
+                            <span class="text-sm">Rating</span>
+                            <span class="ml-6 flex items-center">
+                                <svg class="h-5 w-5" x-show="!open" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                </svg>
+                                <svg class="h-5 w-5" x-show="open" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
+                            <ul class="space-y-2">
+                                <?php
+                                for ($i = 1; $i <= 5; $i++) {
+                                ?>
+                                    <li class="flex items-center gap-2">
+                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                            value="<?php echo $i . '.0' ?>"
+                                            name="stars[]"
+                                            id="<?php echo 'star_' . $i ?>">
+                                        <label class="text-sm" for="<?php echo 'star_' . $i ?>"><?php echo $i . " & above" ?></label>
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <input class="rounded-tl-xl rounded-br-xl mt-2 text-center w-full bg-gray-700 py-2 px-12 text-white hover:bg-gray-800 cursor-pointer transition duration-300" type="submit" value="Search" name="submit">
+                </form>
             </div>
         </div>
     </div>
@@ -980,6 +966,7 @@
 
     <!-- chatboat script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
+
 </body>
 
 </html>

@@ -310,7 +310,7 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Timeless Elegance Awaits</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Discover the perfect watch to elevate your style and keep you on time.</p>
-                        <a href="pages/product_category.php?Category=Watch" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
+                        <a href="pages/product_category.php?Category=Watch" class="bg-gray-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
                     </div>
                 </div>
                 <div class="swiper-slide flex items-center justify-center">
@@ -318,7 +318,7 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Unleash Your Productivity</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Experience unparalleled performance and style with our cutting-edge laptops.</p>
-                        <a href="pages/product_category.php?Category=Laptops/MacBook" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
+                        <a href="pages/product_category.php?Category=Laptops/MacBook" class="bg-gray-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
 
                     </div>
                 </div>
@@ -327,7 +327,7 @@ function displayRandomProducts($con, $limit)
                     <div class="bg-gradient-to-r from-black/95 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
                         <h1 class="text-base md:text-3xl font-bold">Elevate Your Viewing Experience</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Immerse yourself in stunning clarity and vibrant colors with our latest TVs.</p>
-                        <a href="pages/product_category.php?Category=TV" class="bg-indigo-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-md max-w-max font-semibold tracking-wider">Click here</a>
+                        <a href="pages/product_category.php?Category=TV" class="bg-gray-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
 
                     </div>
                 </div>
