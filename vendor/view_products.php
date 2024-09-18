@@ -145,7 +145,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         </div>
                     </div>
                 </header>
-                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+                <main class="relative flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <div class="py-12 max-w-screen-xl m-auto px-6">
                         <span class="text-2xl font-semibold">Your Products</span>
                         <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 text-[#1d2128] mt-4">
@@ -224,6 +224,6 @@ if (isset($_COOKIE['vendor_id'])) {
             </div>
         </div>
     </div>
-</body>
 
+</body>
 </html>
