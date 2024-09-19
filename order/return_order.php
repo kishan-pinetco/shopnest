@@ -280,7 +280,7 @@ if (isset($_COOKIE['user_id'])) {
             $mail->isHTML(true);
 
             // order information
-            if(isset($_GET['product_id'])){
+            if(isset($_GET['order_id'])){
                 $order_id = $_GET['order_id'];
 
                 $retrieve_order = "SELECT * FROM return_orders WHERE order_id = '$order_id'";
@@ -292,7 +292,7 @@ if (isset($_COOKIE['user_id'])) {
                 $cancle_date = $retPr['date'];
 
                 $return_order_title = $retPr['return_order_title'];
-                $return_order_image = '../src/product_image/product_profile/sport_profile_1.jpg' . $retPr['return_order_image'];
+                $return_order_image = '../src/product_image/product_profile/' . $retPr['return_order_image'];
                 $return_order_price = $retPr['return_order_price'];
                 $return_order_color = $retPr['return_order_color'];
                 $return_order_size = $retPr['return_order_size'];
