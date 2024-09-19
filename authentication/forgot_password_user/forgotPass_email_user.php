@@ -190,7 +190,7 @@ if (isset($_POST['GetMail'])) {
         <form action="" method="post" class="flex flex-col items-center gap-3 pb-3">
             <div class="flex flex-col">
                 <label for="userEmail" class="require">Email:</label>
-                <input type="email" name="userEmail" id="userEmail" class="w-80 mt-2 h-12 rounded-md border-2 border-gray-400 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition">
+                <input type="email" name="userEmail" id="userEmail" class="w-80 mt-2 h-12 rounded-md border-2 border-gray-400 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" placeholder="user@gmail.com">
                 <small id="MailValid" class="text-red-500 hidden translate-x-1">Enter Valid Email</small>
             </div>
             <input type="submit" value="Next" name="GetMail" class="mt-3 bg-gray-700 hover:bg-gray-800 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl cursor-pointer">
