@@ -178,16 +178,33 @@
                                                                     <p class="font-medium text-sm leading-7 text-black">Status</p>
                                                                     <?php
                                                                         $today = date('d-m-Y', strtotime($res['date']));
+                                                                        $oneday = date('d-m-Y', strtotime('+1 days', strtotime($today)));
+                                                                        $secondday = date('d-m-Y', strtotime('+2 days', strtotime($today)));
+                                                                        $thirdday = date('d-m-Y', strtotime('+3 days', strtotime($today)));
+                                                                        $fourday = date('d-m-Y', strtotime('+4 days', strtotime($today)));
                                                                         $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
-
+                                                                        
                                                                         $todays_date = date('d-m-Y', strtotime('today'));
-                                                                        if($todays_date <= $fifth){
+
+                                                                        if($todays_date <= $today){
+                                                                            ?>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-emerald-100 text-emerald-600">Order Confirmed</p>
+                                                                            <?php
+                                                                        }elseif($todays_date <= $thirdday){
+                                                                            ?>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-emerald-100 text-emerald-600">Shipping Your Order</p>
+                                                                            <?php
+                                                                        }elseif($todays_date <= $fourday){
+                                                                            ?>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-emerald-100 text-emerald-600">Out for Delivery</p>
+                                                                            <?php
+                                                                        }elseif($todays_date <= $fifth){
                                                                             ?>
                                                                                 <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-emerald-100 text-emerald-600">Ready for Delivery</p>
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-gray-100 text-gray-600">Delivered</p>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-indigo-100 text-indigo-600">Delivered</p>
                                                                             <?php
                                                                         }
                                                                     ?>

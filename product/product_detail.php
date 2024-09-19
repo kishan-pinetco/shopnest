@@ -136,7 +136,7 @@
                             unset($_SESSION['selectedColors']);
                             unset($_SESSION['product_titles']);
                         ?>
-                        <!-- <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $size; ?>&qty=<?php echo $qty;?>'</script> -->
+                        <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $size; ?>&qty=<?php echo $qty;?>'</script>
                     <?php
 
                 }else{
@@ -146,7 +146,7 @@
                             unset($_SESSION['selectedColors']);
                             unset($_SESSION['product_titles']);
                         ?>
-                        <!-- <script>window.location.href = '../authentication/user_auth/user_login.php'</script> -->
+                        <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
                     <?php
                 }
             }
@@ -181,7 +181,7 @@
                 unset($_SESSION['selectedColor']);
                 unset($_SESSION['product_titles']);
                 ?>
-                    <!-- <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script> -->
+                    <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script>
                 <?php
             }
         }

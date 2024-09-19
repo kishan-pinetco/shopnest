@@ -131,11 +131,11 @@
                 <p class="text-gray-400">Complete your order by providing your payment details.</p>
                 <div class="mt-5 grid space-y-3 border bg-white rounded-lg px-2 py-4 sm:px-6">
                     <div class="flex items-center gap-3 cursor-pointer w-max">
-                        <input type="radio" name="payment" id="UPI" value="Other UPI" class="cursor-pointer">
+                        <input type="radio" name="payment" id="UPI" value="Other UPI" class="cursor-pointer text-gray-600 focus:ring-gray-600">
                         <label class="cursor-pointer text-base font-medium" for="UPI">UPI</label>
                     </div>
                     <div class="flex items-center gap-3 cursor-pointer w-max">
-                        <input type="radio" name="payment" id="COD" value="Cash On delivery" class="cursor-pointer">
+                        <input type="radio" name="payment" id="COD" value="Cash On delivery" class="cursor-pointer text-gray-600 focus:ring-gray-600">
                         <label class="cursor-pointer text-base font-medium" for="COD">Cash On delivery</label>
                     </div>
                 </div>
@@ -147,43 +147,43 @@
                         <div>
                             <label for="FirstName" class="mt-4 mb-2 block text-sm font-medium">First Name</label>
                             <div class="relative">
-                                <input type="text" id="FirstName" name="FirstName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($product_id) ? $us['first_name'] : 'User First Name'?>"/>
+                                <input type="text" id="FirstName" name="FirstName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['first_name'] : 'User First Name'?>"/>
                             </div>
                         </div>
                         <div>
                             <label for="lastName" class="mt-4 mb-2 block text-sm font-medium">Last Name</label>
                             <div class="relative">
-                                <input type="text" id="lastName" name="lastName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($product_id) ? $us['last_name'] : 'User Last Name'?>" />
+                                <input type="text" id="lastName" name="lastName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['last_name'] : 'User Last Name'?>" />
                             </div>
                         </div>
                     </div>
                     <label for="Phone_number" class="mt-4 mb-2 block text-sm font-medium">Phone Number</label>
                     <div class="relative">
-                        <input type="number" id="Phone_number" name="Phone_number" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($product_id) ? $us['phone'] : 'User Phone Number'?>" />
+                        <input type="number" id="Phone_number" name="Phone_number" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base uppercase shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['phone'] : 'User Phone Number'?>" />
                     </div>
                     <label for="user_email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
                     <div class="relative">
-                        <input type="email" id="user_email" name="user_email" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($product_id) ? $us['email'] : 'User email'?>" />
+                        <input type="email" id="user_email" name="user_email" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['email'] : 'User email'?>" />
                     </div>
                     <label for="Address" class="mt-4 mb-2 block text-sm font-medium">Shipping Address</label>
                     <div class="relative">
-                        <input type="text" id="Address" name="Address" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($product_id) ? $us['Address'] : 'User Address'?>"/>
+                        <input type="text" id="Address" name="Address" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['Address'] : 'User Address'?>"/>
                     </div>
                     <label for="state" class="mt-4 mb-2 block text-sm font-medium">State</label>
                     <div class="relative">
-                        <input type="text" id="state" name="state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($product_id) ? $us['state'] : 'User state'?>" />
+                        <input type="text" id="state" name="state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['state'] : 'User state'?>" />
                     </div>
                     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                         <div>
                             <label for="city" class="mt-4 mb-2 block text-sm font-medium">City</label>
                             <div class="relative">
-                                <input type="text" id="city" name="city" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" value="<?php echo isset($product_id) ? $us['city'] : 'User city'?>"/>
+                                <input type="text" id="city" name="city" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['city'] : 'User city'?>"/>
                             </div>
                         </div>
                         <div>
                             <label for="pin" class="mt-4 mb-2 block text-sm font-medium">Pincode</label>
                             <div class="relative">
-                                <input type="tel" id="pin" name="pin" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" maxlength="6" value="<?php echo isset($product_id) ? $us['pin'] : 'User Pin'?>"/>
+                                <input type="tel" id="pin" name="pin" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" maxlength="6" value="<?php echo isset($product_id) ? $us['pin'] : 'User Pin'?>"/>
                             </div>
                         </div>
                     </div>
@@ -307,7 +307,6 @@
         if(isset($_POST['payment'])){
             $paymentType = mysqli_real_escape_string($con, $_POST['payment']);
         }
-        $status = 'Ready For Delivery';
 
         $bac = str_replace(",", "", $order_price);
         $bac = (int)$bac;
@@ -335,7 +334,7 @@
             
             $remove_quty = $qty_replace - $product_qty;
             
-            $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, status, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$status', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";                        
+            $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";                        
             $order_insert_query = mysqli_query($con, $order_insert_sql);
 
             $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
@@ -370,7 +369,7 @@
             $order_date = $res['date'];
 
             $order_title = $res['order_title'];
-            $order_image = '../src/product_image/product_profile/sport_profile_1.jpg' . $res['order_image'];
+            $order_image = '../src/product_image/product_profile/' . $res['order_image'];
             $order_price = $res['order_price'];
             $order_color = $res['order_color'];
             $order_size = $res['order_size'];
@@ -403,7 +402,7 @@
                 </tr>
                 <tr>
                     <td><strong>Image:</strong></td>
-                    <td><img src='../src/product_image/product_profile/$order_image' alt='Product Image' width='100'></td>
+                    <td><img src='$order_image' alt='Product Image' width='100'></td>
                 </tr>
                 <tr>
                     <td><strong>Price:</strong></td>
@@ -431,7 +430,7 @@
             <p>Thank you for choosing shopNest. We look forward to serving you again!</p>
             <p>Best regards,<br>
             shopNest<br>
-            shopNest@gmail.com</p>
+            shopnest2603@gmail.com</p>
         </body>
         </html>";
 
