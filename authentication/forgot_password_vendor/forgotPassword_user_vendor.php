@@ -277,7 +277,7 @@
                 </div>
             </div>
             <div class="space-x-5 mt-3">
-                <button id="back2" onclick="window.location.href='forgotPass_otp.php'" type="button" class="bg-gray-700 hover:bg-gray-800 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Back</button>
+                <button id="back2" onclick="window.location.href='forgotPass_otp_vendor.php'" type="button" class="bg-gray-700 hover:bg-gray-800 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Back</button>
                 <button id="submit" type="submit" name="changePass" class="bg-green-600 hover:bg-green-700 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Submit</button>
             </div>
             <!-- Return to Login Link -->

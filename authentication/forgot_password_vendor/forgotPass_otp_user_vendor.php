@@ -91,7 +91,7 @@
                     setTimeout(() => {
                         ApopUp.style.display = 'none';
                         ApopUp.style.opacity = '0';
-                        window.location.href = "forgotPassword.php";
+                        window.location.href = "forgotPassword_vendor.php";
                     }, 1500);
                 </script>
             <?php
@@ -178,7 +178,7 @@
                 </div>
             </div>
             <div class="space-x-5 mt-5">
-                <button id="back1" onclick="window.location.href='forgotPass_email.php'" type="button" class="bg-gray-700 hover:bg-gray-800 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Back</button>
+                <button id="back1" onclick="window.location.href='forgotPass_email_vendor.php'" type="button" class="bg-gray-700 hover:bg-gray-800 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Back</button>
                 <button id="next2" type="submit" class="bg-gray-700 hover:bg-gray-800 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Next</button>
             </div>
             <a href="../user_auth/user_login.php" class="mt-5 flex justify-center items-center">
