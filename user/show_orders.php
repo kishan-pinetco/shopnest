@@ -187,7 +187,7 @@
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-indigo-100 text-indigo-600">Delivered</p>
+                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-gray-100 text-gray-600">Delivered</p>
                                                                             <?php
                                                                         }
                                                                     ?>
