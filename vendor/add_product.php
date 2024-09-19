@@ -400,7 +400,6 @@ if (isset($_GET['name'])) {
         const colorSuggestions = document.getElementById('colorSuggestions');
 
         colorInput.addEventListener('input', () => {
-            console.log("step;")
             const query = colorInput.value.toLowerCase();
             colorSuggestions.innerHTML = ''; // Clear existing suggestions
             if (query) {
@@ -433,6 +432,10 @@ if (isset($_GET['name'])) {
         });
 
     </script>
+
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
+
 </body>
 
 </html>

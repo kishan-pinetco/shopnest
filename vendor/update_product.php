@@ -402,6 +402,8 @@ if (isset($_GET['product_id'])) {
     <!-- upload update_product.js -->
     <script src="update_product.js"></script>
 
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 </html>
 

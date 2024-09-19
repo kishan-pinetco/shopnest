@@ -225,5 +225,8 @@ if (isset($_COOKIE['vendor_id'])) {
         </div>
     </div>
 
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
+
 </body>
 </html>
