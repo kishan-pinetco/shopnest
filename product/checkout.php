@@ -381,8 +381,7 @@
             $today = date('d-m-Y', strtotime($res['date']));
             $delivery_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
         }
-
-
+        
         $mail->Subject = "New Order Confirmation - #$order_id";
         $mail->Body = "<html>
         <head>
@@ -401,7 +400,7 @@
                 </tr>
                 <tr>
                     <td><strong>Image:</strong></td>
-                    <td><img src='$order_image' alt='Product Image' width='100'></td>
+                    <td><img src='../src/product_image/product_profile/$order_image' alt='Product Image' width='100'></td>
                 </tr>
                 <tr>
                     <td><strong>Price:</strong></td>

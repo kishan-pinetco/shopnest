@@ -136,7 +136,7 @@
                             unset($_SESSION['selectedColors']);
                             unset($_SESSION['product_titles']);
                         ?>
-                        <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $size; ?>&qty=<?php echo $qty;?>'</script>
+                        <!-- <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $size; ?>&qty=<?php echo $qty;?>'</script> -->
                     <?php
 
                 }else{
@@ -146,7 +146,7 @@
                             unset($_SESSION['selectedColors']);
                             unset($_SESSION['product_titles']);
                         ?>
-                        <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
+                        <!-- <script>window.location.href = '../authentication/user_auth/user_login.php'</script> -->
                     <?php
                 }
             }
@@ -181,7 +181,7 @@
                 unset($_SESSION['selectedColor']);
                 unset($_SESSION['product_titles']);
                 ?>
-                    <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script>
+                    <!-- <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script> -->
                 <?php
             }
         }
@@ -382,8 +382,8 @@
                                 <form method="post" action="" style="display: inline;">
                                     <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
                                     <button type="submit" style="display: none;"></button>
-                                    <label for="submit_<?php echo $index; ?>" class="border flex items-center gap-2 py-1 px-3 border-black rounded-tl-xl rounded-br-xl text-center cursor-pointer hover:bg-gray-200">
-                                        <h1 class="text-lg"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?></h1>
+                                    <label for="submit_<?php echo $index; ?>" class="border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center cursor-pointer hover:bg-gray-200">
+                                        <h1 class="text-lg"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>black</h1>
                                     </label>
                                     <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="this.form.submit();" style="display: none;">
                                 </form>
@@ -402,7 +402,7 @@
                                 }else{
                                     ?>
                                         <label for="size" class="text-xl font-medium">Size:</label>
-                                        <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                        <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" value="">
                                             <?php
                                                 $product_size[] = $res['size'];
                                                 foreach($product_size as $productSize){
@@ -427,7 +427,7 @@
                 <div class="flex items-center gap-2">
                     <label for="qty">QTY:</label>
                     <div class="flex items-center flex-wrap gap-2">
-                        <select name="qty" id="qty" class="h-10 border mt-1 rounded px-4 w-16 bg-gray-50" value="">
+                        <select name="qty" id="qty" class="h-10 border mt-1 rounded px-4 w-16 bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" value="">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -443,13 +443,13 @@
                 </div>
                 <div class="flex justify-between items-center mt-6">
                     <div class="flex item-center gap-1">
-                        <span class="bg-gray-600 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
+                        <span class="bg-gray-900 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
                             <h1 class="font-semibold text-base text-white"><?php echo $formatted_average?></h1>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                 <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                             </svg>
                         </span>
-                        <span class="text-sm ml-2 mt-0.5">(<?php echo $totalReviews ?>)</span>
+                        <span class="text-sm ml-2 mt-1">(<?php echo $totalReviews ?>)</span>
                     </div>
                     <p class="text-sm font-medium text-[red]">Free Delivery</p>
                 </div>
@@ -638,8 +638,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="flex item-center gap-1">
-                                                            <span class="bg-gray-500 rounded-md px-2 py-1 flex items-center gap-1">
-                                                                <h1 class="font-semibold text-base text-white"><?php echo isset($_GET['product_id']) ? floatval($row['Rating']) : 'Rating' ?></h1>
+                                                            <span class="bg-gray-900 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
+                                                                <h1 class="font-semibold text-sm text-white"><?php echo isset($_GET['product_id']) ? floatval($row['Rating']) : 'Rating' ?></h1>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                                                     <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                                                 </svg>
@@ -694,5 +694,8 @@
             },
         });
     </script>
+
+    <!-- chatboat script -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
 </html>

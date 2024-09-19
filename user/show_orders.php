@@ -176,18 +176,18 @@
                                                             <div class="col-span-5 lg:col-span-3 flex items-center max-lg:mt-3 ">
                                                                 <div class="flex gap-3 text-center lg:block">
                                                                     <p class="font-medium text-sm leading-7 text-black">Status</p>
-                                                                        <?php
-                                                                           if($res['status'] === 'Ready For Delivery'){
+                                                                    <?php
+                                                                        $today = date('d-m-Y', strtotime($res['date']));
+                                                                        $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+
+                                                                        $todays_date = date('d-m-Y', strtotime('today'));
+                                                                        if($todays_date <= $fifth){
                                                                             ?>
                                                                                 <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-emerald-100 text-emerald-600">Ready for Delivery</p>
                                                                             <?php
-                                                                        }else if($res['status'] === 'Delivered'){
+                                                                        }else{
                                                                             ?>
                                                                                 <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-indigo-100 text-indigo-600">Delivered</p>
-                                                                            <?php
-                                                                        }else if($res['status'] === 'Cancle'){
-                                                                            ?>
-                                                                                <p class="font-medium text-sm leading-6 whitespace-nowrap py-0.5 px-3 m-auto text-center rounded-tl-lg rounded-br-lg lg:mt-3 bg-red-100 text-red-600">Cancle</p>
                                                                             <?php
                                                                         }
                                                                     ?>
@@ -196,19 +196,19 @@
                                                             <div class="col-span-5 lg:col-span-2 flex items-center max-lg:mt-3">
                                                                 <div class="flex flex-col items-center gap-2">
                                                                     <?php
-                                                                        if($res['status'] === 'Ready For Delivery'){
+                                                                        $today = date('d-m-Y', strtotime($res['date']));
+                                                                        $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+                                                                        
+                                                                        $todays_date = date('d-m-Y', strtotime('today'));
+                                                                        if($todays_date <= $fifth){
                                                                             ?>
                                                                                 <p class="font-medium text-sm whitespace-nowrap leading-6 text-black">Delivery Expected by:</p>
                                                                                 <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500"><?php echo isset($_COOKIE['user_id']) ? $future_date : 'Delivery Date' ?></p>
                                                                             <?php
-                                                                        }else if($res['status'] === 'Delivered'){
+                                                                        }else{
                                                                            ?>
                                                                                 <p class="font-medium text-base whitespace-nowrap leading-7 text-emerald-500">Your Order is Delivered</p>
                                                                            <?php
-                                                                        }else if($res['status'] === 'Cancle'){
-                                                                            ?>
-                                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-red-500">Your Order is Cancled</p>
-                                                                            <?php
                                                                         }
                                                                     ?>
                                                                 </div>
