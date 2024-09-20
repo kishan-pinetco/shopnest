@@ -268,7 +268,7 @@ $Category = $_GET['Category'];
                                 <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="30,000" name="price[]" id="under_30k"><label class="text-sm" for="under_30k">Under ₹30,000</label></li>
                                 <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="50,000" name="price[]" id="under_50k"><label class="text-sm" for="under_50k">Under ₹50,000</label></li>
                                 <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1,00,000" name="price[]" id="under_100k"><label class="text-sm" for="under_100k">Under ₹1,00,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="over_100k" name="price[]" id="over_100k"><label class="text-sm" for="over_100k">Over ₹1,00,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5,00,000" name="price[]" id="under_500k"><label class="text-sm" for="under_500k">Over ₹5,00,000</label></li>
                             </ul>
                         </div>
                     </div>
@@ -408,10 +408,8 @@ $Category = $_GET['Category'];
                             $price_limit_numeric = (int)$price_limit_num;
 
                             // Add appropriate filter based on the price value
-                            if ($price === 'over_100k') {
-                                $price_over_num = str_replace(',', '', $price);
-                                $price_over_numeric = (int)$price_over_num;
-                                $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) > $price_over_numeric";
+                            if ($price === '5,00,000') {
+                                $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) > $price_limit_numeric";
                             } else {
                                 $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
                             }
@@ -798,10 +796,11 @@ $Category = $_GET['Category'];
                                 <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="30,000" name="price[]" id="under_30k"><label class="text-sm" for="under_30k">Under ₹30,000</label></li>
                                 <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="50,000" name="price[]" id="under_50k"><label class="text-sm" for="under_50k">Under ₹50,000</label></li>
                                 <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1,00,000" name="price[]" id="under_100k"><label class="text-sm" for="under_100k">Under ₹1,00,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="over_100k" name="price[]" id="over_100k"><label class="text-sm" for="over_100k">Over ₹1,00,000</label></li>
+                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5,00,000" name="price[]" id="under_500k"><label class="text-sm" for="under_500k">Over ₹5,00,000</label></li>
                             </ul>
                         </div>
                     </div>
+
                     <!-- color -->
                     <div x-data="{ open: false }" class="border-b border-gray-200 pb-4 mt-3">
                         <button @click="open = !open" type="button" class="flex w-full justify-between items-center text-left text-gray-800 font-medium text-lg">
