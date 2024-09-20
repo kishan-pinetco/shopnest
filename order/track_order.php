@@ -12,8 +12,8 @@ if (isset($_COOKIE['user_id'])) {
 
     $res = mysqli_fetch_assoc($retrieve_order_query);
 
+    $product_id = $res['product_id'];
     $product_color = $res['order_color'];
-
     $todays = date('d-m-Y');
 
     $today = date('d-m-Y', strtotime($res['date']));
@@ -91,6 +91,9 @@ if (isset($_COOKIE['user_id'])) {
                     }
                     ?>
                 </div>
+            </div>
+            <div class="mt-10">
+                <a href="../user/re-order.php?product_id=<?php echo $product_id; ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a>
             </div>
             <hr class="my-10">
             <div>
@@ -231,22 +234,25 @@ if (isset($_COOKIE['user_id'])) {
 
                     <div class="flex flex-col items-center gap-4 gap-y-4 sm:flex-row">
                         <?php
-                            if(isset($thirdday) && isset($todays) && $thirdday < $todays){
-                                $todays_dates = date('d-m-Y', strtotime('today'));
-                                if(isset($future_date) && isset($todays) && $future_date <= $todays_dates){
+                            $todays_dates = date('d-m-Y', strtotime('today'));
+                            if ($todays_dates < $fifth) {
+                                ?>
+                                    <a href="cancel_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-red-600 px-5 py-2.5 text-sm font-medium text-white">Cancel the order</a>
+                                    <h1 class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer ">Return Order</h1>
+                                    <?php
+                            } elseif ($todays_dates < $return_date) {
+                                if ($todays_dates > $fifth) {
                                     ?>
                                         <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
                                     <?php
                                 }
-                                if(isset($thirdday) && isset($todays) &&  $fifth > $todays && $return_date >= $todays_dates){
-                                    ?>
-                                        <a href="return_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
-                                    <?php
-                                }
-                            }else{
                                 ?>
-                                    <a href="cancel_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-red-600 px-5 py-2.5 text-sm font-medium text-white">Cancel the order</a>
-                                    <h1 class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer ">Return Order</h1>
+                                    <a href="return_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
+                                    <h1 class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-red-600 px-5 py-2.5 text-sm font-medium text-white opacity-20">Cancel the order</h1>
+                                <?php
+                            } elseif ($todays_dates > $fifth) {
+                                ?>
+                                    <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
                                 <?php
                             }
                         ?>
@@ -268,21 +274,3 @@ if (isset($_COOKIE['user_id'])) {
 
 </body>
 </html>
-
-<?php
-    $today = date('d-m-Y', strtotime($res['date']));
-    $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
-
-    $todays_date = date('d-m-Y', strtotime('today'));
-
-    if($todays_date === $fifth){
-        $order_id = mysqli_real_escape_string($con, $_GET['order_id']);
-        $delivered = 'Delivered';
-
-        $update_delivery = "UPDATE orders SET status='$delivered' WHERE order_id = '$order_id'";
-        $update_query = mysqli_query($con, $update_delivery);
-
-    }else{
-        echo '';
-    }
-?>
