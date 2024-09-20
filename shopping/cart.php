@@ -126,6 +126,16 @@
                                         </div> 
                                         <?php
                                     }
+                                }else{
+                                    ?>
+                                        <div class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6M9 16h6M10.29 8.293a1 1 0 011.42 0L12 9.414l.29-.29a1 1 0 011.42 1.42L13.414 12l.293.293a1 1 0 01-1.42 1.42L12 13.414l-.293.293a1 1 0 01-1.42-1.42L10.586 12l-.293-.293a1 1 0 010-1.42z"/>
+                                            </svg>
+                                            <h1 class="text-3xl font-semibold text-gray-800">Your Cart is Empty</h1>
+                                            <p class="text-gray-600 mt-2">Looks like you haven’t added any products to your cart yet.</p>
+                                        </div>
+                                    <?php
                                 }
                             }else{
                                 ?>
@@ -181,7 +191,7 @@
                                 <?php
                             }else{
                                 ?>
-                                    <h1 class="flex w-full items-center justify-center rounded-tl-xl rounded-br-xl bg-gray-600 text-white px-5 py-2.5 text-sm font-medium select-none opacity-20">Proceed to Checkout</h1>
+                                    <h1 class="flex w-full items-center justify-center rounded-tl-xl rounded-br-xl bg-gray-600 text-white px-5 py-2.5 text-sm font-medium select-none opacity-40">Proceed to Checkout</h1>
                                 <?php       
                             }
                         ?>
