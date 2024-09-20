@@ -48,15 +48,16 @@
 
 <body class="outfit h-[100vh] flex flex-col justify-center items-center gap-3">
     <?php
-    session_start();
     include "../../include/connect.php";
-    $user_email = $_SESSION['email'];
+    session_start();
+    $vendor_email = $_SESSION['vendorEmail'];
     $password_pattern = '/^.{8,}$/';
 
-    $retrieve_data = "SELECT * FROM user_registration WHERE email = '$user_email'";
+    $retrieve_data = "SELECT * FROM vendor_registration WHERE email = '$vendor_email'";
     $retrieve_query = mysqli_query($con, $retrieve_data);
 
     $row = mysqli_fetch_assoc($retrieve_query);
+    $vendor_id  = $row['vendor_id'];
 
     if (isset($_POST['changePass'])) {
         $new_pass = $_POST['newPass'];
@@ -90,8 +91,6 @@
                 }, 1500);
             </script>
         <?php
-
-            exit();
         }
 
         if (!preg_match($password_pattern, $confirm_pass)) {
@@ -120,32 +119,26 @@
                 }, 1500);
             </script>
             <?php
-
-            exit();
         }
 
 
         if ($new_pass === $confirm_pass) {
             $new_dpass = password_hash($new_pass, PASSWORD_BCRYPT);
-
-            $user_id = $row['user_id'];
-
-            $up_pass = "UPDATE user_registration SET password = '$new_dpass' WHERE user_id = '$user_id'";
+            $up_pass = "UPDATE vendor_registration SET password='$new_dpass' WHERE vendor_id  = '$vendor_id'";
             $up_query = mysqli_query($con, $up_pass);
 
-            // update user password
-            $cookie_value = $_COOKIE['userPass'];
-            $cookie_update = $new_pass;
-
-            if (!isset($_COOKIE['userPass'])) {
-                echo "cookie is not set!";
-            } else {
-                setcookie('userPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
-                setcookie('userPass', '', time() - 3600, "/");
-                setcookie('userPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
-            }
-
             if ($up_query) {
+                // update user password
+                $cookie_value = $_COOKIE['vendorPass'];
+                $cookie_update = $new_pass;
+
+                if (!isset($_COOKIE['vendorPass'])) {
+                    setcookie('vendorPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
+                } else {
+                    setcookie('vendorPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
+                    setcookie('vendorPass', '', time() - 3600, "/");
+                    setcookie('vendorPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
+                }
             ?>
                 <!-- Successfully -->
                 <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
@@ -169,11 +162,10 @@
                     setTimeout(() => {
                         ApopUp.style.display = 'none';
                         ApopUp.style.opacity = '0';
-                    }, 1500);
+                        window.location.href = '../vendor_auth/vendor_login.php';
+                    }, 2000);
                 </script>
             <?php
-                header("Location: ../user_auth/user_login.php");
-                exit();
             } else {
             ?>
                 <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp_2" style="display: none;">
@@ -202,12 +194,6 @@
             <?php
             }
         } else {
-            ?>
-            <script>
-                alert("")
-            </script>
-            <?php
-
             ?>
             <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp_2" style="display: none;">
                 <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
