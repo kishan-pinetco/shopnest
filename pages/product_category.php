@@ -208,9 +208,9 @@ $Category = $_GET['Category'];
     <div class="px-3 sm:px-16 outfit mt-5" id="main-content">
         <div class="flex justify-between items-center border-b-2 border-gray-300 pb-3">
             <div>
-                <h1 class="text-lg sm:text-3xl text-gray-800"><?php echo $Category; ?></h1>
+                <h1 class="text-base sm:text-3xl text-gray-800"><?php echo $Category; ?></h1>
             </div>
-            <div class="flex gap-2 relative">
+            <div class="flex gap-3 relative">
                 <div x-data="{ open: false, selected: 'Sort' }" class="relative inline-block text-sm text-gray-800">
                     <?php
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -222,7 +222,7 @@ $Category = $_GET['Category'];
                     <!-- Dropdown Button -->
                     <button @click="open = !open" class="w-fit focus:outline-none cursor-pointer">
                         <span><?php echo $selected ?></span>
-                        <svg class="inline w-5 h-5 ml-2" fill="none" stroke="#808080" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="inline w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
