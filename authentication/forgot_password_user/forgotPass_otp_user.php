@@ -49,7 +49,6 @@
 <body class="h-[100vh] flex flex-col justify-center items-center outfit">
     <?php
     session_start();
-    echo $_SESSION['otp'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $otp1 = $_POST['otp1'];
