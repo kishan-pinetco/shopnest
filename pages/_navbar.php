@@ -156,7 +156,23 @@ if (isset($_COOKIE['user_id'])) {
             <div class="relative h-full hidden lg:block">
                 <form action="#" method="post">
                     <div class="flex items-center">
-                        <input id="SearchInput" name="searchInputItems" class="lg:w-[26vw] xl:w-[40vw] h-12 focus:ring-[#08091b] border-0 focus:border-[#08091b] text-black focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything...">
+                        <div class="relative">
+                            <!-- search input -->
+                            <input id="SearchInput" name="searchInputItems" class="lg:w-[26vw] xl:w-[40vw] h-12 pr-12 focus:ring-[#08091b] border-0 text-black focus:ring-0 focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything..." autocomplete="off">
+                            <!-- suggation -->
+                            <input type="submit" id="searchBtn" name="searchBtn" class="hidden">
+                            <div id="productList" class="w-full bg-white absolute top-11 left-0 rounded-b-md z-[100]"></div>
+                            <!-- microphone button -->
+                            <button class="absolute right-3 top-2.5 p-1">
+                                <svg class="text-gray-400 h-5 w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 435.2 435.2" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                    <g>
+                                        <path d="M356.864 224.768c0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 59.904-48.64 108.544-108.544 108.544-59.904 0-108.544-48.64-108.544-108.544 0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 71.168 53.248 131.072 123.904 138.752v40.96h-55.808c-8.704 0-15.36 6.656-15.36 15.36s6.656 15.36 15.36 15.36h142.336c8.704 0 15.36-6.656 15.36-15.36s-6.656-15.36-15.36-15.36H232.96v-40.96c70.656-7.68 123.904-67.584 123.904-138.752z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                        <path d="M217.6 0c-47.104 0-85.504 38.4-85.504 85.504v138.752c0 47.616 38.4 85.504 85.504 86.016 47.104 0 85.504-38.4 85.504-85.504V85.504C303.104 38.4 264.704 0 217.6 0z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- search button -->
                         <label for="searchBtn">
                             <div class="search-btn bg-[#b7ff1d] px-3 h-12 flex items-center justify-center rounded-e-md hover:bg-[#81b909] transition duration-300 cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
@@ -166,8 +182,6 @@ if (isset($_COOKIE['user_id'])) {
                                 </svg>
                             </div>
                         </label>
-                        <input type="submit" id="searchBtn" name="searchBtn" class="hidden">
-                        <div id="productList" class="w-full bg-white absolute top-10 left-0 rounded-md z-[100]"></div>
                     </div>
                 </form>
                 <?php
@@ -341,9 +355,24 @@ if (isset($_COOKIE['user_id'])) {
         <div class="lg:hidden px-5 my-4">
             <form action="" method="post">
                 <div class="flex justify-center items-center">
-                    <input id="SearchInput2" name="searchInputItems2" class="w-full h-10 focus:ring-[#08091b] border-0 focus:border-[#08091b] text-black focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything...">
+                    <div class="relative w-full">
+                        <!-- search input -->
+                        <input id="SearchInput2" name="searchInputItems2" class="w-full h-12 pr-10 focus:ring-[#08091b] border-0 text-black focus:ring-0 focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything..." autocomplete="off">
+                        <!-- suggetion -->
+                        <input type="submit" id="searchBtn2" name="searchBtn2" class="hidden">
+                        <div id="productList2" class="w-full bg-white absolute top-12 left-0 rounded-md z-[100]"></div>
+                        <!-- microphone button -->
+                        <button class="absolute right-2 top-2.5 p-1">
+                            <svg class="text-gray-400 h-5 w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 435.2 435.2" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                <g>
+                                    <path d="M356.864 224.768c0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 59.904-48.64 108.544-108.544 108.544-59.904 0-108.544-48.64-108.544-108.544 0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 71.168 53.248 131.072 123.904 138.752v40.96h-55.808c-8.704 0-15.36 6.656-15.36 15.36s6.656 15.36 15.36 15.36h142.336c8.704 0 15.36-6.656 15.36-15.36s-6.656-15.36-15.36-15.36H232.96v-40.96c70.656-7.68 123.904-67.584 123.904-138.752z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                    <path d="M217.6 0c-47.104 0-85.504 38.4-85.504 85.504v138.752c0 47.616 38.4 85.504 85.504 86.016 47.104 0 85.504-38.4 85.504-85.504V85.504C303.104 38.4 264.704 0 217.6 0z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
                     <label for="searchBtn2">
-                        <div class="search-btn bg-[#b7ff1d] px-3 h-10 flex items-center justify-center rounded-e-md transition duration-300 cursor-pointer">
+                        <div class="search-btn bg-[#b7ff1d] px-3 h-12 flex items-center justify-center rounded-e-md transition duration-300 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                 <g>
                                     <path d="M115.97 101.597 88.661 74.286a47.75 47.75 0 0 0 7.333-25.488c0-26.509-21.49-47.996-47.998-47.996S0 22.289 0 48.798c0 26.51 21.487 47.995 47.996 47.995a47.776 47.776 0 0 0 27.414-8.605l26.984 26.986a9.574 9.574 0 0 0 6.788 2.806 9.58 9.58 0 0 0 6.791-2.806 9.602 9.602 0 0 0-.003-13.577zM47.996 81.243c-17.917 0-32.443-14.525-32.443-32.443s14.526-32.444 32.443-32.444c17.918 0 32.443 14.526 32.443 32.444S65.914 81.243 47.996 81.243z" fill="#000000" opacity="1" data-original="#000000"></path>
@@ -351,8 +380,7 @@ if (isset($_COOKIE['user_id'])) {
                             </svg>
                         </div>
                     </label>
-                    <input type="submit" id="searchBtn2" name="searchBtn2" class="hidden">
-                    <div id="productList2" class="w-full bg-white absolute top-[190px] left-0 rounded-md z-[100]"></div>
+
                 </div>
             </form>
             <?php
