@@ -138,7 +138,7 @@ if (isset($_COOKIE['user_id'])) {
                 <div class="p-6 flex-1">
                     <h2 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product title' ?></h2>
                     <p class="font-medium text-base leading-7 text-black pr-4">Quantity: <span class="font-medium"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'qty' ?></span></p>
-                    <p class="font-medium text-base leading-7 text-black pr-4">Price: <span class="font-bold text-gray-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
+                    <p class="font-medium text-base leading-7 text-black pr-4">Price: <span class="font-bold text-green-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
                     <div class="text-gray-700 flex items-center gap-1 mt-1">
                         <span class="font-medium text-base leading-7 text-black">Color:</span> 
                         <h1 class="my-auto"><?php echo isset($_COOKIE['user_id']) ? htmlspecialchars($product_color) : 'Product Color' ?></h1>
