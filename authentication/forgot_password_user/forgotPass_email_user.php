@@ -110,7 +110,7 @@ if (isset($_POST['GetMail'])) {
 
                         <div class='footer'>
                             <p>Thank you!</p>
-                            <p>Best regards,<br>shopNest<br>shopNest@gmail.com</p>
+                            <p>Best regards,<br>shopNest<br>shopNest2603@gmail.com</p>
                         </div>
                     </div>
 
