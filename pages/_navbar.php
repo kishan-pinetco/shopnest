@@ -105,6 +105,22 @@ if (isset($_COOKIE['user_id'])) {
             }
         }
 
+        .scrollBar::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        .scrollBar::-webkit-scrollbar {
+            width: 10px;
+            height: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollBar::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
+
         .sidebar-close {
             animation: closeSideBar 0.4s ease-in-out;
         }
@@ -355,7 +371,7 @@ if (isset($_COOKIE['user_id'])) {
     </header>
     <!-- sidebar -->
     <!-- add hidden in container -->
-    <div id="sidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 w-72 lg:w-96 h-[100vh] overflow-y-auto z-50">
+    <div id="sidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 w-72 lg:w-80 h-[100vh] overflow-y-auto z-50 scrollBar">
         <div id="sidebarHeader" class="p-2 bg-gray-200 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <?php
