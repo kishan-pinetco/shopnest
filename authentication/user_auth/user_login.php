@@ -171,10 +171,10 @@
                     </div>
                     <div class="flex items-center justify-between flex-wrap">
                         <label class="keep group flex items-center gap-2 cursor-pointer max-w-max">
-                            <input type="checkbox" class="border-2 text-gray-800 border-[#bbb] group-hover:border-black transition duration-300 rounded-sm cursor-pointer focus:ring-gray-800" name="check" id="" required>
+                            <input type="checkbox" class="border-2 text-gray-800 border-[#bbb] group-hover:border-black transition duration-300 rounded-sm cursor-pointer focus:ring-gray-800" name="check" id="">
                             <p class="text-[#8b929c] group-hover:text-black transition duration-300">Remember me</p>
                         </label>
-                        <a href="../forgot_password_user/forgotPass_email_user.php" class="text-sm font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
+                        <a href="../../../shopnest/authentication/forgot_password_user/forgotPass_email_user.php" class="text-sm font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
                     </div>
                     <div class="text-center">
                         <input type="submit" class="bg-gray-700 hover:bg-gray-800 hover:transition py-1 h-10 w-full text-lg rounded-tl-xl rounded-br-xl text-white cursor-pointer" name="loginBtn" value="Login">
