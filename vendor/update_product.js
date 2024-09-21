@@ -1,34 +1,3 @@
-// displaly error msg
-function displayErrorMessage(message) {
-    let EpopUp = document.getElementById('EpopUp');
-    let errorMessage = document.getElementById('errorMessage');
-
-    errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
-    EpopUp.style.display = 'flex';
-    EpopUp.style.opacity = '100';
-
-    setTimeout(() => {
-        EpopUp.style.display = 'none';
-        EpopUp.style.opacity = '0';
-    }, 700);
-}
-
-// displaly success msg
-function displaySuccessMessage(message) {
-    let SpopUp = document.getElementById('SpopUp');
-    let successMessage = document.getElementById('successMessage');
-
-    successMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
-    SpopUp.style.display = 'flex';
-    SpopUp.style.opacity = '100';
-
-    setTimeout(() => {
-        SpopUp.style.display = 'none';
-        SpopUp.style.opacity = '0';
-        window.location.href = "view_products.php";
-    }, 700);
-}
-
 // add more keywords
 document.addEventListener('DOMContentLoaded', function() {
     let keywordContainer = document.getElementById('keyword-container');
@@ -76,6 +45,123 @@ document.addEventListener('DOMContentLoaded', function() {
         keywordContainer.appendChild(keywordItem);
     });
 });
+
+
+
+const suggestionsData = [
+    'XS (Extra Small)', 'S (Small)', 'M (Medium)', 'L (Large)', 'XL (Extra Large)', 'XXL (Double Extra Large)', 'XXXL (Triple Extra Large)',
+    '4 UK', '5 UK', '6 UK', '7 UK', '8 UK', '9 UK', '10 UK', '11 UK', '12 UK',
+    '32 inches', '40 inches', '43 inches', '50 inches', '55 inches', '65 inches', '75 inches', '85 inches',
+    '100L', '200L', '300L', '400L', '500L', '600L',
+    '6 kg', '7 kg', '8 kg', '9 kg', '10 kg', '12 kg',
+    '16GB', '32GB', '64GB', '128GB', '256GB', '512GB',
+    '2GB - 32GB', '4GB - 64GB', '6GB - 128GB', '8GB - 256GB', '12GB - 512GB', '16GB - 1TB',
+    '4GB - 128GB', '8GB - 256GB', '8GB - 1TB', '16GB - 512GB', '16GB - 2TB', '32GB - 1TB', '32GB - 2TB', '64GB - 1TB', '64GB - 2TB',
+    '3GB - 64GB', '4GB - 256GB', '6GB - 512GB', '8GB - 1TB'
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sizeContainer = document.getElementById('size-container');
+    const existingSizesData = document.getElementById('size-data');
+    const existingSizes = existingSizesData ? JSON.parse(existingSizesData.value) : []; // Parse JSON if exists
+
+    // Create the first size input with existing data
+    if (existingSizes.length > 0) {
+        existingSizes.forEach((item, index) => {
+            if (item.size) {
+                const isFirst = index === 0;
+                const sizeItem = createSizeItem(item.size, item.mrp || '', item.price || '', isFirst);
+                sizeContainer.appendChild(sizeItem);
+            }
+        });
+    } else {
+        sizeContainer.appendChild(createSizeItem('', '', '', true));
+    }
+
+    document.getElementById('add-size').addEventListener('click', (event) => {
+        event.preventDefault();
+        const sizeItem = createSizeItem('', '', '', false);
+        sizeContainer.appendChild(sizeItem);
+    });
+
+    function createSizeItem(size, mrp, yourPrice, isFirst) {
+        const sizeItem = document.createElement('div');
+        sizeItem.className = 'size-item mb-4 relative';
+
+        const sizeInput = createInput('text', 'size[]', 'Enter size', size);
+        const suggestionsContainer = document.createElement('div');
+        suggestionsContainer.className = 'absolute bg-white border border-gray-300 mt-1 z-10 w-full rounded-lg hidden';
+
+        sizeInput.addEventListener('input', () => {
+            const query = sizeInput.value.toLowerCase();
+            suggestionsContainer.innerHTML = ''; // Clear existing suggestions
+            if (query) {
+                const filteredSuggestions = suggestionsData.filter(item => item.toLowerCase().includes(query));
+                if (filteredSuggestions.length) {
+                    filteredSuggestions.forEach(suggestion => {
+                        const suggestionItem = document.createElement('div');
+                        suggestionItem.className = 'p-2 cursor-pointer hover:bg-gray-100';
+                        suggestionItem.textContent = suggestion;
+                        suggestionItem.addEventListener('click', () => {
+                            sizeInput.value = suggestion;
+                            suggestionsContainer.innerHTML = '';
+                            suggestionsContainer.classList.add('hidden');
+                        });
+                        suggestionsContainer.appendChild(suggestionItem);
+                    });
+                    suggestionsContainer.classList.remove('hidden');
+                } else {
+                    suggestionsContainer.classList.add('hidden');
+                }
+            } else {
+                suggestionsContainer.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!sizeItem.contains(event.target)) {
+                suggestionsContainer.classList.add('hidden');
+            }
+        });
+
+        sizeItem.appendChild(sizeInput);
+        sizeItem.appendChild(suggestionsContainer);
+
+        if (!isFirst) {
+            const mrpInput = createInput('text', 'MRP2[]', 'Enter MRP', mrp);
+            const priceInput = createInput('text', 'your_price2[]', 'Enter Your Price', yourPrice);
+            const removeButton = createRemoveButton(sizeItem);
+
+            sizeItem.appendChild(mrpInput);
+            sizeItem.appendChild(priceInput);
+            sizeItem.appendChild(removeButton);
+        }
+
+        return sizeItem;
+    }
+
+    function createInput(type, name, placeholder, value) {
+        const input = document.createElement('input');
+        input.type = type;
+        input.name = name;
+        input.placeholder = placeholder;
+        input.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
+        input.value = value;
+        return input;
+    }
+
+    function createRemoveButton(sizeItem) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'p-2 text-red-500 bg-red-100 rounded focus:outline-none mt-2';
+        button.innerHTML = 'Remove';
+        button.addEventListener('click', () => {
+            sizeItem.remove();
+        });
+        return button;
+    }
+});
+
 
 
 

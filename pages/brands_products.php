@@ -411,9 +411,9 @@ $Brand = $_GET['brandName'];
                             if ($price === 'over_100k') {
                                 $price_over_num = str_replace(',', '', $price);
                                 $price_over_numeric = (int)$price_over_num;
-                                $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) > $price_over_numeric";
+                                $filters[] = "CAST(REPLACE(vendor_mrp, ',', '') AS UNSIGNED) > $price_over_numeric";
                             } else {
-                                $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
+                                $filters[] = "CAST(REPLACE(vendor_mrp, ',', '') AS UNSIGNED) < $price_limit_numeric";
                             }
                         }
                     }
@@ -451,7 +451,7 @@ $Brand = $_GET['brandName'];
                 }
                 $filter_query = implode(" AND ", $filters);
 
-                $sort_column = 'MRP'; // Column to sort by
+                $sort_column = 'vendor_mrp'; // Column to sort by
                 $sort_order = 'ASC';
 
                 $Brand = $_GET['brandName'];
@@ -470,7 +470,7 @@ $Brand = $_GET['brandName'];
                             pr.product_id,
                             pr.image,
                             pr.title,
-                            pr.MRP,
+                            pr.vendor_mrp,
                             pr.Your_Price,
                             pr.size,
                             pr.color,
@@ -481,7 +481,7 @@ $Brand = $_GET['brandName'];
                         FROM items pr
                         LEFT JOIN orders o ON pr.product_id = o.product_id
                         WHERE pr.company_name = '$Brand'
-                        GROUP BY pr.product_id, pr.image, pr.title, pr.MRP, pr.Your_Price, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
+                        GROUP BY pr.product_id, pr.image, pr.title, pr.vendor_mrp, pr.Your_Price, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
                         ORDER BY order_count DESC";
                 } elseif ($selected === 'Best Rating') {
                     $products = "SELECT * FROM items WHERE company_name = '$Brand' ORDER BY avg_rating DESC";
@@ -569,8 +569,8 @@ $Brand = $_GET['brandName'];
                                     <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
                                     <div class="flex justify-between px-2">
                                         <p class="space-x-1">
-                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $res['MRP'] ?></span>
-                                            <del class="text-xs font-medium">₹<?php echo $res['Your_Price'] ?></del>
+                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $res['vendor_vendor_mrp'] ?></span>
+                                            <del class="text-xs font-medium">₹<?php echo $res['vendor_price'] ?></del>
                                         </p>
                                         <div class="flex items-center">
                                             <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">

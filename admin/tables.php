@@ -286,67 +286,65 @@ if(isset($_COOKIE['adminEmail'])){
                                                 
                                                     $row = mysqli_fetch_assoc($pQeury);
 
-                                                    // for image
-                                                    $json_img = $row['image'];
-                                                    $decode_img = json_decode($json_img, true);
-
-                                                    foreach ($decode_img as $key => $value) {
-                                                        $first_color = $key;
-                                                        break;
-                                                    }
-                                                
-                                                    $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
-                                                    $first_image = $first_photo['img1'];
-                                                
-                                                    // for the title
-                                                    $json_title = $row['title'];
-                                                    $decode_title = json_decode($json_title, true);
-                                                
-                                                    foreach ($decode_title as $key => $value) {
-                                                        $first_color_title = $key;
-                                                        break;
-                                                    }
-
-                                                    $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
-                                                    $first_title = $first_image_title['product_name'];
-                                                
-                                                    // for seller
-                                                    $vendor_id = $row['vendor_id'];
-                                                    $seller = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
-                                                    $sQuery = mysqli_query($con, $seller);
-                                                    $ven = mysqli_fetch_assoc($sQuery); 
-                                                
-                                                    // for avrage reviews
-                                                    $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
-                                                    $review_query = mysqli_query($con,$get_reviews);
-                                                
-                                                    if($totalReviews = mysqli_num_rows($review_query)){
-                                                        $sum = 0;
-                                                        $count = 0;
-                                                    
-                                                        while ($data = mysqli_fetch_assoc($review_query)) {
-                                                            $rating = str_replace(",", "", $data['Rating']);
-                                                            $sum += (float)$rating;
-                                                            $count++;
+                                                    if(mysqli_num_rows($pQeury) > 0){
+                                                        // for image
+                                                        $json_img = $row['image'];
+                                                        $decode_img = json_decode($json_img, true);
+    
+                                                        foreach ($decode_img as $key => $value) {
+                                                            $first_color = $key;
+                                                            break;
                                                         }
                                                     
-                                                        $average = $sum / $count;
-                                                        $formatted_average = number_format($average, 1);
+                                                        $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
+                                                        $first_image = $first_photo['img1'];
                                                     
+                                                        // for the title
+                                                        $json_title = $row['title'];
+                                                        $decode_title = json_decode($json_title, true);
+                                                    
+                                                        foreach ($decode_title as $key => $value) {
+                                                            $first_color_title = $key;
+                                                            break;
+                                                        }
+    
+                                                        $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
+                                                        $first_title = $first_image_title['product_name'];
+    
+                                                        // for price
+                                                        $json_mrp = $row['MRP'];
+                                                        $decodemrp = json_decode($json_mrp, true);
+    
+                                                        foreach($decodemrp as $key => $value){
+                                                            $first_size_price = $key;
+                                                            break;
+                                                        }
+    
+                                                        $first_price = isset($decodemrp[$first_size_price]) ? $decodemrp[$first_size_price] : ''; 
+                                                        $MRP = $first_price['MRP'];
+                                                        $Your_Price = $first_price['Your_Price'];
+                                                    
+                                                        // for seller
+                                                        $vendor_id = $row['vendor_id'];
+                                                        $seller = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
+                                                        $sQuery = mysqli_query($con, $seller);
+                                                        $ven = mysqli_fetch_assoc($sQuery); 
+
+                                                        ?>
+                                                            <tbody class="bg-white border">
+                                                                <tr class="text-gray-700">
+                                                                    <td class="px-4 py-3 border"><?php echo $i; ?></td>
+                                                                    <td class="px-4 py-3 border"><img class="h-20 w-20 object-cover m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $first_image : 'product Img'; ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                                    <td class="px-4 py-3 leading-9 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $first_title : 'title'; ?></td>
+                                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $ven['username'] : 'username'; ?></td>
+                                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['avg_rating'] : 'formatted_average'; ?></td>
+                                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['total_reviews'] : 'totalRatings'; ?></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        <?php
+                                                        $i++;
+                                                    }else{
                                                     }
-                                                    ?>
-                                                        <tbody class="bg-white border">
-                                                            <tr class="text-gray-700">
-                                                                <td class="px-4 py-3 border"><?php echo $i; ?></td>
-                                                                <td class="px-4 py-3 border"><img class="h-20 w-20 object-cover m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $first_image : 'product Img'; ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                                <td class="px-4 py-3 leading-9 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $first_title : 'title'; ?></td>
-                                                                <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $ven['username'] : 'username'; ?></td>
-                                                                <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $formatted_average : 'formatted_average'; ?></td>
-                                                                <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $tr['totalRatings'] : 'totalRatings'; ?></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    <?php
-                                                    $i++;
                                                 }
                                             ?>
                                         </table>

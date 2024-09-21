@@ -15,7 +15,7 @@ if (isset($_GET['product_id'])) {
         $product_color = $_GET['color'];
         $product_qty = $_GET['qty'];
         $product_size = $_GET['size'];
-        $product_price_per_unit = $res['MRP'];
+        $product_price_per_unit = $_GET['MRP'];
 
         $product_price_per_unit = str_replace(",", "", $product_price_per_unit);
 
