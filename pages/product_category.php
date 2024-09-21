@@ -471,7 +471,6 @@ $Category = $_GET['Category'];
                             pr.image,
                             pr.title,
                             pr.MRP,
-                            pr.Your_Price,
                             pr.size,
                             pr.color,
                             pr.Quantity,
@@ -481,7 +480,7 @@ $Category = $_GET['Category'];
                         FROM items pr
                         LEFT JOIN orders o ON pr.product_id = o.product_id
                         WHERE pr.Category = '$Category'
-                        GROUP BY pr.product_id, pr.image, pr.title, pr.MRP, pr.Your_Price, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
+                        GROUP BY pr.product_id, pr.image, pr.title, pr.MRP, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
                         ORDER BY order_count DESC";
                 } elseif ($selected === 'Best Rating') {
                     $products = "SELECT * FROM items WHERE Category = '$Category' ORDER BY avg_rating DESC";
@@ -569,8 +568,8 @@ $Category = $_GET['Category'];
                                     <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
                                     <div class="flex justify-between px-2">
                                         <p class="space-x-1">
-                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $res['MRP'] ?></span>
-                                            <del class="text-xs font-medium">₹<?php echo $res['Your_Price'] ?></del>
+                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $res['vendor_mrp'] ?></span>
+                                            <del class="text-xs font-medium">₹<?php echo $res['vendor_price'] ?></del>
                                         </p>
                                         <div class="flex items-center">
                                             <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
@@ -584,7 +583,7 @@ $Category = $_GET['Category'];
                                     </div>
                                 </div>
                                 <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
-                                    <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                    <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $res['vendor_mrp'] ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                                 </div>
                             </div>
                         <?php

@@ -124,6 +124,34 @@ if (isset($_COOKIE['user_id'])) {
         .sidebar-close {
             animation: closeSideBar 0.4s ease-in-out;
         }
+
+        .wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #2563eb;
+            /* Tailwind's blue-600 */
+            animation: wave 1s infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: scale(1.5);
+            }
+
+            50% {
+                transform: scale(2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -163,18 +191,18 @@ if (isset($_COOKIE['user_id'])) {
                             <input type="submit" id="searchBtn" name="searchBtn" class="hidden">
                             <div id="productList" class="w-full bg-white absolute top-11 left-0 rounded-b-md z-[100]"></div>
                             <!-- microphone button -->
-                            <button class="absolute right-3 top-2.5 p-1">
+                            <div class="absolute right-3 top-2.5 p-1 cursor-pointer" id="start-btn">
                                 <svg class="text-gray-400 h-5 w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 435.2 435.2" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M356.864 224.768c0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 59.904-48.64 108.544-108.544 108.544-59.904 0-108.544-48.64-108.544-108.544 0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 71.168 53.248 131.072 123.904 138.752v40.96h-55.808c-8.704 0-15.36 6.656-15.36 15.36s6.656 15.36 15.36 15.36h142.336c8.704 0 15.36-6.656 15.36-15.36s-6.656-15.36-15.36-15.36H232.96v-40.96c70.656-7.68 123.904-67.584 123.904-138.752z" fill="currentColor" opacity="1" data-original="currentColor"></path>
                                         <path d="M217.6 0c-47.104 0-85.504 38.4-85.504 85.504v138.752c0 47.616 38.4 85.504 85.504 86.016 47.104 0 85.504-38.4 85.504-85.504V85.504C303.104 38.4 264.704 0 217.6 0z" fill="currentColor" opacity="1" data-original="currentColor"></path>
                                     </g>
                                 </svg>
-                            </button>
+                            </div>
                         </div>
                         <!-- search button -->
                         <label for="searchBtn">
-                            <div class="search-btn bg-[#b7ff1d] px-3 h-12 flex items-center justify-center rounded-e-md hover:bg-[#81b909] transition duration-300 cursor-pointer">
+                            <div id="searchBtns" class="search-btn bg-[#b7ff1d] px-3 h-12 flex items-center justify-center rounded-e-md hover:bg-[#81b909] transition duration-300 cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M115.97 101.597 88.661 74.286a47.75 47.75 0 0 0 7.333-25.488c0-26.509-21.49-47.996-47.998-47.996S0 22.289 0 48.798c0 26.51 21.487 47.995 47.996 47.995a47.776 47.776 0 0 0 27.414-8.605l26.984 26.986a9.574 9.574 0 0 0 6.788 2.806 9.58 9.58 0 0 0 6.791-2.806 9.602 9.602 0 0 0-.003-13.577zM47.996 81.243c-17.917 0-32.443-14.525-32.443-32.443s14.526-32.444 32.443-32.444c17.918 0 32.443 14.526 32.443 32.444S65.914 81.243 47.996 81.243z" fill="#000000" opacity="1" data-original="#000000"></path>
@@ -183,6 +211,70 @@ if (isset($_COOKIE['user_id'])) {
                             </div>
                         </label>
                     </div>
+                    <div id="mic-popup" class="w-full h-full z-[100] fixed top-0 left-0 flex items-center justify-center bg-black bg-opacity-40 hidden">
+                        <div class="w-max h-max z-[100] flex flex-col items-center justify-center p-8 bg-white border-2 border-blue-600 rounded-lg shadow-2xl">
+                            <h2 class="text-xl font-semibold text-center text-gray-800">Listening...</h2>
+                            <div class="wave my-6 mx-auto"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <defs>
+                                            <clipPath id="a" clipPathUnits="userSpaceOnUse">
+                                                <path d="M0 512h512V0H0Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                            </clipPath>
+                                        </defs>
+                                        <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
+                                            <path d="M0 0h160" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(176 20.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v-72" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 92.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c0-88.223-71.777-160-160-160S-320-88.223-320 0" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(416 252.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c-44.183 0-80 35.817-80 80v160c0 44.183 35.817 80 80 80s80-35.817 80-80V80C80 35.817 44.183 0 0 0Z" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 172.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v40" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(96 332.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v120" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(20 292.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v40" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(416 332.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v120" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(492 292.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                        </g>
+                                    </g>
+                                </svg></div>
+                            <p class="text-sm text-center text-gray-600 mt-2">Please speak clearly into the microphone.</p>
+                        </div>
+                    </div>
+                    <script>
+                        // Check for browser support
+                        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                        if (!SpeechRecognition) {
+                            alert("Your browser does not support speech recognition.");
+                        } else {
+
+                            const recognition = new SpeechRecognition();
+                            recognition.continuous = false; // Stop after one recognition
+                            recognition.interimResults = false; // Don't return interim results
+
+                            const micPopup = document.getElementById('mic-popup');
+                            const startButton = document.getElementById('start-btn');
+
+                            recognition.onstart = () => {
+                                micPopup.classList.remove('hidden');
+                            };
+
+                            // Event handler for result
+                            recognition.onresult = (event) => {
+                                const transcript = event.results[0][0].transcript;
+                                document.getElementById('SearchInput').value = transcript;
+                                document.getElementById('searchBtns').click();
+                                console.log(transcript);
+                                micPopup.classList.add('hidden'); // Hide popup after result
+                            };
+
+                            // Start recognition when button is clicked
+                            document.getElementById('start-btn').addEventListener('click', () => {
+                                recognition.start();
+                            });
+
+                            // Error handling
+                            recognition.onerror = (event) => {
+                                console.error('Error occurred in recognition: ' + event.error);
+                                micPopup.classList.add('hidden'); // Hide popup on error
+                            };
+                        }
+                    </script>
                 </form>
                 <?php
                 if (isset($_POST["searchBtn"])) {
@@ -362,16 +454,16 @@ if (isset($_COOKIE['user_id'])) {
                         <input type="submit" id="searchBtn2" name="searchBtn2" class="hidden">
                         <div id="productList2" class="w-full bg-white absolute top-12 left-0 rounded-md z-[100]"></div>
                         <!-- microphone button -->
-                        <button class="absolute right-2 top-2.5 p-1">
+                        <div class="absolute right-3 top-2.5 p-1 cursor-pointer" id="start-btn2">
                             <svg class="text-gray-400 h-5 w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 435.2 435.2" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                 <g>
                                     <path d="M356.864 224.768c0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 59.904-48.64 108.544-108.544 108.544-59.904 0-108.544-48.64-108.544-108.544 0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 71.168 53.248 131.072 123.904 138.752v40.96h-55.808c-8.704 0-15.36 6.656-15.36 15.36s6.656 15.36 15.36 15.36h142.336c8.704 0 15.36-6.656 15.36-15.36s-6.656-15.36-15.36-15.36H232.96v-40.96c70.656-7.68 123.904-67.584 123.904-138.752z" fill="currentColor" opacity="1" data-original="currentColor"></path>
                                     <path d="M217.6 0c-47.104 0-85.504 38.4-85.504 85.504v138.752c0 47.616 38.4 85.504 85.504 86.016 47.104 0 85.504-38.4 85.504-85.504V85.504C303.104 38.4 264.704 0 217.6 0z" fill="currentColor" opacity="1" data-original="currentColor"></path>
                                 </g>
                             </svg>
-                        </button>
+                        </div>
                     </div>
-                    <label for="searchBtn2">
+                    <label for="searchBtn2" id="searchBtns2">
                         <div class="search-btn bg-[#b7ff1d] px-3 h-12 flex items-center justify-center rounded-e-md transition duration-300 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 118.783 118.783" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                 <g>
@@ -380,7 +472,69 @@ if (isset($_COOKIE['user_id'])) {
                             </svg>
                         </div>
                     </label>
+                    <div id="mic-popup2" class="w-full h-full z-[100] fixed top-0 left-0 flex items-center justify-center bg-black bg-opacity-40 px-5 hidden">
+                        <div class="w-max h-max z-[100] flex flex-col items-center justify-center p-8 bg-white border-2 border-blue-600 rounded-lg shadow-2xl">
+                            <h2 class="text-xl font-semibold text-center text-gray-800">Listening...</h2>
+                            <div class="wave my-6 mx-auto"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <defs>
+                                            <clipPath id="a" clipPathUnits="userSpaceOnUse">
+                                                <path d="M0 512h512V0H0Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                            </clipPath>
+                                        </defs>
+                                        <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
+                                            <path d="M0 0h160" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(176 20.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v-72" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 92.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c0-88.223-71.777-160-160-160S-320-88.223-320 0" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(416 252.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c-44.183 0-80 35.817-80 80v160c0 44.183 35.817 80 80 80s80-35.817 80-80V80C80 35.817 44.183 0 0 0Z" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 172.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v40" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(96 332.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v120" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(20 292.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v40" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(416 332.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v120" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(492 292.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                        </g>
+                                    </g>
+                                </svg></div>
+                            <p class="text-sm text-center text-gray-600 mt-2">Please speak clearly into the microphone.</p>
+                        </div>
+                    </div>
+                    <script>
+                        // Check for browser support
+                        if (!SpeechRecognition) {
+                            alert("Your browser does not support speech recognition.");
+                        } else {
 
+                            const recognition = new SpeechRecognition();
+                            recognition.continuous = false; // Stop after one recognition
+                            recognition.interimResults = false; // Don't return interim results
+
+                            const micPopup = document.getElementById('mic-popup2');
+                            const startButton = document.getElementById('start-btn2');
+
+                            recognition.onstart = () => {
+                                micPopup.classList.remove('hidden');
+                            };
+
+                            // Event handler for result
+                            recognition.onresult = (event) => {
+                                const transcript = event.results[0][0].transcript;
+                                document.getElementById('SearchInput2').value = transcript;
+                                document.getElementById('searchBtns2').click();
+                                console.log(transcript);
+                                micPopup.classList.add('hidden'); // Hide popup after result
+                            };
+
+                            // Start recognition when button is clicked
+                            document.getElementById('start-btn2').addEventListener('click', () => {
+                                recognition.start();
+                            });
+
+                            // Error handling
+                            recognition.onerror = (event) => {
+                                console.error('Error occurred in recognition: ' + event.error);
+                                micPopup.classList.add('hidden'); // Hide popup on error
+                            };
+                        }
+                    </script>
                 </div>
             </form>
             <?php
