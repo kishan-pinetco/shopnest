@@ -165,8 +165,8 @@
                                                 </div>
                                                 <div class="flex items-center justify-between border-t pt-2 border-gray-200">
                                                     <div>
-                                                        <p class="text-md font-semibold text-gray-900">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['MRP'] : 'MRP'?></p>
-                                                        <p class="text-sm font-medium text-gray-500 line-through">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['Your_Price'] : 'Delete Price'?></p>
+                                                        <p class="text-md font-semibold text-gray-900">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['vendor_mrp'] : 'MRP'?></p>
+                                                        <p class="text-sm font-medium text-gray-500 line-through">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['vendor_price'] : 'Delete Price'?></p>
                                                     </div>
                                                     <div class="flex space-x-2">
                                                         <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="bg-blue-200 text-blue-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-blue-300 transition">View</a>

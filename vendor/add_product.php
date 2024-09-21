@@ -305,32 +305,69 @@ if (isset($_GET['name'])) {
             '3GB - 64GB', '4GB - 256GB', '6GB - 512GB', '8GB - 1TB'
         ];
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const sizeContainer = document.getElementById('size-container');
+
+            // Create the first size input without remove button, MRP, and Your Price
+            const initialSizeItem = createSizeItem(true);
+            sizeContainer.appendChild(initialSizeItem);
+        });
+
         document.getElementById('add-size').addEventListener('click', function(event) {
             event.preventDefault();
-            
-            const sizeContainer = document.getElementById('size-container');
-            
-            // Create a new container for the size input and its remove button
-            const sizeItem = document.createElement('div');
-            sizeItem.className = 'relative flex items-center';
 
-            // Create the input element for the size
+            const sizeContainer = document.getElementById('size-container');
+            const sizeInputs = sizeContainer.querySelectorAll('input[name="size[]"]');
+            const mrpInputs = sizeContainer.querySelectorAll('input[name="mrp[]"]');
+            const priceInputs = sizeContainer.querySelectorAll('input[name="your_price[]"]');
+
+            // Check if all size, MRP, and Price input fields are filled
+            for (const input of sizeInputs) {
+                if (!input.value || isInvalidSize(input.value)) {
+                    alert("Please enter valid size values (not empty, '-' or 'none').");
+                    return; // Exit if any input is empty or invalid
+                }
+            }
+
+            for (const input of mrpInputs) {
+                if (!input.value) {
+                    alert("Please fill in all MRP fields before adding more sizes.");
+                    return; // Exit if any MRP input is empty
+                }
+            }
+
+            for (const input of priceInputs) {
+                if (!input.value) {
+                    alert("Please fill in all Your Price fields before adding more sizes.");
+                    return; // Exit if any Price input is empty
+                }
+            }
+
+            // Create a new size item if all inputs are filled and valid
+            const sizeItem = createSizeItem(false);
+            sizeContainer.appendChild(sizeItem);
+        });
+
+        function isInvalidSize(size) {
+            const invalidValues = ['-', 'none', 'NONE', 'None']; // Add any other variations as needed
+            return invalidValues.includes(size);
+        }
+
+        function createSizeItem(isFirst) {
+            const sizeItem = document.createElement('div');
+            sizeItem.className = 'size-item mb-4 relative';
+
             const sizeInput = document.createElement('input');
             sizeInput.type = 'text';
             sizeInput.name = 'size[]';
+            sizeInput.value = '';
             sizeInput.placeholder = 'Enter size';
             sizeInput.className = 'h-10 border rounded px-4 w-full bg-gray-50';
 
-            // Create the suggestions container
             const suggestionsContainer = document.createElement('div');
-            suggestionsContainer.className = 'absolute bg-white border top-10 border-gray-300 mt-1 z-10 w-full rounded-lg hidden';
+            suggestionsContainer.className = 'absolute bg-white border border-gray-300 mt-1 z-10 w-full rounded-lg hidden';
 
-            // Append the input and suggestions container to the size item
-            sizeItem.appendChild(sizeInput);
-            sizeItem.appendChild(suggestionsContainer);
-            sizeContainer.appendChild(sizeItem);
-
-            // Handle input event to show suggestions
+            // Handle input event for suggestions
             sizeInput.addEventListener('input', () => {
                 const query = sizeInput.value.toLowerCase();
                 suggestionsContainer.innerHTML = ''; // Clear existing suggestions
@@ -359,27 +396,50 @@ if (isset($_GET['name'])) {
 
             // Close suggestions if clicking outside
             document.addEventListener('click', (event) => {
-                if (!sizeItem.contains(event.target)) {
+                if (!sizeItem.contains(event.target) && !sizeInput.contains(event.target)) {
                     suggestionsContainer.classList.add('hidden');
                 }
             });
 
-            // Create the remove button
-            const removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.className = 'absolute right-0.5 top-0.5 p-2 text-red-500 bg-red-100 rounded focus:outline-none';
-            removeButton.setAttribute('aria-label', 'Remove');
-            removeButton.innerHTML = `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            `;
-            removeButton.addEventListener('click', function() {
-                sizeContainer.removeChild(sizeItem);
-            });
+            // Append the inputs to the size item
+            sizeItem.appendChild(sizeInput);
+            sizeItem.appendChild(suggestionsContainer);
 
-            sizeItem.appendChild(removeButton);
-        });
+            // Only add MRP, Your Price, and Remove button if not the first input
+            if (!isFirst) {
+                // Create the input element for MRP
+                const mrpInput = document.createElement('input');
+                mrpInput.type = 'text';
+                mrpInput.name = 'MRP2[]';
+                mrpInput.placeholder = 'Enter MRP';
+                mrpInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
+
+                // Create the input element for Your Price
+                const priceInput = document.createElement('input');
+                priceInput.type = 'text';
+                priceInput.name = 'your_price2[]';
+                priceInput.placeholder = 'Enter Your Price';
+                priceInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
+
+                // Create the remove button
+                const removeButton = document.createElement('button');
+                removeButton.type = 'button';
+                removeButton.className = 'p-2 text-red-500 bg-red-100 rounded focus:outline-none mt-2';
+                removeButton.innerHTML = 'Remove';
+
+                // Unique remove button functionality
+                removeButton.addEventListener('click', function() {
+                    sizeItem.remove();
+                });
+
+                // Append MRP and Price inputs and remove button to the size item
+                sizeItem.appendChild(mrpInput);
+                sizeItem.appendChild(priceInput);
+                sizeItem.appendChild(removeButton);
+            }
+
+            return sizeItem;
+        }
 
         // color suggetions
         const colors  = [
@@ -464,30 +524,52 @@ if (isset($_POST['submitBtn'])) {
 
     $color = $_POST['color'];
 
-    if (isset($_POST['size'])) {
+    if (isset($_POST['size']) && !empty($_POST['size'])) {
         $size = $_POST['size'];
-    } else {
-        $size = '';
-    }
-    $keyword = $_POST['keyword'];
+        $size_filter = implode(",", $size);
+        $normalized_size = array_map('strtolower', $size);
 
+        if (is_array($size) && !empty($size) && !in_array('', $normalized_size) && !in_array('none', $normalized_size)) {
+            $size_img = [];            
+            foreach ($size as $index => $psize) {
+                if ($index === 0) {
+                    // First size
+                    $size_img[$psize] = [
+                        'MRP' => $MRP,
+                        'Your_Price' => $your_price,
+                    ];
+                } else {
+                    $MRP2 = $_POST['MRP2']; 
+                    $your_price2 = $_POST['your_price2']; 
+                
+                    if (isset($MRP2[$index - 1]) && isset($your_price2[$index - 1])) {
+                        $size_img[$psize] = [
+                            'MRP' => $MRP2[$index - 1], 
+                            'Your_Price' => $your_price2[$index - 1],
+                        ];
+                    }
+                }
+            }
+            // Encode the size_img array to JSON
+            $json_size_encode = json_encode($size_img);
+        } else {
+            $size_filter = '-';
+            $size_img['N-A'] = [
+                'MRP' => $MRP,
+                'Your_Price' => $your_price,
+            ];
+
+            $json_size_encode = json_encode($size_img);
+        }
+    }
+
+    $keyword = $_POST['keyword'];
 
     $kwrd = [];
     foreach ($keyword as $kwrd) {
         $kwrd = $_POST['keyword'];
     }
     $keywords_value = implode(', ', $kwrd);
-
-
-    if (isset($_POST['size'])) {
-        $sz = [];
-        foreach ($size as $sz) {
-            $sz = $_POST['size'];
-        }
-        $size_value = implode(', ', $sz);
-    } else {
-        $size_value = '-';
-    }
 
 
     // main images 
@@ -538,27 +620,59 @@ if (isset($_POST['submitBtn'])) {
     if (!empty($tempName7) && !move_uploaded_file($tempName7, $folder7)) $allFilesUploaded = false;
     if (!empty($tempName8) && !move_uploaded_file($tempName8, $folder8)) $allFilesUploaded = false;
 
-    $color_img = [
-        $color => [
+    $normalized_color = array_map('strtolower', (array)$color); // Ensure $color is treated as an array
+
+    // Validation for colors
+    if (is_array($normalized_color) && !empty($normalized_color) && 
+        !in_array('', $normalized_color) && !in_array('none', $normalized_color)) {
+        
+        // Build the color image array
+        $color_img = [];
+        foreach ($normalized_color as $clr) {
+            $color_img[$clr] = [
+                'img1' => $ProfileImage1,
+                'img2' => $ProfileImage2,
+                'img3' => $ProfileImage3,
+                'img4' => $ProfileImage4
+            ];
+        }
+    
+        // Encode the color image array to JSON
+        $color_img_json = json_encode($color_img);
+
+        $product_titles = [
+            $color => [
+                'product_name' => $full_name
+            ],
+        ];
+    
+        $product_titles_json = json_encode($product_titles);
+    } else {
+        $color_img['N-A'] = [
             'img1' => $ProfileImage1,
             'img2' => $ProfileImage2,
             'img3' => $ProfileImage3,
             'img4' => $ProfileImage4
-        ],
-    ];
+        ];
+    
+        // Encode the color image array to JSON
+        $color_img_json = json_encode($color_img);
 
-    $color_img_json = json_encode($color_img);
 
-    $product_titles = [
-        $color => [
-            'product_name' => $full_name
-        ],
-    ];
+        $product_titles = [
+            'N-A' => [
+                'product_name' => $full_name
+            ],
+        ];
+    
+        $product_titles_json = json_encode($product_titles);
+    }
 
-    $product_titles_json = json_encode($product_titles);
+    $avg_rating = '0.0';
+    $total_reviews = '0';
 
     if ($allFilesUploaded) {
-        $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, Your_Price, MRP, Quantity, Item_Condition, Description, color, size, keywords, date) VALUES ('$vendor_id','$product_titles_json','$color_img_json','$CoverImage1','$CoverImage2','$CoverImage3','$CoverImage4','$Company_name','$Category','$type','$your_price','$MRP','$quantity','$condition','$description','$color','$size_value','$keywords_value','$Product_insert_Date')";
+        $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$CoverImage1', '$CoverImage2', '$CoverImage3', '$CoverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', $MRP, $your_price, '$quantity', '$condition', '$description', '$color', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
         $product_query = mysqli_query($con, $product_insert);
         if ($product_query) {
             echo '<script>displaySuccessMessage("Data Inserted.");</script>';

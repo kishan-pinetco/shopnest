@@ -77,6 +77,33 @@
             $first_name = isset($title_json[$first_color_title]) ? $title_json[$first_color_title] : ''; 
             $first_title = $first_name['product_name'];
 
+            // for the price
+            $json_mrp = $res['MRP'];
+            $decodemrp = json_decode($json_mrp, true);
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['size'])) {
+                // Store the selected size in the session
+                $_SESSION['selectedSize'] = $_POST['size'];
+            }
+            
+            // Retrieve the selected size from the session
+            $selectedSize = isset($_SESSION['selectedSize']) ? $_SESSION['selectedSize'] : null;
+
+
+            if(isset($selectedSize)){
+                $first_price = isset($decodemrp[$selectedSize]) ? $decodemrp[$selectedSize] : ''; 
+                $MRP = $first_price['MRP'];
+                $Your_Price = $first_price['Your_Price'];
+            }else{
+                foreach($decodemrp as $key => $value){
+                    $first_size_price = $key;
+                    break;
+                }
+                $first_price = isset($decodemrp[$first_size_price]) ? $decodemrp[$first_size_price] : ''; 
+                $MRP = $first_price['MRP'];
+                $Your_Price = $first_price['Your_Price'];
+            }
+
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -107,21 +134,21 @@
         // for buy button
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['colorChoice'])) {
-                $_SESSION['selectedColors'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-                $_SESSION['product_titles'] = $first_title;
+                $_SESSION['selectedColor'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                $_SESSION['product_title'] = $first_title;
             } else {
-                if (!isset($_SESSION['selectedColors'])) {
-                    $_SESSION['selectedColors'] = $defaultColor;
-                    $_SESSION['product_titles'] = $first_title; 
+                if (!isset($_SESSION['selectedColor'])) {
+                    $_SESSION['selectedColor'] = $defaultColor;
+                    $_SESSION['product_title'] = $first_title; 
                 }
             }
         
-            $selectedColor = $_SESSION['selectedColors'];
-            $product_first_name = $_SESSION['product_titles'];
+            $selectedColor = $_SESSION['selectedColor'];
+            $product_first_name = $_SESSION['product_title'];
             
             if (isset($_POST['buyBtn'])) {
-                $myColor = isset($_SESSION['selectedColors']) ? $_SESSION['selectedColors'] : $defaultColor;
-                $myTitle = isset($_SESSION['product_titles']) ? $_SESSION['product_titles'] : '';
+                $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
+                $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : '';
 
                 $size = isset($_POST['size']) ? $_POST['size'] : null;
                 $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
@@ -132,21 +159,21 @@
                     $encoded_qty = urlencode($qty);
 
                     ?>
+                        <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty;?>&MRP=<?php echo $MRP?>'</script>
                         <?php
-                            unset($_SESSION['selectedColors']);
-                            unset($_SESSION['product_titles']);
+                            unset($_SESSION['selectedColor']);
+                            unset($_SESSION['product_title']);
                         ?>
-                        <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $size; ?>&qty=<?php echo $qty;?>'</script>
                     <?php
 
                 }else{
                     
                     ?>
-                        <?php
-                            unset($_SESSION['selectedColors']);
-                            unset($_SESSION['product_titles']);
-                        ?>
                         <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
+                        <?php
+                            unset($_SESSION['selectedColor']);
+                            unset($_SESSION['product_title']);
+                        ?>
                     <?php
                 }
             }
@@ -175,14 +202,13 @@
                 $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
                 
                 $encoded_product_id = urlencode($product_id);
-                $encoded_size = urlencode($size);
                 $encoded_qty = urlencode($qty);
-
-                unset($_SESSION['selectedColor']);
-                unset($_SESSION['product_titles']);
                 ?>
-                    <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $encoded_size; ?>&qty=<?php echo $qty;?>'</script>
+                    <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty;?>&MRP=<?php echo $MRP?>'</script>
                 <?php
+                unset($_SESSION['selectedColor']);
+                unset($_SESSION['product_title']);
+                
             }
         }
 
@@ -352,8 +378,11 @@
                 <!-- price -->
                 <div class="flex items-center justify-between flex-wrap gap-y-3 mt-3">
                     <div class="flex items-baseline gap-2">
-                        <span class="text-2xl font-medium">₹<?php echo isset($_GET['product_id']) ? $res['MRP'] : 'MRP' ?></span>
-                        <del class="text-sm font-normal">₹<?php echo isset($_GET['product_id']) ? $res['Your_Price'] : 'Product price' ?></del>
+                        <?php
+
+                        ?>
+                        <span class="text-2xl font-medium">₹<?php echo isset($_GET['product_id']) ? $MRP : 'MRP' ?></span>
+                        <del class="text-sm font-normal">₹<?php echo isset($_GET['product_id']) ? $Your_Price : 'Product price' ?></del>
                     </div>
                     <?php 
                     
@@ -372,25 +401,33 @@
                     ?>
                 </div>
                 <!-- color -->
-                <div class="mt-3">
-                    <h1 class="text-xl font-medium">Colors:</h1>
-                    <div class="flex item-center gap-4 mt-2">
                     <?php
-                        $filter_pcolor = explode(',', $colors);
-                        foreach($filter_pcolor as $index => $pcolor){
-                           ?>
-                                <form method="post" action="" style="display: inline;">
-                                    <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
-                                    <button type="submit" style="display: none;"></button>
-                                    <label for="submit_<?php echo $index; ?>" class="border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center cursor-pointer hover:bg-gray-200">
-                                        <h1 class="text-lg"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>black</h1>
-                                    </label>
-                                    <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="this.form.submit();" style="display: none;">
-                                </form>
+                        if($res['color'] == '-'){
+                            echo "";
+                        }else{
+                            ?>
+                            <div class="mt-3">
+                            <h1 class="text-xl font-medium">Colors:</h1>
+                            <div class="flex item-center gap-4 mt-2">
+                            <?php
+                            $filter_pcolor = explode(',', $colors);
+                            foreach($filter_pcolor as $index => $pcolor){
+                               ?>
+                                    <form method="post" action="" style="display: inline;">
+                                        <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
+                                        <button type="submit" style="display: none;"></button>
+                                        <label for="submit_<?php echo $index; ?>" class="border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center cursor-pointer hover:bg-gray-200">
+                                            <h1 class="text-lg"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?></h1>
+                                        </label>
+                                        <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="this.form.submit();" style="display: none;">
+                                    </form>
+                                <?php
+                            }
+                            ?>
+                            </div>
                             <?php
                         }
                     ?>
-                    </div>
                 </div>
                 <!-- size -->
                 <div>
@@ -401,21 +438,25 @@
                                     echo '';
                                 }else{
                                     ?>
-                                        <label for="size" class="text-xl font-medium">Size:</label>
-                                        <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" value="">
-                                            <?php
+                                       <label for="size" class="text-xl font-medium">Size:</label>
+                                        <form method="post" action="">
+                                            <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" onchange="this.form.submit();">
+                                                <?php
                                                 $product_size[] = $res['size'];
-                                                foreach($product_size as $productSize){
+                                                foreach ($product_size as $productSize) {
                                                     $size_array = explode(',', $productSize);
-                                                    foreach($size_array as $size){
+                                                    foreach ($size_array as $size) {
                                                         $sz = trim($size);
                                                         ?>
-                                                            <option value="<?php echo $sz?>"><?php echo $sz?></option>
+                                                        <option value="<?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>" <?php if ($selectedSize === $sz) echo 'selected'; ?>>
+                                                            <?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>
+                                                        </option>
                                                         <?php
                                                     }
                                                 }
-                                            ?>
-                                        </select>
+                                                ?>
+                                            </select>
+                                        </form>
                                     <?php
                                 }
                             }else{
@@ -441,7 +482,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="flex justify-between items-center mt-6">
+                <div class="flex justify-between items-center mt-6 mb-4">
                     <div class="flex item-center gap-1">
                         <span class="bg-gray-900 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
                             <h1 class="font-semibold text-base text-white"><?php echo $formatted_average?></h1>
@@ -566,29 +607,29 @@
 
                             <?php
                                 if (isset($_POST['colorChoice'])) {
-                                    $_SESSION['selectedColors'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-                                    $_SESSION['product_titles'] = $first_title;
+                                    $_SESSION['selectedColor'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                                    $_SESSION['product_title'] = $first_title;
                                 } else {
-                                    if (!isset($_SESSION['selectedColors'])) {
-                                        $_SESSION['selectedColors'] = $defaultColor;
-                                        $_SESSION['product_titles'] = $first_title; 
+                                    if (!isset($_SESSION['selectedColor'])) {
+                                        $_SESSION['selectedColor'] = $defaultColor;
+                                        $_SESSION['product_title'] = $first_title; 
                                     }
                                 }
 
-                                $selectedColor = $_SESSION['selectedColors'];
-                                $products_first_name = $_SESSION['product_titles'];
+                                $selectedColor = $_SESSION['selectedColor'];
+                                $products_first_name = $_SESSION['product_title'];
 
                                 if(isset($_COOKIE['user_id'])){
-                                    $myColor = isset($_SESSION['selectedColors']) ? $_SESSION['selectedColors'] : $defaultColor;
-                                    $myTitle = isset($_SESSION['product_titles']) ? $_SESSION['product_titles'] : '';
+                                    $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
+                                    $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : '';
                                     
                                     $encoded_product_id = urlencode($product_id);
                                     $encoded_product_id = urlencode($product_id);
                 
                                     ?>
                                         <?php
-                                            unset($_SESSION['selectedColors']);
-                                            unset($_SESSION['product_titles']);
+                                            unset($_SESSION['selectedColor']);
+                                            unset($_SESSION['product_title']);
                                         ?>
                                         <a href="add_review.php?product_id=<?php echo $product_id; ?>&title=<?php echo urlencode($myTitle); ?>&color=<?php echo urlencode($myColor); ?>" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
                                     <?php
@@ -597,8 +638,8 @@
                                     
                                     ?>
                                         <?php
-                                            unset($_SESSION['selectedColors']);
-                                            unset($_SESSION['product_titles']);
+                                            unset($_SESSION['selectedColor']);
+                                            unset($_SESSION['product_title']);
                                         ?>
                                         <a href="../authentication/user_auth/user_login.php" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
                                     <?php

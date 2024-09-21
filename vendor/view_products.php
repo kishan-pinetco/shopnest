@@ -177,6 +177,30 @@ if (isset($_COOKIE['vendor_id'])) {
 
                                     $first_name = isset($decoded_title[$first_title]) ? $decoded_title[$first_title] :'';
                                     $first_titles = $first_name['product_name'];
+
+                                    // for the price
+                                    $json_mrp = $res['MRP'];
+                                    $decodemrp = json_decode($json_mrp, true);
+
+                                    if (is_array($decodemrp)) {
+                                        // Initialize $first_mrp
+                                        $first_mrp = reset($decodemrp); // Get the first element of the array
+                                    
+                                        // Make sure $first_mrp is an array before accessing its keys
+                                        if (is_array($first_mrp)) {
+                                            $MRP = isset($first_mrp['MRP']) ? $first_mrp['MRP'] : '';
+                                            $Your_Price = isset($first_mrp['Your_Price']) ? $first_mrp['Your_Price'] : '';
+                                        } else {
+                                            // Handle the case where the first element is not an array
+                                            $MRP = '';
+                                            $Your_Price = '';
+                                        }
+                                    } else {
+                                        // Handle the case where json_decode failed
+                                        $MRP = '';
+                                        $Your_Price = '';
+                                    };
+
                                     
 
                                     ?>
@@ -206,8 +230,8 @@ if (isset($_COOKIE['vendor_id'])) {
                                                 <div class="space-y-1">
                                                     <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id' ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $first_titles : 'product Name' ?></a>
                                                     <p class="space-x-2">
-                                                        <span class="text-lg font-medium text-gray-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['MRP'] : 'MRP' ?></span>
-                                                        <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $res['Your_Price'] : 'Delete Price' ?></del>
+                                                        <span class="text-lg font-medium text-gray-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $MRP : 'MRP' ?></span>
+                                                        <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $Your_Price : 'Delete Price' ?></del>
                                                     </p>
                                                     <h2>QTY: <?php echo isset($_COOKIE['vendor_id']) ? $res['Quantity'] : 'product Quantity' ?></h2>
                                                 </div>

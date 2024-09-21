@@ -38,9 +38,9 @@
         $row = mysqli_fetch_assoc($product_query);
 
         if(isset($product_id)){
+            $MRP = $_GET['MRP'];
 
-            $product_mrp = $row['MRP'];
-            $products_price = explode(",", $product_mrp);
+            $products_price = explode(",", $MRP);
 
             $productPrice = implode("", $products_price);
 
