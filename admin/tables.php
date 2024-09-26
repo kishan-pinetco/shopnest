@@ -15,7 +15,7 @@ if(isset($_COOKIE['adminEmail'])){
             COUNT(DISTINCT p.product_id) AS total_products,
             COUNT(DISTINCT o.order_id) AS total_sales
         FROM vendor_registration vr
-        LEFT JOIN products p ON vr.vendor_id = p.vendor_id
+        LEFT JOIN items p ON vr.vendor_id = p.vendor_id
         LEFT JOIN orders o ON vr.vendor_id = o.vendor_id
         GROUP BY vr.vendor_id
         ORDER BY total_products DESC
