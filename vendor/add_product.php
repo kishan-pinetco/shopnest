@@ -299,7 +299,7 @@ if (isset($_GET['name'])) {
             '32 inches', '40 inches', '43 inches', '50 inches', '55 inches', '65 inches', '75 inches', '85 inches',
             '100L', '200L', '300L', '400L', '500L', '600L',
             '6 kg', '7 kg', '8 kg', '9 kg', '10 kg', '12 kg',
-            '16GB', '32GB', '64GB', '128GB', '256GB', '512GB',
+            '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB', 
             '2GB - 32GB', '4GB - 64GB', '6GB - 128GB', '8GB - 256GB', '12GB - 512GB', '16GB - 1TB',
             '4GB - 128GB', '8GB - 256GB', '8GB - 1TB', '16GB - 512GB', '16GB - 2TB', '32GB - 1TB', '32GB - 2TB', '64GB - 1TB', '64GB - 2TB',
             '3GB - 64GB', '4GB - 256GB', '6GB - 512GB', '8GB - 1TB'
@@ -671,16 +671,22 @@ if (isset($_POST['submitBtn'])) {
     $avg_rating = '0.0';
     $total_reviews = '0';
 
-    if ($allFilesUploaded) {
-        $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$CoverImage1', '$CoverImage2', '$CoverImage3', '$CoverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', $MRP, $your_price, '$quantity', '$condition', '$description', '$color', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
-        $product_query = mysqli_query($con, $product_insert);
-        if ($product_query) {
-            echo '<script>displaySuccessMessage("Data Inserted.");</script>';
+    if (empty($full_name) || empty($Company_name) || empty($Category) || empty($type) || 
+        empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($ProfileImage1) || empty($ProfileImage2)) {
+        echo '<script>displayErrorMessage("Please fill in all required fields.");</script>';
+    }else{
+        if ($allFilesUploaded) {
+            $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$CoverImage1', '$CoverImage2', '$CoverImage3', '$CoverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$color', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
+            $product_query = mysqli_query($con, $product_insert);
+            if ($product_query) {
+                echo '<script>displaySuccessMessage("Data Inserted.");</script>';
+            } else {
+                echo '<script>displayErrorMessage("Data not Inserted Properly.");</script>';
+            }
         } else {
-            echo '<script>displayErrorMessage("Data not Inserted Properly.");</script>';
+            echo '<script>displayErrorMessage("Some files could not be uploaded.");</script>';
         }
-    } else {
-        echo '<script>displayErrorMessage("Some files could not be uploaded.");</script>';
     }
+
 }
 ?>

@@ -214,10 +214,13 @@ $company_name = $_GET['brandName'];
                 <div x-data="{ open: false, selected: 'Sort' }" class="relative inline-block text-sm text-gray-800">
                     <?php
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                        $selected = isset($_POST['selected']) ? $_POST['selected'] : '';
-                    } else {
-                        $selected = 'Sort';
+                        if (isset($_POST['selected'])) {
+                            $_SESSION['selected'] = $_POST['selected'];
+                        }
                     }
+
+                    $selected = isset($_SESSION['selected']) ? $_SESSION['selected'] : 'Sort';
+
                     ?>
                     <!-- Dropdown Button -->
                     <button @click="open = !open" class="w-fit focus:outline-none cursor-pointer">
@@ -515,6 +518,7 @@ $company_name = $_GET['brandName'];
                 }
 
                 $Product_query = mysqli_query($con, $products);
+                unset($_SESSION['selected']);
                 ?>
             </div>
 

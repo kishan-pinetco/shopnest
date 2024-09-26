@@ -110,8 +110,7 @@ function displayErrorMessage(message) {
     setTimeout(() => {
         EpopUp.style.display = 'none';
         EpopUp.style.opacity = '0';
-        window.location.href = "add_product.php";
-    }, 700);
+    }, 1500);
 }
 
 // displaly success msg

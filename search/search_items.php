@@ -1,5 +1,6 @@
 <?php
 include "../include/connect.php";
+session_start();
 $keywords = $_GET['searchName'];
 ?>
 
@@ -214,14 +215,17 @@ $keywords = $_GET['searchName'];
                 <div x-data="{ open: false, selected: 'Sort' }" class="relative inline-block text-sm text-gray-800">
                     <?php
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                        $selected = isset($_POST['selected']) ? $_POST['selected'] : '';
-                    } else {
-                        $selected = 'Sort';
+                        if (isset($_POST['selected'])) {
+                            $_SESSION['selected'] = $_POST['selected'];
+                        }
                     }
+
+                    $selected = isset($_SESSION['selected']) ? $_SESSION['selected'] : 'Sort';
+
                     ?>
                     <!-- Dropdown Button -->
                     <button @click="open = !open" class="w-fit focus:outline-none cursor-pointer">
-                        <span><?php echo $selected ?></span>
+                        <span><?php echo isset($selected) ? $selected : 'Sort' ?></span>
                         <svg class="inline w-5 h-5 ml-2" fill="none" stroke="#808080" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
@@ -515,6 +519,7 @@ $keywords = $_GET['searchName'];
                 }
 
                 $Product_query = mysqli_query($con, $products);
+                unset($_SESSION['selected']);
                 ?>
             </div>
 

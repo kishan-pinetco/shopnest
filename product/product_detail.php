@@ -80,15 +80,18 @@
                 
                 $first_img = isset($color_img[$colorName]) ? $color_img[$colorName] : '';
                 
-                $Color_of_image = $_POST['colorName'];
-
-                $first_img1 = $first_img['img1'];
-                $first_img2 = $first_img['img2'];
-                $first_img3 = $first_img['img3'];
-                $first_img4 = $first_img['img4'];
-
+                if (is_array($first_img)) {
+                    $first_img1 = isset($first_img['img1']) ? $first_img['img1'] : '';
+                    $first_img2 = isset($first_img['img2']) ? $first_img['img2'] : '';
+                    $first_img3 = isset($first_img['img3']) ? $first_img['img3'] : '';
+                    $first_img4 = isset($first_img['img4']) ? $first_img['img4'] : '';
+                } else {
+                    // Handle error or set default values
+                    $first_img1 = $first_img2 = $first_img3 = $first_img4 = '';
+                }
+        
                 $first_name = isset($title_json[$colorName]) ? $title_json[$colorName] : ''; 
-                $first_title = $first_name['product_name'];
+                $first_title = is_array($first_name) ? $first_name['product_name'] : ''; 
             }
         }
 
