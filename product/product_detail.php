@@ -81,28 +81,30 @@
             $json_mrp = $res['MRP'];
             $decodemrp = json_decode($json_mrp, true);
 
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                die("Error decoding JSON: " . json_last_error_msg());
+            }
+
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['size'])) {
-                // Store the selected size in the session
                 $_SESSION['selectedSize'] = $_POST['size'];
             }
-            
-            // Retrieve the selected size from the session
+
             $selectedSize = isset($_SESSION['selectedSize']) ? $_SESSION['selectedSize'] : null;
 
-
-            if(isset($selectedSize)){
-                $first_price = isset($decodemrp[$selectedSize]) ? $decodemrp[$selectedSize] : ''; 
-                $MRP = $first_price['MRP'];
-                $Your_Price = $first_price['Your_Price'];
-            }else{
-                foreach($decodemrp as $key => $value){
-                    $first_size_price = $key;
-                    break;
-                }
-                $first_price = isset($decodemrp[$first_size_price]) ? $decodemrp[$first_size_price] : ''; 
-                $MRP = $first_price['MRP'];
-                $Your_Price = $first_price['Your_Price'];
+            if (isset($selectedSize) && isset($decodemrp[$selectedSize])) {
+                $first_price = $decodemrp[$selectedSize];
+            } else {
+                reset($decodemrp); 
+                $first_price = current($decodemrp); 
             }
+
+            $MRP = isset($first_price['MRP']) ? $first_price['MRP'] : null;
+            $Your_Price = isset($first_price['Your_Price']) ? $first_price['Your_Price'] : null;
+
+            if ($MRP === null || $Your_Price === null) {
+                echo "Error: Price information is not available.";
+            }
+
 
         }
 
