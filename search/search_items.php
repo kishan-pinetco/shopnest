@@ -1,6 +1,6 @@
 <?php
 include "../include/connect.php";
-$keyword = $_GET['searchName'];
+$keywords = $_GET['searchName'];
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ $keyword = $_GET['searchName'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($keyword) ? $keyword : 'Product Categorys' ?></title>
+    <title><?php echo isset($keywords) ? $keywords : 'Product Categorys' ?></title>
 
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
@@ -208,7 +208,7 @@ $keyword = $_GET['searchName'];
     <div class="px-3 sm:px-16 outfit mt-5" id="main-content">
         <div class="flex justify-between items-center border-b-2 border-gray-300 pb-3">
             <div>
-                <h1 class="text-lg sm:text-3xl text-gray-800"><?php echo $keyword; ?></h1>
+                <h1 class="text-lg sm:text-3xl text-gray-800"><?php echo isset($keywords) ? $keywords : 'Product Categorys' ?></h1>
             </div>
             <div class="flex gap-2 relative">
                 <div x-data="{ open: false, selected: 'Sort' }" class="relative inline-block text-sm text-gray-800">
@@ -262,13 +262,34 @@ $keyword = $_GET['searchName'];
                         <h1 class="text-gray-800 font-medium text-sm">Price:</h1>
                         <div class="mt-3 text-gray-600">
                             <ul class="space-y-2 text-sm text-gray-800">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1000" name="price[]" id="under_1k"><label class="text-sm" for="under_1k">Under ₹1000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5000" name="price[]" id="under_5k"><label class="text-sm" for="under_5k">Under ₹5000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="10,000" name="price[]" id="under_10k"><label class="text-sm" for="under_10k">Under ₹10,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="30,000" name="price[]" id="under_30k"><label class="text-sm" for="under_30k">Under ₹30,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="50,000" name="price[]" id="under_50k"><label class="text-sm" for="under_50k">Under ₹50,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1,00,000" name="price[]" id="under_100k"><label class="text-sm" for="under_100k">Under ₹1,00,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="over_100k" name="price[]" id="over_100k"><label class="text-sm" for="over_100k">Over ₹1,00,000</label></li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1000" name="price" id="under_1k">
+                                    <label class="text-sm" for="under_1k">Under ₹1000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5000" name="price" id="under_5k">
+                                    <label class="text-sm" for="under_5k">Under ₹5000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="10000" name="price" id="under_10k">
+                                    <label class="text-sm" for="under_10k">Under ₹10,000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="30000" name="price" id="under_30k">
+                                    <label class="text-sm" for="under_30k">Under ₹30,000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="50000" name="price" id="under_50k">
+                                    <label class="text-sm" for="under_50k">Under ₹50,000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="100000" name="price" id="under_100k">
+                                    <label class="text-sm" for="under_100k">Under ₹1,00,000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="over_100k" name="price" id="over_100k">
+                                    <label class="text-sm" for="over_100k">Over ₹1,00,000</label>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -279,36 +300,39 @@ $keyword = $_GET['searchName'];
                         <div class="mt-3 text-gray-600">
                             <ul class="space-y-2 text-gray-700">
                                 <?php
-                                $select_color = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword'";
-                                $color_query = mysqli_query($con, $select_color);
+                                    $select_color = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
+                                    $color_query = mysqli_query($con, $select_color);
 
-                                $color_array = [];
+                                    $color_array = [];
 
-                                while ($row = mysqli_fetch_array($color_query)) {
-                                    $colors = explode(",", $row["color"]);
-                                    foreach ($colors as $clr) {
-                                        $clr = trim($clr); // Remove any leading or trailing whitespace
-                                        if (!empty($clr) && !in_array($clr, $color_array)) {
-                                            $color_array[] = $clr;
+                                    while ($row = mysqli_fetch_array($color_query)) {
+                                        $colors = explode(",", $row["color"]);
+                                        foreach ($colors as $clr) {
+                                            $clr = trim($clr);
+                                            if ($clr === '-' || empty($clr)) {
+                                                continue;
+                                            }
+                                            if (!empty($clr) && !in_array($clr, $color_array)) {
+                                                $color_array[] = $clr;
+                                            }
                                         }
                                     }
-                                }
 
-                                sort($color_array);
+                                    sort($color_array);
 
-                                foreach ($color_array as $clr) {
-                                    $checkbox_id = 'color_' . $clr;
-                                ?>
-                                    <li class="flex items-center gap-2">
-                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
-                                            name="color[]"
-                                            id="<?php echo $checkbox_id; ?>"
-                                            value="<?php echo $clr; ?>">
-                                        <label class="text-sm" for="<?php echo $checkbox_id; ?>">
-                                            <?php echo $clr; ?>
-                                        </label>
-                                    </li>
-                                <?php
+                                    foreach ($color_array as $clr) {
+                                        $checkbox_id = 'color_' . $clr;
+                                    ?>
+                                        <li class="flex items-center gap-2">
+                                            <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                                name="color[]"
+                                                id="<?php echo $checkbox_id; ?>"
+                                                value="<?php echo $clr; ?>">
+                                            <label class="text-sm" for="<?php echo $checkbox_id; ?>">
+                                                <?php echo $clr; ?>
+                                            </label>
+                                        </li>
+                                    <?php
                                 }
                                 ?>
                             </ul>
@@ -321,7 +345,7 @@ $keyword = $_GET['searchName'];
                         <div class="mt-2 text-gray-700">
                             <ul class="space-y-2">
                                 <?php
-                                $select_size = "SELECT size FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword'";
+                                $select_size = "SELECT size FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                                 $size_query = mysqli_query($con, $select_size);
 
 
@@ -403,19 +427,20 @@ $keyword = $_GET['searchName'];
                     if (isset($_POST['price'])) {
                         $selected_price = $_POST['price'];
 
-                        foreach ($selected_price as $price) {
-                            $price_limit_num = str_replace(',', '', $price);
-                            $price_limit_numeric = (int)$price_limit_num;
+                        $price_limit_num = str_replace(',', '', $selected_price);
+                        $price_limit_numeric = (int)$price_limit_num;
 
-                            // Add appropriate filter based on the price value
-                            if ($price === 'over_100k') {
-                                $price_over_num = str_replace(',', '', $price);
-                                $price_over_numeric = (int)$price_over_num;
-                                $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) > $price_over_numeric";
-                            } else {
-                                $filters[] = "CAST(REPLACE(MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
-                            }
+                        $MRP = 'vendor_mrp';
+
+                        // Add appropriate filter based on the price value
+                        if ($selected_price === 'over_100k') {
+                            $price_over_numeric = 100000;
+                            $filters[] = "CAST(REPLACE($MRP, ',', '') AS UNSIGNED) > $price_over_numeric";
+                        } else {
+                            $filters[] = "CAST(REPLACE($MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
                         }
+                        // foreach ($selected_price as $price) {
+                        // }
                     }
 
                     // for the colors
@@ -451,26 +476,27 @@ $keyword = $_GET['searchName'];
                 }
                 $filter_query = implode(" AND ", $filters);
 
-                $sort_column = 'MRP'; // Column to sort by
+                $sort_column = 'vendor_mrp'; // Column to sort by
                 $sort_order = 'ASC';
 
-                $keyword = $_GET['searchName'];
                 if ($filter_query) {
-                    $products = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword' AND $filter_query";
+                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') AND $filter_query";
                 } elseif ($selected === 'Newest') {
-                    $products = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword'";
+                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                 } elseif ($selected === 'All') {
-                    $products = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword'";
+                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                 } elseif ($selected === 'Low to High') {
-                    $products = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword' ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) $sort_order";
+                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) $sort_order";
                 } elseif ($selected === 'High to Low') {
-                    $products = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword' ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) DESC";
+                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) DESC";
                 } elseif ($selected === 'Most Popular') {
                     $products = "SELECT
                             pr.product_id,
                             pr.image,
                             pr.title,
                             pr.MRP,
+                            pr.vendor_mrp,
+                            pr.vendor_price,
                             pr.size,
                             pr.color,
                             pr.Quantity,
@@ -479,13 +505,13 @@ $keyword = $_GET['searchName'];
                             COUNT(o.product_id) AS order_count
                         FROM items pr
                         LEFT JOIN orders o ON pr.product_id = o.product_id
-                        WHERE pr.Category = '$Category'
-                        GROUP BY pr.product_id, pr.image, pr.title, pr.MRP, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
+                        WHERE (pr.keywords LIKE '%$keywords%' OR pr.Category LIKE '%$keywords%')
+                        GROUP BY pr.product_id, pr.image, pr.title, pr.MRP, pr.vendor_mrp, pr.vendor_price, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
                         ORDER BY order_count DESC";
                 } elseif ($selected === 'Best Rating') {
-                    $products = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword' ORDER BY avg_rating DESC";
+                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY avg_rating DESC";
                 } else {
-                    $products = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword'";
+                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                 }
 
                 $Product_query = mysqli_query($con, $products);
@@ -503,27 +529,7 @@ $keyword = $_GET['searchName'];
                         <?php
                         while ($res = mysqli_fetch_assoc($Product_query)) {
                             $product_id = $res['product_id'];
-
-                            $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
-                            $review_query = mysqli_query($con, $get_reviews);
-
-                            $totalReviews = mysqli_num_rows($review_query);
-
-                            $sum = 0;
-                            $count = 0;
-                            if ($totalReviews > 0) {
-                                while ($data = mysqli_fetch_assoc($review_query)) {
-                                    $rating = str_replace(",", "", $data['Rating']);
-                                    $sum += (float)$rating;
-                                    $count++;
-                                }
-
-                                $average = $sum / $count;
-                                $formatted_average = number_format($average, 1);
-                            } else {
-                                $formatted_average = "0.0";
-                            }
-
+                            
                             // for image
                             $json_img = $res['image'];
                             $decode_img = json_decode($json_img, true);
@@ -568,17 +574,17 @@ $keyword = $_GET['searchName'];
                                     <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
                                     <div class="flex justify-between px-2">
                                         <p class="space-x-1">
-                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $res['vendor_price'] ?></span>
+                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $res['vendor_mrp'] ?></span>
                                             <del class="text-xs font-medium">₹<?php echo $res['vendor_price'] ?></del>
                                         </p>
                                         <div class="flex items-center">
                                             <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                                <h1 class="font-semibold text-xs text-white"><?php echo isset($formatted_average) ? $formatted_average : '0.0' ?></h1>
+                                                <h1 class="font-semibold text-xs text-white"><?php echo $res['avg_rating'] ?></h1>
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
                                                     <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                                                 </svg>
                                             </span>
-                                            <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo isset($totalReviews) ? $totalReviews : '0' ?>)</span>
+                                            <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo $res['total_reviews'] ?>)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -791,13 +797,34 @@ $keyword = $_GET['searchName'];
                         </button>
                         <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
                             <ul class="space-y-2 text-sm text-gray-800">
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1000" name="price[]" id="under_1k"><label class="text-sm" for="under_1k">Under ₹1000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5000" name="price[]" id="under_5k"><label class="text-sm" for="under_5k">Under ₹5000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="10,000" name="price[]" id="under_10k"><label class="text-sm" for="under_10k">Under ₹10,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="30,000" name="price[]" id="under_30k"><label class="text-sm" for="under_30k">Under ₹30,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="50,000" name="price[]" id="under_50k"><label class="text-sm" for="under_50k">Under ₹50,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1,00,000" name="price[]" id="under_100k"><label class="text-sm" for="under_100k">Under ₹1,00,000</label></li>
-                                <li class="flex items-center gap-2"><input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="over_100k" name="price[]" id="over_100k"><label class="text-sm" for="over_100k">Over ₹1,00,000</label></li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="1000" name="price" id="under_1k">
+                                    <label class="text-sm" for="under_1k">Under ₹1000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="5000" name="price" id="under_5k">
+                                    <label class="text-sm" for="under_5k">Under ₹5000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="10000" name="price" id="under_10k">
+                                    <label class="text-sm" for="under_10k">Under ₹10,000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="30000" name="price" id="under_30k">
+                                    <label class="text-sm" for="under_30k">Under ₹30,000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="50000" name="price" id="under_50k">
+                                    <label class="text-sm" for="under_50k">Under ₹50,000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="100000" name="price" id="under_100k">
+                                    <label class="text-sm" for="under_100k">Under ₹1,00,000</label>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <input type="radio" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700" value="over_100k" name="price" id="over_100k">
+                                    <label class="text-sm" for="over_100k">Over ₹1,00,000</label>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -818,23 +845,6 @@ $keyword = $_GET['searchName'];
                         <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
                             <ul class="space-y-2 text-gray-700">
                                 <?php
-                                $select_color = "SELECT * FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword'";
-                                $color_query = mysqli_query($con, $select_color);
-
-                                $color_array = [];
-
-                                while ($row = mysqli_fetch_array($color_query)) {
-                                    $colors = explode(",", $row["color"]);
-                                    foreach ($colors as $clr) {
-                                        $clr = trim($clr); // Remove any leading or trailing whitespace
-                                        if (!empty($clr) && !in_array($clr, $color_array)) {
-                                            $color_array[] = $clr;
-                                        }
-                                    }
-                                }
-
-                                sort($color_array);
-
                                 foreach ($color_array as $clr) {
                                     $checkbox_id = 'color_' . $clr;
                                 ?>
@@ -870,7 +880,7 @@ $keyword = $_GET['searchName'];
                         <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
                             <ul class="space-y-2">
                                 <?php
-                                $select_size = "SELECT size FROM items WHERE keywords LIKE '%$keyword%' OR Category = '$keyword'";
+                                $select_size = "SELECT size FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                                 $size_query = mysqli_query($con, $select_size);
 
 

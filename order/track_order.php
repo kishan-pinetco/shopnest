@@ -235,33 +235,29 @@ if (isset($_COOKIE['user_id'])) {
                     <div class="flex flex-col items-center gap-4 gap-y-4 sm:flex-row">
                         <?php
                             $todays_dates = date('d-m-Y', strtotime('today'));
-                            if ($todays_dates < $fifth) {
+
+                            $today_date = DateTime::createFromFormat('d-m-Y', $todays_dates);
+                            $fifth_date = DateTime::createFromFormat('d-m-Y', $fifth);
+                            $product_return_date = DateTime::createFromFormat('d-m-Y', $return_date);
+
+                            if ($today_date < $fifth_date) {
                                 ?>
                                     <a href="cancel_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-red-600 px-5 py-2.5 text-sm font-medium text-white">Cancel the order</a>
                                     <h1 class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white opacity-50 select-none cursor-pointer ">Return Order</h1>
-                                    <?php
-                            } elseif ($todays_dates < $return_date) {
-                                if ($todays_dates > $fifth) {
-                                    ?>
-                                        <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
-                                    <?php
-                                }
+                                <?php
+                            } elseif ($today_date < $product_return_date) {
                                 ?>
                                     <a href="return_order.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">Return Order</a>
                                     <h1 class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-red-600 px-5 py-2.5 text-sm font-medium text-white opacity-20">Cancel the order</h1>
                                 <?php
-                            } elseif ($todays_dates > $fifth) {
-                                ?>
-                                    <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
-                                <?php
                             }
                         ?>
+                        <a href="../product/invoice.php?order_id=<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'order_id' ?>" class="w-full flex items-center justify-center rounded-tl-xl rounded-br-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white">Invoice</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 
 
     <!-- footer -->

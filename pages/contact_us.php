@@ -69,7 +69,7 @@
                     <div class="grid grid-cols-1 gap-2">
                         <span class="font-medium text-xs uppercase">Email</span>
                         <a href="mailto:abhijeetdabhi9304@gmail.com" class="font-medium text-sm underline">abhijeetdabhi9304@gmail.com</a>
-                        <a href="mailto:vishvjit2210@gmail.com" class="font-medium text-sm underline">vishvjit2210@gmail.com</a>
+                        <a href="mailto:vishvjitchauhan2284@gmail.com" class="font-medium text-sm underline">vishvjitchauhan2284@gmail.com</a>
                     </div>
                 </div>
             </div>
