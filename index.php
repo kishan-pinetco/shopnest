@@ -394,7 +394,7 @@ function displayRandomProducts($con, $limit)
                             perPage: 2,
                             gap: '0.5rem'
                         },
-                        500: {
+                        535: {
                             perPage: 1,
                             gap: '0rem'
                         }
@@ -545,7 +545,7 @@ function displayRandomProducts($con, $limit)
                             perPage: 2,
                             gap: '0.5rem'
                         },
-                        500: {
+                        535: {
                             perPage: 1,
                             gap: '0rem'
                         }
@@ -636,7 +636,7 @@ function displayRandomProducts($con, $limit)
                             perPage: 2,
                             gap: '0.5rem'
                         },
-                        500: {
+                        535: {
                             perPage: 1,
                             gap: '0rem'
                         }

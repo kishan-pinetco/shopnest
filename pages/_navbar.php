@@ -181,7 +181,7 @@ if (isset($_COOKIE['user_id'])) {
                 </div>
             </div>
             <!-- search -->
-            <div class="relative h-full hidden lg:block">
+            <div class="relative h-full hidden lg:block" x-data="{showMic:false}">
                 <form action="#" method="post">
                     <div class="flex items-center">
                         <div class="relative">
@@ -191,7 +191,7 @@ if (isset($_COOKIE['user_id'])) {
                             <input type="submit" id="searchBtn" name="searchBtn" class="hidden">
                             <div id="productList" class="w-full bg-white absolute top-11 left-0 rounded-b-md z-[100]"></div>
                             <!-- microphone button -->
-                            <div class="absolute right-3 top-2.5 p-1 cursor-pointer" id="start-btn">
+                            <div class="absolute right-3 top-2.5 p-1 cursor-pointer" id="start-btn" @click="showMic=true">
                                 <svg class="text-gray-400 h-5 w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 435.2 435.2" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                     <g>
                                         <path d="M356.864 224.768c0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 59.904-48.64 108.544-108.544 108.544-59.904 0-108.544-48.64-108.544-108.544 0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 71.168 53.248 131.072 123.904 138.752v40.96h-55.808c-8.704 0-15.36 6.656-15.36 15.36s6.656 15.36 15.36 15.36h142.336c8.704 0 15.36-6.656 15.36-15.36s-6.656-15.36-15.36-15.36H232.96v-40.96c70.656-7.68 123.904-67.584 123.904-138.752z" fill="currentColor" opacity="1" data-original="currentColor"></path>
@@ -211,31 +211,42 @@ if (isset($_COOKIE['user_id'])) {
                             </div>
                         </label>
                     </div>
-                    <div id="mic-popup" class="w-full h-full z-[100] fixed top-0 left-0 flex items-center justify-center bg-black bg-opacity-40 hidden">
-                        <div class="w-max h-max z-[100] flex flex-col items-center justify-center p-8 bg-white border-2 border-blue-600 rounded-lg shadow-2xl">
+
+                    <div id="mic-popup" class="w-full h-full z-[100] fixed top-0 left-0 flex items-center justify-center bg-black bg-opacity-40 hidden" x-show="showMic">
+                        <div class="w-max h-max z-[100] flex flex-col items-center justify-center p-8 bg-white border-2 border-blue-600 rounded-lg shadow-2xl relative">
+                            <span class="absolute top-2 right-2">
+                                <svg @click="showMic=false" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 511.76 511.76" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <path d="M436.896 74.869c-99.84-99.819-262.208-99.819-362.048 0-99.797 99.819-99.797 262.229 0 362.048 49.92 49.899 115.477 74.837 181.035 74.837s131.093-24.939 181.013-74.837c99.819-99.818 99.819-262.229 0-362.048zm-75.435 256.448c8.341 8.341 8.341 21.824 0 30.165a21.275 21.275 0 0 1-15.083 6.251 21.277 21.277 0 0 1-15.083-6.251l-75.413-75.435-75.392 75.413a21.348 21.348 0 0 1-15.083 6.251 21.277 21.277 0 0 1-15.083-6.251c-8.341-8.341-8.341-21.845 0-30.165l75.392-75.413-75.413-75.413c-8.341-8.341-8.341-21.845 0-30.165 8.32-8.341 21.824-8.341 30.165 0l75.413 75.413 75.413-75.413c8.341-8.341 21.824-8.341 30.165 0 8.341 8.32 8.341 21.824 0 30.165l-75.413 75.413 75.415 75.435z" fill="#ff0000" opacity="1" data-original="#ff0000" class=""></path>
+                                    </g>
+                                </svg>
+                            </span>
                             <h2 class="text-xl font-semibold text-center text-gray-800">Listening...</h2>
-                            <div class="wave my-6 mx-auto"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                            <div class="wave my-6 mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="mt-[1px] ml-[1px]">
                                     <g>
                                         <defs>
                                             <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                                                <path d="M0 512h512V0H0Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                                <path d="M0 512h512V0H0Z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
                                             </clipPath>
                                         </defs>
                                         <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
-                                            <path d="M0 0h160" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(176 20.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                            <path d="M0 0v-72" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 92.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                            <path d="M0 0c0-88.223-71.777-160-160-160S-320-88.223-320 0" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(416 252.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                            <path d="M0 0c-44.183 0-80 35.817-80 80v160c0 44.183 35.817 80 80 80s80-35.817 80-80V80C80 35.817 44.183 0 0 0Z" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 172.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                            <path d="M0 0v40" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(96 332.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                            <path d="M0 0v120" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(20 292.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                            <path d="M0 0v40" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(416 332.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                            <path d="M0 0v120" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(492 292.036)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h160" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(176 20.036)" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#ffffff" class=""></path>
+                                            <path d="M0 0v-72" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 92.036)" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#ffffff" class=""></path>
+                                            <path d="M0 0c0-88.223-71.777-160-160-160S-320-88.223-320 0" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(416 252.036)" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#ffffff" class=""></path>
+                                            <path d="M0 0c-44.183 0-80 35.817-80 80v160c0 44.183 35.817 80 80 80s80-35.817 80-80V80C80 35.817 44.183 0 0 0Z" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 172.036)" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#ffffff" class=""></path>
+                                            <path d="M0 0v40" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(96 332.036)" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#ffffff" class=""></path>
+                                            <path d="M0 0v120" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(20 292.036)" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#ffffff" class=""></path>
+                                            <path d="M0 0v40" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(416 332.036)" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#ffffff" class=""></path>
+                                            <path d="M0 0v120" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(492 292.036)" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#ffffff" class=""></path>
                                         </g>
                                     </g>
-                                </svg></div>
+                                </svg>
+                            </div>
                             <p class="text-sm text-center text-gray-600 mt-2">Please speak clearly into the microphone.</p>
                         </div>
                     </div>
+
                     <script>
                         // Check for browser support
                         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -446,7 +457,7 @@ if (isset($_COOKIE['user_id'])) {
         </div>
         <div class="lg:hidden px-5 my-4">
             <form action="" method="post">
-                <div class="flex justify-center items-center">
+                <div class="flex justify-center items-center" x-data="{showMic2:false}">
                     <div class="relative w-full">
                         <!-- search input -->
                         <input id="SearchInput2" name="searchInputItems2" class="w-full h-12 pr-10 focus:ring-[#08091b] border-0 text-black focus:ring-0 focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything..." autocomplete="off">
@@ -454,7 +465,7 @@ if (isset($_COOKIE['user_id'])) {
                         <input type="submit" id="searchBtn2" name="searchBtn2" class="hidden">
                         <div id="productList2" class="w-full bg-white absolute top-12 left-0 rounded-md z-[100]"></div>
                         <!-- microphone button -->
-                        <div class="absolute right-3 top-2.5 p-1 cursor-pointer" id="start-btn2">
+                        <div class="absolute right-3 top-2.5 p-1 cursor-pointer" id="start-btn2" @click="showMic2=true">
                             <svg class="text-gray-400 h-5 w-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 435.2 435.2" style="enable-background:new 0 0 512 512" xml:space="preserve">
                                 <g>
                                     <path d="M356.864 224.768c0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 59.904-48.64 108.544-108.544 108.544-59.904 0-108.544-48.64-108.544-108.544 0-8.704-6.656-15.36-15.36-15.36s-15.36 6.656-15.36 15.36c0 71.168 53.248 131.072 123.904 138.752v40.96h-55.808c-8.704 0-15.36 6.656-15.36 15.36s6.656 15.36 15.36 15.36h142.336c8.704 0 15.36-6.656 15.36-15.36s-6.656-15.36-15.36-15.36H232.96v-40.96c70.656-7.68 123.904-67.584 123.904-138.752z" fill="currentColor" opacity="1" data-original="currentColor"></path>
@@ -472,8 +483,15 @@ if (isset($_COOKIE['user_id'])) {
                             </svg>
                         </div>
                     </label>
-                    <div id="mic-popup2" class="w-full h-full z-[100] fixed top-0 left-0 flex items-center justify-center bg-black bg-opacity-40 px-5 hidden">
-                        <div class="w-max h-max z-[100] flex flex-col items-center justify-center p-8 bg-white border-2 border-blue-600 rounded-lg shadow-2xl">
+                    <div id="mic-popup2" class="w-full h-full z-[100] fixed top-0 left-0 flex items-center justify-center bg-black bg-opacity-40 px-5 hidden" x-show="showMic2">
+                        <div class="w-max h-max z-[100] flex flex-col items-center justify-center p-8 bg-white border-2 border-blue-600 rounded-lg shadow-2xl relative">
+                            <span class="absolute top-2 right-2">
+                                <svg @click="showMic2=false" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 511.76 511.76" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <path d="M436.896 74.869c-99.84-99.819-262.208-99.819-362.048 0-99.797 99.819-99.797 262.229 0 362.048 49.92 49.899 115.477 74.837 181.035 74.837s131.093-24.939 181.013-74.837c99.819-99.818 99.819-262.229 0-362.048zm-75.435 256.448c8.341 8.341 8.341 21.824 0 30.165a21.275 21.275 0 0 1-15.083 6.251 21.277 21.277 0 0 1-15.083-6.251l-75.413-75.435-75.392 75.413a21.348 21.348 0 0 1-15.083 6.251 21.277 21.277 0 0 1-15.083-6.251c-8.341-8.341-8.341-21.845 0-30.165l75.392-75.413-75.413-75.413c-8.341-8.341-8.341-21.845 0-30.165 8.32-8.341 21.824-8.341 30.165 0l75.413 75.413 75.413-75.413c8.341-8.341 21.824-8.341 30.165 0 8.341 8.32 8.341 21.824 0 30.165l-75.413 75.413 75.415 75.435z" fill="#ff0000" opacity="1" data-original="#ff0000" class=""></path>
+                                    </g>
+                                </svg>
+                            </span>
                             <h2 class="text-xl font-semibold text-center text-gray-800">Listening...</h2>
                             <div class="wave my-6 mx-auto"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                     <g>
