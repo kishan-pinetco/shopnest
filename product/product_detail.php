@@ -10,102 +10,68 @@
         $product_query = mysqli_query($con,$product_find);
         
         $res = mysqli_fetch_assoc($product_query);
+        $colors = $res['color'];
+        
+        // for image
+        $json_img = $res["image"];
+        $color_img = json_decode($json_img, true);
+        foreach($color_img as $key => $value) {
+            $first_color = $key;
+            break;
+        }
 
-        $select = "SELECT * FROM items WHERE product_id = '$product_id'";
-        $query = mysqli_query($con, $select);
+        $first_img = isset($color_img[$first_color]) ? $color_img[$first_color] : '';
 
-        $first_img = '';
-
-        $first_img1 = '';
-        $first_img2 = '';
-        $first_img3 = '';
-        $first_img4 = '';
-
-        $Color_of_image = '';
-        $first_title = '';
-
-        while($row = mysqli_fetch_array($query)) {
-
-            $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
-            $review_query = mysqli_query($con, $get_reviews);
-
-            $totalReviews = mysqli_num_rows($review_query);
-
-            $sum = 0;
-            $count = 0;
-            if ($totalReviews > 0) {         
-                while ($data = mysqli_fetch_assoc($review_query)) {
-                    $rating = str_replace(",", "", $data['Rating']);
-                    $sum += (float)$rating;
-                    $count++;
-                }
-
-                $average = $sum / $count;
-                $formatted_average = number_format($average, 1);
-            }else {
-                $formatted_average = "0.0";
-            }
-            
-            // for image
-            $json_img = $row["image"];
-
-            $color_img = json_decode($json_img, true);
-
-            foreach($color_img as $key => $value) {
-                $first_color = $key;
-                break;
-            }
-
-            $first_img = isset($color_img[$first_color]) ? $color_img[$first_color] : '';
-
-            $first_img1 = $first_img['img1'];
-            $first_img2 = $first_img['img2'];
-            $first_img3 = $first_img['img3'];
-            $first_img4 = $first_img['img4'];
-
-            $colors = $row['color'];
-
-            // for the title
-            $json_title = $row['title'];
-            $title_json = json_decode($json_title, true);
-
-            foreach($title_json as $key => $value) {
-                $first_color_title = $key;
-                break;
-            }
-
-            $first_name = isset($title_json[$first_color_title]) ? $title_json[$first_color_title] : ''; 
-            $first_title = $first_name['product_name'];
-
-            // for the price
-            $json_mrp = $res['MRP'];
-            $decodemrp = json_decode($json_mrp, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                die("Error decoding JSON: " . json_last_error_msg());
-            }
-
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['size'])) {
-                $_SESSION['selectedSize'] = $_POST['size'];
-            }
-
-            $selectedSize = isset($_SESSION['selectedSize']) ? $_SESSION['selectedSize'] : null;
-
-            if (isset($selectedSize) && isset($decodemrp[$selectedSize])) {
-                $first_price = $decodemrp[$selectedSize];
-            } else {
-                reset($decodemrp); 
-                $first_price = current($decodemrp); 
-            }
-
-            $MRP = isset($first_price['MRP']) ? $first_price['MRP'] : null;
-            $Your_Price = isset($first_price['Your_Price']) ? $first_price['Your_Price'] : null;
-
-            if ($MRP === null || $Your_Price === null) {
-                echo "Error: Price information is not available.";
-            }
+        $first_img1 = $first_img['img1'];
+        $first_img2 = $first_img['img2'];
+        $first_img3 = $first_img['img3'];
+        $first_img4 = $first_img['img4'];
 
 
+        // for the title
+        $json_title = $res['title'];
+        $title_json = json_decode($json_title, true);
+
+        foreach($title_json as $key => $value) {
+            $first_color_title = $key;
+            break;
+        }
+
+        $first_name = isset($title_json[$first_color_title]) ? $title_json[$first_color_title] : ''; 
+        $first_title = $first_name['product_name'];
+
+        // for the price
+        $json_mrp = $res['MRP'];
+        $decodemrp = json_decode($json_mrp, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            die("Error decoding JSON: " . json_last_error_msg());
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['size'])) {
+            $_SESSION['selectedSize'] = $_POST['size'];
+            unset($_SESSION['selectedColor1']);
+            unset($_SESSION['product_title1']);
+
+            unset($_SESSION['selectedColor2']);
+            unset($_SESSION['product_title2']);
+
+        }
+
+        $selectedSize = isset($_SESSION['selectedSize']) ? $_SESSION['selectedSize'] : null;
+
+        if (isset($selectedSize) && isset($decodemrp[$selectedSize])) {
+            $first_price = $decodemrp[$selectedSize];
+        } else {
+            reset($decodemrp); 
+            $first_price = current($decodemrp); 
+        }
+
+        $MRP = isset($first_price['MRP']) ? $first_price['MRP'] : null;
+        $Your_Price = isset($first_price['Your_Price']) ? $first_price['Your_Price'] : null;
+
+        if ($MRP === null || $Your_Price === null) {
+            echo "Error: Price information is not available.";
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -126,31 +92,37 @@
             }
         }
 
-        $defaultColor = '';
-
         foreach($color_img as $key => $value) {
             $defaultColor = $key;
             break;
         }
+
+        foreach($title_json as $key => $value){
+            $my_product_title = $key;
+            $first_name = isset($title_json[$my_product_title]) ? $title_json[$my_product_title] : ''; 
+            $My_first_title = $first_name['product_name'];
+            break;
+        }
+
         
         // for buy button
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['colorChoice'])) {
-                $_SESSION['selectedColor'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-                $_SESSION['product_title'] = $first_title;
+                $_SESSION['selectedColor1'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                $_SESSION['product_title1'] = $first_title;
             } else {
-                if (!isset($_SESSION['selectedColor'])) {
-                    $_SESSION['selectedColor'] = $defaultColor;
-                    $_SESSION['product_title'] = $first_title; 
+                if (!isset($_SESSION['selectedColor1'])) {
+                    $_SESSION['selectedColor1'] = $defaultColor;
+                    $_SESSION['product_title1'] = $My_first_title; 
                 }
             }
         
-            $selectedColor = $_SESSION['selectedColor'];
-            $product_first_name = $_SESSION['product_title'];
+            $selectedColor = $_SESSION['selectedColor1'];
+            $product_first_name = $_SESSION['product_title1'];
             
             if (isset($_POST['buyBtn'])) {
-                $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
-                $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : '';
+                $myColor = isset($_SESSION['selectedColor1']) ? $_SESSION['selectedColor1'] : $defaultColor;
+                $myTitle = isset($_SESSION['product_title1']) ? $_SESSION['product_title1'] : $My_first_title;
 
                 $size = isset($_POST['size']) ? $_POST['size'] : null;
                 $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
@@ -163,20 +135,17 @@
                     ?>
                         <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty;?>&MRP=<?php echo $MRP?>'</script>
                         <?php
-                            unset($_SESSION['selectedColor']);
-                            unset($_SESSION['product_title']);
+                            unset($_SESSION['selectedColor1']);
+                            unset($_SESSION['product_title1']);
                         ?>
                     <?php
-
                 }else{
                     
                     ?>
                         <script>window.location.href = '../authentication/user_auth/user_login.php'</script>
-                        <?php
-                            unset($_SESSION['selectedColor']);
-                            unset($_SESSION['product_title']);
-                        ?>
                     <?php
+                    unset($_SESSION['selectedColor1']);
+                    unset($_SESSION['product_title1']);
                 }
             }
         }
@@ -184,21 +153,21 @@
         // for add to cart
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['colorChoice'])) {
-                $_SESSION['selectedColor'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-                $_SESSION['product_title'] = $first_title;
+                $_SESSION['selectedColor2'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                $_SESSION['product_title2'] = $first_title;
             } else {
-                if (!isset($_SESSION['selectedColor'])) {
-                    $_SESSION['selectedColor'] = $defaultColor;
-                    $_SESSION['product_title'] = $first_title; 
+                if (!isset($_SESSION['selectedColor2'])) {
+                    $_SESSION['selectedColor2'] = $defaultColor;
+                    $_SESSION['product_title2'] = $My_first_title; 
                 }
             }
         
-            $selectedColor = $_SESSION['selectedColor'];
-            $products_first_name = $_SESSION['product_title'];
+            $selectedColor = $_SESSION['selectedColor2'];
+            $products_first_name = $_SESSION['product_title2'];
             
             if (isset($_POST['AddtoCart'])) {
-                $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
-                $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : $first_title;
+                $myColor = isset($_SESSION['selectedColor2']) ? $_SESSION['selectedColor2'] : $defaultColor;
+                $myTitle = isset($_SESSION['product_title2']) ? $_SESSION['product_title2'] : $My_first_title;
 
                 $size = isset($_POST['size']) ? $_POST['size'] : null;
                 $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
@@ -208,8 +177,9 @@
                 ?>
                     <script>window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty;?>&MRP=<?php echo $MRP?>'</script>
                 <?php
-                unset($_SESSION['selectedColor']);
-                unset($_SESSION['product_title']);
+
+                unset($_SESSION['selectedColor2']);
+                unset($_SESSION['product_title2']);
                 
             }
         }
@@ -487,12 +457,12 @@
                 <div class="flex justify-between items-center mt-6 mb-4">
                     <div class="flex item-center gap-1">
                         <span class="bg-gray-900 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
-                            <h1 class="font-semibold text-base text-white"><?php echo $formatted_average?></h1>
+                            <h1 class="font-semibold text-base text-white"><?php echo $res['avg_rating']?></h1>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
                                 <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
                             </svg>
                         </span>
-                        <span class="text-sm ml-2 mt-1">(<?php echo $totalReviews ?>)</span>
+                        <span class="text-sm ml-2 mt-1">(<?php echo $res['total_reviews'] ?>)</span>
                     </div>
                     <p class="text-sm font-medium text-[red]">Free Delivery</p>
                 </div>
@@ -609,42 +579,37 @@
 
                             <?php
                                 if (isset($_POST['colorChoice'])) {
-                                    $_SESSION['selectedColor'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-                                    $_SESSION['product_title'] = $first_title;
+                                    $_SESSION['selectedColor3'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                                    $_SESSION['product_title3'] = $first_title;
                                 } else {
-                                    if (!isset($_SESSION['selectedColor'])) {
-                                        $_SESSION['selectedColor'] = $defaultColor;
-                                        $_SESSION['product_title'] = $first_title; 
+                                    if (!isset($_SESSION['selectedColor3'])) {
+                                        $_SESSION['selectedColor3'] = $defaultColor;
+                                        $_SESSION['product_title3'] = $My_first_title; 
                                     }
                                 }
 
-                                $selectedColor = $_SESSION['selectedColor'];
-                                $products_first_name = $_SESSION['product_title'];
+                                $selectedColor = $_SESSION['selectedColor3'];
+                                $products_first_name = $_SESSION['product_title3'];
 
                                 if(isset($_COOKIE['user_id'])){
-                                    $myColor = isset($_SESSION['selectedColor']) ? $_SESSION['selectedColor'] : $defaultColor;
-                                    $myTitle = isset($_SESSION['product_title']) ? $_SESSION['product_title'] : '';
+                                    $myColor = isset($_SESSION['selectedColor3']) ? $_SESSION['selectedColor3'] : $defaultColor;
+                                    $myTitle = isset($_SESSION['product_title3']) ? $_SESSION['product_title3'] : $My_first_title;
                                     
                                     $encoded_product_id = urlencode($product_id);
                                     $encoded_product_id = urlencode($product_id);
                 
                                     ?>
-                                        <?php
-                                            unset($_SESSION['selectedColor']);
-                                            unset($_SESSION['product_title']);
-                                        ?>
                                         <a href="add_review.php?product_id=<?php echo $product_id; ?>&title=<?php echo urlencode($myTitle); ?>&color=<?php echo urlencode($myColor); ?>" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
                                     <?php
                 
+                                    unset($_SESSION['selectedColor3']);
+                                    unset($_SESSION['product_title3']);
                                 }else{
-                                    
                                     ?>
-                                        <?php
-                                            unset($_SESSION['selectedColor']);
-                                            unset($_SESSION['product_title']);
-                                        ?>
                                         <a href="../authentication/user_auth/user_login.php" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
                                     <?php
+                                    unset($_SESSION['selectedColor3']);
+                                    unset($_SESSION['product_title3']);
                                 }
                             ?>
                         </div>
