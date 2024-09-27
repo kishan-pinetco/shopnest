@@ -263,6 +263,7 @@ if (isset($_COOKIE['user_id'])) {
             $product_quty = $qty['Quantity'];
  
             $qty_replace = str_replace(",", "",$product_quty);
+            $qty_replace = (int)$qty_replace;
  
             $remove_quty = number_format($qty_replace + $return_order_qty);
  

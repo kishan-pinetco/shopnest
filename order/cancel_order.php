@@ -262,8 +262,9 @@ if (isset($_COOKIE['user_id'])) {
             $qty = mysqli_fetch_assoc($get_qty_query);
             $product_quty = $qty['Quantity'];
  
-            $qty_replace = str_replace(",", "",$product_quty);
- 
+            $qty_replace = str_replace(",", "", $product_qty);
+            $qty_replace = (int)$qty_replace;
+                    
             $remove_quty = number_format($qty_replace + $cancle_order_qty);
  
             $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
