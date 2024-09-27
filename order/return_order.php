@@ -68,13 +68,13 @@ if (isset($_COOKIE['user_id'])) {
                     <p class="cursor-default font-semibold text-2xl">Receive Payment Via?</p>
                     <div class="flex flex-col gap-2 px-3 mt-3">
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="Preceive" id="type_1" value="UPI">
+                            <input type="radio" name="Preceive" id="type_1" value="UPI" class="text-gray-600 focus:ring-gray-600">
                             <label for="type_1">
                                 <p>UPI</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="Preceive" id="type_2" value="Net Banking">
+                            <input type="radio" name="Preceive" id="type_2" value="Net Banking" class="text-gray-600 focus:ring-gray-600">
                             <label for="type_2">
                                 <p>Net Banking</p>
                             </label>
@@ -86,61 +86,61 @@ if (isset($_COOKIE['user_id'])) {
                     <p class="cursor-default font-semibold text-2xl">Why are you Retrun the order?</p>
                     <div class="flex flex-col gap-2 px-3 mt-3">
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_1" value="Received Incorrect Item (Does Not Match Description or Order Specifications)">
+                            <input type="radio" name="OrderReturn" id="Return_1" value="Received Incorrect Item (Does Not Match Description or Order Specifications)" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_1">
                                 <p>Received Incorrect Item (Does Not Match Description or Order Specifications)</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_2" value="Product Arrived Defective (Functional Problems or Faults)">
+                            <input type="radio" name="OrderReturn" id="Return_2" value="Product Arrived Defective (Functional Problems or Faults)" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_2">
                                 <p>Product Arrived Defective (Functional Problems or Faults)</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_3" value="Return or Exchange Due to Change in Preferences or Priorities">
+                            <input type="radio" name="OrderReturn" id="Return_3" value="Return or Exchange Due to Change in Preferences or Priorities" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_3">
                                 <p>Return or Exchange Due to Change in Preferences or Priorities</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_4" value="Quality Issues (Poor Construction, Subpar Materials, or Below-Expected Performance)">
+                            <input type="radio" name="OrderReturn" id="Return_4" value="Quality Issues (Poor Construction, Subpar Materials, or Below-Expected Performance)" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_4">
                                 <p>Quality Issues (Poor Construction, Subpar Materials, or Below-Expected Performance)</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_5" value="Wrong Size or Fit (Does Not Meet Expected Measurements or Specifications)">
+                            <input type="radio" name="OrderReturn" id="Return_5" value="Wrong Size or Fit (Does Not Meet Expected Measurements or Specifications)" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_5">
                                 <p>Wrong Size or Fit (Does Not Meet Expected Measurements or Specifications)</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_6" value="Inaccurate or Misleading Product Description">
+                            <input type="radio" name="OrderReturn" id="Return_6" value="Inaccurate or Misleading Product Description" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_6">
                                 <p>Inaccurate or Misleading Product Description</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_7" value="Multiple Orders of the Same Item by Mistake (Duplicates Received)">
+                            <input type="radio" name="OrderReturn" id="Return_7" value="Multiple Orders of the Same Item by Mistake (Duplicates Received)" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_7">
                                 <p>Multiple Orders of the Same Item by Mistake (Duplicates Received)</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_8" value="Shipping Problems (Delays, Missing Packages, or Delivery Issues)">
+                            <input type="radio" name="OrderReturn" id="Return_8" value="Shipping Problems (Delays, Missing Packages, or Delivery Issues)" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_8">
                                 <p>Shipping Problems (Delays, Missing Packages, or Delivery Issues)</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_9" value="Found Better Price After Purchase (Request for Return or Adjustment)">
+                            <input type="radio" name="OrderReturn" id="Return_9" value="Found Better Price After Purchase (Request for Return or Adjustment)" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_9">
                                 <p>Found Better Price After Purchase (Request for Return or Adjustment)</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_10" value="Unwanted Gift (Prompting Return or Exchange Request)">
+                            <input type="radio" name="OrderReturn" id="Return_10" value="Unwanted Gift (Prompting Return or Exchange Request)" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_10">
                                 <p>Unwanted Gift (Prompting Return or Exchange Request)</p>
                             </label>

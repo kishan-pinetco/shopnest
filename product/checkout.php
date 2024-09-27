@@ -101,7 +101,7 @@
                         <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $pimg : '../src/sample_images/product_1.jpg' ?>" alt="" />
                         <div class="flex w-full flex-col px-4 py-4 gap-y-3">
                             <span class="font-semibold line-clamp-2"><?php echo isset($product_id) ? $title : 'product title' ?></span>
-                            <p class="text-lg font-semibold text-gray-600">₹<?php echo isset($product_id) ? $totalPriceWithQty : 'MRP' ?></p>
+                            <p class="text-lg font-semibold text-green-500">₹<?php echo isset($product_id) ? $totalPriceWithQty : 'MRP' ?></p>
                             <div class="flex item-center justify-between">
                                 <div class="flex item-center gap-1">
                                     <h1 class="text-lg font-semibold">Color:</h1>
@@ -225,7 +225,7 @@
                     <div class="mt-6 flex items-center justify-between">
                         <p class="text-base font-medium text-gray-900">Total</p>
                         <label for="totalPrice">
-                            <h1 class="float-right text-2xl font-semibold text-gray-900">₹
+                            <h1 class="float-right text-2xl font-semibold text-green-500">₹
                             <?php
                                 if(isset($product_id)){
                                     $productPrice = (float)$productPrice;

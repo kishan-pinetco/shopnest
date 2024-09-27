@@ -99,23 +99,23 @@
             <div>
                 <div class="headline">
                     <p class="cursor-default font-semibold text-2xl">Add a headline</p>
-                    <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-black focus:ring-0 mt-2" type="text" id="headline" name="headline" placeholder="What's most important to know?" required>
+                    <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-gray-500 focus:ring-gray-500 mt-2" type="text" id="headline" name="headline" placeholder="What's most important to know?" required>
                 </div>
                 <hr class="my-6">
                 <div class="review">
                     <p class="cursor-default font-semibold text-2xl">Add a written review</p>
-                    <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-black focus:ring-0 mt-2" type="text" id="description" name="description" placeholder="What did you like or dislike? What did you use this product for?" required>
+                    <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-gray-500 focus:ring-gray-500 mt-2" type="text" id="description" name="description" placeholder="What did you like or dislike? What did you use this product for?" required>
                 </div>
                 <hr class="my-6">
                 <div class="public_Name">
                     <p class="cursor-default font-semibold text-2xl">Choose your public name</p>
                     <div class="flex item-center justify-center m-auto gap-2">
                         <img class="w-12 h-12 mt-2 rounded-full object-cover" src="<?php echo '../src/user_dp/' . $userprofileImage?>" alt="">
-                        <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-black focus:ring-0 mt-2" type="text" id="public_Name" name="public_Name" value="<?php echo isset($_COOKIE['user_id']) ? $userFirstName . ' ' . $userLastName : 'user Name'?>" required>
+                        <input class="w-full h-12 border-2 border-[#cccccc] rounded-md focus:border-gray-500 focus:ring-gray-500 mt-2" type="text" id="public_Name" name="public_Name" value="<?php echo isset($_COOKIE['user_id']) ? $userFirstName . ' ' . $userLastName : 'user Name'?>" required>
                     </div>
                 </div>
                 <div class="submit mt-6">
-                    <input name="submitReview" class="rounded-tl-xl rounded-br-xl text-center bg-gray-700 py-3 px-6 text-white hover:bg-gray-800 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Submit">
+                    <input name="submitReview" class="rounded-tl-xl rounded-br-xl text-center bg-gray-700 h-10 w-32 text-white hover:bg-gray-800 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Submit">
                 </div>
             </div>
         </form>

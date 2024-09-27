@@ -93,7 +93,7 @@ if (isset($_COOKIE['user_id'])) {
                 </div>
             </div>
             <div class="mt-10">
-                <a href="../user/re-order.php?product_id=<?php echo $product_id; ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a>
+                <a href="../user/re-order.php?product_id=<?php echo $product_id; ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a>
             </div>
             <hr class="my-10">
             <div>
@@ -258,6 +258,7 @@ if (isset($_COOKIE['user_id'])) {
             </div>
         </div>
     </section>
+
 
 
     <!-- footer -->

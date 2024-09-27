@@ -50,7 +50,7 @@ if (isset($_COOKIE['user_id'])) {
                     <div>
                         <div class="flex items-center">
                             <p class="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200"> Qty: <span class="text-gray-500"><?php echo isset($_COOKIE['user_id']) ? $res['qty'] : 'qty' ?></span></p> 
-                            <p class="font-medium text-base leading-7 text-black">Price: <span class="text-gray-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
+                            <p class="font-medium text-base leading-7 text-black">Price: <span class="text-green-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total_price' ?></span></p>
                         </div>
                     </div>
                 </div>
@@ -68,13 +68,13 @@ if (isset($_COOKIE['user_id'])) {
                     <p class="cursor-default font-semibold text-2xl">Receive Payment Via?</p>
                     <div class="flex flex-col gap-2 px-3 mt-3">
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="Preceive" id="type_1" value="UPI">
+                            <input type="radio" name="Preceive" id="type_1" value="UPI" class="text-gray-600 focus:ring-gray-600">
                             <label for="type_1">
                                 <p>UPI</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="Preceive" id="type_2" value="Net Banking">
+                            <input type="radio" name="Preceive" id="type_2" value="Net Banking" class="text-gray-600 focus:ring-gray-600">
                             <label for="type_2">
                                 <p>Net Banking</p>
                             </label>
@@ -86,61 +86,61 @@ if (isset($_COOKIE['user_id'])) {
                     <p class="cursor-default font-semibold text-2xl">Why are you cancelling the order?</p>
                     <div class="flex flex-col gap-2 px-3 mt-3">
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_1" value="Found a better option elsewhere">
+                            <input type="radio" name="OrderCancle" id="Cancle_1" value="Found a better option elsewhere" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_1">
                                 <p>Found a better option elsewhere</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_2" value="Budget constraints">
+                            <input type="radio" name="OrderCancle" id="Cancle_2" value="Budget constraints" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_2">
                                 <p>Budget constraints</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_3" value="Changed mind about the purchase">
+                            <input type="radio" name="OrderCancle" id="Cancle_3" value="Changed mind about the purchase" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_3">
                                 <p>Changed mind about the purchase</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_4" value="Delivery taking too long">
+                            <input type="radio" name="OrderCancle" id="Cancle_4" value="Delivery taking too long" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_4">
                                 <p>Delivery taking too long</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_5" value="Concerns about product quality">
+                            <input type="radio" name="OrderCancle" id="Cancle_5" value="Concerns about product quality" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_5">
                                 <p>Concerns about product quality</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_6" value="Difficulty with payment processing">
+                            <input type="radio" name="OrderCancle" id="Cancle_6" value="Difficulty with payment processing" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_6">
                                 <p>Difficulty with payment processing</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_7" value="Unexpected shipping costs">
+                            <input type="radio" name="OrderCancle" id="Cancle_7" value="Unexpected shipping costs" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_7">
                                 <p>Unexpected shipping costs</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_8" value="Found a more suitable product">
+                            <input type="radio" name="OrderCancle" id="Cancle_8" value="Found a more suitable product" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_8">
                                 <p>Found a more suitable product</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_9" value="Accidentally ordered the wrong item">
+                            <input type="radio" name="OrderCancle" id="Cancle_9" value="Accidentally ordered the wrong item" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_9">
                                 <p>Accidentally ordered the wrong item</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderCancle" id="Cancle_10" value="Unforeseen personal circumstances">
+                            <input type="radio" name="OrderCancle" id="Cancle_10" value="Unforeseen personal circumstances" class="text-gray-600 focus:ring-gray-600">
                             <label for="Cancle_10">
                                 <p>Unforeseen personal circumstances</p>
                             </label>

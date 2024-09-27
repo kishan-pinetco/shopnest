@@ -49,7 +49,7 @@ if(isset($_GET['order_id'])){
 <body style="font-family: 'Outfit', sans-serif;">
     <div id="invoice" class="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg mt-10">
         <!-- Header -->
-        <header class="flex items-center justify-between flex-wrap gap-x-12 gap-y-5 border-b border-gray-200 pb-4 mb-8">
+        <header class="flex items-center justify-between flex-wrap gap-x-12 gap-y-5 border-b-2 border-gray-300 pb-4 mb-8">
             <h1 class="text-4xl font-extrabold text-gray-800">Invoice</h1>
             <div class="text-sm text-gray-600 text-right w-32">
                 <p class="font-semibold text-gray-900 flex flex-wrap"><?php echo isset($_COOKIE['user_id']) ? $res['user_address'] : 'user address' ?></p>
@@ -59,7 +59,7 @@ if(isset($_GET['order_id'])){
         <!-- Product Details -->
         <section class="mb-8">
             <h2 class="text-2xl font-semibold text-gray-800 mb-6">Product Details</h2>
-            <div class="flex flex-wrap items-center p-4 bg-gray-50 border gap-y-5 border-gray-300 rounded-lg shadow-md">
+            <div class="flex flex-wrap items-center p-4 bg-gray-50 ring-2 ring-gray-300 gap-y-5 rounded-lg shadow-md">
                 <img src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="Product Image" class="w-32 h-32 object-cover rounded-md border border-gray-300 mr-6">
                 <div>
                     <h3 class="text-xl font-bold text-gray-800 line-clamp-2"><?php echo isset($_COOKIE['user_id']) ? $res['order_title'] : 'product title'?></h3>
@@ -78,12 +78,12 @@ if(isset($_GET['order_id'])){
         <section class="mb-8">
             <h2 class="text-2xl font-semibold text-gray-800 mb-6">User Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-4 bg-gray-50 border border-gray-300 rounded-lg shadow-sm space-y-4">
+                <div class="p-4 bg-gray-50 ring-2 ring-gray-300 rounded-lg shadow-sm space-y-4">
                     <p class="text-gray-700"><span class="font-semibold">First Name:</span> <?php echo isset($_COOKIE['user_id']) ? $res['user_first_name'] : 'user first name' ?></p>
                     <p class="text-gray-700"><span class="font-semibold">Last Name:</span> <?php echo isset($_COOKIE['user_id']) ? $res['user_last_name'] : 'user last name' ?></p>
                     <p class="text-gray-700"><span class="font-semibold">Email:</span> <?php echo isset($_COOKIE['user_id']) ? $res['user_email'] : 'user email' ?></p>
                 </div>
-                <div class="p-4 bg-gray-50 border border-gray-300 rounded-lg shadow-sm space-y-4">
+                <div class="p-4 bg-gray-50 ring-2 ring-gray-300 rounded-lg shadow-sm space-y-4">
                     <p class="text-gray-700"><span class="font-semibold">Mobile Number:</span> <?php echo isset($_COOKIE['user_id']) ? $res['user_mobile'] : 'user mobile number' ?></p>
                     <p class="text-gray-700"><span class="font-semibold">State:</span> <?php echo isset($_COOKIE['user_id']) ? $res['user_state'] : 'user state' ?></p>
                     <p class="text-gray-700"><span class="font-semibold">City:</span> <?php echo isset($_COOKIE['user_id']) ? $res['user_city'] : 'user city' ?></p>
@@ -101,10 +101,10 @@ if(isset($_GET['order_id'])){
         </section>
 
         <!-- Total Price -->
-        <section class="border-t border-gray-200 pt-6">
+        <section class="border-t-2 border-gray-300 pt-6">
             <div class="flex justify-between text-xl font-semibold text-gray-800 mb-2">
                 <span>Total Price:</span>
-                <span>₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total price' ?></span>
+                <span class="tracking-wide text-green-500">₹<?php echo isset($_COOKIE['user_id']) ? $res['total_price'] : 'total price' ?></span>
             </div>
         </section>
 

@@ -1,4 +1,3 @@
-
 <?php
 include "../include/connect.php";
 if (isset($_COOKIE['vendor_id'])) {
@@ -215,7 +214,7 @@ if (isset($_COOKIE['vendor_id'])) {
                                 <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png' ?>" alt="Your avatar">
                             </button>
                             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
-                            <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl" style="display: none;">
+                            <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl divide-y-2 divide-gray-300 ring-2 ring-gray-300" style="display: none;">
                                 <a href="vendor_profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
                                 <a href="view_products.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Products</a>
                                 <a href="vendor_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
@@ -324,32 +323,32 @@ if (isset($_COOKIE['vendor_id'])) {
                                                 </div>
                                                 <div class="col-span-4 md:col-span-2">
                                                     <label for="full_name">Full Name</label>
-                                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['name'] : '' ?>" />
+                                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['name'] : '' ?>" />
                                                 </div>
 
                                                 <div class="col-span-4 md:col-span-2">
                                                     <label for="phone">Phone Number</label>
-                                                    <input type="number" name="phone" id="phone" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['phone'] : '' ?>" placeholder="" />
+                                                    <input type="number" name="phone" id="phone" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['phone'] : '' ?>" placeholder="" />
                                                 </div>
 
                                                 <div class="col-span-4">
                                                     <label for="email">Email</label>
-                                                    <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['email'] : '' ?>" placeholder="" />
+                                                    <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['email'] : '' ?>" placeholder="" />
                                                 </div>
 
                                                 <div class="col-span-4 md:col-span-2">
                                                     <label for="userName">Username</label>
-                                                    <input type="text" name="userName" id="userName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['username'] : '' ?>" placeholder="" />
+                                                    <input type="text" name="userName" id="userName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['username'] : '' ?>" placeholder="" />
                                                 </div>
 
                                                 <div class="col-span-4 md:col-span-2">
                                                     <label for="gst">GST</label>
-                                                    <input type="text" name="gst" id="gst" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['GST'] : '' ?>" placeholder="" />
+                                                    <input type="text" name="gst" id="gst" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_COOKIE['vendor_id']) ? $row['GST'] : '' ?>" placeholder="" />
                                                 </div>
 
                                                 <div class="col-span-4">
                                                     <label for="bio">Bio</label>
-                                                    <textarea name="bio" id="bio" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50"><?php echo isset($_COOKIE['vendor_id']) ? $row['Bio'] : '' ?></textarea>
+                                                    <textarea name="bio" id="bio" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600 resize-none"><?php echo isset($_COOKIE['vendor_id']) ? $row['Bio'] : '' ?></textarea>
                                                 </div>
 
                                                 <div class="col-span-4 text-right mt-7">
@@ -369,7 +368,7 @@ if (isset($_COOKIE['vendor_id'])) {
         </div>
     </div>
 
-    
+
     <!-- success Message -->
     <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
         <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -423,8 +422,9 @@ if (isset($_COOKIE['vendor_id'])) {
             }, 700);
         }
     </script>
-    
+
     <!-- chatboat script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
+
 </html>
