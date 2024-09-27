@@ -1,3 +1,14 @@
+<?php
+    if(isset($_COOKIE['user_id'])){
+        header("Location: /shopnest/user/profile.php");
+        exit;
+    }
+
+    if(isset($_COOKIE['vendor_id'])){
+        header("Location: /shopnest/vendor/vendor_dashboard.php");
+        exit;
+    }
+?>
 
 <?php
 
