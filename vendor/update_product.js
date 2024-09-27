@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         keywordInput.type = 'text';
         keywordInput.name = 'keyword[]';
         keywordInput.placeholder = 'Enter keyword';
-        keywordInput.className = 'relative h-10 border rounded px-4 w-full bg-gray-50';
+        keywordInput.className = 'relative h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600';
         keywordInput.value = keyword;
 
         let removeButton = document.createElement('button');
@@ -150,13 +150,13 @@ document.addEventListener('DOMContentLoaded', () => {
         mrpInput.type = 'text';
         mrpInput.name = 'MRP2[]';
         mrpInput.placeholder = 'Enter MRP';
-        mrpInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
+        mrpInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2 focus:ring-gray-600 focus:border-gray-600';
 
         const priceInput = document.createElement('input');
         priceInput.type = 'text';
         priceInput.name = 'your_price2[]';
         priceInput.placeholder = 'Enter Your Price';
-        priceInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
+        priceInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2 focus:ring-gray-600 focus:border-gray-600';
 
         const removeButton = document.createElement('button');
         removeButton.type = 'button';
