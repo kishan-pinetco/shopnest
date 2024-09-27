@@ -521,7 +521,6 @@ if (isset($_POST['submitBtn'])) {
     $condition = mysqli_real_escape_string($con, $_POST['condition']);
     $description = mysqli_real_escape_string($con, $_POST['description']);
 
-    $color = $_POST['color'];
 
     if (isset($_POST['size']) && !empty($_POST['size'])) {
         $size = $_POST['size'];
@@ -619,6 +618,7 @@ if (isset($_POST['submitBtn'])) {
     if (!empty($tempName7) && !move_uploaded_file($tempName7, $folder7)) $allFilesUploaded = false;
     if (!empty($tempName8) && !move_uploaded_file($tempName8, $folder8)) $allFilesUploaded = false;
 
+    $color = $_POST['color'];
     $normalized_color = array_map('strtolower', (array)$color); // Ensure $color is treated as an array
 
     // Validation for colors
@@ -629,14 +629,12 @@ if (isset($_POST['submitBtn'])) {
 
         // Build the color image array
         $color_img = [];
-        foreach ($normalized_color as $clr) {
-            $color_img[$clr] = [
-                'img1' => $ProfileImage1,
-                'img2' => $ProfileImage2,
-                'img3' => $ProfileImage3,
-                'img4' => $ProfileImage4
-            ];
-        }
+        $color_img[$color] = [
+            'img1' => $ProfileImage1,
+            'img2' => $ProfileImage2,
+            'img3' => $ProfileImage3,
+            'img4' => $ProfileImage4
+        ];
 
         // Encode the color image array to JSON
         $color_img_json = json_encode($color_img);
@@ -681,6 +679,7 @@ if (isset($_POST['submitBtn'])) {
         if ($allFilesUploaded) {
             $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$CoverImage1', '$CoverImage2', '$CoverImage3', '$CoverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$color', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
             $product_query = mysqli_query($con, $product_insert);
+
             if ($product_query) {
                 echo '<script>displaySuccessMessage("Data Inserted.");</script>';
             } else {

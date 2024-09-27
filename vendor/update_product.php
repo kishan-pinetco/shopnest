@@ -208,16 +208,16 @@ if (isset($_GET['product_id'])) {
                                         $all_sizes = [];
                                         $mrp_values = [];
                                         $price_values = [];
-                                                                    
+
                                         $key = $row['size'];
                                         $mrp_key = $row['MRP'];
-                                                                    
+
                                         $mrp_data = json_decode($mrp_key, true);
                                         $key_array = explode(",", $key);
                                         foreach ($key_array as $ky) {
                                             $all_sizes[] = trim($ky);
                                         }
-                                    
+
                                         foreach ($all_sizes as $size) {
                                             if (isset($mrp_data[$size])) {
                                                 $mrp_values[] = $mrp_data[$size]['MRP'];
@@ -226,15 +226,16 @@ if (isset($_GET['product_id'])) {
                                                 $mrp_values[] = '';
                                                 $price_values[] = '';
                                             }
-                                        }   
-                                    
+                                        }
+
                                         foreach ($all_sizes as $index => $size) {
                                         ?>
                                             <div class="size-item mb-4 relative">
-                                                <input type="text" id="<?php echo 'size' . $index ?>" name="size[]" value="<?php echo htmlspecialchars($size, ENT_QUOTES) ?>" placeholder="Enter size" class="h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600">
+                                                <input type="text" name="size[]" value="<?php echo htmlspecialchars($size, ENT_QUOTES) ?>" placeholder="Enter size" class="h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600">
+                                                <div class="suggestions-container absolute bg-white border border-gray-300 mt-1 z-10 w-full rounded-lg hidden"></div>
                                                 <?php if ($index > 0) { ?>
-                                                    <input type="text" id="<?php echo 'mrp' . $index ?>" name="MRP2[]" value="<?php echo htmlspecialchars($mrp_values[$index], ENT_QUOTES) ?>" placeholder="Enter MRP" class="h-10 border rounded px-4 w-full bg-gray-50 mt-2">
-                                                    <input type="text" id="<?php echo 'your_price' . $index ?>" name="your_price2[]" value="<?php echo htmlspecialchars($price_values[$index], ENT_QUOTES) ?>" placeholder="Enter Your Price" class="h-10 border rounded px-4 w-full bg-gray-50 mt-2 focus:border-gray-600 focus:ring-gray-600">
+                                                    <input type="text" name="MRP2[]" value="<?php echo htmlspecialchars($mrp_values[$index], ENT_QUOTES) ?>" placeholder="Enter MRP" class="h-10 border rounded px-4 w-full bg-gray-50 mt-2">
+                                                    <input type="text" name="your_price2[]" value="<?php echo htmlspecialchars($price_values[$index], ENT_QUOTES) ?>" placeholder="Enter Your Price" class="h-10 border rounded px-4 w-full bg-gray-50 mt-2">
                                                 <?php } ?>
                                                 <button type="button" class="remove-size p-2 text-red-500 bg-red-100 rounded focus:outline-none mt-2">Remove</button>
                                             </div>
@@ -525,22 +526,10 @@ if (isset($_POST['updateBtn'])) {
         ],
     ];
 
-    // Normalize keys to lower case
-    $normalized_decode_img = [];
-    foreach ($decode_img as $color => $images) {
-        $normalized_decode_img[$color] = $images;
-    }
-
-    // Remove existing colors
-    foreach ($new_img as $color => $images) {
-        if (array_key_exists($color, $normalized_decode_img)) {
-            unset($normalized_decode_img[$color]);
-        }
-    }
-
-    // Merge new images
-    $merged_color_images = array_merge($normalized_decode_img, $new_img);
-    $merge_color_json = json_encode($merged_color_images);
+    // update Image 
+    $normalized_decode_img = $decode_img;
+    $normalized_decode_img[$color] = $new_img[$color];
+    $merge_color_json = json_encode($normalized_decode_img);
 
     // Title processing
     $json_name = $row['title'];
@@ -552,22 +541,11 @@ if (isset($_POST['updateBtn'])) {
         ],
     ];
 
-    // Normalize title keys
-    $normalized_decode_title = [];
-    foreach ($decode_name as $name => $title) {
-        $normalized_decode_title[$name] = $title;
-    }
+    // update new Title
+    $normalized_decode_title = $decode_name;
+    $normalized_decode_title[$color] = $new_name[$color];
+    $merge_title_json = json_encode($normalized_decode_title);
 
-    // Remove existing titles
-    foreach ($new_name as $name => $title) {
-        if (array_key_exists($name, $normalized_decode_title)) {
-            unset($normalized_decode_title[$name]);
-        }
-    }
-
-    // Merge new titles
-    $merged_title = array_merge($normalized_decode_title, $new_name);
-    $merge_title_json = json_encode($merged_title);
 
     if (isset($_POST['size']) && !empty($_POST['size'])) {
         $size = $_POST['size'];

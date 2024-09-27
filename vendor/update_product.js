@@ -62,108 +62,130 @@ const suggestionsData = [
 
 document.addEventListener('DOMContentLoaded', () => {
     const sizeContainer = document.getElementById('size-container');
-    const existingSizesData = document.getElementById('size-data');
-    let existingSizes = [];
 
-    if (existingSizesData) {
-        try {
-            existingSizes = JSON.parse(existingSizesData.value);
-            existingSizes.forEach((size, index) => {
-                addSizeItem(size.size, size.mrp || '', size.price || '', index === 0);
+    // Function to attach input event listeners for suggestions
+    function attachSuggestionListeners() {
+        document.querySelectorAll('input[name="size[]"]').forEach(input => {
+            const suggestionsContainer = input.nextElementSibling; // Get the suggestions container
+
+            // Handle input event for suggestions
+            input.addEventListener('input', () => {
+                const query = input.value.toLowerCase();
+                suggestionsContainer.innerHTML = ''; // Clear existing suggestions
+                if (query) {
+                    const filteredSuggestions = suggestionsData.filter(item => item.toLowerCase().includes(query));
+                    if (filteredSuggestions.length) {
+                        filteredSuggestions.forEach(suggestion => {
+                            const suggestionItem = document.createElement('div');
+                            suggestionItem.className = 'p-2 cursor-pointer hover:bg-gray-100';
+                            suggestionItem.textContent = suggestion;
+                            suggestionItem.addEventListener('click', () => {
+                                input.value = suggestion; // Set the input value to the clicked suggestion
+                                suggestionsContainer.innerHTML = '';
+                                suggestionsContainer.classList.add('hidden');
+                            });
+                            suggestionsContainer.appendChild(suggestionItem);
+                        });
+                        suggestionsContainer.classList.remove('hidden');
+                    } else {
+                        suggestionsContainer.classList.add('hidden');
+                    }
+                } else {
+                    suggestionsContainer.classList.add('hidden');
+                }
             });
-        } catch (error) {
-            console.error("Failed to parse JSON:", error);
-        }
+        });
     }
 
-    if (existingSizes.length === 0) {
-        addSizeItem('', '', '', true);
-    }
+    // Initial attachment of suggestion listeners
+    attachSuggestionListeners();
 
-    document.getElementById('add-size').addEventListener('click', (event) => {
+    document.getElementById('add-size').addEventListener('click', function(event) {
         event.preventDefault();
-        addSizeItem('', '', '', false);
-    });
 
-    function addSizeItem(size, mrp, yourPrice, isFirst) {
+        const sizeInputs = sizeContainer.querySelectorAll('input[name="size[]"]');
+        const mrpInputs = sizeContainer.querySelectorAll('input[name="MRP2[]"]');
+        const priceInputs = sizeContainer.querySelectorAll('input[name="your_price2[]"]');
+
+        // Check if all size, MRP, and Price input fields are filled
+        for (const input of sizeInputs) {
+            if (!input.value || ['-', 'none', 'NONE', 'None'].includes(input.value)) {
+                alert("Please enter valid size values (not empty, '-' or 'none').");
+                return; // Exit if any input is empty or invalid
+            }
+        }
+
+        for (const input of mrpInputs) {
+            if (!input.value) {
+                alert("Please fill in all MRP fields before adding more sizes.");
+                return; // Exit if any MRP input is empty
+            }
+        }
+
+        for (const input of priceInputs) {
+            if (!input.value) {
+                alert("Please fill in all Your Price fields before adding more sizes.");
+                return; // Exit if any Price input is empty
+            }
+        }
+
+        // Create a new size item with inputs
         const sizeItem = document.createElement('div');
         sizeItem.className = 'size-item mb-4 relative';
 
-        const sizeInput = createInput('text', 'size[]', 'Enter size', size);
+        const sizeInput = document.createElement('input');
+        sizeInput.type = 'text';
+        sizeInput.name = 'size[]';
+        sizeInput.placeholder = 'Enter size';
+        sizeInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600';
+
         const suggestionsContainer = document.createElement('div');
         suggestionsContainer.className = 'absolute bg-white border border-gray-300 mt-1 z-10 w-full rounded-lg hidden';
 
-        sizeInput.addEventListener('input', () => {
-            handleSuggestions(sizeInput, suggestionsContainer);
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!sizeItem.contains(event.target)) {
-                suggestionsContainer.classList.add('hidden');
-            }
-        });
-
+        // Append inputs and suggestions container
         sizeItem.appendChild(sizeInput);
         sizeItem.appendChild(suggestionsContainer);
 
-        if (!isFirst) {
-            ['MRP2[]', 'your_price2[]'].forEach((name, index) => {
-                const input = createInput('text', name, index === 0 ? 'Enter MRP' : 'Enter Your Price', index === 0 ? mrp : yourPrice);
-                sizeItem.appendChild(input);
-            });
-            const removeButton = createRemoveButton(sizeItem);
-            sizeItem.appendChild(removeButton);
-        }
+        const mrpInput = document.createElement('input');
+        mrpInput.type = 'text';
+        mrpInput.name = 'MRP2[]';
+        mrpInput.placeholder = 'Enter MRP';
+        mrpInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
 
-        sizeContainer.appendChild(sizeItem);
-    }
+        const priceInput = document.createElement('input');
+        priceInput.type = 'text';
+        priceInput.name = 'your_price2[]';
+        priceInput.placeholder = 'Enter Your Price';
+        priceInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
 
-    function createInput(type, name, placeholder, value) {
-        const input = document.createElement('input');
-        input.type = type;
-        input.name = name;
-        input.placeholder = placeholder;
-        input.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
-        input.value = value;
-        return input;
-    }
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'remove-size p-2 text-red-500 bg-red-100 rounded focus:outline-none mt-2';
+        removeButton.innerHTML = 'Remove';
 
-    function createRemoveButton(sizeItem) {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'p-2 text-red-500 bg-red-100 rounded focus:outline-none mt-2';
-        button.innerHTML = 'Remove';
-        button.addEventListener('click', () => {
+        removeButton.addEventListener('click', () => {
             sizeItem.remove();
         });
-        return button;
-    }
 
-    function handleSuggestions(input, suggestionsContainer) {
-        const query = input.value.toLowerCase();
-        suggestionsContainer.innerHTML = ''; // Clear existing suggestions
+        // Append MRP, Price, and Remove button to the size item
+        sizeItem.appendChild(mrpInput);
+        sizeItem.appendChild(priceInput);
+        sizeItem.appendChild(removeButton);
 
-        if (query) {
-            const filteredSuggestions = suggestionsData.filter(item => item.toLowerCase().includes(query));
-            if (filteredSuggestions.length) {
-                filteredSuggestions.forEach(suggestion => {
-                    const suggestionItem = document.createElement('div');
-                    suggestionItem.className = 'p-2 cursor-pointer hover:bg-gray-100';
-                    suggestionItem.textContent = suggestion;
-                    suggestionItem.addEventListener('click', () => {
-                        input.value = suggestion;
-                        suggestionsContainer.innerHTML = '';
-                        suggestionsContainer.classList.add('hidden');
-                    });
-                    suggestionsContainer.appendChild(suggestionItem);
-                });
-                suggestionsContainer.classList.remove('hidden');
-            } else {
-                suggestionsContainer.classList.add('hidden');
-            }
-        } else {
-            suggestionsContainer.classList.add('hidden');
-        }
+        // Append the new size item to the container
+        sizeContainer.appendChild(sizeItem);
+
+        // Attach suggestion listeners for the new input
+        attachSuggestionListeners();
+    });
+});
+
+// Close suggestions if clicking outside
+document.addEventListener('click', (event) => {
+    if (!event.target.closest('.size-item')) {
+        document.querySelectorAll('.suggestions-container').forEach(container => {
+            container.classList.add('hidden');
+        });
     }
 });
 
