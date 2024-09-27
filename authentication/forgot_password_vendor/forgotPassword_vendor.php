@@ -315,7 +315,7 @@
 
         pswrd2.addEventListener('blur', () => {
             let lengthRegex2 = /^.{8,}$/;
-            let str = pswrd.value.trim();
+            let str = pswrd2.value.trim();
 
             if (lengthRegex2.test(str)) {
                 rePassValid.classList.add('hidden');

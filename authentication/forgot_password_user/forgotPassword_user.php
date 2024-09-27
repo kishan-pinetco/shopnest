@@ -273,7 +273,7 @@
                 </div>
                 <div class="relative flex flex-col" x-data="{confirmPass: false}">
                     <label for="confirmPass" class="require">Confirm Password:</label>
-                    <input name="confirmPass" id="confirmPass" :type="confirmPass ? 'text' : 'password'" class="w-80 mt-2 h-12 pr-10 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" autocomplete="off">
+                    <input name="confirmPass" id="confirmPass2" :type="confirmPass ? 'text' : 'password'" class="w-80 mt-2 h-12 pr-10 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" autocomplete="off">
                     <span class="absolute top-[2.8rem] right-2.5 cursor-pointer" @click="confirmPass = !confirmPass">
                         <!-- Show Icon (when password is hidden) -->
                         <svg x-show="!confirmPass" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" x="0" y="0" viewBox="0 0 128 128" style="enable-background:new 0 0 512 512" xml:space="preserve">
@@ -324,12 +324,12 @@
         })
 
 
-        const pswrd2 = document.getElementById('confirmPass');
+        const pswrd2 = document.getElementById('confirmPass2');
         const rePassValid = document.getElementById('rePassValid');
 
         pswrd2.addEventListener('blur', () => {
             let lengthRegex2 = /^.{8,}$/;
-            let str = pswrd.value.trim();
+            let str = pswrd2.value.trim();
 
             if (lengthRegex2.test(str)) {
                 rePassValid.classList.add('hidden');
