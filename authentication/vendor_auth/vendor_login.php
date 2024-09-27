@@ -1,3 +1,19 @@
+<?php
+if (isset($_COOKIE['user_id'])) {
+    header("Location: /shopnest/user/profile.php");
+    exit;
+}
+
+if (isset($_COOKIE['vendor_id'])) {
+    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    exit;
+}
+
+if (isset($_COOKIE['adminEmail'])) {
+    header("Location: /shopnest/admin/dashboard.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +44,8 @@
             color: red;
             margin-left: 3px;
         }
-        [x-cloak]{
+
+        [x-cloak] {
             display: none;
         }
     </style>
