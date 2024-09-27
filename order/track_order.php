@@ -14,19 +14,19 @@ if (isset($_COOKIE['user_id'])) {
 
     $product_id = $res['product_id'];
     $product_color = $res['order_color'];
-    $todays = date('d-m-Y');
+    $todays = date('Y-m-d');
 
-    $today = date('d-m-Y', strtotime($res['date']));
-    $future_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+    $today = date('Y-m-d', strtotime($res['date']));
+    $future_date = date('Y-m-d', strtotime('+5 days', strtotime($today)));
 
-    $toDay = date('d-m-Y', strtotime('+0 days', strtotime($today)));
-    $oneday = date('d-m-Y', strtotime('+1 days', strtotime($today)));
-    $secondday = date('d-m-Y', strtotime('+2 days', strtotime($today)));
-    $thirdday = date('d-m-Y', strtotime('+3 days', strtotime($today)));
-    $fourday = date('d-m-Y', strtotime('+4 days', strtotime($today)));
-    $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+    $toDay = date('Y-m-d', strtotime('+0 days', strtotime($today)));
+    $oneday = date('Y-m-d', strtotime('+1 days', strtotime($today)));
+    $secondday = date('Y-m-d', strtotime('+2 days', strtotime($today)));
+    $thirdday = date('Y-m-d', strtotime('+3 days', strtotime($today)));
+    $fourday = date('Y-m-d', strtotime('+4 days', strtotime($today)));
+    $fifth = date('Y-m-d', strtotime('+5 days', strtotime($today)));
 
-    $return_date = date('d-m-Y', strtotime('+7 days', strtotime($future_date)));
+    $return_date = date('Y-m-d', strtotime('+7 days', strtotime($future_date)));
 }
 ?>
 <!DOCTYPE html>
@@ -160,7 +160,7 @@ if (isset($_COOKIE['user_id'])) {
                         <?php
                     }else{
                         ?>
-                            <h2 class="font-semibold text-2xl mb-4">Shipped on: <span class="text-gray-500"><?php echo isset($future_date) ? $future_date : 'Shipping Date'; ?></span></h2>
+                            <h2 class="font-semibold text-2xl mb-4">Shipped on: <span class="text-gray-500"><?php echo isset($future_date) ? date('d-m-Y', strtotime($future_date)) : 'Shipping Date'; ?></span></h2>
                         <?php
                     }
                 ?>
@@ -171,74 +171,74 @@ if (isset($_COOKIE['user_id'])) {
 
                     <ol class="relative ms-3 border-s border-gray-200 ">
                         <li class="mb-10 ms-6">
-                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $fifth <= date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
-                                <i class="<?php echo $fifth <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-clipboard-check') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $fifth <= date('Y-m-d') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $fifth <= date('Y-m-d') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-clipboard-check') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fifth <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($fifth) ? $fifth : 'Delivery Date'?></h4>
-                                <p class="text-sm font-normal <?php echo isset($fifth) ? ($fifth <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')) : 'product Devlivery Date'?>">Products delivered</p>
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fifth <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($fifth) ? date('d-m-Y', strtotime($fifth)) : 'Delivery Date'?></h4>
+                                <p class="text-sm font-normal <?php echo isset($fifth) ? ($fifth <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')) : 'product Devlivery Date'?>">Products delivered</p>
                             </div>
                         </li>
 
                         <li class="mb-10 ms-6">
-                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $fourday <= date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
-                                <i class="<?php echo $fourday <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-cube') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $fourday <= date('Y-m-d') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $fourday <= date('Y-m-d') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-cube') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fourday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($fourday) ? $fourday : 'Products being delivered Date'?></h4>
-                                <p class="text-sm font-normal <?php echo $fourday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products being delivered</p>
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $fourday <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($fourday) ? date('d-m-Y', strtotime($fourday)) : 'Products being delivered Date'?></h4>
+                                <p class="text-sm font-normal <?php echo $fourday <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products being delivered</p>
                             </div>
                         </li>
 
                         <li class="mb-10 ms-6 text-blue-700">
-                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $thirdday <= date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
-                                <i class="<?php echo $thirdday <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-warehouse') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $thirdday <= date('Y-m-d') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $thirdday <= date('Y-m-d') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-warehouse') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 font-semibold <?php echo $thirdday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($thirdday) ? $thirdday : 'Products in the couriers warehouse Date'?></h4>
-                                <p class="text-sm font-normal <?php echo $thirdday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products in the courier's warehouse</p>
+                                <h4 class="mb-0.5 font-semibold <?php echo $thirdday <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($thirdday) ? date('d-m-Y', strtotime($thirdday)) : 'Products in the couriers warehouse Date'?></h4>
+                                <p class="text-sm font-normal <?php echo $thirdday <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products in the courier's warehouse</p>
                             </div>
                         </li>
 
                         <li class="mb-10 ms-6 text-blue-700">
-                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $secondday <= date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
-                                <i class="<?php echo $secondday <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-truck') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $secondday <= date('Y-m-d') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $secondday <= date('Y-m-d') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-truck') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 text-base font-semibold <?php echo $secondday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($secondday) ? $secondday : 'Products delivered to the courier Date'?></h4>
-                                <p class="text-sm font-normal <?php echo $secondday <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products delivered to the courier</p>
+                                <h4 class="mb-0.5 text-base font-semibold <?php echo $secondday <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($secondday) ? date('d-m-Y', strtotime($secondday)) : 'Products delivered to the courier Date'?></h4>
+                                <p class="text-sm font-normal <?php echo $secondday <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Products delivered to the courier</p>
                             </div>
                         </li>
 
                         <li class="mb-10 ms-6 text-blue-700">
-                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
-                                <i class="<?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-credit-card') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $toDay <= date('Y-m-d') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $toDay <= date('Y-m-d') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-credit-card') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($toDay) ? $toDay : 'Payment accepted Date'?></h4>
-                                <p class="text-sm font-normal <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Payment accepted - <?php echo isset($_COOKIE['user_id']) ? $res['payment_type'] : 'payment_type' ?></p>
+                                <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($toDay) ? date('d-m-Y', strtotime($toDay)) : 'Payment accepted Date'?></h4>
+                                <p class="text-sm font-normal <?php echo $toDay <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Payment accepted - <?php echo isset($_COOKIE['user_id']) ? $res['payment_type'] : 'payment_type' ?></p>
                             </div>
                         </li>
                         
 
                         <li class="ms-6">
-                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
-                                <i class="<?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-cart-plus') . ' ' . htmlspecialchars('text-black') ?>"></i>
+                            <span class="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full <?php echo $toDay <= date('Y-m-d') ? htmlspecialchars('bg-indigo-100') : htmlspecialchars('bg-gray-100') ?> ring-8 ring-white">
+                                <i class="<?php echo $toDay <= date('Y-m-d') ? htmlspecialchars('fa-solid fa-circle-check') . ' ' .  htmlspecialchars('text-indigo-600') : htmlspecialchars('fas fa-cart-plus') . ' ' . htmlspecialchars('text-black') ?>"></i>
                             </span>
                             <div class="ml-2">
-                                <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($toDay) ? $toDay : 'Order placed Date'?></h4>
-                                <p class="text-sm font-normal <?php echo $toDay <= date('d-m-Y') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Order placed - Receipt #<?php echo $res['order_id'] ?></p>
+                                <h4 class="mb-0.5 font-semibold <?php echo $toDay <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-900') ?>"><?php echo isset($toDay) ? date('d-m-Y', strtotime($toDay)) : 'Order placed Date'?></h4>
+                                <p class="text-sm font-normal <?php echo $toDay <= date('Y-m-d') ? htmlspecialchars('text-indigo-600') : htmlspecialchars('text-gray-500')?>">Order placed - Receipt #<?php echo $res['order_id'] ?></p>
                             </div>
                         </li>
                     </ol>
 
                     <div class="flex flex-col items-center gap-4 gap-y-4 sm:flex-row">
                         <?php
-                            $todays_dates = date('d-m-Y', strtotime('today'));
+                            $todays_dates = date('Y-m-d', strtotime('today'));
 
-                            $today_date = DateTime::createFromFormat('d-m-Y', $todays_dates);
-                            $fifth_date = DateTime::createFromFormat('d-m-Y', $fifth);
-                            $product_return_date = DateTime::createFromFormat('d-m-Y', $return_date);
+                            $today_date = DateTime::createFromFormat('Y-m-d', $todays_dates);
+                            $fifth_date = DateTime::createFromFormat('Y-m-d', $fifth);
+                            $product_return_date = DateTime::createFromFormat('Y-m-d', $return_date);
 
                             if ($today_date < $fifth_date) {
                                 ?>
