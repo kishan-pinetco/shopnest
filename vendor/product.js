@@ -14,7 +14,7 @@ document.getElementById('add-keyword').addEventListener('click', function(event)
     keywordInput.type = 'text';
     keywordInput.name = 'keyword[]';
     keywordInput.placeholder = 'Enter keyword';
-    keywordInput.className = 'relative h-10 border rounded px-4 w-full bg-gray-50';
+    keywordInput.className = 'relative h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600';
 
     // Create the remove button
     let removeButton = document.createElement('button');

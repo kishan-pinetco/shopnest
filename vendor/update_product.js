@@ -54,7 +54,7 @@ const suggestionsData = [
     '32 inches', '40 inches', '43 inches', '50 inches', '55 inches', '65 inches', '75 inches', '85 inches',
     '100L', '200L', '300L', '400L', '500L', '600L',
     '6 kg', '7 kg', '8 kg', '9 kg', '10 kg', '12 kg',
-    '16GB', '32GB', '64GB', '128GB', '256GB', '512GB',
+    '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB',
     '2GB - 32GB', '4GB - 64GB', '6GB - 128GB', '8GB - 256GB', '12GB - 512GB', '16GB - 1TB',
     '4GB - 128GB', '8GB - 256GB', '8GB - 1TB', '16GB - 512GB', '16GB - 2TB', '32GB - 1TB', '32GB - 2TB', '64GB - 1TB', '64GB - 2TB',
     '3GB - 64GB', '4GB - 256GB', '6GB - 512GB', '8GB - 1TB'
@@ -63,28 +63,29 @@ const suggestionsData = [
 document.addEventListener('DOMContentLoaded', () => {
     const sizeContainer = document.getElementById('size-container');
     const existingSizesData = document.getElementById('size-data');
-    const existingSizes = existingSizesData ? JSON.parse(existingSizesData.value) : []; // Parse JSON if exists
+    let existingSizes = [];
 
-    // Create the first size input with existing data
-    if (existingSizes.length > 0) {
-        existingSizes.forEach((item, index) => {
-            if (item.size) {
-                const isFirst = index === 0;
-                const sizeItem = createSizeItem(item.size, item.mrp || '', item.price || '', isFirst);
-                sizeContainer.appendChild(sizeItem);
-            }
-        });
-    } else {
-        sizeContainer.appendChild(createSizeItem('', '', '', true));
+    if (existingSizesData) {
+        try {
+            existingSizes = JSON.parse(existingSizesData.value);
+            existingSizes.forEach((size, index) => {
+                addSizeItem(size.size, size.mrp || '', size.price || '', index === 0);
+            });
+        } catch (error) {
+            console.error("Failed to parse JSON:", error);
+        }
+    }
+
+    if (existingSizes.length === 0) {
+        addSizeItem('', '', '', true);
     }
 
     document.getElementById('add-size').addEventListener('click', (event) => {
         event.preventDefault();
-        const sizeItem = createSizeItem('', '', '', false);
-        sizeContainer.appendChild(sizeItem);
+        addSizeItem('', '', '', false);
     });
 
-    function createSizeItem(size, mrp, yourPrice, isFirst) {
+    function addSizeItem(size, mrp, yourPrice, isFirst) {
         const sizeItem = document.createElement('div');
         sizeItem.className = 'size-item mb-4 relative';
 
@@ -93,29 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         suggestionsContainer.className = 'absolute bg-white border border-gray-300 mt-1 z-10 w-full rounded-lg hidden';
 
         sizeInput.addEventListener('input', () => {
-            const query = sizeInput.value.toLowerCase();
-            suggestionsContainer.innerHTML = ''; // Clear existing suggestions
-            if (query) {
-                const filteredSuggestions = suggestionsData.filter(item => item.toLowerCase().includes(query));
-                if (filteredSuggestions.length) {
-                    filteredSuggestions.forEach(suggestion => {
-                        const suggestionItem = document.createElement('div');
-                        suggestionItem.className = 'p-2 cursor-pointer hover:bg-gray-100';
-                        suggestionItem.textContent = suggestion;
-                        suggestionItem.addEventListener('click', () => {
-                            sizeInput.value = suggestion;
-                            suggestionsContainer.innerHTML = '';
-                            suggestionsContainer.classList.add('hidden');
-                        });
-                        suggestionsContainer.appendChild(suggestionItem);
-                    });
-                    suggestionsContainer.classList.remove('hidden');
-                } else {
-                    suggestionsContainer.classList.add('hidden');
-                }
-            } else {
-                suggestionsContainer.classList.add('hidden');
-            }
+            handleSuggestions(sizeInput, suggestionsContainer);
         });
 
         document.addEventListener('click', (event) => {
@@ -128,16 +107,15 @@ document.addEventListener('DOMContentLoaded', () => {
         sizeItem.appendChild(suggestionsContainer);
 
         if (!isFirst) {
-            const mrpInput = createInput('text', 'MRP2[]', 'Enter MRP', mrp);
-            const priceInput = createInput('text', 'your_price2[]', 'Enter Your Price', yourPrice);
+            ['MRP2[]', 'your_price2[]'].forEach((name, index) => {
+                const input = createInput('text', name, index === 0 ? 'Enter MRP' : 'Enter Your Price', index === 0 ? mrp : yourPrice);
+                sizeItem.appendChild(input);
+            });
             const removeButton = createRemoveButton(sizeItem);
-
-            sizeItem.appendChild(mrpInput);
-            sizeItem.appendChild(priceInput);
             sizeItem.appendChild(removeButton);
         }
 
-        return sizeItem;
+        sizeContainer.appendChild(sizeItem);
     }
 
     function createInput(type, name, placeholder, value) {
@@ -160,7 +138,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         return button;
     }
+
+    function handleSuggestions(input, suggestionsContainer) {
+        const query = input.value.toLowerCase();
+        suggestionsContainer.innerHTML = ''; // Clear existing suggestions
+
+        if (query) {
+            const filteredSuggestions = suggestionsData.filter(item => item.toLowerCase().includes(query));
+            if (filteredSuggestions.length) {
+                filteredSuggestions.forEach(suggestion => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'p-2 cursor-pointer hover:bg-gray-100';
+                    suggestionItem.textContent = suggestion;
+                    suggestionItem.addEventListener('click', () => {
+                        input.value = suggestion;
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.classList.add('hidden');
+                    });
+                    suggestionsContainer.appendChild(suggestionItem);
+                });
+                suggestionsContainer.classList.remove('hidden');
+            } else {
+                suggestionsContainer.classList.add('hidden');
+            }
+        } else {
+            suggestionsContainer.classList.add('hidden');
+        }
+    }
 });
+
 
 
 

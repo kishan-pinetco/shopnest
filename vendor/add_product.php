@@ -44,48 +44,48 @@ if (isset($_GET['name'])) {
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
                                     <label for="full_name">Product Tital</label>
-                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" />
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="Company_name">Company Name</label>
-                                    <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                                    <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="category">Category</label>
-                                    <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="<?php echo isset($_GET['name']) ? $product : 'Category' ?>" placeholder="" />
+                                    <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_GET['name']) ? $product : 'Category' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-1">
                                     <label for="type">Type</label>
-                                    <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                                    <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-3">
                                     <label for="MRP">MRP</label>
                                     <div class="relative">
-                                        <input type="text" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10" value="" placeholder="" />
+                                        <input type="text" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="md:col-span-2">
                                     <label for="your_price">Your Price</label>
                                     <div class="relative">
-                                        <input type="text" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10" value="" placeholder="" />
+                                        <input type="text" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="md:col-span-3">
                                     <label for="quantity">Quantity</label>
-                                    <input type="text" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                                    <input type="text" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
                                     <label for="condition">Item Condition</label>
-                                    <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="">
+                                    <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="">
                                         <option value="New Condition">New Condition</option>
                                         <option value="Old Condition">Old Condition</option>
                                     </select>
@@ -93,14 +93,14 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-5">
                                     <label for="description">Description</label>
-                                    <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder=""></textarea>
+                                    <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600 resize-none" value="" placeholder=""></textarea>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
                                     <label for="keyword">Keywords</label>
                                     <div id="keyword-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
                                         <div class="flex items-center relative">
-                                            <input type="text" name="keyword[]" placeholder="Enter keyword" class="relative h-10 border rounded px-4 w-full bg-gray-50">
+                                            <input type="text" name="keyword[]" placeholder="Enter keyword" class="relative h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600">
                                         </div>
                                     </div>
                                     <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Keyword</button>
@@ -109,7 +109,7 @@ if (isset($_GET['name'])) {
                                 <div class="md:col-span-5 mt-5">
                                     <label for="size">Size</label>
                                     <div id="size-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
-                                        
+
                                     </div>
                                     <button id="add-size" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Size</button>
                                 </div>
@@ -117,7 +117,7 @@ if (isset($_GET['name'])) {
                                 <div class="md:col-span-5 mt-5">
                                     <label for="color">Color:</label>
                                     <div class="relative mt-2">
-                                        <input type="text" id="colorInput" name="color" placeholder="Type a color..." class="h-10 border rounded px-4 w-full bg-gray-50" autocomplete="off">
+                                        <input type="text" id="colorInput" name="color" placeholder="Type a color..." class="h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" autocomplete="off">
                                         <div id="colorSuggestions" class="absolute left-0 mt-1 w-full bg-white border border-gray-300 rounded-lg z-10 hidden"></div>
                                     </div>
                                 </div>
@@ -299,7 +299,7 @@ if (isset($_GET['name'])) {
             '32 inches', '40 inches', '43 inches', '50 inches', '55 inches', '65 inches', '75 inches', '85 inches',
             '100L', '200L', '300L', '400L', '500L', '600L',
             '6 kg', '7 kg', '8 kg', '9 kg', '10 kg', '12 kg',
-            '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB', 
+            '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB',
             '2GB - 32GB', '4GB - 64GB', '6GB - 128GB', '8GB - 256GB', '12GB - 512GB', '16GB - 1TB',
             '4GB - 128GB', '8GB - 256GB', '8GB - 1TB', '16GB - 512GB', '16GB - 2TB', '32GB - 1TB', '32GB - 2TB', '64GB - 1TB', '64GB - 2TB',
             '3GB - 64GB', '4GB - 256GB', '6GB - 512GB', '8GB - 1TB'
@@ -362,7 +362,7 @@ if (isset($_GET['name'])) {
             sizeInput.name = 'size[]';
             sizeInput.value = '';
             sizeInput.placeholder = 'Enter size';
-            sizeInput.className = 'h-10 border rounded px-4 w-full bg-gray-50';
+            sizeInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600';
 
             const suggestionsContainer = document.createElement('div');
             suggestionsContainer.className = 'absolute bg-white border border-gray-300 mt-1 z-10 w-full rounded-lg hidden';
@@ -412,19 +412,19 @@ if (isset($_GET['name'])) {
                 mrpInput.type = 'text';
                 mrpInput.name = 'MRP2[]';
                 mrpInput.placeholder = 'Enter MRP';
-                mrpInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
+                mrpInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2 focus:ring-gray-600 focus:border-gray-600';
 
                 // Create the input element for Your Price
                 const priceInput = document.createElement('input');
                 priceInput.type = 'text';
                 priceInput.name = 'your_price2[]';
                 priceInput.placeholder = 'Enter Your Price';
-                priceInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2';
+                priceInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2 focus:ring-gray-600 focus:border-gray-600';
 
                 // Create the remove button
                 const removeButton = document.createElement('button');
                 removeButton.type = 'button';
-                removeButton.className = 'p-2 text-red-500 bg-red-100 rounded focus:outline-none mt-2';
+                removeButton.className = 'p-2 text-red-500 bg-red-100 rounded focus:outline-none mt-2 focus:ring-gray-600 focus:border-gray-600';
                 removeButton.innerHTML = 'Remove';
 
                 // Unique remove button functionality
@@ -442,7 +442,7 @@ if (isset($_GET['name'])) {
         }
 
         // color suggetions
-        const colors  = [
+        const colors = [
             "Amber", "Almond", "Aqua", "Apricot", "Ash", "Beige", "Black", "Blush", "Bone", "Bordeaux",
             "Brown", "Burgundy", "Burnt Orange", "Cabernet", "Canary", "Champagne", "Charcoal", "Chocolate",
             "Cocoa", "Coffee", "Copper", "Cordovan", "Coral", "Cream", "Crimson", "Cobalt", "Cyan",
@@ -467,7 +467,7 @@ if (isset($_GET['name'])) {
                 if (filteredColors.length) {
                     filteredColors.forEach(color => {
                         const colorItem = document.createElement('div');
-                        colorItem.className = 'p-2 cursor-pointer hover:bg-gray-100';
+                        colorItem.className = 'p-2 cursor-pointer hover:bg-gray-100 ';
                         colorItem.textContent = color;
                         colorItem.addEventListener('click', () => {
                             colorInput.value = color;
@@ -490,7 +490,6 @@ if (isset($_GET['name'])) {
                 colorSuggestions.classList.add('hidden');
             }
         });
-
     </script>
 
     <!-- chatboat script -->
@@ -530,7 +529,7 @@ if (isset($_POST['submitBtn'])) {
         $normalized_size = array_map('strtolower', $size);
 
         if (is_array($size) && !empty($size) && !in_array('', $normalized_size) && !in_array('none', $normalized_size)) {
-            $size_img = [];            
+            $size_img = [];
             foreach ($size as $index => $psize) {
                 if ($index === 0) {
                     // First size
@@ -539,12 +538,12 @@ if (isset($_POST['submitBtn'])) {
                         'Your_Price' => $your_price,
                     ];
                 } else {
-                    $MRP2 = $_POST['MRP2']; 
-                    $your_price2 = $_POST['your_price2']; 
-                
+                    $MRP2 = $_POST['MRP2'];
+                    $your_price2 = $_POST['your_price2'];
+
                     if (isset($MRP2[$index - 1]) && isset($your_price2[$index - 1])) {
                         $size_img[$psize] = [
-                            'MRP' => $MRP2[$index - 1], 
+                            'MRP' => $MRP2[$index - 1],
                             'Your_Price' => $your_price2[$index - 1],
                         ];
                     }
@@ -623,9 +622,11 @@ if (isset($_POST['submitBtn'])) {
     $normalized_color = array_map('strtolower', (array)$color); // Ensure $color is treated as an array
 
     // Validation for colors
-    if (is_array($normalized_color) && !empty($normalized_color) && 
-        !in_array('', $normalized_color) && !in_array('none', $normalized_color)) {
-        
+    if (
+        is_array($normalized_color) && !empty($normalized_color) &&
+        !in_array('', $normalized_color) && !in_array('none', $normalized_color)
+    ) {
+
         // Build the color image array
         $color_img = [];
         foreach ($normalized_color as $clr) {
@@ -636,7 +637,7 @@ if (isset($_POST['submitBtn'])) {
                 'img4' => $ProfileImage4
             ];
         }
-    
+
         // Encode the color image array to JSON
         $color_img_json = json_encode($color_img);
 
@@ -645,7 +646,7 @@ if (isset($_POST['submitBtn'])) {
                 'product_name' => $full_name
             ],
         ];
-    
+
         $product_titles_json = json_encode($product_titles);
     } else {
         $color_img['N-A'] = [
@@ -654,7 +655,7 @@ if (isset($_POST['submitBtn'])) {
             'img3' => $ProfileImage3,
             'img4' => $ProfileImage4
         ];
-    
+
         // Encode the color image array to JSON
         $color_img_json = json_encode($color_img);
 
@@ -664,17 +665,19 @@ if (isset($_POST['submitBtn'])) {
                 'product_name' => $full_name
             ],
         ];
-    
+
         $product_titles_json = json_encode($product_titles);
     }
 
     $avg_rating = '0.0';
     $total_reviews = '0';
 
-    if (empty($full_name) || empty($Company_name) || empty($Category) || empty($type) || 
-        empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($ProfileImage1) || empty($ProfileImage2)) {
+    if (
+        empty($full_name) || empty($Company_name) || empty($Category) || empty($type) ||
+        empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($ProfileImage1) || empty($ProfileImage2)
+    ) {
         echo '<script>displayErrorMessage("Please fill in all required fields.");</script>';
-    }else{
+    } else {
         if ($allFilesUploaded) {
             $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$CoverImage1', '$CoverImage2', '$CoverImage3', '$CoverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$color', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
             $product_query = mysqli_query($con, $product_insert);
@@ -687,6 +690,5 @@ if (isset($_POST['submitBtn'])) {
             echo '<script>displayErrorMessage("Some files could not be uploaded.");</script>';
         }
     }
-
 }
 ?>

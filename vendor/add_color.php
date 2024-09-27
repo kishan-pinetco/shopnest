@@ -36,7 +36,7 @@
                                 <div class="md:col-span-5 mt-5">
                                     <label for="color">Color:</label>
                                     <div class="flex items-center gap-1 flex-wrap mt-2">
-                                        <input list="colors" id="colorInput" name="productColor" placeholder="Add a color..." class="relative h-10 border rounded px-4 w-52 bg-gray-50" autocomplete="off">
+                                        <input list="colors" id="colorInput" name="productColor" placeholder="Add a color..." class="relative h-10 border rounded px-4 w-52 bg-gray-50 focus:ring-gray-600 focus:border-gray-600" autocomplete="off">
                                         <datalist id="colors" class="h-20">
                                             <option value="Red">
                                             <option value="Green">
@@ -55,7 +55,7 @@
 
                                 <div class="md:col-span-5 mt-5">
                                     <label for="full_name">Product Tital</label>
-                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" />
                                 </div>
 
                                 <div class="md:col-span-5 mt-4">

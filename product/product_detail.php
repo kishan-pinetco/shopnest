@@ -280,7 +280,7 @@
     ?>
     
     <!-- product -->
-    <div class="max-w-screen-xl m-auto grid grid-cols-1 md:grid-cols-2 gap-y-1 mt-12 px-8 lg:px-0">
+    <div class="max-w-screen-xl m-auto grid grid-cols-1 md:grid-cols-2 gap-y-1 gap-x-5 mt-12 px-8 lg:px-0">
         <div class="">
         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2 w-auto h-auto md:h-96">
                 <div class="swiper-wrapper h-52 md:h-full">
@@ -470,9 +470,9 @@
                     <p class="text-sm font-medium text-[red]">Free Delivery</p>
                 </div>
                 <hr>
-                <div class="mt-4 flex flex-col gap-3 md:flex-row">
-                    <input type="submit" name="AddtoCart" value="Add To Cart" class="text-sm font-medium text-white bg-gray-700 px-12 py-4 rounded-tl-xl rounded-br-xl cursor-pointer hover:bg-gray-800 transition duration-200">
-                    <input type="submit" name="buyBtn" value="Buy now" class="text-sm font-medium text-gray-700 border-2 border-gray-700 px-12 py-4 rounded-tl-xl rounded-br-xl text-center cursor-pointer">
+                <div class="mt-4 flex flex-col gap-5 md:flex-row">
+                    <input type="submit" name="AddtoCart" value="Add To Cart" class="w-40 text-center text-sm font-medium text-white bg-gray-700 py-4 rounded-tl-xl rounded-br-xl cursor-pointer hover:bg-gray-800 transition duration-200">
+                    <input type="submit" name="buyBtn" value="Buy now" class="w-40 text-sm font-medium text-gray-700 border-2 border-gray-700 py-4 rounded-tl-xl rounded-br-xl text-center cursor-pointer">
                 </div>
             </div>
         </form>
@@ -511,7 +511,7 @@
             <div class="grid grid-cols-1 gap-16 lg:grid-cols-3">
                 <div class="col-span-2 md:col-span-1">
                     <span class="text-2xl font-medium">Rating</span>
-                    <div class="border p-5 mt-3">
+                    <div class="ring-2 ring-gray-300 p-5 mt-3 rounded-md">
                         <div class="flex flex-col items-center my-6 md:items-start md:flex-row">
                             <?php
                                 if(isset($product_id)){
