@@ -2,6 +2,8 @@
 include "../include/connect.php";
 session_start();
 $keywords = $_GET['searchName'];
+
+$_SESSION['searchWord'] = $keywords;
 ?>
 
 <!DOCTYPE html>
