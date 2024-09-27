@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 
@@ -6,6 +7,10 @@ if (isset($_COOKIE['user_id'])) {
     $retrieve_query = mysqli_query($con, $retrieve_data);
 
     $row = mysqli_fetch_assoc($retrieve_query);
+
+    if (isset($_SESSION['searchWord'])) {
+        $_SESSION['searchWord'] = isset($_SESSION['searchWord']) ? $_SESSION['searchWord'] : '';
+    }
 }
 ?>
 
@@ -186,7 +191,7 @@ if (isset($_COOKIE['user_id'])) {
                     <div class="flex items-center">
                         <div class="relative">
                             <!-- search input -->
-                            <input id="SearchInput" name="searchInputItems" class="lg:w-[26vw] xl:w-[40vw] h-12 pr-12 focus:ring-[#08091b] border-0 text-black focus:ring-0 focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything..." autocomplete="off">
+                            <input id="SearchInput" value="<?php echo isset($_SESSION['searchWord']) ? $_SESSION['searchWord'] : ''; ?>" name="searchInputItems" class="lg:w-[26vw] xl:w-[40vw] h-12 pr-12 focus:ring-[#08091b] border-0 text-black focus:ring-0 focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything..." autocomplete="off">
                             <!-- suggation -->
                             <input type="submit" id="searchBtn" name="searchBtn" class="hidden">
                             <div id="productList" class="w-full bg-white absolute top-11 left-0 rounded-b-md z-[100]"></div>
@@ -460,7 +465,7 @@ if (isset($_COOKIE['user_id'])) {
                 <div class="flex justify-center items-center" x-data="{showMic2:false}">
                     <div class="relative w-full">
                         <!-- search input -->
-                        <input id="SearchInput2" name="searchInputItems2" class="w-full h-12 pr-10 focus:ring-[#08091b] border-0 text-black focus:ring-0 focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything..." autocomplete="off">
+                        <input id="SearchInput2" value="<?php echo isset($_SESSION['searchWord']) ? $_SESSION['searchWord'] : ''; ?>" name="searchInputItems2" class="w-full h-12 pr-10 focus:ring-[#08091b] border-0 text-black focus:ring-0 focus:outline-none rounded-s-md text-lg" type="text" placeholder="search for anything..." autocomplete="off">
                         <!-- suggetion -->
                         <input type="submit" id="searchBtn2" name="searchBtn2" class="hidden">
                         <div id="productList2" class="w-full bg-white absolute top-12 left-0 rounded-md z-[100]"></div>
