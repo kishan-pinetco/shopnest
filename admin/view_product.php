@@ -170,7 +170,8 @@
                                                     </div>
                                                     <div class="flex space-x-2">
                                                         <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="bg-blue-200 text-blue-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-blue-300 transition">View</a>
-                                                        <button class="bg-red-200 text-red-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-red-300 transition">Remove</button>
+                                                        <a href="remove_product.php?product_id=<?php echo $res['product_id'] ?>" class="bg-red-200 text-red-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-red-300 transition">Remove</a>
+                                                        <a href="edit_vendor_products.php?product_id=<?php echo $res['product_id'] ?>&name=<?php echo $res['Category'] ?>" class="bg-green-200 text-green-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-green-300 transition">Edit</a>
                                                     </div>
                                                 </div>
                                             </div>
