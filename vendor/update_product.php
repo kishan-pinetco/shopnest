@@ -589,51 +589,34 @@ if (isset($_POST['updateBtn'])) {
 
     // Update the database
     if ($allFilesUploaded) {
-        // $product_update = "UPDATE items 
-        // SET 
-        //     title = '$merge_title_json',
-        //     image = '$merge_color_json',
-        //     cover_image_1='{$uploadedFiles['CoverImage1']}', 
-        //     cover_image_2='{$uploadedFiles['CoverImage2']}', 
-        //     cover_image_3='{$uploadedFiles['CoverImage3']}', 
-        //     cover_image_4='{$uploadedFiles['CoverImage4']}', 
-        //     company_name='$Company_name', 
-        //     Category='$Category', 
-        //     Type='$type', 
-        //     MRP = '$json_size_encode',
-        //     vendor_mrp = '$MRP', 
-        //     vendor_price = '$your_price',
-        //     Quantity='$quantity', 
-        //     Item_Condition='$condition', 
-        //     Description='$description',  
-        //     size = '$size_filter',
-        //     keywords='$key_value' 
-        // WHERE product_id = '$product_id'";   
-
-        echo "<pre>";
-        echo "Merge Title JSON: " . $merge_title_json . "\n";
-        echo "Merge Color JSON: " . $merge_color_json . "\n";
-        echo "Company Name: " . $Company_name . "\n";
-        echo "Category: " . $Category . "\n";
-        echo "Type: " . $type . "\n";
-        echo "MRP: " . $json_size_encode . "\n";
-        echo "Vendor MRP: " . $MRP . "\n";
-        echo "Vendor Price: " . $your_price . "\n";
-        echo "Quantity: " . $quantity . "\n";
-        echo "Item Condition: " . $condition . "\n";
-        echo "Description: " . $description . "\n";
-        echo "Size: " . $size_filter . "\n";
-        echo "Keywords: " . $key_value . "\n";
-        echo "Product ID: " . $product_id . "\n";
-        echo "</pre>";
+        $product_update = "UPDATE items 
+        SET 
+            title = '$merge_title_json',
+            image = '$merge_color_json',
+            cover_image_1='{$uploadedFiles['CoverImage1']}', 
+            cover_image_2='{$uploadedFiles['CoverImage2']}', 
+            cover_image_3='{$uploadedFiles['CoverImage3']}', 
+            cover_image_4='{$uploadedFiles['CoverImage4']}', 
+            company_name='$Company_name', 
+            Category='$Category', 
+            Type='$type', 
+            MRP = '$json_size_encode',
+            vendor_mrp = '$MRP', 
+            vendor_price = '$your_price',
+            Quantity='$quantity', 
+            Item_Condition='$condition', 
+            Description='$description',  
+            size = '$size_filter',
+            keywords='$key_value' 
+        WHERE product_id = '$product_id'";   
 
 
-        // $product_query = mysqli_query($con, $product_update);
-        // if ($product_query) {
-        //     echo '<script>displaySuccessMessage("Data updated successfully.");</script>';
-        // } else {
-        //     echo '<script>displayErrorMessage("Data not updated properly.");</script>';
-        // }
+        $product_query = mysqli_query($con, $product_update);
+        if ($product_query) {
+            echo '<script>displaySuccessMessage("Data updated successfully.");</script>';
+        } else {
+            echo '<script>displayErrorMessage("Data not updated properly.");</script>';
+        }
     } else {
         echo "not updated";
     }
