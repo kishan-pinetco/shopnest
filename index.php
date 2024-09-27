@@ -76,7 +76,7 @@ function displayRandomProducts($con, $limit)
             <li class="splide__slide flex justify-center px-2">
                 <div class="card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl hover:ring-none w-64 overflow-hidden">
                     <div class="p-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                        <img src="<?php echo 'src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
+                        <img src="<?php echo 'src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-xl rounded-br-xl" loading="lazy" sizes="">
                     </div>
                     <div class="mt-2 space-y-3" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
                         <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
