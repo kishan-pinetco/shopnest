@@ -58,7 +58,16 @@
 
         }
 
-        $selectedSize = isset($_SESSION['selectedSize']) ? $_SESSION['selectedSize'] : null;
+        // for the size
+        $json_size = $res['MRP'];
+        $decodesize = json_decode($json_size, true);
+
+        foreach($decodesize as $key => $value){
+            $first_size = $key;
+            break;
+        }
+
+        $selectedSize = isset($_SESSION['selectedSize']) ? $_SESSION['selectedSize'] : $first_size;
 
         if (isset($selectedSize) && isset($decodemrp[$selectedSize])) {
             $first_price = $decodemrp[$selectedSize];
