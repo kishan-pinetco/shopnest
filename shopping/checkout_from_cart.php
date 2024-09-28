@@ -55,6 +55,8 @@
         if(isset($_COOKIE['Cart_products'])){
             $cookie_value = $_COOKIE['Cart_products'];
             $cart_products = json_decode($cookie_value, true);
+            // sending email
+            include "../pages/mail.php";
             if (!empty($cart_products) && is_array($cart_products)) {
                 foreach($cart_products as $index => $Cproducts){
                     // Escape special characters
@@ -129,21 +131,15 @@
                         // Log missing field for debugging
                         error_log("Missing fields in the order data.");
                     }
-                }
-
-                // sending email
-                include "../pages/mail.php";
-                $mail->addAddress($user_email);
-                $mail->isHTML(true);
-
-                // order information
-                if (isset($product_id)) {
 
                     $product_id = mysqli_real_escape_string($con, $Cproducts['cart_id']);
                     
                     $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";
                     $retrieve_order_query = mysqli_query($con, $retrieve_order);
                     $res = mysqli_fetch_assoc($retrieve_order_query);
+
+                    $mail->addAddress($user_email);
+                    $mail->isHTML(true);
                 
                     if ($res) {
                         $username = $res['user_first_name'] . ' ' . $res['user_last_name'];
@@ -213,68 +209,48 @@
                         </html>";
                     
                         $mail->send();
-
-                        ob_start(); // Start output buffering
-
-                        // Ensure no output occurs before cookie operations
-                        if (isset($_COOKIE['Cart_products'])) {
-                            setcookie('Cart_products', '', time() - 3600, "/"); // Delete cookie
-                            unset($_COOKIE['Cart_products']); // Optionally unset in the array
-                        }
-                        
-                        // You can now safely output information
-                        ob_end_flush();
-
-                        ?>
-                            <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
-                                <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                                    </svg>
-                                    <span class="sr-only">Info</span>
-                                    <div>
-                                        <span class="font-medium">Your Order Has been Placed.</span>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <script>
-                                let popUp = document.getElementById('popUp');
-                                popUp.style.display = 'flex';
-                                popUp.style.opacity = '100';
-                                setTimeout(() => {
-                                    popUp.style.display = 'none';
-                                    popUp.style.opacity = '0';
-                                    // window.location.href = '../index.php';
-                                }, 1500);
-                            </script>
-                        <?php
-
-                    } else {
-                        ?>
-                            <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
-                                <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                                    </svg>
-                                    <span class="sr-only">Info</span>
-                                    <div>
-                                        <span class="font-medium">Order Not Placed Please try again.</span>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <script>
-                                let EpopUp = document.getElementById('EpopUp');
-                                EpopUp.style.display = 'flex';
-                                EpopUp.style.opacity = '100';
-                                setTimeout(() => {
-                                    EpopUp.style.display = 'none';
-                                    EpopUp.style.opacity = '0';
-                                }, 1500);
-                            </script>
-                        <?php
                     }
+                }
+
+                
+
+                // order information
+                if (isset($product_id)) {
+                    ob_start(); // Start output buffering
+
+                    // Ensure no output occurs before cookie operations
+                    if (isset($_COOKIE['Cart_products'])) {
+                        setcookie('Cart_products', '', time() - 3600, "/"); // Delete cookie
+                        unset($_COOKIE['Cart_products']); // Optionally unset in the array
+                    }
+                    
+                    // You can now safely output information
+                    ob_end_flush();
+
+                    ?>
+                        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
+                            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div>
+                                    <span class="font-medium">Your Order Has been Placed.</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <script>
+                            let popUp = document.getElementById('popUp');
+                            popUp.style.display = 'flex';
+                            popUp.style.opacity = '100';
+                            setTimeout(() => {
+                                popUp.style.display = 'none';
+                                popUp.style.opacity = '0';
+                                window.location.href = '../index.php';
+                            }, 1500);
+                        </script>
+                    <?php
                 }else {
                     ?>
                         <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
