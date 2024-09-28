@@ -120,12 +120,12 @@
         // for buy button
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['colorChoice'])) {
-                $_SESSION['selectedColor1'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-                $_SESSION['product_title1'] = $first_title;
+                $_SESSION['selectedColor1'][$product_id] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
+                $_SESSION['product_title1'][$product_id] = $first_title;
             } else {
                 if (!isset($_SESSION['selectedColor1'])) {
-                    $_SESSION['selectedColor1'] = $defaultColor;
-                    $_SESSION['product_title1'] = $My_first_title; 
+                    $_SESSION['selectedColor1'][$product_id] = $defaultColor;
+                    $_SESSION['product_title1'][$product_id] = $My_first_title; 
                 }
             }
         
@@ -133,8 +133,8 @@
             $product_first_name = $_SESSION['product_title1'];
             
             if (isset($_POST['buyBtn'])) {
-                $myColor = isset($_SESSION['selectedColor1']) ? $_SESSION['selectedColor1'] : $defaultColor;
-                $myTitle = isset($_SESSION['product_title1']) ? $_SESSION['product_title1'] : $My_first_title;
+                $myColor = isset($_SESSION['selectedColor1'][$product_id]) ? $_SESSION['selectedColor1'][$product_id] : $defaultColor;
+                $myTitle = isset($_SESSION['product_title1'][$product_id]) ? $_SESSION['product_title1'][$product_id] : $My_first_title;
 
                 $size = isset($_POST['size']) ? $_POST['size'] : null;
                 $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
@@ -147,9 +147,9 @@
                     ?>
                         <script>window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty;?>&MRP=<?php echo $MRP?>'</script>
                         <?php
-                            unset($_SESSION['selectedColor1']);
-                            unset($_SESSION['product_title1']);
-                            unset($_SESSION['selectedSize']);
+                            unset($_SESSION['selectedColor1'][$product_id]);
+                            unset($_SESSION['product_title1'][$product_id]);
+                            unset($_SESSION['selectedSize'][$product_id]);
                         ?>
                     <?php
                 }else{
