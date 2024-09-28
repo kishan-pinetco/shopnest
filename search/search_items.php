@@ -428,59 +428,59 @@ $_SESSION['searchWord'] = $keywords;
                 </form>
                 <?php
                 $filters = [];
+                $orFilters = []; // This will hold the OR conditions
+                
                 if (isset($_POST['submit'])) {
-                    // for the price
+                    // For the price
                     if (isset($_POST['price'])) {
                         $selected_price = $_POST['price'];
-
                         $price_limit_num = str_replace(',', '', $selected_price);
                         $price_limit_numeric = (int)$price_limit_num;
-
+                
                         $MRP = 'vendor_mrp';
-
                         // Add appropriate filter based on the price value
                         if ($selected_price === 'over_100k') {
                             $price_over_numeric = 100000;
-                            $filters[] = "CAST(REPLACE($MRP, ',', '') AS UNSIGNED) > $price_over_numeric";
+                            $orFilters[] = "CAST(REPLACE($MRP, ',', '') AS UNSIGNED) > $price_over_numeric";
                         } else {
-                            $filters[] = "CAST(REPLACE($MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
+                            $orFilters[] = "CAST(REPLACE($MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
                         }
-                        // foreach ($selected_price as $price) {
-                        // }
                     }
-
-                    // for the colors
+                
+                    // For the colors
                     if (isset($_POST['color'])) {
                         $selected_colors = $_POST['color'];
-
                         foreach ($selected_colors as $color) {
-                            $filters[] = "color LIKE ('%$color%')";
+                            $orFilters[] = "color LIKE ('%$color%')";
                         }
                     }
-
-                    // for the size
+                
+                    // For the size
                     if (isset($_POST['size'])) {
                         $selected_size = $_POST['size'];
-
                         foreach ($selected_size as $size) {
-                            $filters[] = "size LIKE ('%$size%')";
+                            $orFilters[] = "size LIKE ('%$size%')";
                         }
                     }
-
-                    // for the rating
+                
+                    // For the rating
                     $range = 0.9;
                     if (isset($_POST['stars'])) {
                         $selected_rating = $_POST['stars'];
-
                         foreach ($selected_rating as $rating) {
                             if (is_numeric($rating)) {
                                 $rating = floatval($rating);
-                                $filters[] = "avg_rating BETWEEN " . ($rating) . " AND " . ($rating + $range) . " ORDER BY avg_rating DESC";
+                                $orFilters[] = "avg_rating BETWEEN " . ($rating) . " AND " . ($rating + $range);
                             }
                         }
                     }
                 }
-                $filter_query = implode(" AND ", $filters);
+                
+                // Combine filters
+                $filter_query = '';
+                if (!empty($orFilters)) {
+                    $filter_query = '(' . implode(" OR ", $orFilters) . ')';
+                }
 
                 $sort_column = 'vendor_mrp'; // Column to sort by
                 $sort_order = 'ASC';
@@ -521,7 +521,7 @@ $_SESSION['searchWord'] = $keywords;
                 }
 
                 $Product_query = mysqli_query($con, $products);
-                unset($_SESSION['selected']);
+                unset($_SESSION['selected']);   
                 ?>
             </div>
 

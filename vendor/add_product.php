@@ -631,6 +631,13 @@ if (isset($_POST['submitBtn'])) {
     if (!empty($tempName8) && !move_uploaded_file($tempName8, $folder8)) $allFilesUploaded = false;
 
     $color = $_POST['color'];
+
+    if(isset($_POST['color'])){
+        $pcolor = $_POST['color'];
+    }else{
+        $pcolor = '-';
+    }
+
     $normalized_color = array_map('strtolower', (array)$color); // Ensure $color is treated as an array
 
     // Validation for colors
@@ -689,7 +696,7 @@ if (isset($_POST['submitBtn'])) {
         echo '<script>displayErrorMessage("Please fill in all required fields.");</script>';
     } else {
         if ($allFilesUploaded) {
-            $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$CoverImage1', '$CoverImage2', '$CoverImage3', '$CoverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$color', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
+            $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$CoverImage1', '$CoverImage2', '$CoverImage3', '$CoverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$pcolor', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
             $product_query = mysqli_query($con, $product_insert);
 
             if ($product_query) {

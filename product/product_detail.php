@@ -149,6 +149,7 @@
                         <?php
                             unset($_SESSION['selectedColor1']);
                             unset($_SESSION['product_title1']);
+                            unset($_SESSION['selectedSize']);
                         ?>
                     <?php
                 }else{
@@ -158,6 +159,7 @@
                     <?php
                     unset($_SESSION['selectedColor1']);
                     unset($_SESSION['product_title1']);
+                    unset($_SESSION['selectedSize']);
                 }
             }
         }
