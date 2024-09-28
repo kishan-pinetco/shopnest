@@ -194,7 +194,7 @@
                             <p class="text-sm font-medium text-gray-900">Subtotal</p>
                             <?php
                                 if(isset($product_id)){
-                                    $product_mrp = $row['MRP'];
+                                    $product_mrp = $_GET['MRP'];
                                     $products_price = explode(",", $product_mrp);
 
                                     $productPrice = implode("", $products_price);

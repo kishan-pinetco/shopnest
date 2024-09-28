@@ -41,7 +41,7 @@
             <div class="order_id">
                 <label for="order_id">Order ID</label>
                 <div class="relative">
-                    <input type="text" name="order_id" id="order_id" class="w-full h-14 border rounded-md mt-1 px-4 pl-12 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" value="" placeholder="Enter Your Order ID" />
+                    <input type="number" name="order_id" id="order_id" class="w-full h-14 border rounded-md mt-1 px-4 pl-12 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" value="" placeholder="Enter Your Order ID" />
                     <div class="absolute left-0 rounded-l top-1 w-10 h-14 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">#</div>
                 </div>
             </div>
