@@ -279,19 +279,23 @@ if (isset($_COOKIE['vendor_id'])) {
                         <script>
                             $(document).ready(function() {
                                 var chartData = <?php echo $data_json; ?>;
-
-                                new Morris.Bar({
-                                    element: 'chart',
-                                    data: chartData,
-                                    xkey: 'date',
-                                    ykeys: ['product_count'],
-                                    labels: ['Number of Products Sold'],
-                                    barColors: ['#00a65a'],
-                                    hideHover: 'auto',
-                                    resize: true,
-                                    xLabelAngle: 60,
-                                    xLabels: 'day',
-                                });
+                                                        
+                                if (chartData.length === 0) {
+                                    $('#chart').html('<div style="text-align: center; margin-top: 80px; font-size: 30px; color: #000;">No data available for this period.</div>');
+                                } else {
+                                    new Morris.Bar({
+                                        element: 'chart',
+                                        data: chartData,
+                                        xkey: 'date',
+                                        ykeys: ['product_count'],
+                                        labels: ['Number of Products Sold'],
+                                        barColors: ['#00a65a'],
+                                        hideHover: 'auto',
+                                        resize: true,
+                                        xLabelAngle: 60,
+                                        xLabels: 'day',
+                                    });
+                                }
                             });
                         </script>
                     </div>

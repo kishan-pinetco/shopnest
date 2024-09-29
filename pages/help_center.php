@@ -225,7 +225,7 @@
     <div class="bg-[#fff9e0] text-[rgb(29,33,40)] w-[90%] flex flex-col items-center justify-center gap-10 m-auto  ring-2 ring-[#1d2128] text-center p-12 md:w-[70%] md:p-36 mb-12">
         <p class="text-lg font-medium">Still need help?</p>
         <h1 class="text-3xl font-medium lg:text-6xl">Get help with common <br> questions or reach out to our <br> support team.</h1>
-        <button class="text-white font-semibold text-sm bg-black px-8 py-3 rounded-tl-xl rounded-br-xl">Contact Us</button>
+        <a href="contact_us.php" class="text-white font-semibold text-sm bg-black px-8 py-3 rounded-tl-xl rounded-br-xl">Contact Us</a>
     </div>
     
 

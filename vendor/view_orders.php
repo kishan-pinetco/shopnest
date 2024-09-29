@@ -173,22 +173,22 @@ if (isset($_COOKIE['vendor_id'])) {
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
-                                            <th class="px-4 py-3">order_id</th>
-                                            <th class="px-4 py-3 w-96">order_name</th>
-                                            <th class="px-4 py-3">order_image</th>
-                                            <th class="px-4 py-3">order_price</th>
-                                            <th class="px-4 py-3">order_Color</th>
-                                            <th class="px-4 py-3">order_size</th>
-                                            <th class="px-4 py-3">order_QTY</th>
-                                            <th class="px-4 py-3">user_name</th>
-                                            <th class="px-4 py-3">user_email</th>
-                                            <th class="px-4 py-3">user_mobile</th>
-                                            <th class="px-4 py-3">user_address</th>
-                                            <th class="px-4 py-3">user_state</th>
-                                            <th class="px-4 py-3">user_city</th>
-                                            <th class="px-4 py-3">user_pincode</th>
-                                            <th class="px-4 py-3">payment_type</th>
-                                            <th class="px-4 py-3">Order_Date</th>
+                                            <th class="px-4 py-3">Order&nbsp;ID</th>
+                                            <th class="px-4 py-3 w-96">Order&nbsp;Name</th>
+                                            <th class="px-4 py-3 w-96">Order&nbsp;Image</th>
+                                            <th class="px-4 py-3">Order&nbsp;Price</th>
+                                            <th class="px-4 py-3">Order&nbsp;Color</th>
+                                            <th class="px-4 py-3">Order&nbsp;Size</th>
+                                            <th class="px-4 py-3">Order&nbsp;QTY</th>
+                                            <th class="px-4 py-3">User&nbsp;Name</th>
+                                            <th class="px-4 py-3">User&nbsp;Email</th>
+                                            <th class="px-4 py-3">User&nbsp;Mobile</th>
+                                            <th class="px-4 py-3">User&nbsp;Address</th>
+                                            <th class="px-4 py-3">User&nbsp;State</th>
+                                            <th class="px-4 py-3">User&nbsp;City</th>
+                                            <th class="px-4 py-3">User&nbsp;Pincode</th>
+                                            <th class="px-4 py-3">Payment&nbsp;Type</th>
+                                            <th class="px-4 py-3">Order&nbsp;Date</th>
                                         </tr>
                                     </thead>
                                     <?php
@@ -202,7 +202,7 @@ if (isset($_COOKIE['vendor_id'])) {
                                                 <tr class="text-gray-700">
                                                     <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_id'] : 'order_id' ?></td>
                                                     <td class="px-4 py-3 leading-9 line-clamp-3"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_title'] : 'order_title' ?></td>
-                                                    <td class="px-4 py-3 border"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $items['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                    <td class="px-4 py-3 border w-96"><img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $items['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="" class="w-20 h-20 m-auto"></td>
                                                     <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['total_price'] : 'total_price' ?></td>
                                                     <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_color'] : 'order_color' ?></td>
                                                     <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $items['order_size'] : 'order_size' ?></td>
@@ -229,24 +229,24 @@ if (isset($_COOKIE['vendor_id'])) {
 
                     <!-- cancle orders -->
                     <section class="container mx-auto p-6">
-                        <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Cancle Orders</h2>
+                        <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Cancel Orders</h2>
                         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                             <div class="w-full overflow-x-auto h-max text-center">
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
-                                            <th class="px-4 py-3">cancel_order_id</th>
-                                            <th class="px-4 py-3">cancle_order_title</th>
-                                            <th class="px-4 py-3 w-96">cancle_order_image</th>
-                                            <th class="px-4 py-3">cancle_order_price</th>
-                                            <th class="px-4 py-3">cancle_order_color</th>
-                                            <th class="px-4 py-3">cancle_order_size </th>
-                                            <th class="px-4 py-3">user_name</th>
-                                            <th class="px-4 py-3">user_email</th>
-                                            <th class="px-4 py-3">user_phone</th>
-                                            <th class="px-4 py-3">receive_payment</th>
+                                            <th class="px-4 py-3">Cancel&nbsp;Order&nbsp;ID</th>
+                                            <th class="px-4 py-3">Cancel&nbsp;Order&nbsp;Title</th>
+                                            <th class="px-4 py-3 w-96">Cancel&nbsp;Order&nbsp;Image</th>
+                                            <th class="px-4 py-3">Cancel&nbsp;Order&nbsp;price</th>
+                                            <th class="px-4 py-3">Cancel&nbsp;Order&nbsp;Color</th>
+                                            <th class="px-4 py-3">Cancel&nbsp;Order&nbsp;Size </th>
+                                            <th class="px-4 py-3">user&nbsp;Name</th>
+                                            <th class="px-4 py-3">user&nbsp;Email</th>
+                                            <th class="px-4 py-3">user&nbsp;Phone</th>
+                                            <th class="px-4 py-3">receive&nbsp;Payment</th>
                                             <th class="px-4 py-3">Reason</th>
-                                            <th class="px-4 py-3">cancle_order_date</th>
+                                            <th class="px-4 py-3">Cancel&nbsp;Order&nbsp;date</th>
                                         </tr>
                                     </thead>
                                     <?php
@@ -289,17 +289,17 @@ if (isset($_COOKIE['vendor_id'])) {
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
-                                            <th class="px-4 py-3">return_order_id</th>
-                                            <th class="px-4 py-3 w-96">return_order_title</th>
-                                            <th class="px-4 py-3">return_order_image</th>
-                                            <th class="px-4 py-3">return_order_price</th>
-                                            <th class="px-4 py-3">return_order_color</th>
-                                            <th class="px-4 py-3">return_order_size</th>
-                                            <th class="px-4 py-3">user_name</th>
-                                            <th class="px-4 py-3">user_email</th>
-                                            <th class="px-4 py-3">user_phone</th>
-                                            <th class="px-4 py-3">payment_type</th>
-                                            <th class="px-4 py-3">return_order_date</th>
+                                            <th class="px-4 py-3">Return&nbsp;order&nbsp;ID</th>
+                                            <th class="px-4 py-3 w-96">Return&nbsp;order&nbsp;Title</th>
+                                            <th class="px-4 py-3">Return&nbsp;Order&nbsp;Image</th>
+                                            <th class="px-4 py-3">Return&nbsp;Order&nbsp;Price</th>
+                                            <th class="px-4 py-3">Return&nbsp;Order&nbsp;Color</th>
+                                            <th class="px-4 py-3">Return&nbsp;Order&nbsp;Size</th>
+                                            <th class="px-4 py-3">User&nbsp;Name</th>
+                                            <th class="px-4 py-3">User&nbsp;Email</th>
+                                            <th class="px-4 py-3">User&nbsp;Phone</th>
+                                            <th class="px-4 py-3">Payment&nbsp;Type</th>
+                                            <th class="px-4 py-3">Return&nbsp;Order&nbsp;Date</th>
                                         </tr>
                                     </thead>
                                     <?php
@@ -321,7 +321,7 @@ if (isset($_COOKIE['vendor_id'])) {
                                                     <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['user_email'] : 'user_email' ?></td>
                                                     <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['user_phone'] : 'user_phone' ?></td>
                                                     <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['payment_type'] : 'payment_type' ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['return_order_date'] : 'return_order_date' ?></td>
+                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['vendor_id']) ? $ro['date'] : 'date' ?></td>
                                                 </tr>
                                             </tbody>
                                     <?php

@@ -163,95 +163,100 @@ if (isset($_COOKIE['vendor_id'])) {
                         <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 text-[#1d2128] mt-4">
                             <?php
                             if (isset($_COOKIE['vendor_id'])) {
-                                $product_find = "SELECT * FROM items WHERE vendor_id = '$vendor_id'";
+                                $product_find = "SELECT * FROM items WHERE vendor_id = '4'";
                                 $product_query = mysqli_query($con, $product_find);
 
+                                if(mysqli_num_rows($product_query) > 0){
+                                    while ($res = mysqli_fetch_assoc($product_query)) {
 
-                                while ($res = mysqli_fetch_assoc($product_query)) {
-
-                                    $json_img = $res["image"];
-                                    $decodeimg = json_decode($json_img, true);
-                                    foreach($decodeimg as $key => $value) {
-                                        $first_img = $key;
-                                        break;
-                                    }
-                                    $first_img = isset($decodeimg[$first_img]) ? $decodeimg[$first_img] : '';
-                                    $first_image = $first_img['img1'];
-
-                                    // for the title
-                                    $json_title = $res['title'];
-                                    $decoded_title = json_decode($json_title, true);
-                                    $first_title = '';
-                                    foreach($decoded_title as $key => $title){
-                                        $first_title = $key;
-                                        break;
-                                    }
-
-                                    $first_name = isset($decoded_title[$first_title]) ? $decoded_title[$first_title] :'';
-                                    $first_titles = $first_name['product_name'];
-
-                                    // for the price
-                                    $json_mrp = $res['MRP'];
-                                    $decodemrp = json_decode($json_mrp, true);
-
-                                    if (is_array($decodemrp)) {
-                                        // Initialize $first_mrp
-                                        $first_mrp = reset($decodemrp); // Get the first element of the array
-                                    
-                                        // Make sure $first_mrp is an array before accessing its keys
-                                        if (is_array($first_mrp)) {
-                                            $MRP = isset($first_mrp['MRP']) ? $first_mrp['MRP'] : '';
-                                            $Your_Price = isset($first_mrp['Your_Price']) ? $first_mrp['Your_Price'] : '';
+                                        $json_img = $res["image"];
+                                        $decodeimg = json_decode($json_img, true);
+                                        foreach($decodeimg as $key => $value) {
+                                            $first_img = $key;
+                                            break;
+                                        }
+                                        $first_img = isset($decodeimg[$first_img]) ? $decodeimg[$first_img] : '';
+                                        $first_image = $first_img['img1'];
+    
+                                        // for the title
+                                        $json_title = $res['title'];
+                                        $decoded_title = json_decode($json_title, true);
+                                        $first_title = '';
+                                        foreach($decoded_title as $key => $title){
+                                            $first_title = $key;
+                                            break;
+                                        }
+    
+                                        $first_name = isset($decoded_title[$first_title]) ? $decoded_title[$first_title] :'';
+                                        $first_titles = $first_name['product_name'];
+    
+                                        // for the price
+                                        $json_mrp = $res['MRP'];
+                                        $decodemrp = json_decode($json_mrp, true);
+    
+                                        if (is_array($decodemrp)) {
+                                            // Initialize $first_mrp
+                                            $first_mrp = reset($decodemrp); // Get the first element of the array
+                                        
+                                            // Make sure $first_mrp is an array before accessing its keys
+                                            if (is_array($first_mrp)) {
+                                                $MRP = isset($first_mrp['MRP']) ? $first_mrp['MRP'] : '';
+                                                $Your_Price = isset($first_mrp['Your_Price']) ? $first_mrp['Your_Price'] : '';
+                                            } else {
+                                                // Handle the case where the first element is not an array
+                                                $MRP = '';
+                                                $Your_Price = '';
+                                            }
                                         } else {
-                                            // Handle the case where the first element is not an array
+                                            // Handle the case where json_decode failed
                                             $MRP = '';
                                             $Your_Price = '';
-                                        }
-                                    } else {
-                                        // Handle the case where json_decode failed
-                                        $MRP = '';
-                                        $Your_Price = '';
-                                    };
-
-                                    
-
-                                    ?>
-                                    <div class="card w-full flex-shrink-0 p-4 group relative">
-                                        <div class="absolute right-0 top-0 z-10 p-2 mb-4 pt-3 mt-2 mr-2 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
-                                            <!-- edit -->
-                                            <a href="update_product.php?product_id=<?php echo $res['product_id'] ?>&name=<?php echo $res['Category'] ?>" title="Edit Your Product" class="text-xl text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                            <!-- delete -->
-                                            <a href="delete_product.php?product_id=<?php echo $res['product_id'] ?>" title="Delete Your Product" class="text-xl text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </a>
-                                        </div>
-                                        <div class="absolute left-0 top-0 z-10 p-2 mb-4 pt-3 mt-2 mr-2 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
-                                            <!-- edit -->
-                                            <a href="add_color.php?product_id=<?php echo $res['product_id'] ?>" class="flex items-center bg-gray-300 px-2 rounded-lg text-base text-blue-500 hover:text-blue-600 transition duration-200 cursor-pointer">
-                                                <i class="fa-solid fa-plus"></i>
-                                                <h2>Add Colors</h2>
-                                            </a>
-                                        </div>
-                                        <div class="p-3 border rounded-lg transition transform hover:shadow-lg bg-white">
-                                            <div>
-                                                <img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $first_image : '../src/sample_images/product_1.jpg' ?>" class="h-56 w-full object-cover mix-blend-multiply" alt="">
+                                        };
+    
+                                        
+    
+                                        ?>
+                                        <div class="card w-full flex-shrink-0 p-4 group relative">
+                                            <div class="absolute right-0 top-0 z-10 p-2 mb-4 pt-3 mt-2 mr-2 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
+                                                <!-- edit -->
+                                                <a href="update_product.php?product_id=<?php echo $res['product_id'] ?>&name=<?php echo $res['Category'] ?>" title="Edit Your Product" class="text-xl text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                                <!-- delete -->
+                                                <a href="delete_product.php?product_id=<?php echo $res['product_id'] ?>" title="Delete Your Product" class="text-xl text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </a>
                                             </div>
-                                            <div class="mt-2">
-                                                <div class="space-y-1">
-                                                    <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id' ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $first_titles : 'product Name' ?></a>
-                                                    <p class="space-x-2">
-                                                        <span class="text-lg font-medium text-gray-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $MRP : 'MRP' ?></span>
-                                                        <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $Your_Price : 'Delete Price' ?></del>
-                                                    </p>
-                                                    <h2>QTY: <?php echo isset($_COOKIE['vendor_id']) ? $res['Quantity'] : 'product Quantity' ?></h2>
+                                            <div class="absolute left-0 top-0 z-10 p-2 mb-4 pt-3 mt-2 mr-2 invisible opacity-0 flex flex-col gap-2 group-hover:visible group-hover:opacity-100 transition duration-300 md:p-5">
+                                                <!-- edit -->
+                                                <a href="add_color.php?product_id=<?php echo $res['product_id'] ?>" class="flex items-center bg-gray-300 px-2 rounded-lg text-base text-blue-500 hover:text-blue-600 transition duration-200 cursor-pointer">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                    <h2>Add Colors</h2>
+                                                </a>
+                                            </div>
+                                            <div class="p-3 border rounded-lg transition transform hover:shadow-lg bg-white">
+                                                <div>
+                                                    <img src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/product_image/product_profile/' . $first_image : '../src/sample_images/product_1.jpg' ?>" class="h-56 w-full object-cover mix-blend-multiply" alt="">
+                                                </div>
+                                                <div class="mt-2">
+                                                    <div class="space-y-1">
+                                                        <a href="../product/product_detail.php?product_id=<?php echo isset($_COOKIE['vendor_id']) ? $res['product_id'] : 'product_id' ?>" class="text-base font-medium line-clamp-2 cursor-pointer"><?php echo isset($_COOKIE['vendor_id']) ? $first_titles : 'product Name' ?></a>
+                                                        <p class="space-x-2">
+                                                            <span class="text-lg font-medium text-gray-500">₹<?php echo isset($_COOKIE['vendor_id']) ? $MRP : 'MRP' ?></span>
+                                                            <del class="text-xs font-normal">₹<?php echo isset($_COOKIE['vendor_id']) ? $Your_Price : 'Delete Price' ?></del>
+                                                        </p>
+                                                        <h2>QTY: <?php echo isset($_COOKIE['vendor_id']) ? $res['Quantity'] : 'product Quantity' ?></h2>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                            <?php
+                                <?php
+                                    }
+                                }else{
+                                    echo '<div class="absolute font-bold text-2xl mt-4 flex items-center justify-center w-full m-auto">No data available for this period.</div>';
                                 }
+                            }else{
+                                    echo '<div class="absolute font-bold text-2xl mt-4 flex items-center justify-center w-full m-auto">No data available for this period.</div>';
                             }
                             ?>
                         </div>
