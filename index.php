@@ -663,7 +663,7 @@ function displayRandomProducts($con, $limit)
         <div class="w-full flex flex-col items-center mt-12 mb-8">
             <h1 class="text-2xl mt-3">Trending Brands</h1>
             <?php
-            include "../shopnest/src/company_partner/_company.php";
+            include "src/company_partner/_company.php";
             ?>
         </div>
 

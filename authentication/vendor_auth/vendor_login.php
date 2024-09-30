@@ -220,11 +220,11 @@ if (isset($_COOKIE['adminEmail'])) {
             <a class="flex items-center mb-2" href="/shopnest/index.php">
                 <!-- icon logo div -->
                 <div>
-                    <img class="w-7 sm:w-12 mt-0.5" src="../../../shopnest/src/logo/black_cart_logo.svg" alt="">
+                    <img class="w-7 sm:w-12 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
                 </div>
                 <!-- text logo -->
                 <div>
-                    <img class="w-16 sm:w-32" src="../../../shopnest/src/logo/black_text_logo.svg" alt="">
+                    <img class="w-16 sm:w-32" src="/shopnest/src/logo/black_text_logo.svg" alt="">
                 </div>
             </a>
         </div>
@@ -260,7 +260,7 @@ if (isset($_COOKIE['adminEmail'])) {
                             <input type="checkbox" class="border-2 text-gray-700 border-[#bbb] group-hover:border-black transition duration-300 rounded-sm cursor-pointer focus:ring-gray-700" name="check" id="">
                             <p class="text-[#8b929c] group-hover:text-black transition duration-300">Remember me</p>
                         </label>
-                        <a href="../../../shopnest/authentication/forgot_password_vendor/forgotPass_email_vendor.php" class="text-sm font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
+                        <a href="/shopnest/authentication/forgot_password_vendor/forgotPass_email_vendor.php" class="text-sm font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
                     </div>
                     <div class="text-center">
                         <input type="submit" class="bg-gray-700 hover:bg-gray-800 py-1 h-10 w-full text-lg rounded-tl-xl rounded-br-xl text-white cursor-pointer hover:transition" name="loginBtn" value="Login">

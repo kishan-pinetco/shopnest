@@ -247,11 +247,11 @@ if (isset($_COOKIE['adminEmail'])) {
             <a class="flex items-center mb-2 focus:outline-none" href="/shopnest/index.php">
                 <!-- icon logo div -->
                 <div>
-                    <img class="w-7 sm:w-12 mt-0.5" src="../../../shopnest/src/logo/black_cart_logo.svg" alt="">
+                    <img class="w-7 sm:w-12 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
                 </div>
                 <!-- text logo -->
                 <div>
-                    <img class="w-16 sm:w-32" src="../../../shopnest/src/logo/black_text_logo.svg" alt="">
+                    <img class="w-16 sm:w-32" src="/shopnest/src/logo/black_text_logo.svg" alt="">
                 </div>
             </a>
         </div>

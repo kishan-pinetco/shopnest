@@ -59,11 +59,11 @@
                 <a class="flex w-fit py-2" href="/shopnest/index.php">
                     <!-- icon logo div -->
                     <div>
-                        <img class="w-7 sm:w-12 mt-0.5" src="../../shopnest/src/logo/white_cart_logo.svg" alt="">
+                        <img class="w-7 sm:w-12 mt-0.5" src="/shopnest/src/logo/white_cart_logo.svg" alt="">
                     </div>
                     <!-- text logo -->
                     <div>
-                        <img class="w-16 sm:w-32" src="../../shopnest/src/logo/white_text_logo.svg" alt="">
+                        <img class="w-16 sm:w-32" src="/shopnest/src/logo/white_text_logo.svg" alt="">
                     </div>
                 </a>
                 <div class="md:w-60 lg:w-[30rem] 2xl:w-[40rem] mt-3">
