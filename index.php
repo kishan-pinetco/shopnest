@@ -296,7 +296,7 @@ function displayRandomProducts($con, $limit)
                 <div>
                     <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Phones">
                         <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-New-From-Apple.jpg?w=300&ssl=1" alt="">
-                        <span class="text-center text-ellipsis overflow-hidden truncate ...">New From Apple</span>
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">Phones</span>
                     </a>
                 </div>
                 <div>
