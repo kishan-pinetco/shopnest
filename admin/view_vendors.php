@@ -121,12 +121,16 @@
                     </div>
                 </header>
                 <main class="verflow-x-hidden overflow-y-auto bg-gray-200">
-                    <div class="grid grid-cols-1 min-[500px]:grid-cols-2 md:grid-cols-3 min-[1544px]:grid-cols-4 gap-6 mx-4 md:mx-12 my-12">
-                        <?php
-                            include "../include/connect.php";
+                    <?php
+                        include "../include/connect.php";
 
+                        if(isset($_COOKIE['adminEmail'])){
                             $vendor_data = "SELECT * FROM vendor_registration";
                             $vendor_query = mysqli_query($con,$vendor_data);
+
+                            ?>
+                                <div class="grid grid-cols-1 min-[500px]:grid-cols-2 md:grid-cols-3 min-[1544px]:grid-cols-4 gap-6 mx-4 md:mx-12 my-12">
+                            <?php
 
                             if($vendor_query){
                                 while($row = mysqli_fetch_assoc($vendor_query)){
@@ -152,11 +156,17 @@
                                             </div>
                                         </div>
                                    <?php
-                                   
+
                                 }
                             }
-                        ?>
-                    </div>
+                            ?>
+                                </div>
+                            <?php
+                        }
+                        else{
+                            echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
+                        }
+                    ?>
                 </main>
             </div>
         </div>

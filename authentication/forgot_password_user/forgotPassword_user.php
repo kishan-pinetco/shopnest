@@ -151,15 +151,14 @@ if (isset($_COOKIE['adminEmail'])) {
             $up_query = mysqli_query($con, $up_pass);
 
             // update user password
-            $cookie_value = $_COOKIE['userPass'];
-            $cookie_update = $new_pass;
-
-            if (!isset($_COOKIE['userPass'])) {
-                setcookie('userPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
-            } else {
-                setcookie('userPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
-                setcookie('userPass', '', time() - 3600, "/");
-                setcookie('userPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
+            if($up_query){
+                $cookie_value = $_COOKIE['userPass'];
+                $cookie_update = $new_pass;
+                
+                if (isset($_COOKIE['userPass'])) {
+                    setcookie('userPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
+                    setcookie('userPass', '', time() - 3600, "/");
+                }
             }
 
             if ($up_query) {

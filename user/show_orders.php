@@ -248,6 +248,8 @@
                                             </div>          
                                         <?php
                                     }
+                                }else{
+                                    echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
                                 }
                             ?>
                         </div>

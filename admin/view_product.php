@@ -1,13 +1,13 @@
 <?php
-    if(isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/user/profile.php");
-        exit;
-    }
+if (isset($_COOKIE['user_id'])) {
+    header("Location: /shopnest/user/profile.php");
+    exit;
+}
 
-    if(isset($_COOKIE['vendor_id'])){
-        header("Location: /shopnest/vendor/vendor_dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['vendor_id'])) {
+    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -154,14 +154,16 @@
                     </div>
                 </header>
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 p-6">
-                    <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 gap-x-8 text-[#1d2128] mt-4">
-                        <?php
+                    <?php
 
-                        include "../include/connect.php";
-                        if (isset($_COOKIE['adminEmail'])) {
-                            $product_find = "SELECT * FROM items";
-                            $product_query = mysqli_query($con, $product_find);
+                    include "../include/connect.php";
+                    if (isset($_COOKIE['adminEmail'])) {
+                        $product_find = "SELECT * FROM items";
+                        $product_query = mysqli_query($con, $product_find);
 
+                            ?>
+                            <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 gap-x-8 text-[#1d2128] mt-4">
+                            <?php
                             while ($res = mysqli_fetch_assoc($product_query)) {
                                 $vendor_id = $res['vendor_id'];
                                 $get_vendor = "SELECT * FROM `vendor_registration` WHERE vendor_id = '$vendor_id'";
@@ -193,7 +195,7 @@
                                 $first_name = isset($decoded_title[$first_title]) ? $decoded_title[$first_title] : '';
                                 $first_titles = $first_name['product_name'];
 
-                        ?>
+                            ?>
                                 <div class="bg-white rounded-tl-xl rounded-br-xl shadow-sm overflow-hidden max-w-xs w-full">
                                     <div class="relative flex justify-center p-2">
                                         <img src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $first_images : '../src/sample_images/product_1.jpg' ?>" alt="Product Image" class="h-64 w-64 object-cover rounded-tl-xl rounded-br-xl">
@@ -218,11 +220,16 @@
                                         </div>
                                     </div>
                                 </div>
-                        <?php
+                            <?php
+
                             }
+                            ?>
+                                </div>
+                            <?php
+                        } else {
+                            echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
                         }
                         ?>
-                    </div>
                 </main>
             </div>
         </div>

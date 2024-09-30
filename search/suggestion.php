@@ -1,5 +1,17 @@
 <?php
 
+    if(isset($_COOKIE['vendor_id'])){
+        header("Location: /shopnest/vendor/vendor_dashboard.php");
+        exit;
+    }
+
+    if(isset($_COOKIE['adminEmail'])){
+        header("Location: /shopnest/admin/dashboard.php");
+        exit;
+    }
+?>
+<?php
+
     include "../include/connect.php";
 
     if (isset($_POST["query"])) {

@@ -149,12 +149,9 @@ if (isset($_COOKIE['adminEmail'])) {
                 $cookie_value = $_COOKIE['vendorPass'];
                 $cookie_update = $new_pass;
 
-                if (!isset($_COOKIE['vendorPass'])) {
-                    setcookie('vendorPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
-                } else {
+                if (isset($_COOKIE['vendorPass'])) {
                     setcookie('vendorPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
                     setcookie('vendorPass', '', time() - 3600, "/");
-                    setcookie('vendorPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
                 }
             ?>
                 <!-- Successfully -->

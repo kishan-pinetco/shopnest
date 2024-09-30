@@ -402,7 +402,7 @@
                               </section>
                           <?php  
                           }else{
-                              
+                                echo '<div class="font-bold text-2xl mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
                           }
                       ?>
                      

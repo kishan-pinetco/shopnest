@@ -110,6 +110,7 @@ function displayErrorMessage(message) {
     setTimeout(() => {
         EpopUp.style.display = 'none';
         EpopUp.style.opacity = '0';
+        window.location.href = "";
     }, 1500);
 }
 

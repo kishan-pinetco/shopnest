@@ -11,6 +11,20 @@
 ?>
 
 <?php
+session_start();
+
+include "../include/connect.php";
+
+
+if (isset($_COOKIE['vendor_id'])) {
+    $vendor_id = $_COOKIE['vendor_id'];
+
+    $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
+    $retrieve_query = mysqli_query($con, $retrieve_data);
+
+    $row = mysqli_fetch_assoc($retrieve_query);
+}
+
 if (isset($_GET['name'])) {
     $product = $_GET['name'];
 }
@@ -45,6 +59,35 @@ if (isset($_GET['name'])) {
 
 <body style="font-family: 'Outfit', sans-serif;">
 
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>            
+
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
+        <div class="flex items-center justify-center">
+            <a class="flex items-center" href="choose_product.php">
+                <!-- icon logo div -->
+                <div class="mr-2">
+                    <img class="w-7 sm:w-14" src="../../../shopnest/src/logo/black_cart_logo.svg" alt="Cart Logo">
+                </div>
+                <!-- text logo -->
+                <div>
+                    <img class="w-20 sm:w-36" src="../../shopnest/src/logo/black_text_logo.svg" alt="Shopnest Logo">
+                </div>
+            </a>
+        </div>
+        <div class="flex items-center">
+            <div x-data="{ dropdownOpen: false }" class="relative">
+                <button @click="dropdownOpen = !dropdownOpen" class="relative block w-8 h-8 md:w-10 md:h-10 overflow-hidden rounded-full shadow-lg focus:outline-none transition-transform transform hover:scale-105">
+                    <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_profile_image/' . $row['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png'; ?>" alt="Your avatar">
+                </button>
+                <div x-show="dropdownOpen" @click.away="dropdownOpen = false" class="absolute right-0 z-10 w-48 mt-2 bg-white rounded-md shadow-xl ring-1 ring-gray-300 divide-y-2 divide-gray-200" style="display: none;">
+                    <a href="vendor_profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white transition-colors">Profile</a>
+                    <a href="view_products.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white transition-colors">Products</a>
+                    <a href="vendor_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white transition-colors">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <!-- component -->
     <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
         <div class="container max-w-screen-lg font-medium text-gray-800 mx-auto">
@@ -55,57 +98,57 @@ if (isset($_GET['name'])) {
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
-                                    <label for="full_name">Product Tital</label>
-                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" />
+                                    <label for="full_name">Product Tital <span class="text-red-600 text-lg">*</span></label>
+                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['full_name']) ? $_SESSION['full_name'] : ''; ?>" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="Company_name">Company Name</label>
-                                    <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
+                                    <label for="Company_name">Company Name<span class="text-red-600 text-lg">*</span></label>
+                                    <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['Company_name']) ? $_SESSION['Company_name'] : ''; ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="category">Category</label>
+                                    <label for="category">Category<span class="text-red-600 text-lg">*</span></label>
                                     <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_GET['name']) ? $product : 'Category' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-1">
-                                    <label for="type">Type</label>
-                                    <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
+                                    <label for="type">Type<span class="text-red-600 text-lg">*</span></label>
+                                    <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['type']) ? $_SESSION['type'] : ''; ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-3">
-                                    <label for="MRP">MRP</label>
+                                    <label for="MRP">MRP<span class="text-red-600 text-lg">*</span></label>
                                     <div class="relative">
-                                        <input type="text" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
+                                        <input type="number" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['your_price']) ? $_SESSION['your_price'] : ''; ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="your_price">Your Price</label>
+                                    <label for="your_price">Your Price<span class="text-red-600 text-lg">*</span></label>
                                     <div class="relative">
-                                        <input type="text" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
+                                        <input type="number" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['MRP']) ? $_SESSION['MRP'] : ''; ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
 
                                 <div class="md:col-span-3">
-                                    <label for="quantity">Quantity</label>
-                                    <input type="text" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" placeholder="" />
+                                    <label for="quantity">Quantity<span class="text-red-600 text-lg">*</span></label>
+                                    <input type="number" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['quantity']) ? $_SESSION['quantity'] : ''; ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="condition">Item Condition</label>
-                                    <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="">
+                                    <label for="condition">Item Condition<span class="text-red-600 text-lg">*</span></label>
+                                    <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['condition']) ? $_SESSION['condition'] : ''; ?>">
                                         <option value="New Condition">New Condition</option>
                                         <option value="Old Condition">Old Condition</option>
                                     </select>
                                 </div>
 
                                 <div class="md:col-span-5">
-                                    <label for="description">Description</label>
-                                    <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600 resize-none" value="" placeholder=""></textarea>
+                                    <label for="description">Description<span class="text-red-600 text-lg">*</span></label>
+                                    <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600 resize-none" value="<?php echo isset($_SESSION['description']) ? $_SESSION['description'] : ''; ?>" placeholder=""></textarea>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
@@ -129,13 +172,13 @@ if (isset($_GET['name'])) {
                                 <div class="md:col-span-5 mt-5">
                                     <label for="color">Color:</label>
                                     <div class="relative mt-2">
-                                        <input type="text" id="colorInput" name="color" placeholder="Type a color..." class="h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" autocomplete="off">
+                                        <input type="text" id="colorInput" name="color" placeholder="Type a color..." class="h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" autocomplete="off" value="<?php echo isset($_SESSION['color']) ? $_SESSION['color'] : ''; ?>">
                                         <div id="colorSuggestions" class="absolute left-0 mt-1 w-full bg-white border border-gray-300 rounded-lg z-10 hidden"></div>
                                     </div>
                                 </div>
 
                                 <div class="md:col-span-5 mt-4">
-                                    <label for="" class="text-lg">Images:</label>
+                                    <label for="" class="text-lg">Images:<span class="text-red-600 text-lg">*</span></label>
                                     <div class="grid grid-cols-1 min-[700px]:grid-cols-3 md:grid-cols-4 gap-y-12 gap-5 mt-9">
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
@@ -523,7 +566,8 @@ if (isset($_POST['submitBtn'])) {
 
     $Product_insert_Date = date('d-m-Y');
 
-    $full_name = mysqli_real_escape_string($con, $_POST['full_name']);
+    $products_name = $_POST['full_name'];
+    $full_name = str_replace("'", "/", $products_name);
     $Company_name = mysqli_real_escape_string($con, $_POST['Company_name']);
     $Category = mysqli_real_escape_string($con, $_POST['Category']);
     $type = mysqli_real_escape_string($con, $_POST['type']);
@@ -532,7 +576,6 @@ if (isset($_POST['submitBtn'])) {
     $quantity = mysqli_real_escape_string($con, $_POST['quantity']);
     $condition = mysqli_real_escape_string($con, $_POST['condition']);
     $description = mysqli_real_escape_string($con, $_POST['description']);
-
 
     if (isset($_POST['size']) && !empty($_POST['size'])) {
         $size = $_POST['size'];
@@ -689,6 +732,71 @@ if (isset($_POST['submitBtn'])) {
     $avg_rating = '0.0';
     $total_reviews = '0';
 
+    $_SESSION['full_name'] = $full_name;
+    $_SESSION['Company_name'] = $Company_name;
+    $_SESSION['type'] = $type;
+    $_SESSION['your_price'] = $your_price;
+    $_SESSION['MRP'] = $MRP;
+    $_SESSION['quantity'] = $quantity;
+    $_SESSION['condition'] = $condition;
+    $_SESSION['description'] = $description;
+    $_SESSION['color'] = $pcolor;
+
+    if(empty($full_name)){
+        echo '<script>displayErrorMessage("Please fill Product Title.");</script>';
+        exit();
+    }
+
+    if(empty($Company_name)){
+        echo '<script>displayErrorMessage("Please fill Company Name.");</script>';
+        exit();
+    }
+
+    if(empty($Category)){
+        echo '<script>displayErrorMessage("Please fill Category.");</script>';
+        exit();
+    }
+
+    if(empty($type)){
+        echo '<script>displayErrorMessage("Please fill Type.");</script>';
+        exit();
+    }
+
+    if(empty($your_price)){
+        echo '<script>displayErrorMessage("Please fill Your Price.");</script>';
+        exit();
+    }
+
+    if(empty($MRP)){
+        echo '<script>displayErrorMessage("Please fill MRP.");</script>';
+        exit();
+    }
+
+    if(empty($quantity)){
+        echo '<script>displayErrorMessage("Please fill Quantity.");</script>';
+        exit();
+    }
+
+    if(empty($condition)){
+        echo '<script>displayErrorMessage("Please fill Condition.");</script>';
+        exit();
+    }
+
+    if(empty($keywords_value)){
+        echo '<script>displayErrorMessage("Please fill Keywords.");</script>';
+        exit();
+    }
+
+    if(empty($ProfileImage1)){
+        echo '<script>displayErrorMessage("Please Insert ProfileImage1 Image.");</script>';
+        exit();
+    }
+
+    if(empty($ProfileImage2)){
+        echo '<script>displayErrorMessage("Please Insert ProfileImage2 Image.");</script>';
+        exit();
+    }
+
     if (
         empty($full_name) || empty($Company_name) || empty($Category) || empty($type) ||
         empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($ProfileImage1) || empty($ProfileImage2)
@@ -700,6 +808,16 @@ if (isset($_POST['submitBtn'])) {
             $product_query = mysqli_query($con, $product_insert);
 
             if ($product_query) {
+                unset($_SESSION['full_name']);
+                unset($_SESSION['Company_name']);
+                unset($_SESSION['type']);
+                unset($_SESSION['your_price']);
+                unset($_SESSION['MRP']);
+                unset($_SESSION['quantity']);
+                unset($_SESSION['condition']);
+                unset($_SESSION['description']);
+                unset($_SESSION['color']);
+
                 echo '<script>displaySuccessMessage("Data Inserted.");</script>';
             } else {
                 echo '<script>displayErrorMessage("Data not Inserted Properly.");</script>';

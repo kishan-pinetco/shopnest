@@ -79,6 +79,15 @@ if (isset($_GET['product_id'])) {
     $first_price = isset($price_json[$product_price]) ? $price_json[$product_price] : '';
     $MRP = $first_price['MRP'];
     $Your_Price = $first_price['Your_Price'];
+
+    if (isset($_COOKIE['vendor_id'])) {
+        $vendor_id = $_COOKIE['vendor_id'];
+        
+        $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
+        $retrieve_query = mysqli_query($con, $retrieve_data);
+        
+        $res = mysqli_fetch_assoc($retrieve_query);
+    }
 }
 
 
@@ -112,6 +121,35 @@ if (isset($_GET['product_id'])) {
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>            
+
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
+        <div class="flex items-center justify-center">
+            <a class="flex items-center" href="view_products.php">
+                <!-- icon logo div -->
+                <div class="mr-2">
+                    <img class="w-7 sm:w-14" src="../../../shopnest/src/logo/black_cart_logo.svg" alt="Cart Logo">
+                </div>
+                <!-- text logo -->
+                <div>
+                    <img class="w-20 sm:w-36" src="../../shopnest/src/logo/black_text_logo.svg" alt="Shopnest Logo">
+                </div>
+            </a>
+        </div>
+        <div class="flex items-center">
+            <div x-data="{ dropdownOpen: false }" class="relative">
+                <button @click="dropdownOpen = !dropdownOpen" class="relative block w-8 h-8 md:w-10 md:h-10 overflow-hidden rounded-full shadow-lg focus:outline-none transition-transform transform hover:scale-105">
+                    <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['vendor_id']) ? '../src/vendor_images/vendor_profile_image/' . $res['dp_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png'; ?>" alt="Your avatar">
+                </button>
+                <div x-show="dropdownOpen" @click.away="dropdownOpen = false" class="absolute right-0 z-10 w-48 mt-2 bg-white rounded-md shadow-xl ring-1 ring-gray-300 divide-y-2 divide-gray-200" style="display: none;">
+                    <a href="vendor_profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white transition-colors">Profile</a>
+                    <a href="view_products.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white transition-colors">Products</a>
+                    <a href="vendor_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white transition-colors">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- component -->
     <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">

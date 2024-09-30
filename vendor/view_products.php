@@ -163,7 +163,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 text-[#1d2128] mt-4">
                             <?php
                             if (isset($_COOKIE['vendor_id'])) {
-                                $product_find = "SELECT * FROM items WHERE vendor_id = '4'";
+                                $product_find = "SELECT * FROM items WHERE vendor_id = $vendor_id";
                                 $product_query = mysqli_query($con, $product_find);
 
                                 if(mysqli_num_rows($product_query) > 0){

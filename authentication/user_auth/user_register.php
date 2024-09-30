@@ -90,7 +90,7 @@ if (isset($_COOKIE['adminEmail'])) {
             setTimeout(() => {
                 popUp.style.display = 'none';
                 popUp.style.opacity = '0';
-            }, 1500);
+            }, 1800);
         }
 
         function displaySuccessMessage(message) {
@@ -104,13 +104,15 @@ if (isset($_COOKIE['adminEmail'])) {
             setTimeout(() => {
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
+                window.location.href = "user_login.php";
             }, 1500);
-            window.location.href = "../../index.php";
         }
     </script>
 
     <?php
     include "../../include/connect.php";
+
+    session_start();
 
 
     if (isset($_POST['regBtn'])) {
@@ -123,7 +125,7 @@ if (isset($_COOKIE['adminEmail'])) {
         $state = $_POST['state'];
         $city = $_POST['city'];
         $pincode = $_POST['pincode'];
-        $user_reg_date = date('d-m-Y');;
+        $user_reg_date = date('d-m-Y');
 
         // preg_match
         $firstname_pattern = "/^[a-zA-Z]([0-9a-zA-Z]){2,10}$/";
@@ -173,6 +175,19 @@ if (isset($_COOKIE['adminEmail'])) {
             echo '<script>displayErrorMessage("Invalid Pincode.");</script>';
         }
 
+        // store data in session
+        $_SESSION['fname'] = $fname;
+        $_SESSION['lname'] = $lname;
+        $_SESSION['user_email'] = $email;
+        $_SESSION['password'] = $password;
+        $_SESSION['address'] = $address;
+        $_SESSION['mobileno'] = $mobileno;
+        $_SESSION['state'] = $state;
+        $_SESSION['city'] = $city;
+        $_SESSION['pincode'] = $pincode;
+        $_SESSION['user_reg_date'] = $user_reg_date;
+
+
 
         // hash pass
         $pass = password_hash($password, PASSWORD_BCRYPT);
@@ -189,23 +204,31 @@ if (isset($_COOKIE['adminEmail'])) {
         if ($emailCount > 0) {
             // error Message
             echo '<script>displayErrorMessage("Email already Exists.");</script>';
-        } else {
+        }elseif(!preg_match($firstname_pattern, $fname) && !preg_match($lastname_pattern, $lname) && !preg_match($email_pattern, $email) && !preg_match($password_pattern, $password) && !preg_match($address_pattern, $address) && !preg_match($number_pattern, $mobileno) && !preg_match($state_pattern, $state) && !preg_match($city_pattern, $city) && !preg_match($pincode_pattern, $pincode)) {
+            echo '<script>displayErrorMessage("All fields are invalid. Please correct them.");</script>';
+        }elseif(preg_match($firstname_pattern, $fname) && preg_match($lastname_pattern, $lname) && preg_match($email_pattern, $email) && preg_match($password_pattern, $password) && preg_match($address_pattern, $address) && preg_match($number_pattern, $mobileno) && preg_match($state_pattern, $state) && preg_match($city_pattern, $city) && preg_match($pincode_pattern, $pincode)) {
             $insert_reg_data = "INSERT INTO user_registration(first_name, last_name, phone, email, profile_image, Address, state, city, pin, password, date) VALUES ('$fname','$lname','$mobileno','$email','$user_name_first_letter','$address','$state','$city','$pincode','$pass','$user_reg_date')";
             $iquery = mysqli_query($con, $insert_reg_data);
 
             if ($iquery) {
                 // delete exit cookie
-                setcookie('userEmail', '', time() - 3600, "/");
-                setcookie('userPass', '', time() - 3600, "/");
+                if(isset($_COOKIE['userEmail']) && isset($_COOKIE['userPass'])){
+                    setcookie('userEmail', '', time() - 3600, "/");
+                    setcookie('userPass', '', time() - 3600, "/");
+                }
 
-                // set new coookie
-                $select_id = "SELECT * FROM user_registration WHERE email = '$email'";
-                $id_query = mysqli_query($con, $select_id);
-                $id_row = mysqli_fetch_array($id_query);
-                $id = $id_row["user_id"];
-
-                setcookie('user_id', $id, time() + (365 * 24 * 60 * 60), "/");
-                setcookie('fname', $fname, time() + (365 * 24 * 60 * 60), "/");
+                unset(
+                    $_SESSION['fname'],
+                    $_SESSION['lname'],
+                    $_SESSION['user_email'],
+                    $_SESSION['password'],
+                    $_SESSION['address'],
+                    $_SESSION['mobileno'],
+                    $_SESSION['state'],
+                    $_SESSION['city'],
+                    $_SESSION['pincode'],
+                    $_SESSION['user_reg_date']
+                );
 
                 // Successfully
                 echo '<script>displaySuccessMessage("Inserted successful.");</script>';
@@ -240,23 +263,23 @@ if (isset($_COOKIE['adminEmail'])) {
                 <div class="grid grid-cols-1 p-5 md:grid-cols-2 gap-5">
                     <div class="flex flex-col gap-1 ">
                         <label for="fname" class="require font-semibold">First Name :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="fname" id="fname">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="fname" value="<?php echo isset($_SESSION['fname']) ? $_SESSION['fname'] : '' ?>" id="fname">
                         <small id="FnameValid" class="text-red-500 hidden translate-x-1">name must be 2-10 character long and shuld not start with a number</small>
                     </div>
                     <div class="flex flex-col gap-1 ">
                         <label for="lname" class="require font-semibold">Last Name :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="lname" id="lname">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="lname" value="<?php echo isset($_SESSION['lname']) ? $_SESSION['lname'] : '' ?>" id="lname">
                         <small id="LnameValid" class="text-red-500 hidden translate-x-1">name must be 2-10 character long and shuld not start with a number</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : '' ?>" id="email">
                         <small id="MailValid" class="text-red-500 hidden translate-x-1">Enter Valid Email</small>
 
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
-                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" :type="showPassword ? 'text' : 'password'" name="password" id="password">
+                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" :type="showPassword ? 'text' : 'password'" name="password" value="<?php echo isset($_SESSION['password']) ? $_SESSION['password'] : '' ?>" id="password">
                         <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                             <!-- Show Icon (when password is hidden) -->
                             <svg x-show="!showPassword" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" x="0" y="0" viewBox="0 0 128 128" style="enable-background:new 0 0 512 512" xml:space="preserve">
@@ -274,27 +297,27 @@ if (isset($_COOKIE['adminEmail'])) {
                     </div>
                     <div class="flex flex-col gap-1 md:col-span-2">
                         <label for="address" class="require font-semibold">Address :</label>
-                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" id="address"></textarea>
+                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" value="<?php echo isset($_SESSION['']) ? $_SESSION[''] : '' ?>" id="address"></textarea>
                         <small id="addressValid" class="text-red-500 hidden translate-x-1">Enter Valid Address</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="mobileno" class="require font-semibold">Mobile No :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="mobileno" id="mobileno" maxlength="10">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="mobileno" value="<?php echo isset($_SESSION['mobileno']) ? $_SESSION['mobileno'] : '' ?>" id="mobileno" maxlength="10">
                         <small id="mobilenoValid" class="text-red-500 hidden translate-x-1">Enter Valid Numbers</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="state" class="require font-semibold">State :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="state" id="state">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="state" value="<?php echo isset($_SESSION['state']) ? $_SESSION['state'] : '' ?>" id="state">
                         <small id="stateValid" class="text-red-500 hidden translate-x-1">Enter Valid State</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="city" class="require font-semibold">City :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="city" id="city">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="city" value="<?php echo isset($_SESSION['city']) ? $_SESSION['city'] : '' ?>" id="city">
                         <small id="cityValid" class="text-red-500 hidden translate-x-1">Enter Valid City</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="pincode" class="require font-semibold">Pincode :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="pincode" id="pincode" maxlength="6">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="pincode" value="<?php echo isset($_SESSION['pincode']) ? $_SESSION['pincode'] : '' ?>" id="pincode" maxlength="6">
                         <small id="pincodeValid" class="text-red-500 hidden translate-x-1">Enter Valid Pincode</small>
                     </div>
                 </div>

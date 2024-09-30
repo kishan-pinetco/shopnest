@@ -123,13 +123,16 @@
                 </header>
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <section class="container mx-auto p-6 text-center">
-                        <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-8">
-                            <?php
-                                include "../include/connect.php";
+                        <?php
+                            include "../include/connect.php";
 
+                            if(isset($_COOKIE['adminEmail'])){
                                 $retrieve_user_data = "SELECT * FROM user_registration";
                                 $retrieve_query = mysqli_query($con,$retrieve_user_data);
-
+                                
+                                ?>
+                                    <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-8">
+                                <?php
                                 if($retrieve_query){
                                     while($res = mysqli_fetch_assoc($retrieve_query)){
                                         ?>
@@ -147,8 +150,13 @@
                                         <?php   
                                     }
                                 }
-                            ?>
-                        </div>
+                                ?>
+                                    </div>
+                                <?php
+                            }else{
+                                echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
+                            }
+                        ?>
                     </section>
                 </main>
             </div>
