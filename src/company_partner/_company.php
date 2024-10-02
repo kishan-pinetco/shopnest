@@ -33,84 +33,84 @@
 <body>
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-20 gap-y-10 px-10">
         <!-- asus -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Asus">
                 <img src="/shopnest/src/company_partner/asus.svg" alt="">
             </a>
         </div>
 
         <!-- sony -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Sony">
                 <img src="/shopnest/src/company_partner/sony.svg" alt="">
             </a>
         </div>
 
         <!-- canon -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Canon">
                 <img src="/shopnest/src/company_partner/canon.svg" alt="">
             </a>
         </div>
 
         <!-- casio -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Casio">
                 <img src="/shopnest/src/company_partner/casio.svg" alt="">
             </a>
         </div>
 
         <!-- Bose -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Bose">
                 <img src="/shopnest/src/company_partner/bose.svg" alt="">
             </a>
         </div>
 
         <!-- hyperX -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=HyperX">
                 <img class="pt-2" src="/shopnest/src/company_partner/hyperx.svg" alt="">
             </a>
         </div>
 
         <!-- tissot -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Tissot">
                 <img class="pt-1" src="/shopnest/src/company_partner/tissot.svg" alt="">
             </a>
         </div>
 
         <!-- puma -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Puma">
                 <img src="/shopnest/src/company_partner/puma.svg" alt="">
             </a>
         </div>
 
         <!-- msi -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Msi">
                 <img class="pt-1" src="/shopnest/src/company_partner/msi.svg" alt="">
             </a>
         </div>
 
         <!-- louis philippe -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Louis Philippe">
                 <img src="/shopnest/src/company_partner/louisphilippe.svg" alt="">
             </a>
         </div>
 
         <!-- lenovo -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=Lenovo">
                 <img src="/shopnest/src/company_partner/lenovo.svg" alt="">
             </a>
         </div>
 
         <!-- nvidia -->
-        <div>
+        <div class="cursor-pointer">
             <a href="/shopnest/pages/brands_products.php?brandName=nvidia">
                 <img src="/shopnest/src/company_partner/nvidia.svg" alt="">
             </a>
