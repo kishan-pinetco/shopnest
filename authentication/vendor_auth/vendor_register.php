@@ -69,7 +69,7 @@ if (isset($_COOKIE['adminEmail'])) {
                 <div class="w-full p-5 mt-3">
                     <div class="w-full relative">
                         <div id="CoverPreviewWrapper" class="w-full relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-40">
-                            <img id="CoverPreview" class="w-full z-50 object-cover hidden" src="" alt="Cover Image">
+                            <img id="CoverPreview" class="w-full h-40 z-50 object-cover object-center hidden" src="" alt="Cover Image">
                             <h2 id="coverText" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
                                 Insert Cover image
                             </h2>
