@@ -67,7 +67,7 @@
                     </div>
                 </a>
                 <div class="md:w-60 lg:w-[30rem] 2xl:w-[40rem] mt-3">
-                    <p class="text-sm">ShopNest: Elevate your shopping experience with a vast selection of premium products, exceptional deals, and seamless service. Your nest for everything you need.</p>
+                    <p class="text-sm">shopNest: Elevate your shopping experience with a vast selection of premium products, exceptional deals, and seamless service. Your nest for everything you need.</p>
                 </div>
             </div>
             <div>
