@@ -388,7 +388,6 @@ function displayRandomProducts($con, $limit)
                     prevButton.classList.add("cursor-not-allowed", "opacity-50");
                     prevButton.classList.remove("cursor-pointer");
                     prevButton.setAttribute("disabled", "true");
-                    console.log('in');
                     
                 } else {
                     prevButton.classList.remove("cursor-not-allowed", "opacity-50");

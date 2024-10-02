@@ -66,87 +66,122 @@ if (isset($_COOKIE['adminEmail'])) {
             <div class="border-2 rounded-md">
                 <h1 class="border-b-2 p-2 text-2xl font-semibold">Vendor Registration</h1>
                 <!-- Profile Picture -->
-                <div class="w-full flex flex-col items-center relative mt-3">
-                    <div class="w-full p-5">
-                        <div class="w-full relative">
-                            <div class="w-full relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden">
-                                <img id="CoverPreview" class="w-full h-40 z-50 object-cover" src="" alt="">
-                                <h2 id="coverText" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">Insert Cover image</h2>
-                            </div>
-                            <input class="hidden" name="CoverImage" type="file" id="Coverimage" onchange="coverImagePreview(event)">
-                            <label for="Coverimage" class="absolute top-2 right-3 cursor-pointer">
-                                <h1 class="bg-gray-700 text-white max-w-max px-1 h-8 flex items-center rounded-tl-lg rounded-br-lg">Cover Image</h1>
-                            </label>
+                <div class="w-full p-5 mt-3">
+                    <div class="w-full relative">
+                        <div id="CoverPreviewWrapper" class="w-full relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-40">
+                            <img id="CoverPreview" class="w-full z-50 object-cover hidden" src="" alt="Cover Image">
+                            <h2 id="coverText" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
+                                Insert Cover image
+                            </h2>
                         </div>
-                        <!-- script for cover image preview and hide text (insert cover image) when cover image is inserted  -->
-                        <script>
-                            function coverImagePreview(event) {
-                                const input = event.target;
-                                const coverPreview = document.getElementById('CoverPreview');
-                                const coverText = document.getElementById('coverText');
 
-                                if (input.files && input.files[0]) {
+                        <input class="hidden" name="CoverImage" accept="image/jpg, image/png, image/jpeg" type="file" id="Coverimage" onchange="coverImagePreview(event)">
+
+                        <!-- Error message -->
+                        <small id="error-message" class="text-red-500 mt-10 absolute text-xs hidden">The cover image must be a file type of: PNG, JPG, or JPEG.</small>
+                    </div>
+
+                    <!-- profile image -->
+                    <div class="relative flex items-stretch justify-center -mt-8">
+                        <img id="previewImage" class="w-16 h-16 rounded-full border object-cover object-center border-black" alt="" src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png">
+                        <input class="hidden" name="ProfileImage" type="file" id="imageInput" accept="image/jpg, image/png, image/jpeg" onchange="previewSelectedImage()">
+                        <label for="imageInput" class="absolute bottom-0 translate-y-3 translate-x-[2px] rounded-full bg-white p-1 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                <g>
+                                    <g data-name="Layer 53">
+                                        <path d="M22 9.25a.76.76 0 0 0-.75.75v6l-4.18-4.78a2.84 2.84 0 0 0-4.14 0l-2.87 3.28-.94-1.14a2.76 2.76 0 0 0-4.24 0l-2.13 2.57V6A3.26 3.26 0 0 1 6 2.75h8a.75.75 0 0 0 0-1.5H6A4.75 4.75 0 0 0 1.25 6v12a.09.09 0 0 0 0 .05A4.75 4.75 0 0 0 6 22.75h12a4.75 4.75 0 0 0 4.74-4.68V10a.76.76 0 0 0-.74-.75Zm-4 12H6a3.25 3.25 0 0 1-3.23-3L6 14.32a1.29 1.29 0 0 1 1.92 0l1.51 1.82a.74.74 0 0 0 .57.27.86.86 0 0 0 .57-.26l3.44-3.94a1.31 1.31 0 0 1 1.9 0l5.27 6A3.24 3.24 0 0 1 18 21.25Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                        <path d="M4.25 7A2.75 2.75 0 1 0 7 4.25 2.75 2.75 0 0 0 4.25 7Zm4 0A1.25 1.25 0 1 1 7 5.75 1.25 1.25 0 0 1 8.25 7ZM16 5.75h2.25V8a.75.75 0 0 0 1.5 0V5.75H22a.75.75 0 0 0 0-1.5h-2.25V2a.75.75 0 0 0-1.5 0v2.25H16a.75.75 0 0 0 0 1.5Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </label>
+                    </div>
+
+                    <!-- script for profile image preview -->
+                    <script>
+                        // Trigger file input click when the CoverPreview div is clicked
+                        document.getElementById('CoverPreviewWrapper').addEventListener('click', function() {
+                            document.getElementById('Coverimage').click();
+                        });
+
+                        // Common error message element for both images
+                        const errorMessage = document.getElementById('error-message');
+
+                        // Cover image preview
+                        function coverImagePreview(event) {
+                            const input = event.target;
+                            const file = input.files[0];
+                            const coverPreview = document.getElementById('CoverPreview');
+                            const coverText = document.getElementById('coverText');
+
+                            if (file) {
+                                const fileType = file.type;
+
+                                // Validate file type for cover image
+                                if (fileType === "image/png" || fileType === "image/jpeg" || fileType === "image/jpg") {
                                     const reader = new FileReader();
                                     reader.onload = function(e) {
                                         coverPreview.src = e.target.result;
+                                        coverPreview.style.display = 'block';
                                         coverPreview.classList.remove('hidden');
                                         coverText.classList.add('hidden');
                                     };
-                                    reader.readAsDataURL(input.files[0]);
+                                    reader.readAsDataURL(file);
+                                    errorMessage.classList.add('hidden'); // Hide error message if valid
                                 } else {
-                                    coverPreview.src = '';
+                                    // Invalid cover image file type
                                     coverPreview.classList.add('hidden');
+                                    coverPreview.src = '';
                                     coverText.classList.remove('hidden');
+                                    showErrorForImages(false, true); // Show error for cover image
                                 }
                             }
-                        </script>
-                        <div class="relative flex items-stretch justify-center -mt-8">
-                            <img id="previewImage" class="w-16 h-16 rounded-full border object-cover object-center border-black" alt="" src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png">
-                            <input class="hidden" name="ProfileImage" type="file" id="imageInput">
-                            <label for="imageInput" class="absolute bottom-0 translate-y-3 translate-x-[2px] rounded-full bg-white p-1 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                                    <g>
-                                        <g data-name="Layer 53">
-                                            <path d="M22 9.25a.76.76 0 0 0-.75.75v6l-4.18-4.78a2.84 2.84 0 0 0-4.14 0l-2.87 3.28-.94-1.14a2.76 2.76 0 0 0-4.24 0l-2.13 2.57V6A3.26 3.26 0 0 1 6 2.75h8a.75.75 0 0 0 0-1.5H6A4.75 4.75 0 0 0 1.25 6v12a.09.09 0 0 0 0 .05A4.75 4.75 0 0 0 6 22.75h12a4.75 4.75 0 0 0 4.74-4.68V10a.76.76 0 0 0-.74-.75Zm-4 12H6a3.25 3.25 0 0 1-3.23-3L6 14.32a1.29 1.29 0 0 1 1.92 0l1.51 1.82a.74.74 0 0 0 .57.27.86.86 0 0 0 .57-.26l3.44-3.94a1.31 1.31 0 0 1 1.9 0l5.27 6A3.24 3.24 0 0 1 18 21.25Z" fill="#000000" opacity="1" data-original="#000000"></path>
-                                            <path d="M4.25 7A2.75 2.75 0 1 0 7 4.25 2.75 2.75 0 0 0 4.25 7Zm4 0A1.25 1.25 0 1 1 7 5.75 1.25 1.25 0 0 1 8.25 7ZM16 5.75h2.25V8a.75.75 0 0 0 1.5 0V5.75H22a.75.75 0 0 0 0-1.5h-2.25V2a.75.75 0 0 0-1.5 0v2.25H16a.75.75 0 0 0 0 1.5Z" fill="#000000" opacity="1" data-original="#000000"></path>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </label>
-                        </div>
-                    </div>
-                    <!-- script for profile image preview -->
-                    <script>
+                        }
+
+                        // Profile image preview
                         const imageInput = document.getElementById('imageInput');
                         const previewImage = document.getElementById('previewImage');
 
                         function previewSelectedImage() {
                             const file = imageInput.files[0];
+
                             if (file) {
-                                const reader = new FileReader();
-                                reader.readAsDataURL(file);
-                                reader.onload = function(e) {
-                                    previewImage.src = e.target.result;
+                                const fileType = file.type;
+
+                                // Validate file type for profile image
+                                if (fileType === "image/png" || fileType === "image/jpeg" || fileType === "image/jpg") {
+                                    const reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        previewImage.src = e.target.result;
+                                    };
+                                    reader.readAsDataURL(file);
+                                    errorMessage.classList.add('hidden'); // Hide error message if valid
+                                } else {
+                                    // Invalid profile image file type
+                                    previewImage.src = 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png'; // Reset to default
+                                    showErrorForImages(true, false); // Show error for profile image
                                 }
                             }
                         }
+
+                        // Function to handle errors for both images
+                        function showErrorForImages(isProfileError, isCoverError) {
+                            if (isProfileError && isCoverError) {
+                                // Show one combined error for both images
+                                errorMessage.textContent = "Both cover and profile images must be file PNG, JPG, or JPEG.";
+                            } else if (isProfileError) {
+                                // Show error for profile image
+                                errorMessage.textContent = "Profile image must be PNG, JPG, or JPEG.";
+                            } else if (isCoverError) {
+                                // Show error for cover image
+                                errorMessage.textContent = "Cover image must be PNG, JPG, or JPEG.";
+                            }
+                            errorMessage.classList.remove('hidden'); // Show error message
+                        }
+
+                        // Event listeners for image inputs
                         imageInput.addEventListener('change', previewSelectedImage);
-
-
-                        const Coverimage = document.getElementById('Coverimage');
-                        const CoverPreview = document.getElementById('CoverPreview');
-
-                        function previewCoverImage() {
-                            const file = Coverimage.files[0];
-                            if (file) {
-                                const reader = new FileReader();
-                                reader.readAsDataURL(file);
-                                reader.onload = function(e) {
-                                    CoverPreview.src = e.target.result;
-                                }
-                            }
-                        }
-                        Coverimage.addEventListener('change', previewCoverImage);
+                        document.getElementById('Coverimage').addEventListener('change', coverImagePreview);
                     </script>
                 </div>
                 <div class="grid grid-cols-4 gap-5 p-5">

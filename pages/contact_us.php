@@ -1,8 +1,9 @@
 <?php
-    include "../include/connect.php";
+include "../include/connect.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,37 +27,56 @@
 
     <!-- title -->
     <title>Contact Us</title>
+
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+        }
+    </style>
 </head>
+
 <body style="font-family: 'Outfit', sans-serif;">
 
     <!-- navbar -->
     <?php
-        include "_navbar.php";
+    include "_navbar.php";
     ?>
 
     <div class="max-w-screen-xl m-auto px-2 grid grid-cols-1 gap-y-7 gap-2 text-gray-900 mt-8 min-[879px]:grid-cols-2">
         <div class="text-center w-full md:w-[80%] m-auto">
             <div>
-                <h1 class="text-5xl font-bold">Contact Us</h1>
+                <h1 class="text-5xl font-bold">Contact us</h1>
                 <p class="text-lg font-medium mt-7">Our friendly team is always here to chat.</p>
             </div>
             <div class="grid grid-cols-2 gap-4 mt-6">
                 <div class="grid grid-cols-1 gap-2">
-                    <svg class="m-auto" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 473.806 473.806" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M374.456 293.506c-9.7-10.1-21.4-15.5-33.8-15.5-12.3 0-24.1 5.3-34.2 15.4l-31.6 31.5c-2.6-1.4-5.2-2.7-7.7-4-3.6-1.8-7-3.5-9.9-5.3-29.6-18.8-56.5-43.3-82.3-75-12.5-15.8-20.9-29.1-27-42.6 8.2-7.5 15.8-15.3 23.2-22.8 2.8-2.8 5.6-5.7 8.4-8.5 21-21 21-48.2 0-69.2l-27.3-27.3c-3.1-3.1-6.3-6.3-9.3-9.5-6-6.2-12.3-12.6-18.8-18.6-9.7-9.6-21.3-14.7-33.5-14.7s-24 5.1-34 14.7l-.2.2-34 34.3c-12.8 12.8-20.1 28.4-21.7 46.5-2.4 29.2 6.2 56.4 12.8 74.2 16.2 43.7 40.4 84.2 76.5 127.6 43.8 52.3 96.5 93.6 156.7 122.7 23 10.9 53.7 23.8 88 26 2.1.1 4.3.2 6.3.2 23.1 0 42.5-8.3 57.7-24.8.1-.2.3-.3.4-.5 5.2-6.3 11.2-12 17.5-18.1 4.3-4.1 8.7-8.4 13-12.9 9.9-10.3 15.1-22.3 15.1-34.6 0-12.4-5.3-24.3-15.4-34.3l-54.9-55.1zm35.8 105.3c-.1 0-.1.1 0 0-3.9 4.2-7.9 8-12.2 12.2-6.5 6.2-13.1 12.7-19.3 20-10.1 10.8-22 15.9-37.6 15.9-1.5 0-3.1 0-4.6-.1-29.7-1.9-57.3-13.5-78-23.4-56.6-27.4-106.3-66.3-147.6-115.6-34.1-41.1-56.9-79.1-72-119.9-9.3-24.9-12.7-44.3-11.2-62.6 1-11.7 5.5-21.4 13.8-29.7l34.1-34.1c4.9-4.6 10.1-7.1 15.2-7.1 6.3 0 11.4 3.8 14.6 7l.3.3c6.1 5.7 11.9 11.6 18 17.9 3.1 3.2 6.3 6.4 9.5 9.7l27.3 27.3c10.6 10.6 10.6 20.4 0 31-2.9 2.9-5.7 5.8-8.6 8.6-8.4 8.6-16.4 16.6-25.1 24.4-.2.2-.4.3-.5.5-8.6 8.6-7 17-5.2 22.7l.3.9c7.1 17.2 17.1 33.4 32.3 52.7l.1.1c27.6 34 56.7 60.5 88.8 80.8 4.1 2.6 8.3 4.7 12.3 6.7 3.6 1.8 7 3.5 9.9 5.3.4.2.8.5 1.2.7 3.4 1.7 6.6 2.5 9.9 2.5 8.3 0 13.5-5.2 15.2-6.9l34.2-34.2c3.4-3.4 8.8-7.5 15.1-7.5 6.2 0 11.3 3.9 14.4 7.3l.2.2 55.1 55.1c10.3 10.2 10.3 20.7.1 31.3zM256.056 112.706c26.2 4.4 50 16.8 69 35.8s31.3 42.8 35.8 69c1.1 6.6 6.8 11.2 13.3 11.2.8 0 1.5-.1 2.3-.2 7.4-1.2 12.3-8.2 11.1-15.6-5.4-31.7-20.4-60.6-43.3-83.5s-51.8-37.9-83.5-43.3c-7.4-1.2-14.3 3.7-15.6 11s3.5 14.4 10.9 15.6zM473.256 209.006c-8.9-52.2-33.5-99.7-71.3-137.5s-85.3-62.4-137.5-71.3c-7.3-1.3-14.2 3.7-15.5 11-1.2 7.4 3.7 14.3 11.1 15.6 46.6 7.9 89.1 30 122.9 63.7 33.8 33.8 55.8 76.3 63.7 122.9 1.1 6.6 6.8 11.2 13.3 11.2.8 0 1.5-.1 2.3-.2 7.3-1.1 12.3-8.1 11-15.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>
-                    <span class="font-medium text-sm">Customer Service</span>
+                    <svg class="m-auto" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 473.806 473.806" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                        <g>
+                            <path d="M374.456 293.506c-9.7-10.1-21.4-15.5-33.8-15.5-12.3 0-24.1 5.3-34.2 15.4l-31.6 31.5c-2.6-1.4-5.2-2.7-7.7-4-3.6-1.8-7-3.5-9.9-5.3-29.6-18.8-56.5-43.3-82.3-75-12.5-15.8-20.9-29.1-27-42.6 8.2-7.5 15.8-15.3 23.2-22.8 2.8-2.8 5.6-5.7 8.4-8.5 21-21 21-48.2 0-69.2l-27.3-27.3c-3.1-3.1-6.3-6.3-9.3-9.5-6-6.2-12.3-12.6-18.8-18.6-9.7-9.6-21.3-14.7-33.5-14.7s-24 5.1-34 14.7l-.2.2-34 34.3c-12.8 12.8-20.1 28.4-21.7 46.5-2.4 29.2 6.2 56.4 12.8 74.2 16.2 43.7 40.4 84.2 76.5 127.6 43.8 52.3 96.5 93.6 156.7 122.7 23 10.9 53.7 23.8 88 26 2.1.1 4.3.2 6.3.2 23.1 0 42.5-8.3 57.7-24.8.1-.2.3-.3.4-.5 5.2-6.3 11.2-12 17.5-18.1 4.3-4.1 8.7-8.4 13-12.9 9.9-10.3 15.1-22.3 15.1-34.6 0-12.4-5.3-24.3-15.4-34.3l-54.9-55.1zm35.8 105.3c-.1 0-.1.1 0 0-3.9 4.2-7.9 8-12.2 12.2-6.5 6.2-13.1 12.7-19.3 20-10.1 10.8-22 15.9-37.6 15.9-1.5 0-3.1 0-4.6-.1-29.7-1.9-57.3-13.5-78-23.4-56.6-27.4-106.3-66.3-147.6-115.6-34.1-41.1-56.9-79.1-72-119.9-9.3-24.9-12.7-44.3-11.2-62.6 1-11.7 5.5-21.4 13.8-29.7l34.1-34.1c4.9-4.6 10.1-7.1 15.2-7.1 6.3 0 11.4 3.8 14.6 7l.3.3c6.1 5.7 11.9 11.6 18 17.9 3.1 3.2 6.3 6.4 9.5 9.7l27.3 27.3c10.6 10.6 10.6 20.4 0 31-2.9 2.9-5.7 5.8-8.6 8.6-8.4 8.6-16.4 16.6-25.1 24.4-.2.2-.4.3-.5.5-8.6 8.6-7 17-5.2 22.7l.3.9c7.1 17.2 17.1 33.4 32.3 52.7l.1.1c27.6 34 56.7 60.5 88.8 80.8 4.1 2.6 8.3 4.7 12.3 6.7 3.6 1.8 7 3.5 9.9 5.3.4.2.8.5 1.2.7 3.4 1.7 6.6 2.5 9.9 2.5 8.3 0 13.5-5.2 15.2-6.9l34.2-34.2c3.4-3.4 8.8-7.5 15.1-7.5 6.2 0 11.3 3.9 14.4 7.3l.2.2 55.1 55.1c10.3 10.2 10.3 20.7.1 31.3zM256.056 112.706c26.2 4.4 50 16.8 69 35.8s31.3 42.8 35.8 69c1.1 6.6 6.8 11.2 13.3 11.2.8 0 1.5-.1 2.3-.2 7.4-1.2 12.3-8.2 11.1-15.6-5.4-31.7-20.4-60.6-43.3-83.5s-51.8-37.9-83.5-43.3c-7.4-1.2-14.3 3.7-15.6 11s3.5 14.4 10.9 15.6zM473.256 209.006c-8.9-52.2-33.5-99.7-71.3-137.5s-85.3-62.4-137.5-71.3c-7.3-1.3-14.2 3.7-15.5 11-1.2 7.4 3.7 14.3 11.1 15.6 46.6 7.9 89.1 30 122.9 63.7 33.8 33.8 55.8 76.3 63.7 122.9 1.1 6.6 6.8 11.2 13.3 11.2.8 0 1.5-.1 2.3-.2 7.3-1.1 12.3-8.1 11-15.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                        </g>
+                    </svg>
+                    <span class="font-medium text-sm">Customer service</span>
                     <a href="tel:7863843776" class="font-medium text-sm underline">+91 7863843776</a>
                     <p class="font-normal text-xs text-gray-400">Call us from 8 am to 12 pm ET.</p>
                 </div>
                 <div class="grid grid-cols-1 gap-2">
-                    <svg class="m-auto" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 60 60" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M10 25.465h13a1 1 0 1 0 0-2H10a1 1 0 1 0 0 2zM36 29.465H10a1 1 0 1 0 0 2h26a1 1 0 1 0 0-2zM36 35.465H10a1 1 0 1 0 0 2h26a1 1 0 1 0 0-2z" fill="#000000" opacity="1" data-original="#000000" class=""></path><path d="m54.072 2.535-34.142-.07c-3.27 0-5.93 2.66-5.93 5.93v5.124l-8.07.017c-3.27 0-5.93 2.66-5.93 5.93v21.141c0 3.27 2.66 5.929 5.93 5.929H12v10a1 1 0 0 0 1.74.673l9.704-10.675 16.626-.068c3.27 0 5.93-2.66 5.93-5.929v-.113l5.26 5.786a1.002 1.002 0 0 0 1.74-.673v-10h1.07c3.27 0 5.93-2.66 5.93-5.929V8.465a5.937 5.937 0 0 0-5.928-5.93zM44 40.536a3.934 3.934 0 0 1-3.934 3.929l-17.07.07a1 1 0 0 0-.736.327L14 53.949v-8.414a1 1 0 0 0-1-1H5.93A3.934 3.934 0 0 1 2 40.606V19.465a3.935 3.935 0 0 1 3.932-3.93L15 15.516h.002l25.068-.052a3.934 3.934 0 0 1 3.93 3.93v21.142zm14-10.93a3.934 3.934 0 0 1-3.93 3.929H52a1 1 0 0 0-1 1v8.414l-5-5.5V19.395c0-3.27-2.66-5.93-5.932-5.93L16 13.514v-5.12a3.934 3.934 0 0 1 3.928-3.93l34.141.07h.002a3.934 3.934 0 0 1 3.93 3.93v21.142z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>
-                    <span class="font-medium text-sm">Customer Service</span>
-                    <a href="mailto:shopnest2603@gmail.com" class="font-medium text-sm underline">Chat With Us</a>
+                    <svg class="m-auto" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 60 60" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                        <g>
+                            <path d="M10 25.465h13a1 1 0 1 0 0-2H10a1 1 0 1 0 0 2zM36 29.465H10a1 1 0 1 0 0 2h26a1 1 0 1 0 0-2zM36 35.465H10a1 1 0 1 0 0 2h26a1 1 0 1 0 0-2z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                            <path d="m54.072 2.535-34.142-.07c-3.27 0-5.93 2.66-5.93 5.93v5.124l-8.07.017c-3.27 0-5.93 2.66-5.93 5.93v21.141c0 3.27 2.66 5.929 5.93 5.929H12v10a1 1 0 0 0 1.74.673l9.704-10.675 16.626-.068c3.27 0 5.93-2.66 5.93-5.929v-.113l5.26 5.786a1.002 1.002 0 0 0 1.74-.673v-10h1.07c3.27 0 5.93-2.66 5.93-5.929V8.465a5.937 5.937 0 0 0-5.928-5.93zM44 40.536a3.934 3.934 0 0 1-3.934 3.929l-17.07.07a1 1 0 0 0-.736.327L14 53.949v-8.414a1 1 0 0 0-1-1H5.93A3.934 3.934 0 0 1 2 40.606V19.465a3.935 3.935 0 0 1 3.932-3.93L15 15.516h.002l25.068-.052a3.934 3.934 0 0 1 3.93 3.93v21.142zm14-10.93a3.934 3.934 0 0 1-3.93 3.929H52a1 1 0 0 0-1 1v8.414l-5-5.5V19.395c0-3.27-2.66-5.93-5.932-5.93L16 13.514v-5.12a3.934 3.934 0 0 1 3.928-3.93l34.141.07h.002a3.934 3.934 0 0 1 3.93 3.93v21.142z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                        </g>
+                    </svg>
+                    <span class="font-medium text-sm">Customer service</span>
+                    <a href="mailto:shopnest2603@gmail.com" class="font-medium text-sm underline">Chat with us</a>
                     <p class="font-noEmail-2 text-gray-400">Daily: 8 am to 11 pm CT</p>
                 </div>
             </div>
             <div class="mt-12">
                 <div>
-                    <h1 class="text-3xl font-medium">Contact Information</h1>
+                    <h1 class="text-3xl font-medium">Contact information</h1>
                     <span class="text-sm font-normal">Surat, Gujarat</span>
                     <p class="text-sm font-medium">India</p>
                 </div>
@@ -76,30 +96,34 @@
         </div>
         <div class="bg-gray-200 rounded-xl w-full md:w-[80%] m-auto py-12 px-5 md:px-12">
             <div class="text-center mb-5">
-                <h2 class="text-3xl font-medium">Contact Form</h2>
+                <h2 class="text-3xl font-medium">Contact form</h2>
                 <p class="text-lg font-medium mt-2">We look forward to hearing from you and will try to respond within three days.</p>
             </div>
             <form action="" method="post" class="m-auto">
-                <div class="grid grid-cols-1 md:gap-2 lg:grid-cols-2">
+                <div class="grid grid-cols-1 md:gap-2 lg:grid-cols-2 lg:gap-5">
                     <div class="flex flex-col gap-1 mt-4">
-                        <label for="username" class="text-sm font-medium">Name</label>
-                        <input type="text" name="name" id="username" class="border-none w-full focus:border-0 focus:ring-0 rounded-md h-14" placeholder="What's you name?">
+                        <label for="username" class="text-sm font-medium require">Name:</label>
+                        <input type="text" name="name" id="username" class="border-none w-full focus:border-0 focus:ring-0 rounded-md h-12" placeholder="What's you name?">
+                        <small class="text-red-500 translate-x-1">Name must be require</small>
                     </div>
                     <div class="flex flex-col gap-1 mt-4">
-                        <label for="useremail" class="text-sm font-medium">Email</label>
-                        <input type="email" name="user_email" id="useremail" class="border-none w-full focus:border-0 focus:ring-0 rounded-md h-14" placeholder="What's you E-mail?">
-                    </div>
-                </div>
-                <div>
-                    <div class="flex flex-col gap-1 mt-4">
-                        <label for="subject" class="text-sm font-medium">Subject</label>
-                        <input type="text" name="subject" id="subject" class="border-none w-full focus:border-0 focus:ring-0 rounded-md h-14" placeholder="What's you Subject?">
+                        <label for="useremail" class="text-sm font-medium require">Email:</label>
+                        <input type="email" name="user_email" id="useremail" class="border-none w-full focus:border-0 focus:ring-0 rounded-md h-12" placeholder="What's you E-mail?">
+                        <small class="text-red-500 translate-x-1">Email must be require</small>
                     </div>
                 </div>
                 <div>
                     <div class="flex flex-col gap-1 mt-4">
-                        <label for="message" class="text-sm font-medium">Message</label>
+                        <label for="subject" class="text-sm font-medium require">Subject:</label>
+                        <input type="text" name="subject" id="subject" class="border-none w-full focus:border-0 focus:ring-0 rounded-md h-12" placeholder="What's you Subject?">
+                        <small class="text-red-500 translate-x-1">Subject must be require</small>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1 mt-4">
+                        <label for="message" class="text-sm font-medium require">Message:</label>
                         <textarea name="message" id="message" rows="5" class="border-none w-full focus:border-0 focus:ring-0 rounded-md resize-none" placeholder="Can You Provide Some More Details?"></textarea>
+                        <small class="text-red-500 translate-x-1">Message must be require</small>
                     </div>
                 </div>
                 <input type="submit" name="contact" value="Get In Touch" class=" font-medium text-center rounded-tl-xl rounded-br-xl w-full bg-gray-700 text-white mt-5 py-4 cursor-pointer hover:bg-gray-800">
@@ -110,7 +134,7 @@
 
     <!-- footer -->
     <?php
-        include "_footer.php";
+    include "_footer.php";
     ?>
 
     <!-- Successfully message container -->
@@ -166,56 +190,69 @@
             window.location.href = "../index.php";
         }
     </script>
-    
+
     <!-- chatboat script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
+
 </html>
 
 <?php
-    include "../include/connect.php";
+include "../include/connect.php";
 
-    if(isset($_POST['contact'])){
-        $name = $_POST['name'];
-        $user_email = $_POST['user_email'];
-        $subject = $_POST['subject'];
-        $message = $_POST['message'];
-        $date = date('d-m-Y');
+if (isset($_POST['contact'])) {
+    $name = $_POST['name'];
+    $user_email = $_POST['user_email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+    $date = date('d-m-Y');
 
-        if(empty($name)){
-            ?>
-                <script>displayErrorMessage("Please enter your Name before submitting the form.")</script>
-            <?php
-        }elseif(empty($user_email)){
-            ?>
-                <script>displayErrorMessage("Please enter your Email before submitting the form.")</script>
-            <?php
-        }elseif(empty($subject)){
-            ?>
-                <script>displayErrorMessage("Please enter your Subject before submitting the form.")</script>
-            <?php
-        }elseif(empty($message)){
-            ?>
-                <script>displayErrorMessage("Please enter your Message before submitting the form.")</script>
-            <?php
-        }else{
-            
-            $insert_contact_date = "INSERT INTO contact_us(name, user_email, subject, message, date) VALUES ('$name','$user_email','$subject','$message','$date')";
-            $insert_query = mysqli_query($con, $insert_contact_date);
-            
-            if($insert_query){
-                // successfully
-                ?>
-                <script>displaySuccessMessage("Thank you! Your message has been successfully sent. We'll get back to you soon!")</script>
-                <?php
+    if (empty($name)) {
+?>
+        <script>
+            displayErrorMessage("Please enter your Name before submitting the form.")
+        </script>
+    <?php
+    } elseif (empty($user_email)) {
+    ?>
+        <script>
+            displayErrorMessage("Please enter your Email before submitting the form.")
+        </script>
+    <?php
+    } elseif (empty($subject)) {
+    ?>
+        <script>
+            displayErrorMessage("Please enter your Subject before submitting the form.")
+        </script>
+    <?php
+    } elseif (empty($message)) {
+    ?>
+        <script>
+            displayErrorMessage("Please enter your Message before submitting the form.")
+        </script>
+        <?php
+    } else {
 
-            }else{
-                // error
-                ?>
-                    <script>displayErrorMessage("First name must be 2-10 character long and shuld not start with a number.")</script>
-                <?php
-            }
+        $insert_contact_date = "INSERT INTO contact_us(name, user_email, subject, message, date) VALUES ('$name','$user_email','$subject','$message','$date')";
+        $insert_query = mysqli_query($con, $insert_contact_date);
+
+        if ($insert_query) {
+            // successfully
+        ?>
+            <script>
+                displaySuccessMessage("Thank you! Your message has been successfully sent. We'll get back to you soon!")
+            </script>
+        <?php
+
+        } else {
+            // error
+        ?>
+            <script>
+                displayErrorMessage("First name must be 2-10 character long and shuld not start with a number.")
+            </script>
+<?php
         }
     }
+}
 
 ?>
