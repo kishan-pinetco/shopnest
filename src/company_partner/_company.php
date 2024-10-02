@@ -97,8 +97,8 @@
 
         <!-- louis philippe -->
         <div>
-            <a href="/shopnest/pages/brands_products.php?brandName=Louis Philippe"></a>
-            <img src="/shopnest/src/company_partner/louisphilippe.svg" alt="">
+            <a href="/shopnest/pages/brands_products.php?brandName=Louis Philippe">
+                <img src="/shopnest/src/company_partner/louisphilippe.svg" alt="">
             </a>
         </div>
 
