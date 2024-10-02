@@ -325,7 +325,6 @@ function displayRandomProducts($con, $limit)
                         <h1 class="text-base md:text-3xl font-bold">Unleash Your Productivity</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Experience unparalleled performance and style with our cutting-edge laptops.</p>
                         <a href="pages/product_category.php?Category=Laptops/MacBook" class="bg-gray-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
-
                     </div>
                 </div>
                 <div class="swiper-slide flex items-center justify-center">
@@ -334,13 +333,12 @@ function displayRandomProducts($con, $limit)
                         <h1 class="text-base md:text-3xl font-bold">Elevate Your Viewing Experience</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Immerse yourself in stunning clarity and vibrant colors with our latest TVs.</p>
                         <a href="pages/product_category.php?Category=TV" class="bg-gray-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
-
                     </div>
                 </div>
             </div>
             <div class="">
                 <div class="bg-white rounded-full prev-button w-8 h-8 z-50 absolute top-[50%] text-center flex items-center justify-center left-3">
-                    <svg class="w-4 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                    <svg class="w-4 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve">
                         <g>
                             <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
                         </g>
@@ -356,6 +354,7 @@ function displayRandomProducts($con, $limit)
             </div>
         </div>
 
+
         <!-- Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -367,11 +366,49 @@ function displayRandomProducts($con, $limit)
                     disableOnInteraction: false,
                 },
                 navigation: {
-                    nextEl: ".next-button ",
+                    nextEl: ".next-button",
                     prevEl: ".prev-button",
                 },
+                on: {
+                    init: function() {
+                        updateNavButtons(this);
+                    },
+                    slideChange: function() {
+                        updateNavButtons(this);
+                    }
+                }
             });
+
+            function updateNavButtons(swiperInstance) {
+                const prevButton = document.querySelector(".prev-button");
+                const nextButton = document.querySelector(".next-button");
+
+                // Handle prev button state
+                if (swiperInstance.isBeginning) {
+                    prevButton.classList.add("cursor-not-allowed", "opacity-50");
+                    prevButton.classList.remove("cursor-pointer");
+                    prevButton.setAttribute("disabled", "true");
+                    console.log('in');
+                    
+                } else {
+                    prevButton.classList.remove("cursor-not-allowed", "opacity-50");
+                    prevButton.classList.add("cursor-pointer");
+                    prevButton.removeAttribute("disabled");
+                }
+
+                // Handle next button state
+                if (swiperInstance.isEnd) {
+                    nextButton.classList.add("cursor-not-allowed", "opacity-50");
+                    nextButton.classList.remove("cursor-pointer");
+                    nextButton.setAttribute("disabled", "true");
+                } else {
+                    nextButton.classList.remove("cursor-not-allowed", "opacity-50");
+                    nextButton.classList.add("cursor-pointer");
+                    nextButton.removeAttribute("disabled");
+                }
+            }
         </script>
+
 
 
 
