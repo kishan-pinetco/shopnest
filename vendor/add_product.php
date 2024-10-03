@@ -162,7 +162,7 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
-                                    <label for="keyword">Keywords</label>
+                                    <label for="keyword" class="require">Keywords:</label>
                                     <div id="keyword-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
                                         <div class="flex items-center relative">
                                             <input type="text" name="keyword[]" placeholder="Enter keyword" class="relative h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600">
