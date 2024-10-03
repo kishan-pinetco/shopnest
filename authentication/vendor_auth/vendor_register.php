@@ -1,6 +1,6 @@
 <?php
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/user/profile.php");
+    header("Location: /shopnest/index.php");
     exit;
 }
 
@@ -188,7 +188,7 @@ if (isset($_COOKIE['adminEmail'])) {
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="name" class="require font-semibold">Name :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" id="name">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" value="<?php echo isset($_SESSION['name']) ? $_SESSION['name'] : '' ?>" id="name">
                             <small id="vendorName" class="text-red-500 hidden">Enter Valid Name</small>
                         </div>
                     </div>
@@ -303,6 +303,37 @@ if (isset($_POST['submitBtn'])) {
         exit();
     }
 
+    // Allowed file types
+    $allowedFileExtensions = ['jpg', 'jpeg', 'png'];
+    
+    // Function to validate image file type
+    function validateImageType($file, $allowedExtensions) {
+        $fileName = $file['name'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+
+        // Check file extension
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            return "Invalid file type for {$fileName}. Allowed types are: " . implode(", ", $allowedExtensions);
+        }
+
+        return true; // Valid
+    }
+
+    // Validate Cover Image
+    $coverImageValidation = validateImageType($_FILES['CoverImage'], $allowedFileExtensions);
+    if ($coverImageValidation !== true) {
+        echo '<script>displayErrorMessage("' . $coverImageValidation . '");</script>';
+        exit();
+    }
+
+    // Validate Profile Image
+    $profileImageValidation = validateImageType($_FILES['ProfileImage'], $allowedFileExtensions);
+    if ($profileImageValidation !== true) {
+        echo '<script>displayErrorMessage("' . $profileImageValidation . '");</script>';
+        exit();
+    }
+
     $CoverImage = $_FILES['CoverImage']['name'];
     $tempname = $_FILES['CoverImage']['tmp_name'];
     $folder = '../../src/vendor_images/vendor_cover_image/' . $CoverImage;
@@ -320,6 +351,7 @@ if (isset($_POST['submitBtn'])) {
     $bio = $_POST['bio'];
     $Vendor_reg_date = date('d-m-Y');
 
+    // Validate other inputs (same as before)
     $name_pattern = "/^[a-zA-Z]([0-9a-zA-Z\s]){1,14}$/";
     $email_pattern = "/^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
     $password_pattern = "/^.{8,}$/";
@@ -328,6 +360,7 @@ if (isset($_POST['submitBtn'])) {
     $gst_pattern = "/^[a-zA-Z0-9]{1,15}$/";
     $bio_pattern = "/^[\w\s.,!?'()-]{1,500}$/";
 
+    // Validate each field using preg_match
     if (!preg_match($name_pattern, $name)) {
         echo '<script>displayErrorMessage("Enter Valid Name");</script>';
         exit();
@@ -337,15 +370,15 @@ if (isset($_POST['submitBtn'])) {
         exit();
     }
     if (!preg_match($password_pattern, $password)) {
-        echo '<script>displayErrorMessage("Enter Valid password");</script>';
+        echo '<script>displayErrorMessage("Enter Valid Password");</script>';
         exit();
     }
     if (!preg_match($username_pattern, $username)) {
-        echo '<script>displayErrorMessage("Enter Valid username");</script>';
+        echo '<script>displayErrorMessage("Enter Valid Username");</script>';
         exit();
     }
     if (!preg_match($phone_pattern, $phone)) {
-        echo '<script>displayErrorMessage("Enter Valid phone");</script>';
+        echo '<script>displayErrorMessage("Enter Valid Phone");</script>';
         exit();
     }
     if (!preg_match($gst_pattern, $gst)) {
@@ -363,7 +396,6 @@ if (isset($_POST['submitBtn'])) {
     // Check if email already exists
     $email_check = "SELECT * FROM vendor_registration WHERE email = '$email'";
     $check_query = mysqli_query($con, $email_check);
-
     $emailCount = mysqli_num_rows($check_query);
 
     if ($emailCount > 0) {
@@ -377,7 +409,7 @@ if (isset($_POST['submitBtn'])) {
         $insert_sql = mysqli_query($con, $insert_data);
 
         if ($insert_sql) {
-?>
+            ?>
             <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
                 <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                     <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -404,7 +436,7 @@ if (isset($_POST['submitBtn'])) {
             <script>
                 window.location.href = "vendor_login.php";
             </script>
-<?php
+            <?php
         } else {
             echo '<script>displayErrorMessage("Insertion Failed.");</script>';
         }
@@ -412,3 +444,5 @@ if (isset($_POST['submitBtn'])) {
         echo '<script>displayErrorMessage("Error uploading files.");</script>';
     }
 }
+?>
+

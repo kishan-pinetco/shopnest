@@ -1,6 +1,6 @@
 <?php
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/user/profile.php");
+    header("Location: /shopnest/index.php");
     exit;
 }
 
@@ -179,7 +179,6 @@ if (isset($_COOKIE['adminEmail'])) {
         $_SESSION['fname'] = $fname;
         $_SESSION['lname'] = $lname;
         $_SESSION['user_email'] = $email;
-        $_SESSION['password'] = $password;
         $_SESSION['address'] = $address;
         $_SESSION['mobileno'] = $mobileno;
         $_SESSION['state'] = $state;
@@ -211,12 +210,6 @@ if (isset($_COOKIE['adminEmail'])) {
             $iquery = mysqli_query($con, $insert_reg_data);
 
             if ($iquery) {
-                // delete exit cookie
-                if(isset($_COOKIE['userEmail']) && isset($_COOKIE['userPass'])){
-                    setcookie('userEmail', '', time() - 3600, "/");
-                    setcookie('userPass', '', time() - 3600, "/");
-                }
-
                 unset(
                     $_SESSION['fname'],
                     $_SESSION['lname'],
@@ -279,7 +272,7 @@ if (isset($_COOKIE['adminEmail'])) {
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
-                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" :type="showPassword ? 'text' : 'password'" name="password" value="<?php echo isset($_SESSION['password']) ? $_SESSION['password'] : '' ?>" id="password">
+                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" :type="showPassword ? 'text' : 'password'" name="password" value="" id="password">
                         <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                             <!-- Show Icon (when password is hidden) -->
                             <svg x-show="showPassword" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" x="0" y="0" viewBox="0 0 128 128" style="enable-background:new 0 0 512 512" xml:space="preserve">
@@ -297,7 +290,7 @@ if (isset($_COOKIE['adminEmail'])) {
                     </div>
                     <div class="flex flex-col gap-1 md:col-span-2">
                         <label for="address" class="require font-semibold">Address :</label>
-                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" value="<?php echo isset($_SESSION['']) ? $_SESSION[''] : '' ?>" id="address"></textarea>
+                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" value="<?php echo isset($_SESSION['address']) ? $_SESSION['address'] : '' ?>" id="address"></textarea>
                         <small id="addressValid" class="text-red-500 hidden translate-x-1">Enter Valid Address</small>
                     </div>
                     <div class="flex flex-col gap-1">

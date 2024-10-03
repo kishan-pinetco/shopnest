@@ -41,21 +41,8 @@ if (isset($_COOKIE['user_id'])) {
                 $up_pass = "UPDATE user_registration SET password = '$new_dpass' WHERE user_id = '$user_id'";
                 $up_query = mysqli_query($con, $up_pass);
 
-                // update user password
-                $cookie_value = $_COOKIE['userPass'];
-                $cookie_update = $new_pass;
-
-                if (!isset($_COOKIE['userPass'])) {
-                    echo "cookie is not set!";
-                } else {
-                    setcookie('userPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
-                    setcookie('userPass', '', time() - 3600, "/");
-                    setcookie('userPass', $cookie_update, time() + (365 * 24 * 60 * 60), "/");
-                }
-
-
                 if ($up_query) {
-?>
+                ?>
                     <script>
                         alert("Password Updated Successfully.")
                     </script>
@@ -99,20 +86,6 @@ if (isset($_COOKIE['user_id'])) {
         $updateQuery = mysqli_query($con, $update_data);
 
         if ($updateQuery) {
-
-            // update user mail
-            $cookie_mail = $_COOKIE['userEmail'];
-            $cookie_mail_update = $email;
-
-
-            if (!isset($_COOKIE['userEmail'])) {
-                echo "cookie is not set!";
-            } else {
-                setcookie('userEmail', $cookie_mail, time() + (365 * 24 * 60 * 60), "/");
-                setcookie('userEmail', '', time() - 3600, "/");
-                setcookie('userEmail', $cookie_mail_update, time() + (365 * 24 * 60 * 60), "/");
-            }
-
         ?>
             <script>
                 alert("Data Updated Properly.")

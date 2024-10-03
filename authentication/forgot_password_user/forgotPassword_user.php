@@ -1,6 +1,6 @@
 <?php
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/user/profile.php");
+    header("Location: /shopnest/index.php");
     exit;
 }
 
@@ -149,17 +149,6 @@ if (isset($_COOKIE['adminEmail'])) {
 
             $up_pass = "UPDATE user_registration SET password = '$new_dpass' WHERE user_id = '$user_id'";
             $up_query = mysqli_query($con, $up_pass);
-
-            // update user password
-            if($up_query){
-                $cookie_value = $_COOKIE['userPass'];
-                $cookie_update = $new_pass;
-                
-                if (isset($_COOKIE['userPass'])) {
-                    setcookie('userPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
-                    setcookie('userPass', '', time() - 3600, "/");
-                }
-            }
 
             if ($up_query) {
             ?>

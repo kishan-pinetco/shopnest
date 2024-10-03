@@ -161,8 +161,8 @@
                                     $retrieve_order_query = mysqli_query($con, $retrieve_order);
 
                                     while($res = mysqli_fetch_assoc($retrieve_order_query)){
-                                        $today = date('d-m-Y', strtotime($res['date']));
-                                        $future_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+                                        $today = date('Y-m-d', strtotime($res['date']));
+                                        $future_date = date('Y-m-d', strtotime('+5 days', strtotime($today)));
                                     
                                         ?>
                                             <div class="flex flex-col md:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
@@ -189,14 +189,14 @@
                                                                 <div class="flex gap-3 text-center lg:block">
                                                                     <p class="font-medium text-sm leading-7 text-black">Status</p>
                                                                     <?php
-                                                                        $today = date('d-m-Y', strtotime($res['date']));
-                                                                        $oneday = date('d-m-Y', strtotime('+1 days', strtotime($today)));
-                                                                        $secondday = date('d-m-Y', strtotime('+2 days', strtotime($today)));
-                                                                        $thirdday = date('d-m-Y', strtotime('+3 days', strtotime($today)));
-                                                                        $fourday = date('d-m-Y', strtotime('+4 days', strtotime($today)));
-                                                                        $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+                                                                        $today = date('Y-m-d', strtotime($res['date']));
+                                                                        $oneday = date('Y-m-d', strtotime('+1 days', strtotime($today)));
+                                                                        $secondday = date('Y-m-d', strtotime('+2 days', strtotime($today)));
+                                                                        $thirdday = date('Y-m-d', strtotime('+3 days', strtotime($today)));
+                                                                        $fourday = date('Y-m-d', strtotime('+4 days', strtotime($today)));
+                                                                        $fifth = date('Y-m-d', strtotime('+5 days', strtotime($today)));
                                                                         
-                                                                        $todays_date = date('d-m-Y', strtotime('today'));
+                                                                        $todays_date = date('Y-m-d', strtotime('today'));
 
                                                                         if($todays_date <= $today){
                                                                             ?>
@@ -225,14 +225,14 @@
                                                             <div class="col-span-5 lg:col-span-2 flex items-center max-lg:mt-3">
                                                                 <div class="flex flex-col items-center gap-2">
                                                                     <?php
-                                                                        $today = date('d-m-Y', strtotime($res['date']));
-                                                                        $fifth = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+                                                                        $today = date('Y-m-d', strtotime($res['date']));
+                                                                        $fifth = date('Y-m-d', strtotime('+5 days', strtotime($today)));
                                                                         
-                                                                        $todays_date = date('d-m-Y', strtotime('today'));
+                                                                        $todays_date = date('Y-m-d', strtotime('today'));
                                                                         if($todays_date <= $fifth){
                                                                             ?>
                                                                                 <p class="font-medium text-sm whitespace-nowrap leading-6 text-black">Delivery Expected by:</p>
-                                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-blue-500"><?php echo isset($_COOKIE['user_id']) ? $future_date : 'Delivery Date' ?></p>
+                                                                                <p class="font-medium text-base whitespace-nowrap leading-7 text-blue-500"><?php echo isset($_COOKIE['user_id']) ? date('d-m-Y', strtotime($future_date)) : 'Delivery Date' ?></p>
                                                                             <?php
                                                                         }else{
                                                                            ?>

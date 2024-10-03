@@ -1,6 +1,6 @@
 <?php
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/user/profile.php");
+    header("Location: /shopnest/index.php");
     exit;
 }
 
@@ -112,47 +112,35 @@ if (isset($_COOKIE['adminEmail'])) {
     include "../../include/connect.php";
 
     if (isset($_POST['loginBtn'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $email_search = "SELECT * FROM user_registration WHERE email = '$email'";
-        $search_query = mysqli_query($con, $email_search);
-
-        $email_count = mysqli_num_rows($search_query);
-
-        if ($email_count) {
-            $email_pass = mysqli_fetch_assoc($search_query);
-
-            $dbpass = $email_pass['password'];
-
-            $id = $email_pass['user_id'];
-            $fname = $email_pass['first_name'];
-
-            setcookie('user_id', $id, time() + (365 * 24 * 60 * 60), "/");
-            setcookie('fname', $fname, time() + (365 * 24 * 60 * 60), "/");
-
-            $pass_decode = password_verify($password, $dbpass);
-
-            if ($pass_decode) {
-                // Successfully
-                echo '<script>displaySuccessMessage("Login successful.");</script>';
-
-                if (isset($_POST['check'])) {
-                    setcookie('userEmail', $email, time() + (365 * 24 * 60 * 60), "/");
-                    setcookie('userPass', $password, time() + (365 * 24 * 60 * 60), "/");
-
-                    header("Location:../../index.php");
+        $email = trim($_POST['email']);
+        $password = trim($_POST['password']);
+    
+        if (empty($email) || empty($password)) {
+            // error Message for empty fields
+            echo '<script>displayErrorMessage("Email and password are required.");</script>';
+        } else {
+            $email_search = "SELECT * FROM user_registration WHERE email = '$email'";
+            $search_query = mysqli_query($con, $email_search);
+    
+            if ($search_query && mysqli_num_rows($search_query) > 0) {
+                $email_pass = mysqli_fetch_assoc($search_query);
+                $dbpass = $email_pass['password'];
+                $id = $email_pass['user_id'];
+                $fname = $email_pass['first_name'];
+    
+                if (password_verify($password, $dbpass)) {
+                    // Successfully logged in
+                    setcookie('user_id', $id, time() + (365 * 24 * 60 * 60), "/");
+                    setcookie('fname', $fname, time() + (365 * 24 * 60 * 60), "/");
+                    echo '<script>displaySuccessMessage("Login successful.");</script>';    
                 } else {
-                    header("Location:../../index.php");
-                    exit;
+                    // Invalid password
+                    echo '<script>displayErrorMessage("Enter Valid Password.");</script>';
                 }
             } else {
-                // error Message
-                echo '<script>displayErrorMessage("Enter Valid Password.");</script>';
+                // Invalid email
+                echo '<script>displayErrorMessage("Enter Valid Email or Password.");</script>';
             }
-        } else {
-            // error Message
-            echo '<script>displayErrorMessage("Enter Valid Email or Password.");</script>';
         }
     }
     ?>
@@ -178,11 +166,11 @@ if (isset($_COOKIE['adminEmail'])) {
                 <div class="space-y-4 p-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email" value="<?php echo isset($_COOKIE['userEmail']) ? $_COOKIE['userEmail'] : '' ?>">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email">
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
-                        <input class="h-12 rounded-md pr-10 border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" :type="showPassword ? 'text' : 'password'" name="password" id="password" value="<?php echo isset($_COOKIE['userPass']) ? $_COOKIE['userPass'] : '' ?>">
+                        <input class="h-12 rounded-md pr-10 border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" :type="showPassword ? 'text' : 'password'" name="password" id="password">
                         <!-- Toggle Icon Button -->
                         <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                             <!-- Show Icon (when password is hidden) -->
@@ -199,10 +187,6 @@ if (isset($_COOKIE['adminEmail'])) {
                         </span>
                     </div>
                     <div class="flex items-center justify-between flex-wrap">
-                        <label class="keep group flex items-center gap-2 cursor-pointer max-w-max">
-                            <input type="checkbox" class="border-2 text-gray-800 border-[#bbb] group-hover:border-black transition duration-300 rounded-sm cursor-pointer focus:ring-gray-800" name="check" id="">
-                            <p class="text-[#8b929c] group-hover:text-black transition duration-300">Remember me</p>
-                        </label>
                         <a href="/shopnest/authentication/forgot_password_user/forgotPass_email_user.php" class="text-sm font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
                     </div>
                     <div class="text-center">

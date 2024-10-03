@@ -1,6 +1,6 @@
 <?php
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/user/profile.php");
+    header("Location: /shopnest/index.php");
     exit;
 }
 
@@ -53,162 +53,92 @@ if (isset($_COOKIE['adminEmail'])) {
 
 <body class="flex justify-center items-center h-[100vh] p-2" style="font-family: 'Outfit', sans-serif;">
 
+    <!-- Successfully message container -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="Successfully"></div>
+        </div>
+    </div>
+
+    <!-- Error message container -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="errorMessage"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript function -->
+    <script>
+        function displayErrorMessage(message) {
+            let popUp = document.getElementById('popUp');
+            let errorMessage = document.getElementById('errorMessage');
+
+            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+            popUp.style.display = 'flex';
+            popUp.style.opacity = '100';
+
+            setTimeout(() => {
+                popUp.style.display = 'none';
+                popUp.style.opacity = '0';
+            }, 1500);
+        }
+
+        function displaySuccessMessage(message) {
+            let SpopUp = document.getElementById('SpopUp');
+            let Successfully = document.getElementById('Successfully');
+
+            Successfully.innerHTML = '<span class="font-medium">' + message + '</span>';
+            SpopUp.style.display = 'flex';
+            SpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                SpopUp.style.display = 'none';
+                SpopUp.style.opacity = '0';
+            }, 1500);
+            window.location.href = "../../index.php";
+        }
+    </script>
+
     <?php
     include "../../include/connect.php";
-
+        
     if (isset($_POST['loginBtn'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $email_search = "SELECT * FROM vendor_registration WHERE email = '$email'";
-        $search_query = mysqli_query($con, $email_search);
-
-        $email_count = mysqli_num_rows($search_query);
-
-        if ($email_count) {
-            $email_pass = mysqli_fetch_assoc($search_query);
-
-            $dbpass = $email_pass['password'];
-
-            $id = $email_pass['vendor_id'];
-
-
-            setcookie('vendor_id', $id, time() + (365 * 24 * 60 * 60), "/");
-
-            $pass_decode = password_verify($password, $dbpass);
-
-            if ($pass_decode) {
-    ?>
-                <!-- Successfully -->
-                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
-                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                        <div>
-                            <span class="font-medium">Login successful.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    let SpopUp = document.getElementById('SpopUp');
-
-                    SpopUp.style.display = 'flex';
-                    SpopUp.style.opacity = '100';
-
-                    setTimeout(() => {
-                        SpopUp.style.display = 'none';
-                        SpopUp.style.opacity = '0';
-                        window.location.href = "../../vendor/vendor_dashboard.php";
-                    }, 1500);
-                </script>
-                <?php
-
-                if (isset($_POST['check'])) {
-
-                    setcookie('vendorEmail', $email, time() + (365 * 24 * 60 * 60), "/");
-                    setcookie('vendorPass', $password, time() + (365 * 24 * 60 * 60), "/");
-
-                    header("Location:../../vendor/vendor_dashboard.php");
-                } else {
-                    header("Location:../../vendor/vendor_dashboard.php");
-                    exit;
-                }
-            } else {
-                ?>
-                <!-- Error -->
-                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
-                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                        <div>
-                            <span class="font-medium">Enter Valid Email Or Password.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    let EpopUp = document.getElementById('EpopUp');
-
-                    EpopUp.style.display = 'flex';
-                    EpopUp.style.opacity = '100';
-
-                    setTimeout(() => {
-                        EpopUp.style.display = 'none';
-                        EpopUp.style.opacity = '0';
-                    }, 1500);
-                </script>
-                <?php
-            }
+        $email = trim($_POST['email']);
+        $password = trim($_POST['password']);
+    
+        // Check if fields are empty
+        if (empty($email) || empty($password)) {
+            echo '<script>displayErrorMessage("Email and password are required.");</script>';
         } else {
-            if (isset($_POST['loginBtn'])) {
-                if ($_POST['email'] === 'iamAdmin07@gmail.com' && $_POST['password'] === 'Admin392004') {
-                    $admin_email = $_POST['email'];
-                    $admin_pass = $_POST['password'];
-
-                    setcookie('adminEmail', $admin_email, time() + (365 * 24 * 60 * 60), "/");
-                    setcookie('adminPass', $admin_pass, time() + (365 * 24 * 60 * 60), "/");
-
-                ?>
-                    <!-- Successfully -->
-                    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
-                        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                            </svg>
-                            <span class="sr-only">Info</span>
-                            <div>
-                                <span class="font-medium">Login successful.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        let ApopUp = document.getElementById('ApopUp');
-
-                        ApopUp.style.display = 'flex';
-                        ApopUp.style.opacity = '100';
-
-                        setTimeout(() => {
-                            ApopUp.style.display = 'none';
-                            ApopUp.style.opacity = '0';
-                            window.location.href = "../../admin/dashboard.php";
-                        }, 1500);
-                    </script>
-                <?php
-                    exit;
+            // Query to find the user by email
+            $email_search = "SELECT * FROM vendor_registration WHERE email = '$email'";
+            $search_query = mysqli_query($con, $email_search);
+        
+            if ($search_query && mysqli_num_rows($search_query) > 0) {
+                $email_pass = mysqli_fetch_assoc($search_query);
+                $dbpass = $email_pass['password'];
+                $id = $email_pass['vendor_id'];
+            
+                // Verify the password
+                if (password_verify($password, $dbpass)) {
+                    // Successful login
+                    setcookie('vendor_id', $id, time() + (365 * 24 * 60 * 60), "/");
+                    echo '<script>displaySuccessMessage("Login successful.");</script>';    
+                } else {
+                    // Invalid password
+                    echo '<script>displayErrorMessage("Invalid password.");</script>';
                 }
             } else {
-                ?>
-                <!-- Error -->
-                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp_2" style="display: none;">
-                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                        <div>
-                            <span class="font-medium">Enter Valid Email or Password.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    let EpopUp_2 = document.getElementById('EpopUp_2');
-
-                    EpopUp_2.style.display = 'flex';
-                    EpopUp_2.style.opacity = '100';
-
-                    setTimeout(() => {
-                        EpopUp_2.style.display = 'none';
-                        EpopUp_2.style.opacity = '0';
-                    }, 1500);
-                </script>
-    <?php
+                // Invalid email
+                echo '<script>displayErrorMessage("Invalid Email or Password.");</script>';
             }
         }
     }
@@ -235,11 +165,11 @@ if (isset($_COOKIE['adminEmail'])) {
                 <div class="space-y-4 p-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email" value="<?php echo isset($_COOKIE['vendorEmail']) ? $_COOKIE['vendorEmail'] : '' ?>">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email" value="">
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
-                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" :type="showPassword ? 'text' : 'password'" name="password" id="password" value="<?php echo isset($_COOKIE['vendorPass']) ? $_COOKIE['vendorPass'] : '' ?>">
+                        <input class="h-12 rounded-md border-2 pr-10 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" :type="showPassword ? 'text' : 'password'" name="password" id="password" value="">
                         <!-- Toggle Icon Button -->
                         <span class="absolute top-[2.50rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                             <!-- Show Icon (when password is hidden) -->
@@ -256,10 +186,6 @@ if (isset($_COOKIE['adminEmail'])) {
                         </span>
                     </div>
                     <div class="flex items-center justify-between flex-wrap">
-                        <label class="keep group flex items-center gap-2 cursor-pointer max-w-max">
-                            <input type="checkbox" class="border-2 text-gray-700 border-[#bbb] group-hover:border-black transition duration-300 rounded-sm cursor-pointer focus:ring-gray-700" name="check" id="">
-                            <p class="text-[#8b929c] group-hover:text-black transition duration-300">Remember me</p>
-                        </label>
                         <a href="/shopnest/authentication/forgot_password_vendor/forgotPass_email_vendor.php" class="text-sm font-semibold tracking-wide flex justify-end underline">Forgot password?</a>
                     </div>
                     <div class="text-center">
