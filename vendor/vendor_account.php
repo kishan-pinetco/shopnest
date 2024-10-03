@@ -41,20 +41,6 @@ if (isset($_COOKIE['vendor_id'])) {
         $update_query = mysqli_query($con, $updateVenodr);
 
         if ($update_query) {
-
-            // update vendor mail
-            $cookie_mail = $_COOKIE['vendorEmail'];
-            $cookie_mail_update = $email;
-
-
-            if (!isset($_COOKIE['vendorEmail'])) {
-                echo "cookie is not set!";
-            } else {
-                setcookie('vendorEmail', $cookie_mail, time() + (365 * 24 * 60 * 60), "/");
-                setcookie('vendorEmail', '', time() - 3600, "/");
-                setcookie('vendorEmail', $cookie_mail_update, time() + (365 * 24 * 60 * 60), "/");
-            }
-
             // Check for Cover file upload
             if (move_uploaded_file($tempname, $folder)) {
                 $vendor_id = $_COOKIE['vendor_id'];

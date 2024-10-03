@@ -1,6 +1,6 @@
 <?php
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/user/profile.php");
+    header("Location: /shopnest/index.php");
     exit;
 }
 
@@ -145,14 +145,6 @@ if (isset($_COOKIE['adminEmail'])) {
             $up_query = mysqli_query($con, $up_pass);
 
             if ($up_query) {
-                // update user password
-                $cookie_value = $_COOKIE['vendorPass'];
-                $cookie_update = $new_pass;
-
-                if (isset($_COOKIE['vendorPass'])) {
-                    setcookie('vendorPass', $cookie_value, time() + (365 * 24 * 60 * 60), "/");
-                    setcookie('vendorPass', '', time() - 3600, "/");
-                }
             ?>
                 <!-- Successfully -->
                 <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
