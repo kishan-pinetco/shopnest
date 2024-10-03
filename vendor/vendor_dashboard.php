@@ -228,7 +228,7 @@ if (isset($_COOKIE['vendor_id'])) {
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-gray-500"><?php echo isset($_COOKIE['vendor_id']) ? '₹' . number_format($totalSale) : '0' ?></h3>
-                                <span class="text-sm font-medium text-gray-500">Total Sale</span>
+                                <span class="text-sm font-medium text-gray-500">Total Sales</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
@@ -255,7 +255,7 @@ if (isset($_COOKIE['vendor_id'])) {
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-gray-950"><?php echo isset($_COOKIE['vendor_id']) ? $products : '0' ?></h3>
-                                <span class="text-sm font-medium text-gray-500">Total Product</span>
+                                <span class="text-sm font-medium text-gray-500">Total Products</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">

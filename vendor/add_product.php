@@ -1,13 +1,13 @@
 <?php
-    if(isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/user/profile.php");
-        exit;
-    }
+if (isset($_COOKIE['user_id'])) {
+    header("Location: /shopnest/user/profile.php");
+    exit;
+}
 
-    if(isset($_COOKIE['adminEmail'])){
-        header("Location: /shopnest/admin/dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['adminEmail'])) {
+    header("Location: /shopnest/admin/dashboard.php");
+    exit;
+}
 ?>
 
 <?php
@@ -55,11 +55,21 @@ if (isset($_GET['name'])) {
 
     <!-- title -->
     <title>Add Products</title>
+
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+            font-size: medium;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
 
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>            
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
     <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
         <div class="flex items-center justify-center">
@@ -98,27 +108,27 @@ if (isset($_GET['name'])) {
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
-                                    <label for="full_name">Product Tital <span class="text-red-600 text-lg">*</span></label>
+                                    <label for="full_name" class="require">Product Tital:</label>
                                     <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['full_name']) ? $_SESSION['full_name'] : ''; ?>" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="Company_name">Company Name<span class="text-red-600 text-lg">*</span></label>
+                                    <label for="Company_name" class="require">Company Name:</label>
                                     <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['Company_name']) ? $_SESSION['Company_name'] : ''; ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="category">Category<span class="text-red-600 text-lg">*</span></label>
-                                    <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_GET['name']) ? $product : 'Category' ?>" placeholder="" />
+                                    <label for="category" class="require">Category:</label>
+                                    <input type="text" name="Category" id="Category" class="cursor-not-allowed opacity-60 h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_GET['name']) ? $product : 'Category' ?>" placeholder="" disabled />
                                 </div>
 
                                 <div class="md:col-span-1">
-                                    <label for="type">Type<span class="text-red-600 text-lg">*</span></label>
+                                    <label for="type" class="reqire">Type</label>
                                     <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['type']) ? $_SESSION['type'] : ''; ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-3">
-                                    <label for="MRP">MRP<span class="text-red-600 text-lg">*</span></label>
+                                    <label for="MRP" class="require">MRP:</label>
                                     <div class="relative">
                                         <input type="number" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['your_price']) ? $_SESSION['your_price'] : ''; ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
@@ -126,7 +136,7 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="your_price">Your Price<span class="text-red-600 text-lg">*</span></label>
+                                    <label for="your_price" class="require">Your Price:</label>
                                     <div class="relative">
                                         <input type="number" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['MRP']) ? $_SESSION['MRP'] : ''; ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
@@ -134,12 +144,12 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-3">
-                                    <label for="quantity">Quantity<span class="text-red-600 text-lg">*</span></label>
+                                    <label for="quantity" class="require">Quantity:</label>
                                     <input type="number" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['quantity']) ? $_SESSION['quantity'] : ''; ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="condition">Item Condition<span class="text-red-600 text-lg">*</span></label>
+                                    <label for="condition" class="require">Item Condition:</label>
                                     <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['condition']) ? $_SESSION['condition'] : ''; ?>">
                                         <option value="New Condition">New Condition</option>
                                         <option value="Old Condition">Old Condition</option>
@@ -147,7 +157,7 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-5">
-                                    <label for="description">Description<span class="text-red-600 text-lg">*</span></label>
+                                    <label for="description" class="require">Description:</label>
                                     <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600 resize-none" value="<?php echo isset($_SESSION['description']) ? $_SESSION['description'] : ''; ?>" placeholder=""></textarea>
                                 </div>
 
@@ -178,7 +188,7 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-5 mt-4">
-                                    <label for="" class="text-lg">Images:<span class="text-red-600 text-lg">*</span></label>
+                                    <label for="" class="text-lg require">Images:</label>
                                     <div class="grid grid-cols-1 min-[700px]:grid-cols-3 md:grid-cols-4 gap-y-12 gap-5 mt-9">
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
@@ -244,7 +254,7 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-5 mt-4">
-                                    <label for="" class="text-lg">Cover Images:</label>
+                                    <label for="" class="text-lg require">Cover Images:</label>
                                     <div class="grid grid-cols-1 min-[321px]:grid-cols-2 md:grid-cols-4 gap-y-12 gap-5 mt-9">
                                         <div class="">
                                             <div class="relative flex items-stretch justify-center -mt-8">
@@ -311,7 +321,7 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-5 text-right mt-7">
                                     <div class="inline-flex items-end">
-                                        <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                        <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
                                     </div>
                                 </div>
                             </div>
@@ -675,9 +685,9 @@ if (isset($_POST['submitBtn'])) {
 
     $color = $_POST['color'];
 
-    if(isset($_POST['color'])){
+    if (isset($_POST['color'])) {
         $pcolor = $_POST['color'];
-    }else{
+    } else {
         $pcolor = '-';
     }
 
@@ -742,57 +752,57 @@ if (isset($_POST['submitBtn'])) {
     $_SESSION['description'] = $description;
     $_SESSION['color'] = $pcolor;
 
-    if(empty($full_name)){
+    if (empty($full_name)) {
         echo '<script>displayErrorMessage("Please fill Product Title.");</script>';
         exit();
     }
 
-    if(empty($Company_name)){
+    if (empty($Company_name)) {
         echo '<script>displayErrorMessage("Please fill Company Name.");</script>';
         exit();
     }
 
-    if(empty($Category)){
+    if (empty($Category)) {
         echo '<script>displayErrorMessage("Please fill Category.");</script>';
         exit();
     }
 
-    if(empty($type)){
+    if (empty($type)) {
         echo '<script>displayErrorMessage("Please fill Type.");</script>';
         exit();
     }
 
-    if(empty($your_price)){
+    if (empty($your_price)) {
         echo '<script>displayErrorMessage("Please fill Your Price.");</script>';
         exit();
     }
 
-    if(empty($MRP)){
+    if (empty($MRP)) {
         echo '<script>displayErrorMessage("Please fill MRP.");</script>';
         exit();
     }
 
-    if(empty($quantity)){
+    if (empty($quantity)) {
         echo '<script>displayErrorMessage("Please fill Quantity.");</script>';
         exit();
     }
 
-    if(empty($condition)){
+    if (empty($condition)) {
         echo '<script>displayErrorMessage("Please fill Condition.");</script>';
         exit();
     }
 
-    if(empty($keywords_value)){
+    if (empty($keywords_value)) {
         echo '<script>displayErrorMessage("Please fill Keywords.");</script>';
         exit();
     }
 
-    if(empty($ProfileImage1)){
+    if (empty($ProfileImage1)) {
         echo '<script>displayErrorMessage("Please Insert ProfileImage1 Image.");</script>';
         exit();
     }
 
-    if(empty($ProfileImage2)){
+    if (empty($ProfileImage2)) {
         echo '<script>displayErrorMessage("Please Insert ProfileImage2 Image.");</script>';
         exit();
     }
