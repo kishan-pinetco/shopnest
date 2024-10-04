@@ -295,27 +295,27 @@ if (isset($_COOKIE['adminEmail'])) {
                     </div>
                     <div class="flex flex-col gap-1 md:col-span-2">
                         <label for="address" class="require font-semibold">Address :</label>
-                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" id="address"><?php echo isset($_SESSION['address']) ? $_SESSION['address'] : '' ?></textarea>
+                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" id="address"><?php echo isset($_SESSION['user_address']) ? $_SESSION['user_address'] : '' ?></textarea>
                         <small id="addressValid" class="text-red-500 hidden translate-x-1">Enter Valid Address</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="mobileno" class="require font-semibold">Mobile No :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="mobileno" value="<?php echo isset($_SESSION['mobileno']) ? $_SESSION['mobileno'] : '' ?>" id="mobileno" maxlength="10">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="mobileno" value="<?php echo isset($_SESSION['user_mobileno']) ? $_SESSION['user_mobileno'] : '' ?>" id="mobileno" maxlength="10">
                         <small id="mobilenoValid" class="text-red-500 hidden translate-x-1">Enter Valid Numbers</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="state" class="require font-semibold">State :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="state" value="<?php echo isset($_SESSION['state']) ? $_SESSION['state'] : '' ?>" id="state">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="state" value="<?php echo isset($_SESSION['user_state']) ? $_SESSION['user_state'] : '' ?>" id="state">
                         <small id="stateValid" class="text-red-500 hidden translate-x-1">Enter Valid State</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="city" class="require font-semibold">City :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="city" value="<?php echo isset($_SESSION['city']) ? $_SESSION['city'] : '' ?>" id="city">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="city" value="<?php echo isset($_SESSION['user_city']) ? $_SESSION['user_city'] : '' ?>" id="city">
                         <small id="cityValid" class="text-red-500 hidden translate-x-1">Enter Valid City</small>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="pincode" class="require font-semibold">Pincode :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="pincode" value="<?php echo isset($_SESSION['pincode']) ? $_SESSION['pincode'] : '' ?>" id="pincode" maxlength="6">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="pincode" value="<?php echo isset($_SESSION['user_pincode']) ? $_SESSION['user_pincode'] : '' ?>" id="pincode" maxlength="6">
                         <small id="pincodeValid" class="text-red-500 hidden translate-x-1">Enter Valid Pincode</small>
                     </div>
                 </div>

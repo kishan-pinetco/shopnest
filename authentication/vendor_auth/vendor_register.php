@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+unset($_SESSION['vendorEmail']);
+
 unset(
     $_SESSION['fname'],
     $_SESSION['lname'],
@@ -201,14 +204,14 @@ if (isset($_COOKIE['adminEmail'])) {
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="name" class="require font-semibold">Name :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" value="<?php echo isset($_SESSION['name']) ? $_SESSION['name'] : '' ?>" id="name">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" value="<?php echo isset($_SESSION['vendor_name']) ? $_SESSION['vendor_name'] : '' ?>" id="name">
                             <small id="vendorName" class="text-red-500 hidden">Enter Valid Name</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="email" class="require font-semibold">Email :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : '' ?>" id="email">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" value="<?php echo isset($_SESSION['vendor_email']) ? $_SESSION['vendor_email'] : '' ?>" id="email">
                             <small id="vendorEmail" class="text-red-500 hidden">Enter Valid Email</small>
                         </div>
                     </div>
@@ -242,21 +245,21 @@ if (isset($_COOKIE['adminEmail'])) {
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="phone" class="require font-semibold">Phone :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" maxlength="10" name="phone" value="<?php echo isset($_SESSION['phone']) ? $_SESSION['phone'] : '' ?>" id="phone">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" maxlength="10" name="phone" value="<?php echo isset($_SESSION['vendor_phone']) ? $_SESSION['vendor_phone'] : '' ?>" id="phone">
                             <small id="vendorPhone" class="text-red-500 hidden">Enter Valid Phone Number</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="gst" class="require font-semibold">GST :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="gst" value="<?php echo isset($_SESSION['gst']) ? $_SESSION['gst'] : '' ?>" id="gst">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="gst" value="<?php echo isset($_SESSION['vendor_gst']) ? $_SESSION['vendor_gst'] : '' ?>" id="gst">
                             <small id="vendorGst" class="text-red-500 hidden">Enter Valid GST Number</small>
                         </div>
                     </div>
                     <div class="col-span-4">
                         <div class="flex flex-col gap-1 ">
                             <label for="bio" class="require font-semibold">Bio :</label>
-                            <textarea class="h-16 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="bio" id="bio"><?php echo isset($_SESSION['bio']) ? $_SESSION['bio'] : '' ?></textarea>
+                            <textarea class="h-16 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="bio" id="bio"><?php echo isset($_SESSION['vendor_bio']) ? $_SESSION['vendor_bio'] : '' ?></textarea>
                             <small id="vendorBio" class="text-red-500 hidden">Enter Bio</small>
                         </div>
                     </div>

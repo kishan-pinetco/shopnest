@@ -113,12 +113,12 @@ if (isset($_COOKIE['adminEmail'])) {
     session_start();
     
     unset(
-        $_SESSION['name'],
-        $_SESSION['email'],
+        $_SESSION['vendor_name'],
+        $_SESSION['vendor_email'],
         $_SESSION['username'],
-        $_SESSION['phone'],
-        $_SESSION['gst'],
-        $_SESSION['bio']
+        $_SESSION['vendor_phone'],
+        $_SESSION['vendor_gst'],
+        $_SESSION['vendor_bio']
     );
         
     if (isset($_POST['loginBtn'])) {
@@ -146,15 +146,6 @@ if (isset($_COOKIE['adminEmail'])) {
                     setcookie('vendor_id', $id, time() + (365 * 24 * 60 * 60), "/");
 
                     unset($_SESSION['vendorEmail']);
-
-                    unset(
-                        $_SESSION['vendor_name'],
-                        $_SESSION['vendor_email'],
-                        $_SESSION['username'],
-                        $_SESSION['vendor_phone'],
-                        $_SESSION['vendor_gst'],
-                        $_SESSION['vendor_bio']
-                    );
 
                     echo '<script>displaySuccessMessage("Login successful.");</script>';    
                 } else {
