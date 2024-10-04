@@ -40,62 +40,67 @@ document.getElementById('add-keyword').addEventListener('click', function(event)
 
 
 // upload images
-function setupImagePreview(imageInputId, previewImageId, imageLabelId) {
-    const imageInput = document.getElementById(imageInputId);
-    const previewImage = document.getElementById(previewImageId);
-    const imageLabel = document.getElementById(imageLabelId);
+function productImagePreview(event, previewImageId, imageTextId) {
+        const file = event.target.files[0];
+        const previewImage = document.getElementById(previewImageId);
+        const imageText = document.getElementById(imageTextId);
+        const errorMessage = document.getElementById('error-message' + previewImageId.charAt(previewImageId.length - 1));
 
-    function previewSelectedImage() {
-        const file = imageInput.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function(e) {
-                previewImage.src = e.target.result;
-                imageLabel.classList.add('hidden'); // Hide the label
-            };
+            const fileType = file.type;
+            if (fileType === "image/png" || fileType === "image/jpeg" || fileType === "image/jpg") {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result; // Set the preview image source
+                    previewImage.classList.remove('hidden'); // Show the preview
+                    imageText.classList.add('hidden'); // Hide the placeholder text
+                    errorMessage.classList.add('hidden'); // Hide the error message
+                };
+                reader.readAsDataURL(file);
+            } else {
+                errorMessage.classList.remove('hidden'); // Show error message
+                previewImage.src = ''; // Clear the image source
+                previewImage.classList.add('hidden'); // Hide the preview image
+                imageText.classList.remove('hidden'); // Show the placeholder text
+            }
+        } else {
+            previewImage.src = ''; // Clear the image source
+            previewImage.classList.add('hidden'); // Hide the preview image
+            imageText.classList.remove('hidden'); // Show the placeholder text
         }
     }
 
-    imageInput.addEventListener('change', previewSelectedImage);
-}
+// Cover image js
+// function productImagePreview(event, previewImageId, imageTextId) {
+//     const file = event.target.files[0];
+//     const previewImage = document.getElementById(previewImageId);
+//     const imageText = document.getElementById(imageTextId);
+//     const errorMessage = document.getElementById('coverImage-error-message' + previewImageId.charAt(previewImageId.length - 1));
 
-// Setup for each image input
-setupImagePreview('imageInput1', 'previewImage1', 'imageLabel1');
-setupImagePreview('imageInput2', 'previewImage2', 'imageLabel2');
-setupImagePreview('imageInput3', 'previewImage3', 'imageLabel3');
-setupImagePreview('imageInput4', 'previewImage4', 'imageLabel4');
-
-
-
-
-
-// Reusable function to handle image previewing
-function setupImagePreview(inputId, previewId, labelId) {
-    const imageInput = document.getElementById(inputId);
-    const previewImage = document.getElementById(previewId);
-    const imageLabel = document.getElementById(labelId);
-
-    function previewImageFile() {
-        const file = imageInput.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewImage.src = e.target.result;
-                imageLabel.classList.add('hidden'); // Hide the label
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-
-    imageInput.addEventListener('change', previewImageFile);
-}
-
-// Setup for each cover image
-setupImagePreview('CoverimageInput1', 'previewCoverImage1', 'CoverimageLabel1');
-setupImagePreview('CoverimageInput2', 'previewCoverImage2', 'CoverimageLabel2');
-setupImagePreview('CoverimageInput3', 'previewCoverImage3', 'CoverimageLabel3');
-setupImagePreview('CoverimageInput4', 'previewCoverImage4', 'CoverimageLabel4');
+//     if (file) {
+//         const fileType = file.type;
+//         // Check for valid image file types
+//         if (fileType === "image/png" || fileType === "image/jpeg" || fileType === "image/jpg") {
+//             const reader = new FileReader();
+//             reader.onload = function(e) {
+//                 previewImage.src = e.target.result; // Set the preview image source
+//                 previewImage.classList.remove('hidden'); // Show the preview image
+//                 imageText.classList.add('hidden'); // Hide the placeholder text
+//                 errorMessage.classList.add('hidden'); // Hide the error message
+//             };
+//             reader.readAsDataURL(file);
+//         } else {
+//             errorMessage.classList.remove('hidden'); // Show error message
+//             previewImage.src = ''; // Clear the image source
+//             previewImage.classList.add('hidden'); // Hide the preview image
+//             imageText.classList.remove('hidden'); // Show the placeholder text
+//         }
+//     } else {
+//         previewImage.src = ''; // Clear the image source
+//         previewImage.classList.add('hidden'); // Hide the preview image
+//         imageText.classList.remove('hidden'); // Show the placeholder text
+//     }
+// }
 
 
 // displaly error msg
