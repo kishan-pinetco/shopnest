@@ -1,4 +1,7 @@
 <?php
+
+    session_start();
+    
     if(isset($_COOKIE['user_id'])){
         header("Location: /shopnest/user/profile.php");
         exit;
@@ -7,6 +10,34 @@
     if(isset($_COOKIE['adminEmail'])){
         header("Location: /shopnest/admin/dashboard.php");
         exit;
+    }
+
+    if(isset($_SESSION['full_name'])){
+        unset($_SESSION['full_name']);
+    }
+    if(isset($_SESSION['Company_name'])){
+        unset($_SESSION['Company_name']);
+    }
+    if(isset($_SESSION['type'])){
+        unset($_SESSION['type']);
+    }
+    if(isset($_SESSION['your_price'])){
+        unset($_SESSION['your_price']);
+    }
+    if(isset($_SESSION['MRP'])){
+        unset($_SESSION['MRP']);
+    }
+    if(isset($_SESSION['quantity'])){
+        unset($_SESSION['quantity']);
+    }
+    if(isset($_SESSION['condition'])){
+        unset($_SESSION['condition']);
+    }
+    if(isset($_SESSION['description'])){
+        unset($_SESSION['description']);
+    }
+    if(isset($_SESSION['color'])){
+        unset($_SESSION['color']);
     }
 ?>
 

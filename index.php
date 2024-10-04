@@ -15,6 +15,37 @@ if (isset($_COOKIE['adminEmail'])) {
 <?php
 include "include/connect.php";
 
+session_start();
+
+if(isset($_SESSION['searchWord'])){
+    unset($_SESSION['searchWord']);
+}
+
+if(isset($_SESSION['selectedSize'])){
+    unset($_SESSION['selectedSize']);
+}
+
+if(isset($_SESSION['userEmail'])){
+    unset($_SESSION['userEmail']);
+}
+
+if(isset($_SESSION['vendorEmail'])){
+    unset($_SESSION['vendorEmail']);
+}
+
+unset(
+    $_SESSION['fname'],
+    $_SESSION['lname'],
+    $_SESSION['user_email'],
+    $_SESSION['password'],
+    $_SESSION['address'],
+    $_SESSION['mobileno'],
+    $_SESSION['state'],
+    $_SESSION['city'],
+    $_SESSION['pincode'],
+    $_SESSION['user_reg_date']
+);
+
 // session_start();
 
 // if (isset($_SESSION['views'])) {

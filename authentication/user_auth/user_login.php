@@ -114,6 +114,9 @@ if (isset($_COOKIE['adminEmail'])) {
     if (isset($_POST['loginBtn'])) {
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
+
+        session_start();
+        $_SESSION['userEmail'] = $email;
     
         if (empty($email) || empty($password)) {
             // error Message for empty fields
@@ -126,12 +129,15 @@ if (isset($_COOKIE['adminEmail'])) {
                 $email_pass = mysqli_fetch_assoc($search_query);
                 $dbpass = $email_pass['password'];
                 $id = $email_pass['user_id'];
-                $fname = $email_pass['first_name'];
+                $fname = $email_pass['first_name'];        
     
                 if (password_verify($password, $dbpass)) {
                     // Successfully logged in
                     setcookie('user_id', $id, time() + (365 * 24 * 60 * 60), "/");
                     setcookie('fname', $fname, time() + (365 * 24 * 60 * 60), "/");
+
+                    unset($_SESSION['userEmail']);
+
                     echo '<script>displaySuccessMessage("Login successful.");</script>';    
                 } else {
                     // Invalid password
@@ -166,7 +172,7 @@ if (isset($_COOKIE['adminEmail'])) {
                 <div class="space-y-4 p-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" value="<?php echo isset($_SESSION['userEmail']) ? $_SESSION['userEmail'] : '' ?>" name="email" id="email">
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>

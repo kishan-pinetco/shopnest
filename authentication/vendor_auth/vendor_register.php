@@ -188,7 +188,7 @@ if (isset($_COOKIE['adminEmail'])) {
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="name" class="require font-semibold">Name :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" value="<?php echo isset($_SESSION['name']) ? $_SESSION['name'] : '' ?>" id="name">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" value="" id="name">
                             <small id="vendorName" class="text-red-500 hidden">Enter Valid Name</small>
                         </div>
                     </div>
@@ -445,4 +445,3 @@ if (isset($_POST['submitBtn'])) {
     }
 }
 ?>
-

@@ -47,12 +47,20 @@ if (isset($_GET['product_id'])) {
         $formated_num =  number_format($product_price_per_unit);
 
         $json_img = $res["image"];
-
+            
         $color_img = json_decode($json_img, true);
+            
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            die("Invalid JSON: " . json_last_error_msg());
+        }
+        
+        if (isset($color_img[$product_color]) && is_array($color_img[$product_color])) {
+            $first_img = $color_img[$product_color];
+            $first_img1 = isset($first_img['img1']) ? $first_img['img1'] : '';
+        } else {
+            $first_img1 = ''; // Handle case where $color_img[$product_color] is not an array
+        }
 
-        $first_img = isset($color_img[$product_color]) ? $color_img[$product_color] : '';
-
-        $first_img1 = $first_img['img1'];
 
         $cart_products = [];
 

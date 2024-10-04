@@ -141,14 +141,21 @@ if (isset($_COOKIE['adminEmail'])) {
         // Validation for first name
         if (!preg_match($firstname_pattern, $fname)) {
             echo '<script>displayErrorMessage("First name must be 2-10 character long and shuld not start with a number.");</script>';
+        }else{
+            $_SESSION['fname'] = $fname;
         }
         // Validation for last name
         if (!preg_match($lastname_pattern, $lname)) {
             echo '<script>displayErrorMessage("Last name must be 2-10 character long and shuld not start with a number.");</script>';
+        }else{
+            $_SESSION['lname'] = $lname;
         }
+
         // Validation for email
         if (!preg_match($email_pattern, $email)) {
             echo '<script>displayErrorMessage("Invalid Email.");</script>';
+        }else{
+            $_SESSION['user_email'] = $email;
         }
         // Validation for password
         if (!preg_match($password_pattern, $password)) {
@@ -157,35 +164,33 @@ if (isset($_COOKIE['adminEmail'])) {
         // Validation for adddress
         if (!preg_match($address_pattern, $address)) {
             echo '<script>displayErrorMessage("Invalid Address.");</script>';
+        }else{
+            $_SESSION['address'] = $address;
         }
         // Validation for phone number
         if (!preg_match($number_pattern, $mobileno)) {
             echo '<script>displayErrorMessage("Invalid Phone Number.");</script>';
+        }else{
+            $_SESSION['mobileno'] = $mobileno;
         }
         // Validation for state
         if (!preg_match($state_pattern, $state)) {
             echo '<script>displayErrorMessage("Invalid State.");</script>';
+        }else{
+            $_SESSION['state'] = $state;
         }
         // Validation for City
         if (!preg_match($city_pattern, $city)) {
             echo '<script>displayErrorMessage("Invalid City.");</script>';
+        }else{
+            $_SESSION['city'] = $city;
         }
         // Validation for pincode
         if (!preg_match($pincode_pattern, $pincode)) {
             echo '<script>displayErrorMessage("Invalid Pincode.");</script>';
+        }else{
+            $_SESSION['pincode'] = $pincode;
         }
-
-        // store data in session
-        $_SESSION['fname'] = $fname;
-        $_SESSION['lname'] = $lname;
-        $_SESSION['user_email'] = $email;
-        $_SESSION['address'] = $address;
-        $_SESSION['mobileno'] = $mobileno;
-        $_SESSION['state'] = $state;
-        $_SESSION['city'] = $city;
-        $_SESSION['pincode'] = $pincode;
-        $_SESSION['user_reg_date'] = $user_reg_date;
-
 
 
         // hash pass
@@ -290,7 +295,7 @@ if (isset($_COOKIE['adminEmail'])) {
                     </div>
                     <div class="flex flex-col gap-1 md:col-span-2">
                         <label for="address" class="require font-semibold">Address :</label>
-                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" value="<?php echo isset($_SESSION['address']) ? $_SESSION['address'] : '' ?>" id="address"></textarea>
+                        <textarea class="h-full rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="address" id="address"><?php echo isset($_SESSION['address']) ? $_SESSION['address'] : '' ?></textarea>
                         <small id="addressValid" class="text-red-500 hidden translate-x-1">Enter Valid Address</small>
                     </div>
                     <div class="flex flex-col gap-1">

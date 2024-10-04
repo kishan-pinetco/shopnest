@@ -13,6 +13,14 @@
 <?php
 include "../include/connect.php";
 session_start();
+
+if(isset($_SESSION['searchWord'])){
+    unset($_SESSION['searchWord']);
+}
+
+if(isset($_SESSION['selectedSize'])){
+    unset($_SESSION['selectedSize']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_COOKIE['user_id'])) {
     header("Location: /shopnest/index.php");
     exit;
@@ -13,6 +14,7 @@ if (isset($_COOKIE['adminEmail'])) {
     header("Location: /shopnest/admin/dashboard.php");
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +54,6 @@ if (isset($_COOKIE['adminEmail'])) {
 </head>
 
 <body class="flex justify-center items-center h-[100vh] p-2" style="font-family: 'Outfit', sans-serif;">
-
     <!-- Successfully message container -->
     <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
         <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -109,16 +110,19 @@ if (isset($_COOKIE['adminEmail'])) {
 
     <?php
     include "../../include/connect.php";
+    session_start();
         
     if (isset($_POST['loginBtn'])) {
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
+
+        $_SESSION['vendorEmail'] = $email;
     
         // Check if fields are empty
         if (empty($email) || empty($password)) {
             echo '<script>displayErrorMessage("Email and password are required.");</script>';
         } else {
-            // Query to find the user by email
+            // Query to find the vendor by email
             $email_search = "SELECT * FROM vendor_registration WHERE email = '$email'";
             $search_query = mysqli_query($con, $email_search);
         
@@ -131,6 +135,9 @@ if (isset($_COOKIE['adminEmail'])) {
                 if (password_verify($password, $dbpass)) {
                     // Successful login
                     setcookie('vendor_id', $id, time() + (365 * 24 * 60 * 60), "/");
+
+                    unset($_SESSION['vendorEmail']);
+
                     echo '<script>displaySuccessMessage("Login successful.");</script>';    
                 } else {
                     // Invalid password
@@ -165,7 +172,7 @@ if (isset($_COOKIE['adminEmail'])) {
                 <div class="space-y-4 p-4">
                     <div class="flex flex-col gap-1">
                         <label for="email" class="require font-semibold">Email :</label>
-                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email" value="">
+                        <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email" value="<?php echo isset($_SESSION['vendorEmail']) ? $_SESSION['vendorEmail'] : '' ?>">
                     </div>
                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
                         <label for="password" class="require font-semibold">Password :</label>
