@@ -118,6 +118,16 @@ if (isset($_GET['product_id'])) {
 
     <!-- title -->
     <title><?php echo isset($first_title) ? $first_title : "Update Products" ?></title>
+
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+            font-size: medium;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -173,27 +183,27 @@ if (isset($_GET['product_id'])) {
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
-                                    <label for="full_name">Product Tital</label>
+                                    <label for="full_name" class="require">Product Tital:</label>
                                     <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $first_title : 'title' ?>" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="Company_name">Company Name</label>
+                                    <label for="Company_name" class="require">Company Name:</label>
                                     <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['company_name'] : 'company_name' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="category">Category</label>
+                                    <label for="category" class="require">Category:</label>
                                     <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Category'] : 'Category' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-1">
-                                    <label for="type">Type</label>
+                                    <label for="type" class="require">Type:</label>
                                     <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Type'] : 'Type' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-3">
-                                    <label for="MRP">MRP</label>
+                                    <label for="MRP" class="require">MRP:</label>
                                     <div class="relative">
                                         <input type="text" name="MyMRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:border-gray-600 focus:ring-gray-600 z-10" value="<?php echo isset($_GET['product_id']) ? $MRP : 'MRP' ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
@@ -201,7 +211,7 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="your_price">Your Price</label>
+                                    <label for="your_price" class="require">Your Price:</label>
                                     <div class="relative">
                                         <input type="text" name="My_your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:border-gray-600 focus:ring-gray-600 z-10" value="<?php echo isset($_GET['product_id']) ? $Your_Price : 'Your_Price' ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
@@ -209,12 +219,12 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-3">
-                                    <label for="quantity">Quantity</label>
+                                    <label for="quantity" class="require">Quantity:</label>
                                     <input type="text" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Quantity'] : 'Quantity' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="condition">Item Condition</label>
+                                    <label for="condition" class="require">Item Condition:</label>
                                     <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Item_Condition'] : 'Item_Condition' ?>">
                                         <option value="New Condition">New Condition</option>
                                         <option value="Old Condition">Old Condition</option>
@@ -222,12 +232,12 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-5">
-                                    <label for="description">Description</label>
+                                    <label for="description" class="require">Description:</label>
                                     <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600 resize-none" value="" placeholder=""><?php echo isset($_GET['product_id']) ? $row['Description'] : 'Description' ?></textarea>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
-                                    <label for="keyword">Keywords</label>
+                                    <label for="keyword" class="require">Keywords:</label>
                                     <div id="keyword-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
 
                                     </div>
@@ -250,7 +260,7 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
-                                    <label for="size" class="block font-semibold">Size</label>
+                                    <label for="size" class="block font-semibold">Size:</label>
                                     <div id="size-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
                                         <?php
                                         $all_sizes = [];
@@ -333,7 +343,7 @@ if (isset($_GET['product_id'])) {
                                 ?>
 
                                 <div class="md:col-span-5 mt-4">
-                                    <label for="" class="text-lg">Images:</label>
+                                    <label for="" class="text-lg require">Images:</label>
                                     <div class="grid grid-cols-1 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-24 mt-9">
                                         <div class="relative w-full max-w-max m-auto">
                                             <div class="flex items-stretch justify-center -mt-8">
@@ -376,7 +386,7 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-5 mt-12 mb-4">
-                                    <label for="" class="text-lg">Cover Images:</label>
+                                    <label for="" class="text-lg require">Cover Images:</label>
                                     <div class="grid grid-cols-1 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-24 mt-9">
                                         <div class="relative w-full max-w-max m-auto">
                                             <div class="flex items-stretch justify-center -mt-8">
