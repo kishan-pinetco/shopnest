@@ -189,7 +189,7 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-5 mt-4">
                                     <label for="" class="text-lg require">Images:</label>
-                                    <div class="grid grid-cols-1 min-[700px]:grid-cols-3 md:grid-cols-4 gap-y-12 gap-5 mt-9">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-12 gap-5 mt-9">
                                         <div class="w-full relative">
                                             <div id="previewWrapper1" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput1').click();">
                                                 <img id="previewImage1" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
@@ -238,7 +238,7 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-5 mt-4">
                                     <label for="" class="text-lg require">Cover Images:</label>
-                                    <div class="grid grid-cols-1 min-[321px]:grid-cols-2 md:grid-cols-4 gap-y-12 gap-5 mt-9">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-12 gap-5 mt-9">
                                         <div class="w-full relative">
                                             <div id="coverImageWrapper1" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('coverImageInput1').click();">
                                                 <img id="coverPreviewImage1" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
