@@ -130,7 +130,7 @@ if (isset($_GET['name'])) {
                                 <div class="md:col-span-3">
                                     <label for="MRP" class="require">MRP:</label>
                                     <div class="relative">
-                                        <input type="number" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['your_price']) ? $_SESSION['your_price'] : ''; ?>" placeholder="" />
+                                        <input type="number" name="MRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['MRP']) ? $_SESSION['MRP'] : ''; ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@ if (isset($_GET['name'])) {
                                 <div class="md:col-span-2">
                                     <label for="your_price" class="require">Your Price:</label>
                                     <div class="relative">
-                                        <input type="number" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['MRP']) ? $_SESSION['MRP'] : ''; ?>" placeholder="" />
+                                        <input type="number" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['your_price']) ? $_SESSION['your_price'] : ''; ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-5">
                                     <label for="description" class="require">Description:</label>
-                                    <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600 resize-none" value="<?php echo isset($_SESSION['description']) ? $_SESSION['description'] : ''; ?>" placeholder=""></textarea>
+                                    <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600 resize-none" value="" placeholder=""><?php echo isset($_SESSION['description']) ? $_SESSION['description'] : ''; ?></textarea>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
@@ -246,7 +246,7 @@ if (isset($_GET['name'])) {
                                                     Insert Cover Image 1
                                                 </label>
                                             </div>
-                                            <input class="hidden" name="ProfileImage1" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput1" onchange="productImagePreview(event, 'coverPreviewImage1', 'coverImageText1')">
+                                            <input class="hidden" name="CoverImage1" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput1" onchange="productImagePreview(event, 'coverPreviewImage1', 'coverImageText1')">
                                             <small id="coverImage-error-message1" class="text-red-500 mt-2 absolute text-xs hidden">The product image must be a file type of: PNG, JPG, or JPEG.</small>
                                         </div>
 
@@ -257,7 +257,7 @@ if (isset($_GET['name'])) {
                                                     Insert Cover Image 2
                                                 </label>
                                             </div>
-                                            <input class="hidden" name="ProfileImage2" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput2" onchange="productImagePreview(event, 'coverPreviewImage2', 'coverImageText2')">
+                                            <input class="hidden" name="CoverImage2" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput2" onchange="productImagePreview(event, 'coverPreviewImage2', 'coverImageText2')">
                                             <small id="coverImage-error-message2" class="text-red-500 mt-2 absolute text-xs hidden">The product image must be a file type of: PNG, JPG, or JPEG.</small>
                                         </div>
 
@@ -268,7 +268,7 @@ if (isset($_GET['name'])) {
                                                     Insert Cover Image 3
                                                 </label>
                                             </div>
-                                            <input class="hidden" name="ProfileImage3" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput3" onchange="productImagePreview(event, 'coverPreviewImage3', 'coverImageText3')">
+                                            <input class="hidden" name="CoverImage3" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput3" onchange="productImagePreview(event, 'coverPreviewImage3', 'coverImageText3')">
                                             <small id="coverImage-error-message3" class="text-red-500 mt-2 absolute text-xs hidden">The product image must be a file type of: PNG, JPG, or JPEG.</small>
                                         </div>
 
@@ -279,7 +279,7 @@ if (isset($_GET['name'])) {
                                                     Insert Cover Image 4
                                                 </label>
                                             </div>
-                                            <input class="hidden" name="ProfileImage4" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput4" onchange="productImagePreview(event, 'coverPreviewImage4', 'coverImageText4')">
+                                            <input class="hidden" name="CoverImage4" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput4" onchange="productImagePreview(event, 'coverPreviewImage4', 'coverImageText4')">
                                             <small id="coverImage-error-message4" class="text-red-500 mt-2 absolute text-xs hidden">The product image must be a file type of: PNG, JPG, or JPEG.</small>
                                         </div>
                                     </div>
@@ -442,14 +442,14 @@ if (isset($_GET['name'])) {
             if (!isFirst) {
                 // Create the input element for MRP
                 const mrpInput = document.createElement('input');
-                mrpInput.type = 'text';
+                mrpInput.type = 'number';
                 mrpInput.name = 'MRP2[]';
                 mrpInput.placeholder = 'Enter MRP';
                 mrpInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2 focus:ring-gray-600 focus:border-gray-600';
 
                 // Create the input element for Your Price
                 const priceInput = document.createElement('input');
-                priceInput.type = 'text';
+                priceInput.type = 'number';
                 priceInput.name = 'your_price2[]';
                 priceInput.placeholder = 'Enter Your Price';
                 priceInput.className = 'h-10 border rounded px-4 w-full bg-gray-50 mt-2 focus:ring-gray-600 focus:border-gray-600';
@@ -547,10 +547,10 @@ if (isset($_POST['submitBtn'])) {
     $products_name = $_POST['full_name'];
     $full_name = str_replace("'", "/", $products_name);
     $Company_name = mysqli_real_escape_string($con, $_POST['Company_name']);
-    $Category = mysqli_real_escape_string($con, $_POST['Category']);
+    $Category = mysqli_real_escape_string($con, $_GET['name']);
     $type = mysqli_real_escape_string($con, $_POST['type']);
-    $your_price = mysqli_real_escape_string($con, $_POST['your_price']);
-    $MRP = mysqli_real_escape_string($con, $_POST['MRP']);
+    $your_price = number_format($_POST['your_price']);
+    $MRP = number_format($_POST['MRP']);
     $quantity = mysqli_real_escape_string($con, $_POST['quantity']);
     $condition = mysqli_real_escape_string($con, $_POST['condition']);
     $description = mysqli_real_escape_string($con, $_POST['description']);
@@ -570,8 +570,8 @@ if (isset($_POST['submitBtn'])) {
                         'Your_Price' => $your_price,
                     ];
                 } else {
-                    $MRP2 = $_POST['MRP2'];
-                    $your_price2 = $_POST['your_price2'];
+                    $MRP2 = number_format($_POST['MRP2']);
+                    $your_price2 = number_format($_POST['your_price2']);
 
                     if (isset($MRP2[$index - 1]) && isset($your_price2[$index - 1])) {
                         $size_img[$psize] = [
@@ -653,7 +653,7 @@ if (isset($_POST['submitBtn'])) {
 
     $color = $_POST['color'];
 
-    if (isset($_POST['color'])) {
+    if (!empty($_POST['color'])) {
         $pcolor = $_POST['color'];
     } else {
         $pcolor = '-';
@@ -776,7 +776,7 @@ if (isset($_POST['submitBtn'])) {
     }
 
     if (
-        empty($full_name) || empty($Company_name) || empty($Category) || empty($type) ||
+        empty($full_name) || empty($Company_name) || empty($type) ||
         empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($ProfileImage1) || empty($ProfileImage2)
     ) {
         echo '<script>displayErrorMessage("Please fill in all required fields.");</script>';
@@ -797,6 +797,7 @@ if (isset($_POST['submitBtn'])) {
                 unset($_SESSION['color']);
 
                 echo '<script>displaySuccessMessage("Data Inserted.");</script>';
+                
             } else {
                 echo '<script>displayErrorMessage("Data not Inserted Properly.");</script>';
             }
