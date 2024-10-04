@@ -119,7 +119,7 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-2">
                                     <label for="category" class="require">Category:</label>
-                                    <input type="text" name="Category" id="Category" class="cursor-not-allowed opacity-60 h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_GET['name']) ? $product : 'Category' ?>" placeholder="" disabled />
+                                    <input type="text" name="Category" id="Category" class="hover:cursor-not-allowed opacity-60 h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_GET['name']) ? $product : 'Category' ?>" placeholder="" disabled />
                                 </div>
 
                                 <div class="md:col-span-1">
@@ -284,11 +284,13 @@ if (isset($_GET['name'])) {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="md:col-span-5 text-right mt-7">
-                                    <div class="inline-flex items-end">
-                                        <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
-                                    </div>
+                            </div>
+                            <div class="flex justify-between mt-7">
+                                <div class="">
+                                    <input type="button" value="Back" onclick="window.location.href='choose_product.php'" name="backBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                </div>
+                                <div class="">
+                                    <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
                                 </div>
                             </div>
                         </form>
