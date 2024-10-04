@@ -17,22 +17,23 @@ include "include/connect.php";
 
 session_start();
 
-if (isset($_SESSION['searchWord'])) {
+if(isset($_SESSION['searchWord'])){
     unset($_SESSION['searchWord']);
 }
 
-if (isset($_SESSION['selectedSize'])) {
+if(isset($_SESSION['selectedSize'])){
     unset($_SESSION['selectedSize']);
 }
 
-if (isset($_SESSION['userEmail'])) {
+if(isset($_SESSION['userEmail'])){
     unset($_SESSION['userEmail']);
 }
 
-if (isset($_SESSION['vendorEmail'])) {
+if(isset($_SESSION['vendorEmail'])){
     unset($_SESSION['vendorEmail']);
 }
 
+// unset session for user registration
 unset(
     $_SESSION['fname'],
     $_SESSION['lname'],
@@ -44,6 +45,16 @@ unset(
     $_SESSION['city'],
     $_SESSION['pincode'],
     $_SESSION['user_reg_date']
+);
+
+// unset session for vendor registration
+unset(
+    $_SESSION['name'],
+    $_SESSION['email'],
+    $_SESSION['username'],
+    $_SESSION['phone'],
+    $_SESSION['gst'],
+    $_SESSION['bio']
 );
 
 // session_start();

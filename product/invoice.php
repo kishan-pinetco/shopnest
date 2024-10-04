@@ -146,7 +146,7 @@ if(isset($_GET['order_id'])){
             html2pdf().from(element).toPdf().get('pdf').then(function(pdf) {
                 // Show the button again
                 btn.style.display = 'block';
-                pdf.save('invoice.pdf');
+                pdf.save('<?php echo $res['order_title']?>.pdf');
             });
         });
     </script>

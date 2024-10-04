@@ -604,53 +604,50 @@ if (isset($_POST['submitBtn'])) {
 
 
     // main images 
-    $ProfileImage1 = isset($_FILES['ProfileImage1']) && $_FILES['ProfileImage1']['error'] === UPLOAD_ERR_OK ? $_FILES['ProfileImage1']['name'] : '';
-    $tempName1 = isset($_FILES['ProfileImage1']) && $_FILES['ProfileImage1']['error'] === UPLOAD_ERR_OK ? $_FILES['ProfileImage1']['tmp_name'] : '';
-    $folder1 = '../src/product_image/product_profile/' . $ProfileImage1;
-
-    $ProfileImage2 = isset($_FILES['ProfileImage2']) && $_FILES['ProfileImage2']['error'] === UPLOAD_ERR_OK ? $_FILES['ProfileImage2']['name'] : '';
-    $tempName2 = isset($_FILES['ProfileImage2']) && $_FILES['ProfileImage2']['error'] === UPLOAD_ERR_OK ? $_FILES['ProfileImage2']['tmp_name'] : '';
-    $folder2 = '../src/product_image/product_profile/' . $ProfileImage2;
-
-    $ProfileImage3 = isset($_FILES['ProfileImage3']) && $_FILES['ProfileImage3']['error'] === UPLOAD_ERR_OK ? $_FILES['ProfileImage3']['name'] : '';
-    $tempName3 = isset($_FILES['ProfileImage3']) && $_FILES['ProfileImage3']['error'] === UPLOAD_ERR_OK ? $_FILES['ProfileImage3']['tmp_name'] : '';
-    $folder3 = '../src/product_image/product_profile/' . $ProfileImage3;
-
-    $ProfileImage4 = isset($_FILES['ProfileImage4']) && $_FILES['ProfileImage4']['error'] === UPLOAD_ERR_OK ? $_FILES['ProfileImage4']['name'] : '';
-    $tempName4 = isset($_FILES['ProfileImage4']) && $_FILES['ProfileImage4']['error'] === UPLOAD_ERR_OK ? $_FILES['ProfileImage4']['tmp_name'] : '';
-    $folder4 = '../src/product_image/product_profile/' . $ProfileImage4;
-
-
-    $CoverImage1 = isset($_FILES['CoverImage1']) && $_FILES['CoverImage1']['error'] === UPLOAD_ERR_OK ? $_FILES['CoverImage1']['name'] : '';
-    $tempName5 = isset($_FILES['CoverImage1']) && $_FILES['CoverImage1']['error'] === UPLOAD_ERR_OK ? $_FILES['CoverImage1']['tmp_name'] : '';
-    $folder5 = '../src/product_image/product_cover/' . $CoverImage1;
-
-    $CoverImage2 = isset($_FILES['CoverImage2']) && $_FILES['CoverImage2']['error'] === UPLOAD_ERR_OK ? $_FILES['CoverImage2']['name'] : '';
-    $tempName6 = isset($_FILES['CoverImage2']) && $_FILES['CoverImage2']['error'] === UPLOAD_ERR_OK ? $_FILES['CoverImage2']['tmp_name'] : '';
-    $folder6 = '../src/product_image/product_cover/' . $CoverImage2;
-
-    $CoverImage3 = isset($_FILES['CoverImage3']) && $_FILES['CoverImage3']['error'] === UPLOAD_ERR_OK ? $_FILES['CoverImage3']['name'] : '';
-    $tempName7 = isset($_FILES['CoverImage3']) && $_FILES['CoverImage3']['error'] === UPLOAD_ERR_OK ? $_FILES['CoverImage3']['tmp_name'] : '';
-    $folder7 = '../src/product_image/product_cover/' . $CoverImage3;
-
-    $CoverImage4 = isset($_FILES['CoverImage4']) && $_FILES['CoverImage4']['error'] === UPLOAD_ERR_OK ? $_FILES['CoverImage4']['name'] : '';
-    $tempName8 = isset($_FILES['CoverImage4']) && $_FILES['CoverImage4']['error'] === UPLOAD_ERR_OK ? $_FILES['CoverImage4']['tmp_name'] : '';
-    $folder8 = '../src/product_image/product_cover/' . $CoverImage4;
-
+    function isValidImage($filename) {
+        $validExtensions = ['jpg', 'jpeg', 'png'];
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        return in_array($extension, $validExtensions);
+    }
+    
     $allFilesUploaded = true;
-
+    
     // Process main images
-    if (!empty($tempName1) && !move_uploaded_file($tempName1, $folder1)) $allFilesUploaded = false;
-    if (!empty($tempName2) && !move_uploaded_file($tempName2, $folder2)) $allFilesUploaded = false;
-    if (!empty($tempName3) && !move_uploaded_file($tempName3, $folder3)) $allFilesUploaded = false;
-    if (!empty($tempName4) && !move_uploaded_file($tempName4, $folder4)) $allFilesUploaded = false;
-
+    for ($i = 1; $i <= 4; $i++) {
+        $profileImageKey = "ProfileImage$i";
+        if (isset($_FILES[$profileImageKey]) && $_FILES[$profileImageKey]['error'] === UPLOAD_ERR_OK) {
+            $filename = $_FILES[$profileImageKey]['name'];
+            $tempName = $_FILES[$profileImageKey]['tmp_name'];
+            $folder = '../src/product_image/product_profile/' . $filename;
+    
+            if (isValidImage($filename)) {
+                if (!move_uploaded_file($tempName, $folder)) {
+                    $allFilesUploaded = false;
+                }
+            } else {
+                $allFilesUploaded = false; // Invalid file type
+            }
+        }
+    }
+    
     // Process cover images
-    if (!empty($tempName5) && !move_uploaded_file($tempName5, $folder5)) $allFilesUploaded = false;
-    if (!empty($tempName6) && !move_uploaded_file($tempName6, $folder6)) $allFilesUploaded = false;
-    if (!empty($tempName7) && !move_uploaded_file($tempName7, $folder7)) $allFilesUploaded = false;
-    if (!empty($tempName8) && !move_uploaded_file($tempName8, $folder8)) $allFilesUploaded = false;
-
+    for ($i = 1; $i <= 4; $i++) {
+        $coverImageKey = "CoverImage$i";
+        if (isset($_FILES[$coverImageKey]) && $_FILES[$coverImageKey]['error'] === UPLOAD_ERR_OK) {
+            $filename = $_FILES[$coverImageKey]['name'];
+            $tempName = $_FILES[$coverImageKey]['tmp_name'];
+            $folder = '../src/product_image/product_cover/' . $filename;
+    
+            if (isValidImage($filename)) {
+                if (!move_uploaded_file($tempName, $folder)) {
+                    $allFilesUploaded = false;
+                }
+            } else {
+                $allFilesUploaded = false; // Invalid file type
+            }
+        }
+    }
+    
     $color = $_POST['color'];
 
     if (!empty($_POST['color'])) {
