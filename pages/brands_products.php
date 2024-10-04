@@ -1,16 +1,16 @@
 <?php
-    
-if(!isset($_GET['brandName'])){
+
+if (!isset($_GET['brandName'])) {
     header("Location: /shopnest/index.php");
     exit;
 }
 
-if(isset($_COOKIE['vendor_id'])){
+if (isset($_COOKIE['vendor_id'])) {
     header("Location: /shopnest/vendor/vendor_dashboard.php");
     exit;
 }
 
-if(isset($_COOKIE['adminEmail'])){
+if (isset($_COOKIE['adminEmail'])) {
     header("Location: /shopnest/admin/dashboard.php");
     exit;
 }
@@ -20,11 +20,11 @@ if(isset($_COOKIE['adminEmail'])){
 include "../include/connect.php";
 session_start();
 
-if(isset($_SESSION['searchWord'])){
+if (isset($_SESSION['searchWord'])) {
     unset($_SESSION['searchWord']);
 }
 
-if(isset($_SESSION['selectedSize'])){
+if (isset($_SESSION['selectedSize'])) {
     unset($_SESSION['selectedSize']);
 }
 
@@ -57,6 +57,9 @@ $company_name = $_GET['brandName'];
     <link rel="shortcut icon" href="/shopnest/src/logo/favicon.svg">
 
     <style>
+        [x-cloak]{
+            display: none;
+        }
         .outfit {
             font-family: "Outfit", sans-serif;
             font-optical-sizing: auto;
@@ -331,39 +334,39 @@ $company_name = $_GET['brandName'];
                         <div class="mt-3 text-gray-600">
                             <ul class="space-y-2 text-gray-700">
                                 <?php
-                                    $select_color = "SELECT * FROM items WHERE company_name = '$company_name'";
-                                    $color_query = mysqli_query($con, $select_color);
+                                $select_color = "SELECT * FROM items WHERE company_name = '$company_name'";
+                                $color_query = mysqli_query($con, $select_color);
 
-                                    $color_array = [];
+                                $color_array = [];
 
-                                    while ($row = mysqli_fetch_array($color_query)) {
-                                        $colors = explode(",", $row["color"]);
-                                        foreach ($colors as $clr) {
-                                            $clr = trim($clr);
-                                            if ($clr === '-' || empty($clr)) {
-                                                continue;
-                                            }
-                                            if (!empty($clr) && !in_array($clr, $color_array)) {
-                                                $color_array[] = $clr;
-                                            }
+                                while ($row = mysqli_fetch_array($color_query)) {
+                                    $colors = explode(",", $row["color"]);
+                                    foreach ($colors as $clr) {
+                                        $clr = trim($clr);
+                                        if ($clr === '-' || empty($clr)) {
+                                            continue;
+                                        }
+                                        if (!empty($clr) && !in_array($clr, $color_array)) {
+                                            $color_array[] = $clr;
                                         }
                                     }
+                                }
 
-                                    sort($color_array);
+                                sort($color_array);
 
-                                    foreach ($color_array as $clr) {
-                                        $checkbox_id = 'color_' . $clr;
-                                    ?>
-                                        <li class="flex items-center gap-2">
-                                            <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
-                                                name="color[]"
-                                                id="<?php echo $checkbox_id; ?>"
-                                                value="<?php echo $clr; ?>">
-                                            <label class="text-sm" for="<?php echo $checkbox_id; ?>">
-                                                <?php echo $clr; ?>
-                                            </label>
-                                        </li>
-                                    <?php
+                                foreach ($color_array as $clr) {
+                                    $checkbox_id = 'color_' . $clr;
+                                ?>
+                                    <li class="flex items-center gap-2">
+                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                            name="color[]"
+                                            id="<?php echo $checkbox_id; ?>"
+                                            value="<?php echo $clr; ?>">
+                                        <label class="text-sm" for="<?php echo $checkbox_id; ?>">
+                                            <?php echo $clr; ?>
+                                        </label>
+                                    </li>
+                                <?php
                                 }
                                 ?>
                             </ul>
@@ -454,14 +457,14 @@ $company_name = $_GET['brandName'];
                 <?php
                 $filters = [];
                 $orFilters = []; // This will hold the OR conditions
-                
+
                 if (isset($_POST['submit'])) {
                     // For the price
                     if (isset($_POST['price'])) {
                         $selected_price = $_POST['price'];
                         $price_limit_num = str_replace(',', '', $selected_price);
                         $price_limit_numeric = (int)$price_limit_num;
-                
+
                         $MRP = 'vendor_mrp';
                         // Add appropriate filter based on the price value
                         if ($selected_price === 'over_100k') {
@@ -471,7 +474,7 @@ $company_name = $_GET['brandName'];
                             $orFilters[] = "CAST(REPLACE($MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
                         }
                     }
-                
+
                     // For the colors
                     if (isset($_POST['color'])) {
                         $selected_colors = $_POST['color'];
@@ -479,7 +482,7 @@ $company_name = $_GET['brandName'];
                             $orFilters[] = "color LIKE ('%$color%')";
                         }
                     }
-                
+
                     // For the size
                     if (isset($_POST['size'])) {
                         $selected_size = $_POST['size'];
@@ -487,7 +490,7 @@ $company_name = $_GET['brandName'];
                             $orFilters[] = "size LIKE ('%$size%')";
                         }
                     }
-                
+
                     // For the rating
                     $range = 0.9;
                     if (isset($_POST['stars'])) {
@@ -500,7 +503,7 @@ $company_name = $_GET['brandName'];
                         }
                     }
                 }
-                
+
                 // Combine filters
                 $filter_query = '';
                 if (!empty($orFilters)) {
@@ -561,7 +564,7 @@ $company_name = $_GET['brandName'];
                         <?php
                         while ($res = mysqli_fetch_assoc($Product_query)) {
                             $product_id = $res['product_id'];
-                            
+
                             // for image
                             $json_img = $res['image'];
                             $decode_img = json_decode($json_img, true);
@@ -621,7 +624,7 @@ $company_name = $_GET['brandName'];
                                     </div>
                                 </div>
                                 <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
-                                    <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $res['vendor_mrp']?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                    <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $res['vendor_mrp'] ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                                 </div>
                             </div>
                         <?php
@@ -692,7 +695,7 @@ $company_name = $_GET['brandName'];
                 var $productCards = $('.product-card');
                 var totalItems = $productCards.length;
 
-                // Recalculate total pages when columns per row changes
+                // Calculate total pages
                 totalPages = Math.ceil(totalItems / itemsPerPage);
 
                 // Ensure the current page is within the valid range
@@ -717,6 +720,17 @@ $company_name = $_GET['brandName'];
                 // Update arrow buttons
                 $('#prev-page').prop('disabled', page === 1);
                 $('#next-page').prop('disabled', page === totalPages);
+
+                // Show or hide pagination section based on total items
+                if (totalItems > 12) {
+                    $('.pagination').show(); // Show pagination if there are more than 12 items
+                    $('#prev-page').show(); // Show previous button
+                    $('#next-page').show(); // Show next button
+                } else {
+                    $('.pagination').hide(); // Hide pagination if not
+                    $('#prev-page').hide(); // Hide previous button
+                    $('#next-page').hide(); // Hide next button
+                }
             }
 
             function createPagination() {
@@ -1010,6 +1024,7 @@ $company_name = $_GET['brandName'];
 
     <!-- chatboat script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
-  
+
 </body>
+
 </html>
