@@ -17,19 +17,19 @@ include "include/connect.php";
 
 session_start();
 
-if(isset($_SESSION['searchWord'])){
+if (isset($_SESSION['searchWord'])) {
     unset($_SESSION['searchWord']);
 }
 
-if(isset($_SESSION['selectedSize'])){
+if (isset($_SESSION['selectedSize'])) {
     unset($_SESSION['selectedSize']);
 }
 
-if(isset($_SESSION['userEmail'])){
+if (isset($_SESSION['userEmail'])) {
     unset($_SESSION['userEmail']);
 }
 
-if(isset($_SESSION['vendorEmail'])){
+if (isset($_SESSION['vendorEmail'])) {
     unset($_SESSION['vendorEmail']);
 }
 
@@ -276,6 +276,20 @@ function displayRandomProducts($con, $limit)
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 150ms;
         }
+
+        .splide__arrow.disabled {
+            opacity: 0.5;
+            /* Make the button look disabled */
+            pointer-events: none;
+            /* Prevent interaction */
+        }
+
+        .splide__arrow.disabled:hover {
+            background-color: transparent;
+            /* Remove hover effect */
+            cursor: not-allowed;
+            /* Show not-allowed cursor */
+        }
     </style>
 
 </head>
@@ -419,7 +433,7 @@ function displayRandomProducts($con, $limit)
                     prevButton.classList.add("cursor-not-allowed", "opacity-50");
                     prevButton.classList.remove("cursor-pointer");
                     prevButton.setAttribute("disabled", "true");
-                    
+
                 } else {
                     prevButton.classList.remove("cursor-not-allowed", "opacity-50");
                     prevButton.classList.add("cursor-pointer");
@@ -459,7 +473,7 @@ function displayRandomProducts($con, $limit)
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                new Splide('#cardSplide1', {
+                const splide = new Splide('#cardSplide1', {
                     perPage: 4,
                     perMove: 1,
                     gap: '0.5rem',
@@ -469,18 +483,50 @@ function displayRandomProducts($con, $limit)
                     breakpoints: {
                         1200: {
                             perPage: 3,
-                            gap: '0.75rem'
+                            gap: '0.75rem',
                         },
                         992: {
                             perPage: 2,
-                            gap: '0.5rem'
+                            gap: '0.5rem',
                         },
                         535: {
                             perPage: 1,
-                            gap: '0rem'
-                        }
+                            gap: '0rem',
+                        },
+                    },
+                });
+
+                // Function to update arrow visibility
+                function updateArrowVisibility() {
+                    const prevArrow = document.querySelector('.splide__arrow--prev');
+                    const nextArrow = document.querySelector('.splide__arrow--next');
+                    const totalSlides = splide.length; // Total number of slides
+                    const currentIndex = splide.index; // Current index of the slider
+
+                    // Disable previous arrow if at the start or if there are no previous cards
+                    if (currentIndex === 0) {
+                        prevArrow.classList.add('disabled'); // Add disabled class
+                        prevArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    } else {
+                        prevArrow.classList.remove('disabled'); // Remove disabled class
+                        prevArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
                     }
-                }).mount();
+
+                    // Disable next arrow if at the end or if there are no next cards
+                    if (currentIndex >= totalSlides - splide.options.perPage) {
+                        nextArrow.classList.add('disabled'); // Add disabled class
+                        nextArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    } else {
+                        nextArrow.classList.remove('disabled'); // Remove disabled class
+                        nextArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                    }
+                }
+
+                // Update arrow visibility on mount and when sliding
+                splide.on('mounted move', updateArrowVisibility);
+
+                // Mount the slider
+                splide.mount();
             });
         </script>
 
@@ -610,28 +656,60 @@ function displayRandomProducts($con, $limit)
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                new Splide('#cardSplide2', {
+                const splide = new Splide('#cardSplide2', {
                     perPage: 4,
                     perMove: 1,
-                    gap: '0.5rem', // Adjust gap between slides
-                    rewind: false, // Do not loop back to the start
+                    gap: '0.5rem',
+                    rewind: false,
                     arrows: true,
                     pagination: false,
                     breakpoints: {
                         1200: {
                             perPage: 3,
-                            gap: '0.75rem'
+                            gap: '0.75rem',
                         },
                         992: {
                             perPage: 2,
-                            gap: '0.5rem'
+                            gap: '0.5rem',
                         },
                         535: {
                             perPage: 1,
-                            gap: '0rem'
-                        }
+                            gap: '0rem',
+                        },
+                    },
+                });
+
+                // Function to update arrow visibility
+                function updateArrowVisibility() {
+                    const prevArrow = document.querySelector('.splide__arrow--prev');
+                    const nextArrow = document.querySelector('.splide__arrow--next');
+                    const totalSlides = splide.length; // Total number of slides
+                    const currentIndex = splide.index; // Current index of the slider
+
+                    // Disable previous arrow if at the start or if there are no previous cards
+                    if (currentIndex === 0) {
+                        prevArrow.classList.add('disabled'); // Add disabled class
+                        prevArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    } else {
+                        prevArrow.classList.remove('disabled'); // Remove disabled class
+                        prevArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
                     }
-                }).mount();
+
+                    // Disable next arrow if at the end or if there are no next cards
+                    if (currentIndex >= totalSlides - splide.options.perPage) {
+                        nextArrow.classList.add('disabled'); // Add disabled class
+                        nextArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    } else {
+                        nextArrow.classList.remove('disabled'); // Remove disabled class
+                        nextArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                    }
+                }
+
+                // Update arrow visibility on mount and when sliding
+                splide.on('mounted move', updateArrowVisibility);
+
+                // Mount the slider
+                splide.mount();
             });
         </script>
 
@@ -701,28 +779,60 @@ function displayRandomProducts($con, $limit)
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                new Splide('#cardSplide3', {
+                const splide = new Splide('#cardSplide3', {
                     perPage: 4,
                     perMove: 1,
-                    gap: '0.5rem', // Adjust gap between slides
-                    rewind: false, // Do not loop back to the start
+                    gap: '0.5rem',
+                    rewind: false,
                     arrows: true,
                     pagination: false,
                     breakpoints: {
                         1200: {
                             perPage: 3,
-                            gap: '0.75rem'
+                            gap: '0.75rem',
                         },
                         992: {
                             perPage: 2,
-                            gap: '0.5rem'
+                            gap: '0.5rem',
                         },
                         535: {
                             perPage: 1,
-                            gap: '0rem'
-                        }
+                            gap: '0rem',
+                        },
+                    },
+                });
+
+                // Function to update arrow visibility
+                function updateArrowVisibility() {
+                    const prevArrow = document.querySelector('.splide__arrow--prev');
+                    const nextArrow = document.querySelector('.splide__arrow--next');
+                    const totalSlides = splide.length; // Total number of slides
+                    const currentIndex = splide.index; // Current index of the slider
+
+                    // Disable previous arrow if at the start or if there are no previous cards
+                    if (currentIndex === 0) {
+                        prevArrow.classList.add('disabled'); // Add disabled class
+                        prevArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    } else {
+                        prevArrow.classList.remove('disabled'); // Remove disabled class
+                        prevArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
                     }
-                }).mount();
+
+                    // Disable next arrow if at the end or if there are no next cards
+                    if (currentIndex >= totalSlides - splide.options.perPage) {
+                        nextArrow.classList.add('disabled'); // Add disabled class
+                        nextArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    } else {
+                        nextArrow.classList.remove('disabled'); // Remove disabled class
+                        nextArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                    }
+                }
+
+                // Update arrow visibility on mount and when sliding
+                splide.on('mounted move', updateArrowVisibility);
+
+                // Mount the slider
+                splide.mount();
             });
         </script>
 

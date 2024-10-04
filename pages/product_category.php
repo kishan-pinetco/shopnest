@@ -1,15 +1,15 @@
-<?php 
-if(!isset($_GET['Category'])){
+<?php
+if (!isset($_GET['Category'])) {
     header("Location: /shopnest/index.php");
     exit;
 }
 
-if(isset($_COOKIE['vendor_id'])){
+if (isset($_COOKIE['vendor_id'])) {
     header("Location: /shopnest/vendor/vendor_dashboard.php");
     exit;
 }
 
-if(isset($_COOKIE['adminEmail'])){
+if (isset($_COOKIE['adminEmail'])) {
     header("Location: /shopnest/admin/dashboard.php");
     exit;
 }
@@ -19,11 +19,11 @@ if(isset($_COOKIE['adminEmail'])){
 include "../include/connect.php";
 session_start();
 
-if(isset($_SESSION['searchWord'])){
+if (isset($_SESSION['searchWord'])) {
     unset($_SESSION['searchWord']);
 }
 
-if(isset($_SESSION['selectedSize'])){
+if (isset($_SESSION['selectedSize'])) {
     unset($_SESSION['selectedSize']);
 }
 $Category = $_GET['Category'];
@@ -639,28 +639,33 @@ $Category = $_GET['Category'];
 
 
                 <!-- Add more product cards as needed -->
-
+                <!-- pagination arrow -->
                 <div class="pagination flex justify-center items-center gap-2">
-                    <button class=" bg-gray-600 h-6 w-6 flex justify-center items-center text-white rounded-tl-md rounded-br-md cursor-pointer" id="prev-page"><svg class="w-3" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                            <g>
-                                <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                            </g>
-                        </svg></button> <!-- Left Arrow -->
+                    <div class="arrow-button hidden">
+                        <button class="bg-gray-600 h-6 w-6 flex justify-center items-center text-white rounded-tl-md rounded-br-md cursor-pointer" id="prev-page">
+                            <svg class="w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 492">
+                                <path d="M198.608 246.104L382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="currentColor"></path>
+                            </svg>
+                        </button> <!-- Left Arrow -->
+                    </div>
 
                     <div class="pagination-buttons"></div>
 
-                    <button class="bg-gray-600 h-6 w-6 flex justify-center items-center text-white rounded-tl-md rounded-br-md cursor-pointer" id="next-page"><svg class="w-3" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                            <g>
-                                <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="currentColor" opacity="1" data-original="currentColor"></path>
-                            </g>
-                        </svg>
-                    </button> <!-- Right Arrow -->
+                    <div class="arrow-button hidden">
+                        <button class="bg-gray-600 h-6 w-6 flex justify-center items-center text-white rounded-tl-md rounded-br-md cursor-pointer" id="next-page">
+                            <svg class="w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492.004 492.004">
+                                <path d="M382.678 226.804L163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="currentColor"></path>
+                            </svg>
+                        </button> <!-- Right Arrow -->
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <!-- pagination js -->
+
     <script>
         $(document).ready(function() {
             var rowsPerPage = 2; // Always show 2 rows per page
@@ -708,9 +713,12 @@ $Category = $_GET['Category'];
                 // Update pagination buttons
                 createPagination();
 
-                // Update arrow buttons
+                // Update arrow buttons visibility and enable/disable state
                 $('#prev-page').prop('disabled', page === 1);
                 $('#next-page').prop('disabled', page === totalPages);
+
+                // Hide arrows if there are 6 or fewer products
+                updatePaginationVisibility(totalItems);
             }
 
             function createPagination() {
@@ -760,36 +768,26 @@ $Category = $_GET['Category'];
                 // Add event listeners for pagination buttons
                 $('.pagination-btn').on('click', function() {
                     var page = $(this).data('page');
-                    currentPage = page;
-                    showPage(page);
+                    currentPage = page; // Update current page
+                    showPage(currentPage); // Show selected page
                 });
             }
 
-            // Initialize pagination
-            showPage(1);
-
-            // Recalculate layout on window resize
-            $(window).on('resize', function() {
-                showPage(currentPage); // Show the correct page after resizing
-            });
-
-            // Add event listeners for arrows
-            $('#prev-page').on('click', function() {
-                if (currentPage > 1) {
-                    currentPage--;
-                    showPage(currentPage);
+            function updatePaginationVisibility(totalItems) {
+                // Show/hide the arrow buttons and pagination if total items exceed 6
+                if (totalItems > 12) {
+                    $('.arrow-button').removeClass('hidden'); // Show arrow buttons
+                    $('.pagination-buttons').show(); // Show pagination buttons
+                } else {
+                    $('.arrow-button').addClass('hidden'); // Hide arrow buttons
+                    $('.pagination-buttons').hide(); // Hide pagination buttons
                 }
-            });
+            }
 
-            $('#next-page').on('click', function() {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    showPage(currentPage);
-                }
-            });
+            // Initial load
+            showPage(currentPage);
         });
     </script>
-
     <!-- sidebar -->
     <!-- add hidden in container -->
     <div id="filterSidebarContainer" class="hidden bg-gray-50 pb-3 font-medium fixed top-0 right-0 w-fit h-[100vh] overflow-y-auto z-50 sidebarScroll" x-cloak>

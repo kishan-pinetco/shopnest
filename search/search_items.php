@@ -1,25 +1,25 @@
 <?php
-    if(!isset($_GET['searchName'])){
-        header("Location: /shopnest/index.php");
-        exit;
-    }
+if (!isset($_GET['searchName'])) {
+    header("Location: /shopnest/index.php");
+    exit;
+}
 
-    if(isset($_COOKIE['vendor_id'])){
-        header("Location: /shopnest/vendor/vendor_dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['vendor_id'])) {
+    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    exit;
+}
 
-    if(isset($_COOKIE['adminEmail'])){
-        header("Location: /shopnest/admin/dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['adminEmail'])) {
+    header("Location: /shopnest/admin/dashboard.php");
+    exit;
+}
 ?>
 
 <?php
 include "../include/connect.php";
 session_start();
 
-if(isset($_SESSION['selectedSize'])){
+if (isset($_SESSION['selectedSize'])) {
     unset($_SESSION['selectedSize']);
 }
 
@@ -328,39 +328,39 @@ $_SESSION['searchWord'] = $keywords;
                         <div class="mt-3 text-gray-600">
                             <ul class="space-y-2 text-gray-700">
                                 <?php
-                                    $select_color = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
-                                    $color_query = mysqli_query($con, $select_color);
+                                $select_color = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
+                                $color_query = mysqli_query($con, $select_color);
 
-                                    $color_array = [];
+                                $color_array = [];
 
-                                    while ($row = mysqli_fetch_array($color_query)) {
-                                        $colors = explode(",", $row["color"]);
-                                        foreach ($colors as $clr) {
-                                            $clr = trim($clr);
-                                            if ($clr === '-' || empty($clr)) {
-                                                continue;
-                                            }
-                                            if (!empty($clr) && !in_array($clr, $color_array)) {
-                                                $color_array[] = $clr;
-                                            }
+                                while ($row = mysqli_fetch_array($color_query)) {
+                                    $colors = explode(",", $row["color"]);
+                                    foreach ($colors as $clr) {
+                                        $clr = trim($clr);
+                                        if ($clr === '-' || empty($clr)) {
+                                            continue;
+                                        }
+                                        if (!empty($clr) && !in_array($clr, $color_array)) {
+                                            $color_array[] = $clr;
                                         }
                                     }
+                                }
 
-                                    sort($color_array);
+                                sort($color_array);
 
-                                    foreach ($color_array as $clr) {
-                                        $checkbox_id = 'color_' . $clr;
-                                    ?>
-                                        <li class="flex items-center gap-2">
-                                            <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
-                                                name="color[]"
-                                                id="<?php echo $checkbox_id; ?>"
-                                                value="<?php echo $clr; ?>">
-                                            <label class="text-sm" for="<?php echo $checkbox_id; ?>">
-                                                <?php echo $clr; ?>
-                                            </label>
-                                        </li>
-                                    <?php
+                                foreach ($color_array as $clr) {
+                                    $checkbox_id = 'color_' . $clr;
+                                ?>
+                                    <li class="flex items-center gap-2">
+                                        <input type="checkbox" class="rounded h-[15px] w-[15px] text-gray-700 focus:ring-gray-700"
+                                            name="color[]"
+                                            id="<?php echo $checkbox_id; ?>"
+                                            value="<?php echo $clr; ?>">
+                                        <label class="text-sm" for="<?php echo $checkbox_id; ?>">
+                                            <?php echo $clr; ?>
+                                        </label>
+                                    </li>
+                                <?php
                                 }
                                 ?>
                             </ul>
@@ -451,14 +451,14 @@ $_SESSION['searchWord'] = $keywords;
                 <?php
                 $filters = [];
                 $orFilters = []; // This will hold the OR conditions
-                
+
                 if (isset($_POST['submit'])) {
                     // For the price
                     if (isset($_POST['price'])) {
                         $selected_price = $_POST['price'];
                         $price_limit_num = str_replace(',', '', $selected_price);
                         $price_limit_numeric = (int)$price_limit_num;
-                
+
                         $MRP = 'vendor_mrp';
                         // Add appropriate filter based on the price value
                         if ($selected_price === 'over_100k') {
@@ -468,7 +468,7 @@ $_SESSION['searchWord'] = $keywords;
                             $orFilters[] = "CAST(REPLACE($MRP, ',', '') AS UNSIGNED) < $price_limit_numeric";
                         }
                     }
-                
+
                     // For the colors
                     if (isset($_POST['color'])) {
                         $selected_colors = $_POST['color'];
@@ -476,7 +476,7 @@ $_SESSION['searchWord'] = $keywords;
                             $orFilters[] = "color LIKE ('%$color%')";
                         }
                     }
-                
+
                     // For the size
                     if (isset($_POST['size'])) {
                         $selected_size = $_POST['size'];
@@ -484,7 +484,7 @@ $_SESSION['searchWord'] = $keywords;
                             $orFilters[] = "size LIKE ('%$size%')";
                         }
                     }
-                
+
                     // For the rating
                     $range = 0.9;
                     if (isset($_POST['stars'])) {
@@ -497,7 +497,7 @@ $_SESSION['searchWord'] = $keywords;
                         }
                     }
                 }
-                
+
                 // Combine filters
                 $filter_query = '';
                 if (!empty($orFilters)) {
@@ -543,7 +543,7 @@ $_SESSION['searchWord'] = $keywords;
                 }
 
                 $Product_query = mysqli_query($con, $products);
-                unset($_SESSION['selected']);   
+                unset($_SESSION['selected']);
                 ?>
             </div>
 
@@ -558,7 +558,7 @@ $_SESSION['searchWord'] = $keywords;
                         <?php
                         while ($res = mysqli_fetch_assoc($Product_query)) {
                             $product_id = $res['product_id'];
-                            
+
                             // for image
                             $json_img = $res['image'];
                             $decode_img = json_decode($json_img, true);
@@ -618,7 +618,7 @@ $_SESSION['searchWord'] = $keywords;
                                     </div>
                                 </div>
                                 <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
-                                    <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $res['vendor_mrp']?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                    <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $res['vendor_mrp'] ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                                 </div>
                             </div>
                         <?php
@@ -708,8 +708,13 @@ $_SESSION['searchWord'] = $keywords;
                 // Show product cards for the current page
                 $productCards.slice(startIndex, endIndex).show();
 
-                // Update pagination buttons
-                createPagination();
+                // Update pagination buttons only if there are at least 12 cards
+                if (totalItems >= 12) {
+                    createPagination();
+                } else {
+                    $('.pagination-buttons').empty(); // Clear pagination if not enough cards
+                    $('#prev-page, #next-page').hide(); // Hide pagination arrows
+                }
 
                 // Update arrow buttons
                 $('#prev-page').prop('disabled', page === 1);
@@ -720,45 +725,14 @@ $_SESSION['searchWord'] = $keywords;
                 var $paginationButtons = $('.pagination-buttons');
                 $paginationButtons.empty(); // Clear existing pagination buttons
 
-                if (totalPages <= maxVisiblePages) {
-                    // Show all pages if total pages are less than or equal to maxVisiblePages
-                    for (var i = 1; i <= totalPages; i++) {
-                        $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
-                    }
-                } else {
-                    // Show pagination with dots
-                    if (currentPage <= Math.floor(maxVisiblePages / 2) + 1) {
-                        // Show first few pages and last page with dots
-                        for (var i = 1; i <= maxVisiblePages - 1; i++) {
-                            $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
-                        }
-                        $paginationButtons.append('<span class="dots">...</span>');
-                        $paginationButtons.append('<button class="pagination-btn" data-page="' + totalPages + '">' + totalPages + '</button>');
-                    } else if (currentPage > Math.floor(maxVisiblePages / 2) && currentPage <= totalPages - Math.floor(maxVisiblePages / 2)) {
-                        // Show first page, dots, current page, dots, and last page
-                        $paginationButtons.append('<button class="pagination-btn" data-page="1">1</button>');
-                        $paginationButtons.append('<span class="dots">...</span>');
-
-                        // Ensure three pages around the current page
-                        var startPage = Math.max(currentPage - 1, 2);
-                        var endPage = Math.min(currentPage + 1, totalPages - 1);
-                        for (var i = startPage; i <= endPage; i++) {
-                            $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
-                        }
-
-                        $paginationButtons.append('<span class="dots">...</span>');
-                        $paginationButtons.append('<button class="pagination-btn" data-page="' + totalPages + '">' + totalPages + '</button>');
-                    } else {
-                        // Show first page, dots, and last few pages
-                        $paginationButtons.append('<button class="pagination-btn" data-page="1">1</button>');
-                        $paginationButtons.append('<span class="dots">...</span>');
-
-                        // Ensure last few pages are shown
-                        for (var i = totalPages - (maxVisiblePages - 2); i <= totalPages; i++) {
-                            $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
-                        }
-                    }
+                // Show pagination with buttons and arrows
+                for (var i = 1; i <= totalPages; i++) {
+                    $paginationButtons.append('<button class="pagination-btn" data-page="' + i + '">' + i + '</button>');
                 }
+
+                // Add previous and next buttons
+                $('#prev-page').show();
+                $('#next-page').show();
 
                 // Add event listeners for pagination buttons
                 $('.pagination-btn').on('click', function() {
@@ -792,6 +766,7 @@ $_SESSION['searchWord'] = $keywords;
             });
         });
     </script>
+
 
     <!-- sidebar -->
     <!-- add hidden in container -->
@@ -1007,6 +982,7 @@ $_SESSION['searchWord'] = $keywords;
 
     <!-- chatboat script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
-  
+
 </body>
+
 </html>
