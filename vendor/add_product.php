@@ -286,10 +286,10 @@ if (isset($_GET['name'])) {
                                 </div>
                             </div>
                             <div class="flex justify-between mt-7">
-                                <div class="">
+                                <div>
                                     <input type="button" value="Back" onclick="window.location.href='choose_product.php'" name="backBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
                                 </div>
-                                <div class="">
+                                <div>
                                     <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
                                 </div>
                             </div>
