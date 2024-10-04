@@ -20,13 +20,11 @@ unset(
     $_SESSION['fname'],
     $_SESSION['lname'],
     $_SESSION['user_email'],
-    $_SESSION['password'],
-    $_SESSION['address'],
-    $_SESSION['mobileno'],
-    $_SESSION['state'],
-    $_SESSION['city'],
-    $_SESSION['pincode'],
-    $_SESSION['user_reg_date']
+    $_SESSION['user_address'],
+    $_SESSION['user_mobileno'],
+    $_SESSION['user_state'],
+    $_SESSION['user_city'],
+    $_SESSION['user_pincode']
 );
 ?>
 

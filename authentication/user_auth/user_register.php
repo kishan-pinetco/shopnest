@@ -114,6 +114,8 @@ if (isset($_COOKIE['adminEmail'])) {
 
     session_start();
 
+    unset($_SESSION['userEmail']);
+
 
     if (isset($_POST['regBtn'])) {
         $fname = $_POST['fname'];
@@ -165,31 +167,31 @@ if (isset($_COOKIE['adminEmail'])) {
         if (!preg_match($address_pattern, $address)) {
             echo '<script>displayErrorMessage("Invalid Address.");</script>';
         }else{
-            $_SESSION['address'] = $address;
+            $_SESSION['user_address'] = $address;
         }
         // Validation for phone number
         if (!preg_match($number_pattern, $mobileno)) {
             echo '<script>displayErrorMessage("Invalid Phone Number.");</script>';
         }else{
-            $_SESSION['mobileno'] = $mobileno;
+            $_SESSION['user_mobileno'] = $mobileno;
         }
         // Validation for state
         if (!preg_match($state_pattern, $state)) {
             echo '<script>displayErrorMessage("Invalid State.");</script>';
         }else{
-            $_SESSION['state'] = $state;
+            $_SESSION['user_state'] = $state;
         }
         // Validation for City
         if (!preg_match($city_pattern, $city)) {
             echo '<script>displayErrorMessage("Invalid City.");</script>';
         }else{
-            $_SESSION['city'] = $city;
+            $_SESSION['user_city'] = $city;
         }
         // Validation for pincode
         if (!preg_match($pincode_pattern, $pincode)) {
             echo '<script>displayErrorMessage("Invalid Pincode.");</script>';
         }else{
-            $_SESSION['pincode'] = $pincode;
+            $_SESSION['user_pincode'] = $pincode;
         }
 
 
@@ -219,13 +221,11 @@ if (isset($_COOKIE['adminEmail'])) {
                     $_SESSION['fname'],
                     $_SESSION['lname'],
                     $_SESSION['user_email'],
-                    $_SESSION['password'],
-                    $_SESSION['address'],
-                    $_SESSION['mobileno'],
-                    $_SESSION['state'],
-                    $_SESSION['city'],
-                    $_SESSION['pincode'],
-                    $_SESSION['user_reg_date']
+                    $_SESSION['user_address'],
+                    $_SESSION['user_mobileno'],
+                    $_SESSION['user_state'],
+                    $_SESSION['user_city'],
+                    $_SESSION['user_pincode']
                 );
 
                 // Successfully

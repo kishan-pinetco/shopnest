@@ -38,23 +38,23 @@ unset(
     $_SESSION['fname'],
     $_SESSION['lname'],
     $_SESSION['user_email'],
-    $_SESSION['password'],
-    $_SESSION['address'],
-    $_SESSION['mobileno'],
-    $_SESSION['state'],
-    $_SESSION['city'],
-    $_SESSION['pincode'],
-    $_SESSION['user_reg_date']
+    $_SESSION['user_address'],
+    $_SESSION['user_mobileno'],
+    $_SESSION['user_state'],
+    $_SESSION['user_city'],
+    $_SESSION['user_pincode']
 );
+
+
 
 // unset session for vendor registration
 unset(
-    $_SESSION['name'],
-    $_SESSION['email'],
+    $_SESSION['vendor_name'],
+    $_SESSION['vendor_email'],
     $_SESSION['username'],
-    $_SESSION['phone'],
-    $_SESSION['gst'],
-    $_SESSION['bio']
+    $_SESSION['vendor_phone'],
+    $_SESSION['vendor_gst'],
+    $_SESSION['vendor_bio']
 );
 
 // session_start();

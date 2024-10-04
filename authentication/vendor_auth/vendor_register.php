@@ -4,13 +4,11 @@ unset(
     $_SESSION['fname'],
     $_SESSION['lname'],
     $_SESSION['user_email'],
-    $_SESSION['password'],
-    $_SESSION['address'],
-    $_SESSION['mobileno'],
-    $_SESSION['state'],
-    $_SESSION['city'],
-    $_SESSION['pincode'],
-    $_SESSION['user_reg_date']
+    $_SESSION['user_address'],
+    $_SESSION['user_mobileno'],
+    $_SESSION['user_state'],
+    $_SESSION['user_city'],
+    $_SESSION['user_pincode']
 );
 if (isset($_COOKIE['user_id'])) {
     header("Location: /shopnest/index.php");
@@ -363,13 +361,13 @@ if (isset($_POST['submitBtn'])) {
     if (!preg_match($name_pattern, $name)) {
         echo '<script>displayErrorMessage("Enter Valid Name");</script>';
     }else{
-        $_SESSION['name'] = $name;
+        $_SESSION['vendor_name'] = $name;
     }
 
     if (!preg_match($email_pattern, $email)) {
         echo '<script>displayErrorMessage("Enter Valid Email");</script>';
     }else{
-        $_SESSION['email'] = $email;
+        $_SESSION['vendor_email'] = $email;
     }
     if (!preg_match($password_pattern, $password)) {
         echo '<script>displayErrorMessage("Enter Valid Password");</script>';
@@ -384,19 +382,19 @@ if (isset($_POST['submitBtn'])) {
     if (!preg_match($phone_pattern, $phone)) {
         echo '<script>displayErrorMessage("Enter Valid Phone");</script>';
     }else{
-        $_SESSION['phone'] = $phone;
+        $_SESSION['vendor_phone'] = $phone;
     }
 
     if (!preg_match($gst_pattern, $gst)) {
         echo '<script>displayErrorMessage("Enter Valid GST");</script>';
     }else{
-        $_SESSION['gst'] = $gst;
+        $_SESSION['vendor_gst'] = $gst;
     }
 
     if (!preg_match($bio_pattern, $bio)) {
         echo '<script>displayErrorMessage("Enter Valid Bio");</script>';
     }else{
-        $_SESSION['bio'] = $bio;
+        $_SESSION['vendor_bio'] = $bio;
     }
 
     // Validate images
@@ -464,12 +462,12 @@ if (isset($_POST['submitBtn'])) {
         $insert_sql = mysqli_query($con, $insert_data);
 
         unset(
-            $_SESSION['name'],
-            $_SESSION['email'],
+            $_SESSION['vendor_name'],
+            $_SESSION['vendor_email'],
             $_SESSION['username'],
-            $_SESSION['phone'],
-            $_SESSION['gst'],
-            $_SESSION['bio']
+            $_SESSION['vendor_phone'],
+            $_SESSION['vendor_gst'],
+            $_SESSION['vendor_bio']
         );
 
         if ($insert_sql) {
