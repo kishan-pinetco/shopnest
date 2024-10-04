@@ -111,6 +111,15 @@ if (isset($_COOKIE['adminEmail'])) {
     <?php
     include "../../include/connect.php";
     session_start();
+    
+    unset(
+        $_SESSION['name'],
+        $_SESSION['email'],
+        $_SESSION['username'],
+        $_SESSION['phone'],
+        $_SESSION['gst'],
+        $_SESSION['bio']
+    );
         
     if (isset($_POST['loginBtn'])) {
         $email = trim($_POST['email']);

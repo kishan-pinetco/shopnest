@@ -229,10 +229,10 @@ if (isset($_COOKIE['adminEmail'])) {
                 );
 
                 // Successfully
-                echo '<script>displaySuccessMessage("Inserted successful.");</script>';
+                echo '<script>displaySuccessMessage("Register successful.");</script>';
             } else {
                 // error Message
-                echo '<script>displayErrorMessage("Insertion Failed.");</script>';
+                echo '<script>displayErrorMessage("Register Failed.");</script>';
             }
         }
     }

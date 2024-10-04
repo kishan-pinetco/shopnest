@@ -3,7 +3,7 @@
     session_start();
     
     if(isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/user/profile.php");
+        header("Location: /shopnest/index.php");
         exit;
     }
 

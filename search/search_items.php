@@ -1,5 +1,4 @@
 <?php
-
     if(!isset($_GET['searchName'])){
         header("Location: /shopnest/index.php");
         exit;
@@ -19,6 +18,11 @@
 <?php
 include "../include/connect.php";
 session_start();
+
+if(isset($_SESSION['selectedSize'])){
+    unset($_SESSION['selectedSize']);
+}
+
 $keywords = $_GET['searchName'];
 
 $_SESSION['searchWord'] = $keywords;

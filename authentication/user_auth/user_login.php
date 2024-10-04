@@ -13,6 +13,21 @@ if (isset($_COOKIE['adminEmail'])) {
     header("Location: /shopnest/admin/dashboard.php");
     exit;
 }
+
+session_start();
+
+unset(
+    $_SESSION['fname'],
+    $_SESSION['lname'],
+    $_SESSION['user_email'],
+    $_SESSION['password'],
+    $_SESSION['address'],
+    $_SESSION['mobileno'],
+    $_SESSION['state'],
+    $_SESSION['city'],
+    $_SESSION['pincode'],
+    $_SESSION['user_reg_date']
+);
 ?>
 
 <!DOCTYPE html>
@@ -115,7 +130,6 @@ if (isset($_COOKIE['adminEmail'])) {
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
 
-        session_start();
         $_SESSION['userEmail'] = $email;
     
         if (empty($email) || empty($password)) {

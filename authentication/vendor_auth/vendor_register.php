@@ -1,4 +1,17 @@
 <?php
+session_start();
+unset(
+    $_SESSION['fname'],
+    $_SESSION['lname'],
+    $_SESSION['user_email'],
+    $_SESSION['password'],
+    $_SESSION['address'],
+    $_SESSION['mobileno'],
+    $_SESSION['state'],
+    $_SESSION['city'],
+    $_SESSION['pincode'],
+    $_SESSION['user_reg_date']
+);
 if (isset($_COOKIE['user_id'])) {
     header("Location: /shopnest/index.php");
     exit;
@@ -13,6 +26,8 @@ if (isset($_COOKIE['adminEmail'])) {
     header("Location: /shopnest/admin/dashboard.php");
     exit;
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -188,14 +203,14 @@ if (isset($_COOKIE['adminEmail'])) {
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="name" class="require font-semibold">Name :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" value="" id="name">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="name" value="<?php echo isset($_SESSION['name']) ? $_SESSION['name'] : '' ?>" id="name">
                             <small id="vendorName" class="text-red-500 hidden">Enter Valid Name</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="email" class="require font-semibold">Email :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" id="email">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="email" name="email" value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : '' ?>" id="email">
                             <small id="vendorEmail" class="text-red-500 hidden">Enter Valid Email</small>
                         </div>
                     </div>
@@ -222,28 +237,28 @@ if (isset($_COOKIE['adminEmail'])) {
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="username" class="require font-semibold">Username :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="username" id="username">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="text" name="username" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : '' ?>" id="username">
                             <small id="vendorUsername" class="text-red-500 hidden">Enter Valid Username</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="phone" class="require font-semibold">Phone :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" maxlength="10" name="phone" id="phone">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" maxlength="10" name="phone" value="<?php echo isset($_SESSION['phone']) ? $_SESSION['phone'] : '' ?>" id="phone">
                             <small id="vendorPhone" class="text-red-500 hidden">Enter Valid Phone Number</small>
                         </div>
                     </div>
                     <div class="col-span-4 md:col-span-2">
                         <div class="flex flex-col gap-1 ">
                             <label for="gst" class="require font-semibold">GST :</label>
-                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="gst" id="gst">
+                            <input class="h-12 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition" type="tel" name="gst" value="<?php echo isset($_SESSION['gst']) ? $_SESSION['gst'] : '' ?>" id="gst">
                             <small id="vendorGst" class="text-red-500 hidden">Enter Valid GST Number</small>
                         </div>
                     </div>
                     <div class="col-span-4">
                         <div class="flex flex-col gap-1 ">
                             <label for="bio" class="require font-semibold">Bio :</label>
-                            <textarea class="h-16 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="bio" id="bio"></textarea>
+                            <textarea class="h-16 rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0 hover:transition resize-none" name="bio" id="bio"><?php echo isset($_SESSION['bio']) ? $_SESSION['bio'] : '' ?></textarea>
                             <small id="vendorBio" class="text-red-500 hidden">Enter Bio</small>
                         </div>
                     </div>
@@ -258,6 +273,17 @@ if (isset($_COOKIE['adminEmail'])) {
         </div>
     </div>
 
+    <!-- Successfully message container -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="Successfully"></div>
+        </div>
+    </div>
+
     <!-- Error message container -->
     <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
         <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
@@ -269,23 +295,40 @@ if (isset($_COOKIE['adminEmail'])) {
         </div>
     </div>
 
-    <!-- script -->
-    <script src="vendor_validation.js"></script>
     <script>
         function displayErrorMessage(message) {
             let popUp = document.getElementById('popUp');
             let errorMessage = document.getElementById('errorMessage');
-
+            
             errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
             popUp.style.display = 'flex';
             popUp.style.opacity = '100';
-
+            
             setTimeout(() => {
+                window.location.href = "";
                 popUp.style.display = 'none';
                 popUp.style.opacity = '0';
+            }, 1800);
+        }
+
+        function displaySuccessMessage(message) {
+            let SpopUp = document.getElementById('SpopUp');
+            let Successfully = document.getElementById('Successfully');
+
+            Successfully.innerHTML = '<span class="font-medium">' + message + '</span>';
+            SpopUp.style.display = 'flex';
+            SpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                SpopUp.style.display = 'none';
+                SpopUp.style.opacity = '0';
+                window.location.href = "vendor_login.php";
             }, 1500);
         }
     </script>
+
+    <!-- script -->
+    <script src="vendor_validation.js"></script>
 
     <!-- chatboat script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
@@ -294,9 +337,68 @@ if (isset($_COOKIE['adminEmail'])) {
 </html>
 
 <?php
+
 include "../../include/connect.php";
 
 if (isset($_POST['submitBtn'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $username = $_POST['username'];
+    $phone = $_POST['phone'];
+    $gst = $_POST['gst'];
+    $bio = $_POST['bio'];
+    $Vendor_reg_date = date('d-m-Y');
+
+    // Validate other inputs (same as before)
+    $name_pattern = "/^[a-zA-Z]([0-9a-zA-Z\s]){1,14}$/";
+    $email_pattern = "/^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+    $password_pattern = "/^.{8,}$/";
+    $username_pattern = "/^[a-zA-Z0-9_]{3,20}$/";
+    $phone_pattern = "/^[6-9]\d{9}$/";
+    $gst_pattern = "/^[a-zA-Z0-9]{1,15}$/";
+    $bio_pattern = "/^[\w\s.,!?'()-]{1,500}$/";
+
+    // Validate each field using preg_match
+    if (!preg_match($name_pattern, $name)) {
+        echo '<script>displayErrorMessage("Enter Valid Name");</script>';
+    }else{
+        $_SESSION['name'] = $name;
+    }
+
+    if (!preg_match($email_pattern, $email)) {
+        echo '<script>displayErrorMessage("Enter Valid Email");</script>';
+    }else{
+        $_SESSION['email'] = $email;
+    }
+    if (!preg_match($password_pattern, $password)) {
+        echo '<script>displayErrorMessage("Enter Valid Password");</script>';
+    }
+
+    if (!preg_match($username_pattern, $username)) {
+        echo '<script>displayErrorMessage("Enter Valid Username");</script>';
+    }else{
+        $_SESSION['username'] = $username;
+    }
+
+    if (!preg_match($phone_pattern, $phone)) {
+        echo '<script>displayErrorMessage("Enter Valid Phone");</script>';
+    }else{
+        $_SESSION['phone'] = $phone;
+    }
+
+    if (!preg_match($gst_pattern, $gst)) {
+        echo '<script>displayErrorMessage("Enter Valid GST");</script>';
+    }else{
+        $_SESSION['gst'] = $gst;
+    }
+
+    if (!preg_match($bio_pattern, $bio)) {
+        echo '<script>displayErrorMessage("Enter Valid Bio");</script>';
+    }else{
+        $_SESSION['bio'] = $bio;
+    }
+
     // Validate images
     if (empty($_FILES['CoverImage']['name']) || empty($_FILES['ProfileImage']['name'])) {
         echo '<script>displayErrorMessage("Error: Please select both cover and profile images.");</script>';
@@ -342,53 +444,6 @@ if (isset($_POST['submitBtn'])) {
     $tempname2 = $_FILES['ProfileImage']['tmp_name'];
     $folder2 = '../../src/vendor_images/vendor_profile_image/' . $ProfileImage;
 
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $username = $_POST['username'];
-    $phone = $_POST['phone'];
-    $gst = $_POST['gst'];
-    $bio = $_POST['bio'];
-    $Vendor_reg_date = date('d-m-Y');
-
-    // Validate other inputs (same as before)
-    $name_pattern = "/^[a-zA-Z]([0-9a-zA-Z\s]){1,14}$/";
-    $email_pattern = "/^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
-    $password_pattern = "/^.{8,}$/";
-    $username_pattern = "/^[a-zA-Z0-9_]{3,20}$/";
-    $phone_pattern = "/^[6-9]\d{9}$/";
-    $gst_pattern = "/^[a-zA-Z0-9]{1,15}$/";
-    $bio_pattern = "/^[\w\s.,!?'()-]{1,500}$/";
-
-    // Validate each field using preg_match
-    if (!preg_match($name_pattern, $name)) {
-        echo '<script>displayErrorMessage("Enter Valid Name");</script>';
-        exit();
-    }
-    if (!preg_match($email_pattern, $email)) {
-        echo '<script>displayErrorMessage("Enter Valid Email");</script>';
-        exit();
-    }
-    if (!preg_match($password_pattern, $password)) {
-        echo '<script>displayErrorMessage("Enter Valid Password");</script>';
-        exit();
-    }
-    if (!preg_match($username_pattern, $username)) {
-        echo '<script>displayErrorMessage("Enter Valid Username");</script>';
-        exit();
-    }
-    if (!preg_match($phone_pattern, $phone)) {
-        echo '<script>displayErrorMessage("Enter Valid Phone");</script>';
-        exit();
-    }
-    if (!preg_match($gst_pattern, $gst)) {
-        echo '<script>displayErrorMessage("Enter Valid GST");</script>';
-        exit();
-    }
-    if (!preg_match($bio_pattern, $bio)) {
-        echo '<script>displayErrorMessage("Enter Valid Bio");</script>';
-        exit();
-    }
 
     // Hash password
     $pass = password_hash($password, PASSWORD_BCRYPT);
@@ -408,37 +463,19 @@ if (isset($_POST['submitBtn'])) {
         $insert_data = "INSERT INTO vendor_registration(name, email, password, username, phone, Bio, GST, cover_image, dp_image, date) VALUES ('$name','$email','$pass','$username','$phone','$bio','$gst','$CoverImage','$ProfileImage','$Vendor_reg_date')";
         $insert_sql = mysqli_query($con, $insert_data);
 
+        unset(
+            $_SESSION['name'],
+            $_SESSION['email'],
+            $_SESSION['username'],
+            $_SESSION['phone'],
+            $_SESSION['gst'],
+            $_SESSION['bio']
+        );
+
         if ($insert_sql) {
-            ?>
-            <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
-                <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                    </svg>
-                    <span class="sr-only">Info</span>
-                    <div>
-                        <span class="font-medium">Inserted successfully.</span>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                let SpopUp = document.getElementById('SpopUp');
-
-                SpopUp.style.display = 'flex';
-                SpopUp.style.opacity = '100';
-
-                setTimeout(() => {
-                    SpopUp.style.display = 'none';
-                    SpopUp.style.opacity = '0';
-                }, 1500);
-            </script>
-            <script>
-                window.location.href = "vendor_login.php";
-            </script>
-            <?php
+            echo '<script>displaySuccessMessage("Register successful.");</script>';
         } else {
-            echo '<script>displayErrorMessage("Insertion Failed.");</script>';
+            echo '<script>displayErrorMessage("Register Failed.");</script>';
         }
     } else {
         echo '<script>displayErrorMessage("Error uploading files.");</script>';

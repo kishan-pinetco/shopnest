@@ -1,6 +1,6 @@
 <?php
 
-    if(!isset($_GET['order_id'])){
+    if(!isset($_GET['order_id']) || !isset($_COOKIE['user_id'])){
         header("Location: /shopnest/index.php");
         exit;
     }
