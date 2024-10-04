@@ -220,7 +220,7 @@ if (isset($_COOKIE['user_id'])) {
                     <div id="mic-popup" class="w-full h-full z-[100] fixed top-0 left-0 flex items-center justify-center bg-black bg-opacity-40 hidden" x-show="showMic">
                         <div class="w-max h-max z-[100] flex flex-col items-center justify-center p-8 bg-white border-2 border-blue-600 rounded-lg shadow-2xl relative">
                             <span class="absolute top-2 right-2">
-                                <svg @click="showMic=false; stopRecognition();" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 511.76 511.76" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                <svg id="mic-close-btn" x-on:click="showMic=false" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 511.76 511.76" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                     <g>
                                         <path d="M436.896 74.869c-99.84-99.819-262.208-99.819-362.048 0-99.797 99.819-99.797 262.229 0 362.048 49.92 49.899 115.477 74.837 181.035 74.837s131.093-24.939 181.013-74.837c99.819-99.818 99.819-262.229 0-362.048zm-75.435 256.448c8.341 8.341 8.341 21.824 0 30.165a21.275 21.275 0 0 1-15.083 6.251 21.277 21.277 0 0 1-15.083-6.251l-75.413-75.435-75.392 75.413a21.348 21.348 0 0 1-15.083 6.251 21.277 21.277 0 0 1-15.083-6.251c-8.341-8.341-8.341-21.845 0-30.165l75.392-75.413-75.413-75.413c-8.341-8.341-8.341-21.845 0-30.165 8.32-8.341 21.824-8.341 30.165 0l75.413 75.413 75.413-75.413c8.341-8.341 21.824-8.341 30.165 0 8.341 8.32 8.341 21.824 0 30.165l-75.413 75.413 75.415 75.435z" fill="#ff0000" opacity="1" data-original="#ff0000" class=""></path>
                                     </g>
@@ -295,7 +295,7 @@ if (isset($_COOKIE['user_id'])) {
                             }
 
                             // Stop recognition when the popup is closed
-                            document.querySelector('svg[@click="showMic=false"]').addEventListener('click', () => {
+                            document.getElementById('mic-close-btn').addEventListener('click', () => {
                                 stopRecognition();
                             });
                         }
