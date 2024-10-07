@@ -106,7 +106,7 @@ if(isset($_SESSION['selectedSize'])){
                                     $resultNumeric = intval($result);
                                     $totalCartPrice = isset($totalCartPrice) ? $totalCartPrice + $resultNumeric : $resultNumeric;
 
-                        ?>
+                                    ?>
                                     <div class="rounded-lg bg-white p-4 shadow-md md:p-6">
                                         <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                             <a href="" class="shrink-0 md:order-1">
@@ -117,8 +117,16 @@ if(isset($_SESSION['selectedSize'])){
                                             <div class="flex items-center justify-between md:order-3 md:justify-end">
                                                 <form method="post" action="">
                                                     <select name="qty" id="qty_<?php echo $cart_products_id; ?>" class="border mt-1 rounded pr-9 pl-4 bg-gray-50 focus:border-gray-600 focus:ring-gray-600" onchange="this.form.submit()">
-                                                        <?php
-                                                        for ($i = 1; $i <= 10; $i++) {
+                                                    <?php
+                                                        $forQty = "SELECT * FROM items WHERE product_id = '$cart_products_id'";
+                                                        $qty_query = mysqli_query($con, $forQty);
+
+                                                        $row = mysqli_fetch_assoc($qty_query);
+                                                        $product_qty = $row['Quantity'];
+
+                                                        $max_qty = ($product_qty > 10) ? 10 : $product_qty;
+
+                                                        for ($i = 1; $i <= $max_qty; $i++) {
                                                             $selected = ($i == $selected_qty) ? 'selected' : '';
                                                             echo "<option value=\"$i\" $selected>$i</option>";
                                                         }

@@ -104,7 +104,7 @@ if (isset($_COOKIE['adminEmail'])) {
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
             }, 1500);
-            window.location.href = "../../index.php";
+            window.location.href = "/shopnest/index.php";
         }
     </script>
 
@@ -131,6 +131,74 @@ if (isset($_COOKIE['adminEmail'])) {
         if (empty($email) || empty($password)) {
             echo '<script>displayErrorMessage("Email and password are required.");</script>';
         } else {
+            $admin_email = $_POST['email'];
+            $admin_pass = $_POST['password'];
+
+            if ($admin_email === 'vishvjit+admin@gmail.com' && $admin_pass === 'vishvjit+2605') {
+                setcookie('adminEmail', $admin_email, time() + (365 * 24 * 60 * 60), "/");
+                setcookie('adminPass', $admin_pass, time() + (365 * 24 * 60 * 60), "/");
+                
+                ?>
+                    <!-- Successfully -->
+                    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
+                        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Admin login successful.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        let ApopUp = document.getElementById('ApopUp');
+
+                        ApopUp.style.display = 'flex';
+                        ApopUp.style.opacity = '100';
+
+                        setTimeout(() => {
+                            ApopUp.style.display = 'none';
+                            ApopUp.style.opacity = '0';
+                            window.location.href = "/shopnest/admin/dashboard.php";
+                        }, 1500);
+                    </script>
+                <?php
+            }
+
+            if ($admin_email === 'abhijeet+admin@gmail.com' && $admin_pass === 'abhijeet+3904') {
+                setcookie('adminEmail', $admin_email, time() + (365 * 24 * 60 * 60), "/");
+                setcookie('adminPass', $admin_pass, time() + (365 * 24 * 60 * 60), "/");
+                ?>
+                    <!-- Successfully -->
+                    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
+                        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Admin login successful.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        let ApopUp = document.getElementById('ApopUp');
+
+                        ApopUp.style.display = 'flex';
+                        ApopUp.style.opacity = '100';
+
+                        setTimeout(() => {
+                            ApopUp.style.display = 'none';
+                            ApopUp.style.opacity = '0';
+                            window.location.href = "/shopnest/admin/dashboard.php";
+                        }, 1500);
+                    </script>
+                <?php
+            }
+
             // Query to find the vendor by email
             $email_search = "SELECT * FROM vendor_registration WHERE email = '$email'";
             $search_query = mysqli_query($con, $email_search);

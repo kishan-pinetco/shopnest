@@ -390,17 +390,22 @@
                     </div>
                     <?php 
                     
-                        $product_qty = $res['Quantity'];
+                    $product_qty = $res['Quantity'];
 
-                        if($product_qty > 5){
-                            ?>
-                                <p class="text-[#13bc96] text-sm font-medium">Available in stock</p>
-                            <?php
-                        }else{
-                            ?>
-                                <p class="text-red-500 text-sm font-medium">Only Few Product in stock</p>
-                            <?php
-                        }
+                    if ($product_qty > 10) {
+                        ?>
+                        <p class="text-[#13bc96] text-sm font-medium">Available in stock</p>
+                        <?php
+                    } elseif ($product_qty == 0) {
+                        ?>
+                        <p class="text-red-500 text-sm font-medium">Out of stock</p>
+                        <?php
+                    } elseif ($product_qty > 0 && $product_qty <= 10) {
+                        ?>
+                        <p class="text-red-500 text-sm font-medium">Only a few products in stock (<?php echo $product_qty; ?> remaining)</p>
+                        <?php
+                    }
+                    
                     
                     ?>
                 </div>
@@ -416,15 +421,16 @@
                             <?php
                             $filter_pcolor = explode(',', $colors);
                             foreach($filter_pcolor as $index => $pcolor){
-                               ?>
-                                    <form method="post" action="" style="display: inline;">
-                                        <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
-                                        <button type="submit" style="display: none;"></button>
-                                        <label for="submit_<?php echo $index; ?>" class="border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center cursor-pointer hover:bg-gray-200">
-                                            <h1 class="text-lg"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?></h1>
-                                        </label>
-                                        <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="this.form.submit();" style="display: none;">
-                                    </form>
+                                $isDisabled = ($product_qty <= 0);
+                                ?>
+                                <form method="post" action="" style="display: inline;">
+                                    <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
+                                    <button type="submit" style="display: none;"></button>
+                                    <label for="submit_<?php echo $index; ?>" class="border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center cursor-pointer <?php echo $isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'; ?>" <?php echo $isDisabled ? 'onclick="return false;"' : ''; ?>>
+                                        <h1 class="text-lg <?php echo $isDisabled ? 'cursor-not-allowed' : ''; ?>"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?></h1>
+                                    </label>
+                                    <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="<?php echo $isDisabled ? 'return false;' : 'this.form.submit();'; ?>" style="display: none;" <?php echo $isDisabled ? 'disabled' : ''; ?>>
+                                </form>
                                 <?php
                             }
                             ?>
@@ -436,56 +442,68 @@
                 <!-- size -->
                 <div>
                     <div class="md:col-span-2 mt-3">
-                        <?php
-                            if(isset($product_id)){
-                                if($res['size'] == '-'){
-                                    echo '';
-                                }else{
-                                    ?>
-                                       <label for="size" class="text-xl font-medium">Size:</label>
-                                        <form method="post" action="">
-                                            <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" onchange="this.form.submit();">
-                                                <?php
-                                                $product_size[] = $res['size'];
-                                                foreach ($product_size as $productSize) {
-                                                    $size_array = explode(',', $productSize);
-                                                    foreach ($size_array as $size) {
-                                                        $sz = trim($size);
-                                                        ?>
-                                                        <option value="<?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>" <?php if ($selectedSize === $sz) echo 'selected'; ?>>
-                                                            <?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>
-                                                        </option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
-                                        </form>
+                    <?php
+                    if (isset($product_id)) {
+                        if ($res['size'] == '-') {
+                            echo '';
+                        } else {
+                            ?>
+                            <label for="size" class="text-xl font-medium">Size:</label>
+                            <form method="post" action="">
+                                <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 <?php echo ($product_qty <= 0) ? 'cursor-not-allowed' : ''; ?>" onchange="this.form.submit();" <?php echo ($product_qty <= 0) ? 'disabled' : ''; ?>>
                                     <?php
-                                }
-                            }else{
-                                echo "size of products";
-                            }
-                        ?>
+                                    $product_size[] = $res['size'];
+                                    foreach ($product_size as $productSize) {
+                                        $size_array = explode(',', $productSize);
+                                        foreach ($size_array as $size) {
+                                            $sz = trim($size);
+                                            ?>
+                                            <option value="<?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>" <?php if ($selectedSize === $sz) echo 'selected'; ?>>
+                                                <?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>
+                                            </option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </form>
+                            <?php
+                        }
+                    } else {
+                        echo "Size of products";
+                    }
+                    ?>
+
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
                     <label for="qty">QTY:</label>
                     <div class="flex items-center flex-wrap gap-2">
-                        <select name="qty" id="qty" class="h-10 border mt-1 rounded px-4 w-16 bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" value="">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                        <select name="qty" id="qty" class="h-10 border mt-1 rounded px-4 w-16 bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 <?php echo ($product_qty <= 0) ? 'cursor-not-allowed' : ''; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
+                            <?php
+                            if ($product_qty > 0) {
+                                // Determine the maximum quantity to display
+                                $max_qty = ($product_qty > 10) ? 10 : $product_qty;
+                            
+                                // Show options from 1 to the determined maximum quantity
+                                for ($i = 1; $i <= $max_qty; $i++) {
+                                    ?>
+                                    <option value="<?php echo $i; ?>" <?php if ($product_qty === $i) echo 'selected'; ?>>
+                                        <?php echo $i; ?>
+                                    </option>
+                                    <?php
+                                }
+                            } else {
+                                // Show a single option if stock is zero
+                                ?>
+                                <option value="0" disabled selected>0</option>
+                                <?php
+                            }
+                            ?>
                         </select>
                     </div>
                 </div>
+
                 <div class="flex justify-between items-center mt-6 mb-4">
                     <div class="flex item-center gap-1">
                         <span class="bg-gray-900 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
@@ -500,8 +518,8 @@
                 </div>
                 <hr>
                 <div class="mt-4 flex flex-col gap-5 md:flex-row">
-                    <input type="submit" name="AddtoCart" value="Add To Cart" class="w-40 text-center text-sm font-medium text-white bg-gray-700 py-4 rounded-tl-xl rounded-br-xl cursor-pointer hover:bg-gray-800 transition duration-200">
-                    <input type="submit" name="buyBtn" value="Buy now" class="w-40 text-sm font-medium text-gray-700 border-2 border-gray-700 py-4 rounded-tl-xl rounded-br-xl text-center cursor-pointer">
+                    <input type="submit" name="AddtoCart" value="Add To Cart" class="w-40 text-center text-sm font-medium text-white bg-gray-700 py-4 rounded-tl-xl rounded-br-xl transition duration-200 <?php echo ($product_qty == 0) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800'; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
+                    <input type="submit" name="buyBtn" value="Buy Now" class="w-40 text-sm font-medium text-gray-700 border-2 border-gray-700 py-4 rounded-tl-xl rounded-br-xl text-center <?php echo ($product_qty == 0) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
                 </div>
             </div>
         </form>

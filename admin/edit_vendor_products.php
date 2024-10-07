@@ -31,7 +31,7 @@ if (isset($_GET['product_id'])) {
     ?>
         <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-30">
             <div class="bg-white rounded-lg shadow-lg p-6 w-max relative">
-                <span class="absolute top-2 right-2 text-xl cursor-pointer" onclick="window.location.href='view_products.php'">&times;</span>
+                <span class="absolute top-2 right-2 text-xl cursor-pointer" onclick="window.location.href='view_product.php'">&times;</span>
                 <h2 class="text-lg font-semibold">Select The color For Update the Product</h2>
                 <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
                     <?php
