@@ -1,13 +1,13 @@
 <?php
-    if(isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/index.php");
-        exit;
-    }
+if (isset($_COOKIE['user_id'])) {
+    header("Location: /shopnest/index.php");
+    exit;
+}
 
-    if(isset($_COOKIE['vendor_id'])){
-        header("Location: /shopnest/vendor/vendor_dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['vendor_id'])) {
+    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    exit;
+}
 ?>
 
 <?php
@@ -28,7 +28,7 @@ if (isset($_GET['product_id'])) {
     $total_colors = count($filter_clr);
 
     if (!isset($_GET['color']) && $total_colors > 1) {
-    ?>
+?>
         <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-30">
             <div class="bg-white rounded-lg shadow-lg p-6 w-max relative">
                 <span class="absolute top-2 right-2 text-xl cursor-pointer" onclick="window.location.href='view_product.php'">&times;</span>
@@ -44,7 +44,7 @@ if (isset($_GET['product_id'])) {
                 </div>
             </div>
         </div>
-    <?php
+<?php
     }
 
     if (isset($_GET['color'])) {
@@ -254,7 +254,7 @@ if (isset($_GET['product_id'])) {
                                         }
                                         ?>
                                     </div>
-                                    
+
                                     <input type="hidden" id="size-data" value='<?php echo $size_json ?>'>
                                     <button id="add-size" type="button" class="px-4 py-2 bg-gray-600 text-white rounded-lg mt-2 hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-400">Add More Size</button>
 
@@ -271,7 +271,7 @@ if (isset($_GET['product_id'])) {
                                 <?php
                                 $json_img = $row['image'];
                                 $decode_img = json_decode($json_img, true);
-                                
+
                                 $first_color_imaegs = isset($decode_img[$product_color]) ? $decode_img[$product_color] : '';
 
                                 // profile_images
@@ -380,12 +380,15 @@ if (isset($_GET['product_id'])) {
                                     </div>
                                 </div>
 
-                                <div class="md:col-span-5 text-right mt-7">
-                                    <div class="inline-flex items-end">
-                                        <input type="submit" value="Update" name="updateBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
-                                    </div>
-                                </div>
 
+                            </div>
+                            <div class="flex justify-between mt-10">
+                                <div>
+                                    <input type="button" value="Back" onclick="window.location.href='view_product.php'" name="backBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                </div>
+                                <div class="inline-flex items-end">
+                                    <input type="submit" value="Update" name="updateBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -619,7 +622,7 @@ if (isset($_POST['updateBtn'])) {
             Description='$description',  
             size = '$size_filter',
             keywords='$key_value' 
-        WHERE product_id = '$product_id'";   
+        WHERE product_id = '$product_id'";
 
 
         $product_query = mysqli_query($con, $product_update);

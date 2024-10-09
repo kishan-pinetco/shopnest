@@ -161,8 +161,8 @@ if (isset($_COOKIE['vendor_id'])) {
                         $product_find = "SELECT * FROM items";
                         $product_query = mysqli_query($con, $product_find);
 
-                            ?>
-                            <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 gap-x-8 text-[#1d2128] mt-4">
+                    ?>
+                        <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 gap-x-8 text-[#1d2128] mt-4">
                             <?php
                             while ($res = mysqli_fetch_assoc($product_query)) {
                                 $vendor_id = $res['vendor_id'];
@@ -213,23 +213,22 @@ if (isset($_COOKIE['vendor_id'])) {
                                             <p class="text-md font-semibold text-gray-900">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['vendor_mrp'] : 'MRP' ?></p>
                                             <p class="text-sm font-medium text-gray-500 line-through">₹<?php echo isset($_COOKIE['adminEmail']) ? $res['vendor_price'] : 'Delete Price' ?></p>
                                         </div>
-                                        <div class="flex justify-between space-x-2 py-4">
-                                            <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="w-16 text-center bg-blue-100 ring-1 ring-blue-600 text-blue-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-blue-300 transition">View</a>
-                                            <a href="remove_product.php?product_id=<?php echo $res['product_id'] ?>" class="w-16 text-center bg-red-100 text-red-600 ring-1 ring-red-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-red-300 transition">Remove</a>
-                                            <a href="edit_vendor_products.php?product_id=<?php echo $res['product_id'] ?>&name=<?php echo $res['Category'] ?>" class="w-16 text-center bg-green-100 text-green-600 ring-1 ring-green-600 text-sm py-0.5 px-2 rounded-tl-lg rounded-br-lg shadow hover:bg-green-300 transition">Edit</a>
-                                        </div>
+                                    </div>
+                                    <div class="w-full flex justify-between h-10 divide-x-2 border-t-2 mt-2">
+                                        <a href="edit_vendor_products.php?product_id=<?php echo $res['product_id'] ?>&name=<?php echo $res['Category'] ?>" class="w-full inline-flex justify-center items-center gap-1 text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">Edit</a>
+                                        <a href="remove_product.php?product_id=<?php echo $res['product_id'] ?>" class="w-full inline-flex justify-center items-center gap-1 text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">Remove</a>
                                     </div>
                                 </div>
                             <?php
 
                             }
                             ?>
-                                </div>
-                            <?php
-                        } else {
-                            echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
-                        }
-                        ?>
+                        </div>
+                    <?php
+                    } else {
+                        echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
+                    }
+                    ?>
                 </main>
             </div>
         </div>
