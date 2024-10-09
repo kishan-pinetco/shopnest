@@ -17,19 +17,19 @@ include "include/connect.php";
 
 session_start();
 
-if(isset($_SESSION['searchWord'])){
+if (isset($_SESSION['searchWord'])) {
     unset($_SESSION['searchWord']);
 }
 
-if(isset($_SESSION['selectedSize'])){
+if (isset($_SESSION['selectedSize'])) {
     unset($_SESSION['selectedSize']);
 }
 
-if(isset($_SESSION['userEmail'])){
+if (isset($_SESSION['userEmail'])) {
     unset($_SESSION['userEmail']);
 }
 
-if(isset($_SESSION['vendorEmail'])){
+if (isset($_SESSION['vendorEmail'])) {
     unset($_SESSION['vendorEmail']);
 }
 
@@ -129,34 +129,36 @@ function displayRandomProducts($con, $limit)
             }
 ?>
 
-            <li class="splide__slide flex justify-center px-2">
-                <div class="card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl hover:ring-none w-64 overflow-hidden">
-                    <div class="p-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                        <img src="<?php echo 'src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-xl rounded-br-xl" loading="lazy" sizes="">
-                    </div>
-                    <div class="mt-2 space-y-3" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                        <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
-                        <div class="flex justify-between px-2">
-                            <p class="space-x-1">
-                                <span class="text-lg font-medium text-gray-900">₹<?php echo $MRP ?></span>
-                                <del class="text-xs font-medium">₹<?php echo $Your_Price ?></del>
-                            </p>
-                            <div class="flex items-center">
-                                <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
-                                    <h1 class="font-semibold text-xs text-white"><?php echo isset($res['avg_rating']) ? $res['avg_rating'] : '0.0' ?></h1>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
-                                        <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                    </svg>
-                                </span>
-                                <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo $res['total_reviews'] ?>)</span>
+            <div class="swiper-slide">
+                <div class=" flex justify-center">
+                    <div class="product-card card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl w-64 hover:ring-none overflow-hidden">
+                        <div class="p-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                            <img src="<?php echo 'src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-xl rounded-br-xl" loading="lazy" sizes="">
+                        </div>
+                        <div class="mt-2 space-y-3" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
+                            <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
+                            <div class="flex justify-between px-2">
+                                <p class="space-x-1">
+                                    <span class="text-lg font-medium text-gray-900">₹<?php echo $MRP ?></span>
+                                    <del class="text-xs font-medium">₹<?php echo $Your_Price ?></del>
+                                </p>
+                                <div class="flex items-center">
+                                    <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
+                                        <h1 class="font-semibold text-xs text-white"><?php echo isset($res['avg_rating']) ? $res['avg_rating'] : '0.0' ?></h1>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-2.5 h-2.5 m-auto fill-current text-white">
+                                            <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm ml-2 text-gray-900 tracking-wide">(<?php echo $res['total_reviews'] ?>)</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
-                        <a href="shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $MRP ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                        <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
+                            <a href="shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $MRP ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                        </div>
                     </div>
                 </div>
-            </li>
+            </div>
 <?php
         }
     } else {
@@ -288,18 +290,8 @@ function displayRandomProducts($con, $limit)
             transition-duration: 150ms;
         }
 
-        .splide__arrow.disabled {
-            opacity: 0.5;
-            /* Make the button look disabled */
-            pointer-events: none;
-            /* Prevent interaction */
-        }
-
-        .splide__arrow.disabled:hover {
-            background-color: transparent;
-            /* Remove hover effect */
+        .cursor-not-allowed {
             cursor: not-allowed;
-            /* Show not-allowed cursor */
         }
     </style>
 
@@ -393,7 +385,7 @@ function displayRandomProducts($con, $limit)
                 </div>
             </div>
             <div class="">
-                <div class="bg-white rounded-full prev-button w-8 h-8 z-50 absolute top-[50%] text-center flex items-center justify-center left-3">
+                <div class="bg-white rounded-full previous-button w-8 h-8 z-50 absolute top-[50%] text-center flex items-center justify-center left-3">
                     <svg class="w-4 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve">
                         <g>
                             <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
@@ -423,7 +415,7 @@ function displayRandomProducts($con, $limit)
                 },
                 navigation: {
                     nextEl: ".next-button",
-                    prevEl: ".prev-button",
+                    prevEl: ".previous-button",
                 },
                 on: {
                     init: function() {
@@ -436,30 +428,33 @@ function displayRandomProducts($con, $limit)
             });
 
             function updateNavButtons(swiperInstance) {
-                const prevButton = document.querySelector(".prev-button");
+                const prevButton = document.querySelector(".previous-button");
                 const nextButton = document.querySelector(".next-button");
 
-                // Handle prev button state
+                // Handle 'prev' button state
                 if (swiperInstance.isBeginning) {
-                    prevButton.classList.add("cursor-not-allowed", "opacity-50");
+                    prevButton.classList.add("opacity-50");
                     prevButton.classList.remove("cursor-pointer");
                     prevButton.setAttribute("disabled", "true");
-
+                    prevButton.style.cursor = "not-allowed"; // Add this line to change the cursor
                 } else {
-                    prevButton.classList.remove("cursor-not-allowed", "opacity-50");
+                    prevButton.classList.remove("opacity-50");
                     prevButton.classList.add("cursor-pointer");
                     prevButton.removeAttribute("disabled");
+                    prevButton.style.cursor = "pointer"; // Reset to pointer when enabled
                 }
 
-                // Handle next button state
+                // Handle 'next' button state
                 if (swiperInstance.isEnd) {
-                    nextButton.classList.add("cursor-not-allowed", "opacity-50");
+                    nextButton.classList.add("opacity-50");
                     nextButton.classList.remove("cursor-pointer");
                     nextButton.setAttribute("disabled", "true");
+                    nextButton.style.cursor = "not-allowed"; // Add this line to change the cursor
                 } else {
-                    nextButton.classList.remove("cursor-not-allowed", "opacity-50");
+                    nextButton.classList.remove("opacity-50");
                     nextButton.classList.add("cursor-pointer");
                     nextButton.removeAttribute("disabled");
+                    nextButton.style.cursor = "pointer"; // Reset to pointer when enabled
                 }
             }
         </script>
@@ -468,78 +463,108 @@ function displayRandomProducts($con, $limit)
 
 
         <!-- card splide 1 -->
-        <div class="splide mt-12" id="cardSplide1">
+        <section class="swiper-container mySwiper1 relative px-3 overflow-hidden mt-5">
             <h1 class="text-2xl">You Might Also Like</h1>
-            <div class="splide__track py-5">
-                <ul class="splide__list">
-                    <?php
-                    displayRandomProducts($con, 10);
-                    ?>
-                </ul>
+            <div class="swiper-wrapper mt-5">
+                <?php
+                // Ensure that each product is wrapped in a 'swiper-slide' div
+                displayRandomProducts($con, 10); // Example function to display products
+                ?>
             </div>
-        </div>
 
-
-        <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
+            <div class="w-full absolute top-[50%]">
+                <button class="bg-gray-300 rounded-full prev-button-swiper1 w-8 h-8 z-50 absolute left-0 text-center flex items-center justify-center">
+                    <svg class="w-4 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="bg-gray-300 rounded-full next-button-swiper1 w-8 h-8 z-50 absolute right-6 text-center flex items-center justify-center ">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="#000000" opacity="1" data-original="#000000"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </section>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const splide = new Splide('#cardSplide1', {
-                    perPage: 4,
-                    perMove: 1,
-                    gap: '0.5rem',
-                    rewind: false,
-                    arrows: true,
-                    pagination: false,
+            document.addEventListener("DOMContentLoaded", function() {
+                var swiper = new Swiper(".mySwiper1", {
+                    autoplay: false,
+                    navigation: {
+                        nextEl: ".next-button-swiper1",
+                        prevEl: ".prev-button-swiper1",
+                    },
+                    slidesPerView: 1,
+                    slidesPerGroup: 1, // Only move one slide at a time
+                    spaceBetween: 15,
                     breakpoints: {
                         1200: {
-                            perPage: 3,
-                            gap: '0.75rem',
+                            slidesPerView: 4,
+                            spaceBetween: 15,
                         },
                         992: {
-                            perPage: 2,
-                            gap: '0.5rem',
+                            slidesPerView: 3,
+                            spaceBetween: 15,
                         },
                         535: {
-                            perPage: 1,
-                            gap: '0rem',
+                            slidesPerView: 2,
+                            spaceBetween: 0,
+                        },
+                    },
+                    on: {
+                        init: function() {
+                            // Add a short delay to ensure Swiper has fully initialized
+                            setTimeout(() => {
+                                updateNavButtons(this); // Check buttons status on init
+                            }, 100); // Adjust this time if needed
+                        },
+                        slideChange: function() {
+                            updateNavButtons(this); // Update buttons on slide change
                         },
                     },
                 });
 
-                // Function to update arrow visibility
-                function updateArrowVisibility() {
-                    const prevArrow = document.querySelector('.splide__arrow--prev');
-                    const nextArrow = document.querySelector('.splide__arrow--next');
-                    const totalSlides = splide.length; // Total number of slides
-                    const currentIndex = splide.index; // Current index of the slider
+                // Function to update button states based on swiper status
+                // Function to update button states based on swiper status
+                function updateNavButtons(swiperInstance) {
+                    const prevButton = document.querySelector(".prev-button-swiper1");
+                    const nextButton = document.querySelector(".next-button-swiper1");
 
-                    // Disable previous arrow if at the start or if there are no previous cards
-                    if (currentIndex === 0) {
-                        prevArrow.classList.add('disabled'); // Add disabled class
-                        prevArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    // Handle 'prev' button state (disable if swiper is at the beginning)
+                    if (swiperInstance.isBeginning) {
+                        prevButton.classList.add("cursor-not-allowed", "opacity-50");
+                        prevButton.classList.remove("cursor-pointer");
+                        prevButton.setAttribute("disabled", "true");
                     } else {
-                        prevArrow.classList.remove('disabled'); // Remove disabled class
-                        prevArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                        prevButton.classList.remove("cursor-not-allowed", "opacity-50");
+                        prevButton.classList.add("cursor-pointer");
+                        prevButton.removeAttribute("disabled");
                     }
 
-                    // Disable next arrow if at the end or if there are no next cards
-                    if (currentIndex >= totalSlides - splide.options.perPage) {
-                        nextArrow.classList.add('disabled'); // Add disabled class
-                        nextArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    // Handle 'next' button state (disable if swiper is at the end)
+                    if (swiperInstance.isEnd) {
+                        nextButton.classList.add("cursor-not-allowed", "opacity-50");
+                        nextButton.classList.remove("cursor-pointer");
+                        nextButton.setAttribute("disabled", "true");
+                        console.log(nextButton);
+
                     } else {
-                        nextArrow.classList.remove('disabled'); // Remove disabled class
-                        nextArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                        nextButton.classList.remove("cursor-not-allowed", "opacity-50");
+                        nextButton.classList.add("cursor-pointer");
+                        nextButton.removeAttribute("disabled");
+                        console.log("call else next button");
+
                     }
                 }
 
-                // Update arrow visibility on mount and when sliding
-                splide.on('mounted move', updateArrowVisibility);
-
-                // Mount the slider
-                splide.mount();
             });
         </script>
+
+
 
 
 
@@ -652,75 +677,104 @@ function displayRandomProducts($con, $limit)
 
 
         <!-- card splide 2 -->
-        <div class="splide mt-12" id="cardSplide2">
+        <section class="swiper-container mySwiper2 relative px-3 overflow-hidden mt-5">
             <h1 class="text-2xl">You Might Also Like</h1>
-            <div class="splide__track py-5">
-                <ul class="splide__list">
-                    <?php
-                    displayRandomProducts($con, 10);
-                    ?>
-                </ul>
+            <div class="swiper-wrapper mt-5">
+                <?php
+                // Ensure that each product is wrapped in a 'swiper-slide' div
+                displayRandomProducts($con, 10); // Example function to display products
+                ?>
             </div>
-        </div>
 
-        <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
+            <div class="w-full absolute top-[50%]">
+                <button class="bg-gray-300 rounded-full prev-button-swiper2 w-8 h-8 z-50 absolute left-0 text-center flex items-center justify-center">
+                    <svg class="w-4 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="bg-gray-300 rounded-full next-button-swiper2 w-8 h-8 z-50 absolute right-6 text-center flex items-center justify-center ">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="#000000" opacity="1" data-original="#000000"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </section>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const splide = new Splide('#cardSplide2', {
-                    perPage: 4,
-                    perMove: 1,
-                    gap: '0.5rem',
-                    rewind: false,
-                    arrows: true,
-                    pagination: false,
+            document.addEventListener("DOMContentLoaded", function() {
+                var swiper = new Swiper(".mySwiper2", {
+                    autoplay: false,
+                    navigation: {
+                        nextEl: ".next-button-swiper2",
+                        prevEl: ".prev-button-swiper2",
+                    },
+                    slidesPerView: 1,
+                    slidesPerGroup: 1, // Only move one slide at a time
+                    spaceBetween: 15,
                     breakpoints: {
                         1200: {
-                            perPage: 3,
-                            gap: '0.75rem',
+                            slidesPerView: 4,
+                            spaceBetween: 15,
                         },
                         992: {
-                            perPage: 2,
-                            gap: '0.5rem',
+                            slidesPerView: 3,
+                            spaceBetween: 15,
                         },
                         535: {
-                            perPage: 1,
-                            gap: '0rem',
+                            slidesPerView: 2,
+                            spaceBetween: 0,
+                        },
+                    },
+                    on: {
+                        init: function() {
+                            // Add a short delay to ensure Swiper has fully initialized
+                            setTimeout(() => {
+                                updateNavButtons(this); // Check buttons status on init
+                            }, 100); // Adjust this time if needed
+                        },
+                        slideChange: function() {
+                            updateNavButtons(this); // Update buttons on slide change
                         },
                     },
                 });
 
-                // Function to update arrow visibility
-                function updateArrowVisibility() {
-                    const prevArrow = document.querySelector('.splide__arrow--prev');
-                    const nextArrow = document.querySelector('.splide__arrow--next');
-                    const totalSlides = splide.length; // Total number of slides
-                    const currentIndex = splide.index; // Current index of the slider
+                // Function to update button states based on swiper status
+                // Function to update button states based on swiper status
+                function updateNavButtons(swiperInstance) {
+                    const prevButton = document.querySelector(".prev-button-swiper2");
+                    const nextButton = document.querySelector(".next-button-swiper2");
 
-                    // Disable previous arrow if at the start or if there are no previous cards
-                    if (currentIndex === 0) {
-                        prevArrow.classList.add('disabled'); // Add disabled class
-                        prevArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    // Handle 'prev' button state (disable if swiper is at the beginning)
+                    if (swiperInstance.isBeginning) {
+                        prevButton.classList.add("cursor-not-allowed", "opacity-50");
+                        prevButton.classList.remove("cursor-pointer");
+                        prevButton.setAttribute("disabled", "true");
                     } else {
-                        prevArrow.classList.remove('disabled'); // Remove disabled class
-                        prevArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                        prevButton.classList.remove("cursor-not-allowed", "opacity-50");
+                        prevButton.classList.add("cursor-pointer");
+                        prevButton.removeAttribute("disabled");
                     }
 
-                    // Disable next arrow if at the end or if there are no next cards
-                    if (currentIndex >= totalSlides - splide.options.perPage) {
-                        nextArrow.classList.add('disabled'); // Add disabled class
-                        nextArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    // Handle 'next' button state (disable if swiper is at the end)
+                    if (swiperInstance.isEnd) {
+                        nextButton.classList.add("cursor-not-allowed", "opacity-50");
+                        nextButton.classList.remove("cursor-pointer");
+                        nextButton.setAttribute("disabled", "true");
+                        console.log(nextButton);
+
                     } else {
-                        nextArrow.classList.remove('disabled'); // Remove disabled class
-                        nextArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                        nextButton.classList.remove("cursor-not-allowed", "opacity-50");
+                        nextButton.classList.add("cursor-pointer");
+                        nextButton.removeAttribute("disabled");
+                        console.log("call else next button");
+
                     }
                 }
 
-                // Update arrow visibility on mount and when sliding
-                splide.on('mounted move', updateArrowVisibility);
-
-                // Mount the slider
-                splide.mount();
             });
         </script>
 
@@ -775,75 +829,104 @@ function displayRandomProducts($con, $limit)
         </div>
 
         <!-- card splide 3 -->
-        <div class="splide mt-10" id="cardSplide3">
-            <h1 class="text-2xl">More to Discover</h1>
-            <div class="splide__track py-5">
-                <ul class="splide__list">
-                    <?php
-                    displayRandomProducts($con, 10);
-                    ?>
-                </ul>
+        <section class="swiper-container mySwiper3 relative px-3 overflow-hidden mt-5">
+            <h1 class="text-2xl">You Might Also Like</h1>
+            <div class="swiper-wrapper mt-5">
+                <?php
+                // Ensure that each product is wrapped in a 'swiper-slide' div
+                displayRandomProducts($con, 10); // Example function to display products
+                ?>
             </div>
-        </div>
 
-        <!-- Repeat the above structure for splide2, splide3, splide4 as needed -->
+            <div class="w-full absolute top-[50%]">
+                <button class="bg-gray-300 rounded-full prev-button-swiper3 w-8 h-8 z-50 absolute left-0 text-center flex items-center justify-center">
+                    <svg class="w-4 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 492 492" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="bg-gray-300 rounded-full next-button-swiper3 w-8 h-8 z-50 absolute right-6 text-center flex items-center justify-center ">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path d="M382.678 226.804 163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z" fill="#000000" opacity="1" data-original="#000000"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </section>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const splide = new Splide('#cardSplide3', {
-                    perPage: 4,
-                    perMove: 1,
-                    gap: '0.5rem',
-                    rewind: false,
-                    arrows: true,
-                    pagination: false,
+            document.addEventListener("DOMContentLoaded", function() {
+                var swiper = new Swiper(".mySwiper3", {
+                    autoplay: false,
+                    navigation: {
+                        nextEl: ".next-button-swiper3",
+                        prevEl: ".prev-button-swiper3",
+                    },
+                    slidesPerView: 1,
+                    slidesPerGroup: 1, // Only move one slide at a time
+                    spaceBetween: 15,
                     breakpoints: {
                         1200: {
-                            perPage: 3,
-                            gap: '0.75rem',
+                            slidesPerView: 4,
+                            spaceBetween: 15,
                         },
                         992: {
-                            perPage: 2,
-                            gap: '0.5rem',
+                            slidesPerView: 3,
+                            spaceBetween: 15,
                         },
                         535: {
-                            perPage: 1,
-                            gap: '0rem',
+                            slidesPerView: 2,
+                            spaceBetween: 0,
+                        },
+                    },
+                    on: {
+                        init: function() {
+                            // Add a short delay to ensure Swiper has fully initialized
+                            setTimeout(() => {
+                                updateNavButtons(this); // Check buttons status on init
+                            }, 100); // Adjust this time if needed
+                        },
+                        slideChange: function() {
+                            updateNavButtons(this); // Update buttons on slide change
                         },
                     },
                 });
 
-                // Function to update arrow visibility
-                function updateArrowVisibility() {
-                    const prevArrow = document.querySelector('.splide__arrow--prev');
-                    const nextArrow = document.querySelector('.splide__arrow--next');
-                    const totalSlides = splide.length; // Total number of slides
-                    const currentIndex = splide.index; // Current index of the slider
+                // Function to update button states based on swiper status
+                // Function to update button states based on swiper status
+                function updateNavButtons(swiperInstance) {
+                    const prevButton = document.querySelector(".prev-button-swiper3");
+                    const nextButton = document.querySelector(".next-button-swiper3");
 
-                    // Disable previous arrow if at the start or if there are no previous cards
-                    if (currentIndex === 0) {
-                        prevArrow.classList.add('disabled'); // Add disabled class
-                        prevArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    // Handle 'prev' button state (disable if swiper is at the beginning)
+                    if (swiperInstance.isBeginning) {
+                        prevButton.classList.add("cursor-not-allowed", "opacity-50");
+                        prevButton.classList.remove("cursor-pointer");
+                        prevButton.setAttribute("disabled", "true");
                     } else {
-                        prevArrow.classList.remove('disabled'); // Remove disabled class
-                        prevArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                        prevButton.classList.remove("cursor-not-allowed", "opacity-50");
+                        prevButton.classList.add("cursor-pointer");
+                        prevButton.removeAttribute("disabled");
                     }
 
-                    // Disable next arrow if at the end or if there are no next cards
-                    if (currentIndex >= totalSlides - splide.options.perPage) {
-                        nextArrow.classList.add('disabled'); // Add disabled class
-                        nextArrow.setAttribute('aria-disabled', 'true'); // Set aria attribute for accessibility
+                    // Handle 'next' button state (disable if swiper is at the end)
+                    if (swiperInstance.isEnd) {
+                        nextButton.classList.add("cursor-not-allowed", "opacity-50");
+                        nextButton.classList.remove("cursor-pointer");
+                        nextButton.setAttribute("disabled", "true");
+                        console.log(nextButton);
+
                     } else {
-                        nextArrow.classList.remove('disabled'); // Remove disabled class
-                        nextArrow.setAttribute('aria-disabled', 'false'); // Set aria attribute for accessibility
+                        nextButton.classList.remove("cursor-not-allowed", "opacity-50");
+                        nextButton.classList.add("cursor-pointer");
+                        nextButton.removeAttribute("disabled");
+                        console.log("call else next button");
+
                     }
                 }
 
-                // Update arrow visibility on mount and when sliding
-                splide.on('mounted move', updateArrowVisibility);
-
-                // Mount the slider
-                splide.mount();
             });
         </script>
 
