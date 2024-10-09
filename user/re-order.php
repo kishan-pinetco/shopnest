@@ -297,104 +297,119 @@
 
             $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
             $update_qty_quary = mysqli_query($con, $update_qty);
-
-            if(!$order_insert_query){
-                // Log error for debugging
-                error_log("MySQL Error: " . mysqli_error($con));
-            }
         } else {
             // Log missing field for debugging
-            error_log("Missing fields in the order data.");
+            ?>
+                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Missing fields in the order data.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    let EpopUp = document.getElementById('EpopUp');
+                    EpopUp.style.display = 'flex';
+                    EpopUp.style.opacity = '100';
+                    setTimeout(() => {
+                        EpopUp.style.display = 'none';
+                        EpopUp.style.opacity = '0';
+                    }, 1500);
+                </script>
+            <?php
         }
-
-
-        // sending email
-
-        include "../pages/mail.php";
-        $mail->addAddress($user_email);
-        $mail->isHTML(true);
-
-        // order information
-        if(isset($_GET['product_id'])){
-            $product_id = $_GET['product_id'];
-
-            $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";
-            $retrieve_order_query = mysqli_query($con, $retrieve_order);
-            $res = mysqli_fetch_assoc($retrieve_order_query);
-        
-            $username = $res['user_first_name'] .' '. $res['user_last_name'];
-            $order_id = $res['order_id'];
-            $order_date = $res['date'];
-
-            $order_title = $res['order_title'];
-            $order_image = '../src/product_image/product_profile/' . $res['order_image'];
-            $order_price = $res['order_price'];
-            $order_color = $res['order_color'];
-            $order_size = $res['order_size'];
-            $order_qty = $res['qty'];
-        
-            $user_email = $res['user_email'];
-            $user_mobile = $res['user_mobile'];
-            $user_address = $res['user_address'];
-        
-            $total_price = $res['total_price'];
-            $today = date('d-m-Y', strtotime($res['date']));
-            $delivery_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
-        }
-        
-        $mail->Subject = "New Order Confirmation - #$order_id";
-        $mail->Body = "<html>
-        <head>
-            <title>Order Confirmation</title>
-        </head>
-        <body>
-            <p>Dear $username,</p>
-            <p>Thank you for placing an order with us! We are excited to confirm the details of your purchase. Below are the specifics of your order:</p>
-            <p><strong>Order Number:</strong> $order_id<br>
-            <strong>Order Date:</strong> $order_date</p>
-            <h3>Items Ordered:</h3>
-            <table border='1' cellpadding='10'>
-                <tr>
-                    <td><strong>Product Name:</strong></td>
-                    <td>$order_title</td>
-                </tr>
-                <tr>
-                    <td><strong>Image:</strong></td>
-                    <td><img src='$order_image' alt='Product Image' width='100'></td>
-                </tr>
-                <tr>
-                    <td><strong>Price:</strong></td>
-                    <td>$order_price</td>
-                </tr>
-                <tr>
-                    <td><strong>Quantity:</strong></td>
-                    <td>$order_qty</td>
-                </tr>
-                <tr>
-                    <td><strong>Color:</strong></td>
-                    <td>$order_color</td>
-                </tr>
-                <tr>
-                    <td><strong>Size:</strong></td>
-                    <td>$order_size</td>
-                </tr>
-            </table>
-            <p><strong>Mobile Number:</strong> $user_mobile</p>
-            <p><strong>Billing E-mail:</strong> $user_email</p>
-            <p><strong>Billing Address:</strong> $user_address</p>
-            <p><strong>Order Total Price:</strong> $total_price</p>
-            <p><strong>Estimated Delivery Date:</strong> $delivery_date</p>
-            <p>We will send you an update when your order is on its way. If you have any questions or need further assistance, please do not hesitate to contact us.</p>
-            <p>Thank you for choosing shopNest. We look forward to serving you again!</p>
-            <p>Best regards,<br>
-            shopNest<br>
-            shopnest2603@gmail.com</p>
-        </body>
-        </html>";
-
-        $mail->send();
 
         if(isset($order_insert_query) && isset($update_qty_quary)){
+            // sending email
+
+            include "../pages/mail.php";
+            $mail->addAddress($user_email);
+            $mail->isHTML(true);
+
+            // order information
+            if(isset($_GET['product_id'])){
+                $product_id = $_GET['product_id'];
+
+                $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";
+                $retrieve_order_query = mysqli_query($con, $retrieve_order);
+                $res = mysqli_fetch_assoc($retrieve_order_query);
+            
+                $username = $res['user_first_name'] .' '. $res['user_last_name'];
+                $order_id = $res['order_id'];
+                $order_date = $res['date'];
+
+                $order_title = $res['order_title'];
+                $order_image = '../src/product_image/product_profile/' . $res['order_image'];
+                $order_price = $res['order_price'];
+                $order_color = $res['order_color'];
+                $order_size = $res['order_size'];
+                $order_qty = $res['qty'];
+            
+                $user_email = $res['user_email'];
+                $user_mobile = $res['user_mobile'];
+                $user_address = $res['user_address'];
+            
+                $total_price = $res['total_price'];
+                $today = date('d-m-Y', strtotime($res['date']));
+                $delivery_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+            }
+
+            $mail->Subject = "New Order Confirmation - #$order_id";
+            $mail->Body = "<html>
+            <head>
+                <title>Order Confirmation</title>
+            </head>
+            <body>
+                <p>Dear $username,</p>
+                <p>Thank you for placing an order with us! We are excited to confirm the details of your purchase. Below are the specifics of your order:</p>
+                <p><strong>Order Number:</strong> $order_id<br>
+                <strong>Order Date:</strong> $order_date</p>
+                <h3>Items Ordered:</h3>
+                <table border='1' cellpadding='10'>
+                    <tr>
+                        <td><strong>Product Name:</strong></td>
+                        <td>$order_title</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Image:</strong></td>
+                        <td><img src='$order_image' alt='Product Image' width='100'></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price:</strong></td>
+                        <td>$order_price</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quantity:</strong></td>
+                        <td>$order_qty</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Color:</strong></td>
+                        <td>$order_color</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Size:</strong></td>
+                        <td>$order_size</td>
+                    </tr>
+                </table>
+                <p><strong>Mobile Number:</strong> $user_mobile</p>
+                <p><strong>Billing E-mail:</strong> $user_email</p>
+                <p><strong>Billing Address:</strong> $user_address</p>
+                <p><strong>Order Total Price:</strong> $total_price</p>
+                <p><strong>Estimated Delivery Date:</strong> $delivery_date</p>
+                <p>We will send you an update when your order is on its way. If you have any questions or need further assistance, please do not hesitate to contact us.</p>
+                <p>Thank you for choosing shopNest. We look forward to serving you again!</p>
+                <p>Best regards,<br>
+                shopNest<br>
+                shopnest2603@gmail.com</p>
+            </body>
+            </html>";
+
+            $mail->send();
 
             ?>
                 <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">

@@ -175,9 +175,7 @@
                                                     <div class="grid grid-cols-1 lg:grid-cols-2 w-full">
                                                         <div class="flex items-center">
                                                             <div class="">
-                                                                <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'];?>">
-                                                                    <h2 class="font-semibold text-xl leading-8 text-black mb-3 line-clamp-2 w-[90%]"><?php echo isset($_COOKIE['user_id']) ? $res['return_order_title'] : 'return_order_title' ?></h2>
-                                                                </a>
+                                                                <h2 class="font-semibold text-xl leading-8 text-black mb-3 line-clamp-2 w-[90%]"><?php echo isset($_COOKIE['user_id']) ? $res['return_order_title'] : 'return_order_title' ?></h2>
                                                                 <div class="flex items-center">
                                                                     <p class="font-medium text-base leading-7 text-black">Price: <span class="text-gray-600">₹<?php echo isset($_COOKIE['user_id']) ? $res['return_order_price'] : 'return_order_price' ?></span></p>
                                                                 </div>

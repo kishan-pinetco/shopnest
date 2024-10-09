@@ -28,6 +28,13 @@ if (isset($_COOKIE['user_id'])) {
 
     $res = mysqli_fetch_assoc($retrieve_order_query);
 
+    $user_id = $_COOKIE['user_id'];
+
+    $user_info = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
+    $user_info_query = mysqli_query($con, $user_info);
+
+    $row = mysqli_fetch_assoc($user_info_query);
+
 }
 ?>
 <!DOCTYPE html>
@@ -56,8 +63,39 @@ if (isset($_COOKIE['user_id'])) {
     <title>Return Order</title>
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
+        <div class="flex items-center justify-center">
+            <a class="flex items-center" href="/shopnest/index.php">
+                <!-- icon logo div -->
+                <div class="mr-2">
+                    <img class="w-7 sm:w-14" src="/shopnest/src/logo/black_cart_logo.svg" alt="Cart Logo">
+                </div>
+                <!-- text logo -->
+                <div>
+                    <img class="w-20 sm:w-36" src="/shopnest/src/logo/black_text_logo.svg" alt="Shopnest Logo">
+                </div>
+            </a>
+        </div>
+        <div class="flex items-center">
+            <div x-data="{ dropdownOpen: false }" class="relative">
+                <button @click="dropdownOpen = !dropdownOpen" class="relative block w-8 h-8 md:w-10 md:h-10 overflow-hidden rounded-full shadow-lg focus:outline-none transition-transform transform hover:scale-105">
+                    <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['user_id']) ? '/shopnest/src/user_dp/' . $row['profile_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png'; ?>" alt="Your avatar">
+                </button>
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
+                <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl ring-2 ring-gray-300 divide-y-2 divide-gray-300" style="display: none;">
+                    <a href="/shopnest/user/profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                    <a href="/shopnest/user/show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Orders</a>
+                    <a href="/shopnest/user/user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
     
-<div class="max-w-screen-lg m-auto px-4 py-12">
+
+    <div class="max-w-screen-lg m-auto px-4 py-12">
         <div class="grid grid-col-1 gap-y-4">
             <h2 class="font-bold text-2xl text-black">Return Order</h2>
             <div class="flex flex-col items-center gap-5 md:flex-row">
@@ -277,16 +315,23 @@ if (isset($_COOKIE['user_id'])) {
 
             $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
             $get_qty_query = mysqli_query($con, $get_qty);
+            echo $product_id;
+            // Check if the query was successful
+            if ($get_qty_query) {
+                // Fetch the result
+                $qty = mysqli_fetch_assoc($get_qty_query);
+            
+                // Check if the result is not null
+                if ($qty) {
+                    $product_qty = (int)$qty['Quantity'];
+                    $qty_replace = (int)str_replace(",", "", $return_order_qty);
+                    $remove_qty = number_format($product_qty + $qty_replace);
+                } else {
+                    echo "No product found with ID: $product_id.";
+                }
+            }
  
-            $qty = mysqli_fetch_assoc($get_qty_query);
-            $product_quty = $qty['Quantity'];
- 
-            $qty_replace = str_replace(",", "",$product_quty);
-            $qty_replace = (int)$qty_replace;
- 
-            $remove_quty = number_format($qty_replace + $return_order_qty);
- 
-            $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
+            $update_qty = "UPDATE items SET Quantity='$remove_qty' WHERE product_id = '$product_id'";
             $update_qty_quary = mysqli_query($con, $update_qty);
 
             // sending email
@@ -309,7 +354,7 @@ if (isset($_COOKIE['user_id'])) {
             
                 $username = $retPr['user_name'];
                 $order_id = $retPr['order_id'];
-                $cancle_date = $retPr['date'];
+                $return_date = $retPr['date'];
 
                 $return_order_title = $retPr['return_order_title'];
                 $return_order_image = '../src/product_image/product_profile/' . $retPr['return_order_image'];
@@ -321,7 +366,7 @@ if (isset($_COOKIE['user_id'])) {
                 $reason = $retPr['reason'];
             
                 $user_email = $retPr['user_email'];
-                $user_phone = $retPr['user_mobile'];
+                $user_phone = $retPr['user_phone'];
             
                 $return_order_price = $retPr['return_order_price'];
             }
@@ -337,7 +382,7 @@ if (isset($_COOKIE['user_id'])) {
                 <p>Dear $username,</p>
                 <p>We have received your request to return the following order:</p>
                 <p><strong>Order Number:</strong> #$order_id</p>
-                <p><strong>Order Cancle Date:</strong> $cancle_date</p>
+                <p><strong>Order Return Date:</strong> $return_date</p>
                 <h3>Items Ordered:</h3>
                 <table border='1' cellpadding='10'>
                     <tr>
@@ -350,7 +395,7 @@ if (isset($_COOKIE['user_id'])) {
                     </tr>
                     <tr>
                         <td><strong>Price:</strong></td>
-                        <td>$order_price</td>
+                        <td>$return_order_price</td>
                     </tr>
                     <tr>
                         <td><strong>Quantity:</strong></td>
@@ -384,11 +429,7 @@ if (isset($_COOKIE['user_id'])) {
 
             $mail->send();
             
-            if($return_order_query){
-                echo '<script>displaySuccessMessage("Your order has been successfully Return.");</script>';
-            }
-
-            
+            echo '<script>displaySuccessMessage("Your order has been successfully Return.");</script>';
         }
     }
 

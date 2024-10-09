@@ -27,6 +27,12 @@ if (isset($_COOKIE['user_id'])) {
 
     $res = mysqli_fetch_assoc($retrieve_order_query);
 
+    $user_id = $_COOKIE['user_id'];
+
+    $user_info = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
+    $user_info_query = mysqli_query($con, $user_info);
+
+    $row = mysqli_fetch_assoc($user_info_query);
 }
 ?>
 <!DOCTYPE html>
@@ -55,8 +61,38 @@ if (isset($_COOKIE['user_id'])) {
     <title>Cancel Order</title>
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
+        <div class="flex items-center justify-center">
+            <a class="flex items-center" href="/shopnest/index.php">
+                <!-- icon logo div -->
+                <div class="mr-2">
+                    <img class="w-7 sm:w-14" src="/shopnest/src/logo/black_cart_logo.svg" alt="Cart Logo">
+                </div>
+                <!-- text logo -->
+                <div>
+                    <img class="w-20 sm:w-36" src="/shopnest/src/logo/black_text_logo.svg" alt="Shopnest Logo">
+                </div>
+            </a>
+        </div>
+        <div class="flex items-center">
+            <div x-data="{ dropdownOpen: false }" class="relative">
+                <button @click="dropdownOpen = !dropdownOpen" class="relative block w-8 h-8 md:w-10 md:h-10 overflow-hidden rounded-full shadow-lg focus:outline-none transition-transform transform hover:scale-105">
+                    <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['user_id']) ? '/shopnest/src/user_dp/' . $row['profile_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png'; ?>" alt="Your avatar">
+                </button>
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
+                <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl ring-2 ring-gray-300 divide-y-2 divide-gray-300" style="display: none;">
+                    <a href="/shopnest/user/profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                    <a href="/shopnest/user/show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Orders</a>
+                    <a href="/shopnest/user/user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
     
-<div class="max-w-screen-lg m-auto px-4 py-12">
+    <div class="max-w-screen-lg m-auto px-4 py-12">
         <div class="grid grid-col-1 gap-y-4">
             <h2 class="font-bold text-2xl text-black">Cancel Order</h2>
             <div class="flex flex-col items-center gap-5 md:flex-row">
@@ -280,10 +316,10 @@ if (isset($_COOKIE['user_id'])) {
             $qty = mysqli_fetch_assoc($get_qty_query);
             $product_quty = $qty['Quantity'];
  
-            $qty_replace = str_replace(",", "", $product_qty);
+            $qty_replace = str_replace(",", "", $cancle_order_qty);
             $qty_replace = (int)$qty_replace;
-                    
-            $remove_quty = number_format($qty_replace + $cancle_order_qty);
+
+            $remove_quty = number_format($product_quty + $qty_replace);
  
             $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
             $update_qty_quary = mysqli_query($con, $update_qty);
@@ -301,8 +337,6 @@ if (isset($_COOKIE['user_id'])) {
             // order information
             if(isset($_GET['order_id'])){
                 $order_id = $_GET['order_id'];
-
-                echo $order_id;
 
                 // Retrieve order details from the database
                 $retrieve_order = "SELECT * FROM cancel_orders WHERE order_id = '$order_id'";
@@ -387,13 +421,7 @@ if (isset($_COOKIE['user_id'])) {
                 $mail->send();
             }
 
-
-
-            if($cancle_order_query){
-                echo '<script>displaySuccessMessage("Your order has been successfully canceled.");</script>';
-            }
-
-            
+            echo '<script>displaySuccessMessage("Your order has been successfully canceled.");</script>';
         }
     }
 

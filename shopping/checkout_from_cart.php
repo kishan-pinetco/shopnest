@@ -121,7 +121,6 @@ if (isset($_POST['placeOrder'])) {
                 $review_insert_Date = date('d-m-Y');
 
                 if (!empty($FirstName) && !empty($lastName) && !empty($Phone_number) && !empty($user_email) && !empty($Address) && !empty($state) && !empty($city) && !empty($pin) && !empty($paymentType)) {
-
                     // remove quantity of products
                     $product_id = mysqli_real_escape_string($con, $Cproducts['cart_id']);
 
@@ -141,47 +140,39 @@ if (isset($_POST['placeOrder'])) {
                     $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
                     $update_qty_quary = mysqli_query($con, $update_qty);
 
-                    if (!$order_insert_query) {
-                        // Log error for debugging
-                        error_log("MySQL Error: " . mysqli_error($con));
-                    }
-                } else {
-                    // Log missing field for debugging
-                    error_log("Missing fields in the order data.");
-                }
-
-                $product_id = mysqli_real_escape_string($con, $Cproducts['cart_id']);
-
-                $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";
-                $retrieve_order_query = mysqli_query($con, $retrieve_order);
-                $res = mysqli_fetch_assoc($retrieve_order_query);
-
-                $mail->addAddress($user_email);
-                $mail->isHTML(true);
-
-                if ($res) {
-                    $username = $res['user_first_name'] . ' ' . $res['user_last_name'];
-                    $order_id = $res['order_id'];
-                    $order_date = $res['date'];
-                    $order_title = $res['order_title'];
-                    $order_image = '../src/product_image/product_profile/' . $res['order_image'];
-                    $order_price = $res['order_price'];
-                    $order_color = $res['order_color'];
-                    $order_size = $res['order_size'];
-                    $order_qty = $res['qty'];
-                    $user_email = $res['user_email'];
-                    $user_mobile = $res['user_mobile'];
-                    $user_address = $res['user_address'];
-                    $total_price = $res['total_price'];
-                    $today = date('d-m-Y', strtotime($res['date']));
-                    $delivery_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
-
-                    $mail->Subject = "New Order Confirmation - #$order_id";
-                    $mail->Body = "<html>
-                        <head>
+                    if($update_qty_quary){
+                        $product_id = mysqli_real_escape_string($con, $Cproducts['cart_id']);
+                        
+                        $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";
+                        $retrieve_order_query = mysqli_query($con, $retrieve_order);
+                        $res = mysqli_fetch_assoc($retrieve_order_query);
+                        
+                        $mail->addAddress($user_email);
+                        $mail->isHTML(true);
+                        
+                        if ($res) {
+                            $username = $res['user_first_name'] . ' ' . $res['user_last_name'];
+                            $order_id = $res['order_id'];
+                            $order_date = $res['date'];
+                            $order_title = $res['order_title'];
+                            $order_image = '../src/product_image/product_profile/' . $res['order_image'];
+                            $order_price = $res['order_price'];
+                            $order_color = $res['order_color'];
+                            $order_size = $res['order_size'];
+                            $order_qty = $res['qty'];
+                            $user_email = $res['user_email'];
+                            $user_mobile = $res['user_mobile'];
+                            $user_address = $res['user_address'];
+                            $total_price = $res['total_price'];
+                            $today = date('d-m-Y', strtotime($res['date']));
+                            $delivery_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
+                            
+                            $mail->Subject = "New Order Confirmation - #$order_id";
+                            $mail->Body = "<html>
+                            <head>
                             <title>Order Confirmation</title>
-                        </head>
-                        <body>
+                            </head>
+                            <body>
                             <p>Dear $username,</p>
                             <p>Thank you for placing an order with us! We are excited to confirm the details of your purchase. Below are the specifics of your order:</p>
                             <p><strong>Order Number:</strong> $order_id<br>
@@ -189,24 +180,24 @@ if (isset($_POST['placeOrder'])) {
                             <h3>Items Ordered:</h3>
                             <table border='1' cellpadding='10'>
                                 <tr>
-                                    <td><strong>Product Name:</strong></td>
-                                    <td>$order_title</td>
+                                <td><strong>Product Name:</strong></td>
+                                <td>$order_title</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Image:</strong></td>
-                                    <td><img src='$order_image' alt='Product Image' width='100'></td>
+                                <td><strong>Image:</strong></td>
+                                <td><img src='$order_image' alt='Product Image' width='100'></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Price:</strong></td>
-                                    <td>$order_price</td>
+                                <td><strong>Price:</strong></td>
+                                <td>$order_price</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Quantity:</strong></td>
-                                    <td>$order_qty</td>
+                                <td><strong>Quantity:</strong></td>
+                                <td>$order_qty</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Color:</strong></td>
-                                    <td>$order_color</td>
+                                <td><strong>Color:</strong></td>
+                                <td>$order_color</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Size:</strong></td>
@@ -223,76 +214,72 @@ if (isset($_POST['placeOrder'])) {
                             <p>Best regards,<br>
                             shopNest<br>
                             shopnest2603@gmail.com</p>
-                        </body>
-                        </html>";
+                            </body>
+                            </html>";
 
-                    $mail->send();
-                }
-            }
+                            $mail->send();
+                        }
 
+                        ?>
+                            <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
+                                <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                    </svg>
+                                    <span class="sr-only">Info</span>
+                                    <div>
+                                        <span class="font-medium">Your Order Has been Placed.</span>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <script>
+                                let popUp = document.getElementById('popUp');
+                                popUp.style.display = 'flex';
+                                popUp.style.opacity = '100';
+                                setTimeout(() => {
+                                    popUp.style.display = 'none';
+                                    popUp.style.opacity = '0';
+                                    window.location.href = '../index.php';
+                                }, 1500);
+                            </script>
+                        <?php
 
-            // order information
-            if (isset($product_id)) {
-                ob_start(); // Start output buffering
+                        ob_start();
 
-                // Ensure no output occurs before cookie operations
-                if (isset($_COOKIE['Cart_products'])) {
-                    setcookie('Cart_products', '', time() - 3600, "/"); // Delete cookie
-                    unset($_COOKIE['Cart_products']); // Optionally unset in the array
-                }
+                        if (isset($_COOKIE['Cart_products'])) {
+                            setcookie('Cart_products', '', time() - 3600, "/");
+                            unset($_COOKIE['Cart_products']);
+                        }
 
-                // You can now safely output information
-                ob_end_flush();
-
-?>
-                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
-                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                        <div>
-                            <span class="font-medium">Your Order Has been Placed.</span>
+                        ob_end_flush();
+                    }
+                } else {
+                    // Log missing field for debugging
+                    ?>
+                        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+                            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div>
+                                    <span class="font-medium">Missing fields in the order data.</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <script>
-                    let popUp = document.getElementById('popUp');
-                    popUp.style.display = 'flex';
-                    popUp.style.opacity = '100';
-                    setTimeout(() => {
-                        popUp.style.display = 'none';
-                        popUp.style.opacity = '0';
-                        window.location.href = '../index.php';
-                    }, 1500);
-                </script>
-            <?php
-            } else {
-            ?>
-                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
-                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                        <div>
-                            <span class="font-medium">Order Not Placed Please try again.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    let EpopUp = document.getElementById('EpopUp');
-                    EpopUp.style.display = 'flex';
-                    EpopUp.style.opacity = '100';
-                    setTimeout(() => {
-                        EpopUp.style.display = 'none';
-                        EpopUp.style.opacity = '0';
-                    }, 1500);
-                </script>
-<?php
+                        <script>
+                            let EpopUp = document.getElementById('EpopUp');
+                            EpopUp.style.display = 'flex';
+                            EpopUp.style.opacity = '100';
+                            setTimeout(() => {
+                                EpopUp.style.display = 'none';
+                                EpopUp.style.opacity = '0';
+                            }, 1500);
+                        </script>
+                    <?php
+                }
             }
         }
     }
@@ -491,22 +478,22 @@ if (isset($_POST['placeOrder'])) {
                             </h1>
                         </label>
                         <input type="text" id="totalPrice" class="hidden float-right bg-transparent border-none text-2xl font-semibold text-gray-900" name="totalProductPrice" value="₹<?php
-                                                                                                                                                                                        if (isset($myCookie)) {
-                                                                                                                                                                                            $product_mrp = $totalPrice;
-                                                                                                                                                                                            $products_price = explode(",", $product_mrp);
+                        if (isset($myCookie)) {
+                            $product_mrp = $totalPrice;
+                            $products_price = explode(",", $product_mrp);
 
-                                                                                                                                                                                            $productPrice = implode("", $products_price);
+                            $productPrice = implode("", $products_price);
 
-                                                                                                                                                                                            $total = $totalPrice + $shipping;
+                            $total = $totalPrice + $shipping;
 
-                                                                                                                                                                                            $formattedTotalPriceWithQty = number_format($totalPrice, 0);
-                                                                                                                                                                                            $formattedTotal = number_format($total, 0);
+                            $formattedTotalPriceWithQty = number_format($totalPrice, 0);
+                            $formattedTotal = number_format($total, 0);
 
-                                                                                                                                                                                            echo $formattedTotal;
-                                                                                                                                                                                        } else {
-                                                                                                                                                                                            echo 'Total Amount';
-                                                                                                                                                                                        }
-                                                                                                                                                                                        ?>" dir="rtl">
+                            echo $formattedTotal;
+                        } else {
+                            echo 'Total Amount';
+                        }
+                        ?>" dir="rtl">
                     </div>
                 </div>
                 <div x-data="{ isLoading: false }">

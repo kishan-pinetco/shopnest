@@ -118,7 +118,7 @@ if (isset($_GET['product_id'])) {
     <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
         <div class="container max-w-screen-lg font-medium text-gray-800 mx-auto">
             <div class="flex items-center justify-center mt-8 mb-7 mr-2">
-                <a class="flex w-fit" href="view_products.php">
+                <a class="flex w-fit" href="view_product.php">
                     <!-- icon logo div -->
                     <div>
                         <img class="w-7 sm:w-14 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
