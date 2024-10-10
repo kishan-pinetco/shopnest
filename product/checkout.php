@@ -79,6 +79,12 @@ if (isset($_GET['product_id'])) {
     $us = mysqli_fetch_assoc($user_query);
 }
 
+
+
+if (isset($_POST['placeOrder'])) {
+    $_SESSION['payment'] = 1;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -112,6 +118,36 @@ if (isset($_GET['product_id'])) {
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
+        <div class="flex items-center justify-center">
+            <a class="flex items-center" href="/shopnest/index.php">
+                <!-- icon logo div -->
+                <div class="mr-2">
+                    <img class="w-7 sm:w-14" src="/shopnest/src/logo/black_cart_logo.svg" alt="Cart Logo">
+                </div>
+                <!-- text logo -->
+                <div>
+                    <img class="w-20 sm:w-36" src="/shopnest/src/logo/black_text_logo.svg" alt="Shopnest Logo">
+                </div>
+            </a>
+        </div>
+        <div class="flex items-center">
+            <div x-data="{ dropdownOpen: false }" class="relative">
+                <button @click="dropdownOpen = !dropdownOpen" class="relative block w-8 h-8 md:w-10 md:h-10 overflow-hidden rounded-full shadow-lg focus:outline-none transition-transform transform hover:scale-105">
+                    <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['user_id']) ? '/shopnest/src/user_dp/' . $us['profile_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png'; ?>" alt="Your avatar">
+                </button>
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
+                <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl ring-2 ring-gray-300 divide-y-2 divide-gray-300" style="display: none;">
+                    <a href="/shopnest/user/profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                    <a href="/shopnest/user/show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Orders</a>
+                    <a href="/shopnest/user/user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
 
     <form class="max-w-screen-xl m-auto" action="" method="post">
@@ -228,21 +264,21 @@ if (isset($_GET['product_id'])) {
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
                             <p class="font-semibold text-gray-900">₹<?php
-                                                                    if (isset($product_id)) {
-                                                                        $totalPriceWithQty = str_replace(',', '', $totalPriceWithQty);
-                                                                        $totalPriceWithQty = (int) $totalPriceWithQty;
-                                                                        if ($totalPriceWithQty <= 599) {
-                                                                            $shipping = 40;
-                                                                        } else {
-                                                                            $shipping = 0;
-                                                                        }
-                                                                    } else {
-                                                                        $shipping = 0;
-                                                                    }
+                            if (isset($product_id)) {
+                                $totalPriceWithQty = str_replace(',', '', $totalPriceWithQty);
+                                $totalPriceWithQty = (int) $totalPriceWithQty;
+                                if ($totalPriceWithQty <= 599) {
+                                    $shipping = 40;
+                                } else {
+                                    $shipping = 0;
+                                }
+                            } else {
+                                $shipping = 0;
+                            }
 
-                                                                    // Output the shipping value
-                                                                    echo $shipping;
-                                                                    ?></p>
+                            // Output the shipping value
+                            echo $shipping;
+                            ?></p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
@@ -287,8 +323,8 @@ if (isset($_GET['product_id'])) {
                         ?>" dir="rtl">
                     </div>
                 </div>
-                <div x-data="{ isLoading: false }">
-                    <input type="submit" name="placeOrder" value="Place Order" :disabled="isLoading" class="mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white cursor-pointer hover:bg-gray-800 transition duration-200">
+                <div>
+                    <input type="submit" name="placeOrder" value="Place Order" <?php echo isset($_SESSION['payment']) ? 'disabled' : '' ?> class="<?php echo !isset($_SESSION['payment']) ? 'cursor-pointer hover:bg-gray-800' : 'cursor-not-allowed opacity-50' ?> mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200">
                 </div>
             </div>
         </div>
@@ -362,6 +398,7 @@ if (isset($_GET['product_id'])) {
 </html>
 
 <?php
+
 if (isset($_POST['placeOrder'])) {
     $order_title = mysqli_real_escape_string($con, $title);
     $order_image = mysqli_real_escape_string($con, $pimg);
@@ -386,7 +423,10 @@ if (isset($_POST['placeOrder'])) {
 
     if (isset($_POST['payment'])) {
         $paymentType = mysqli_real_escape_string($con, $_POST['payment']);
+        $_SESSION['payment'] = $paymentType;
     }
+
+
 
     $bac = str_replace(",", "", $order_price);
     $bac = (int)$bac;
@@ -505,6 +545,8 @@ if (isset($_POST['placeOrder'])) {
                 </html>";
  
             $mail->send();
+
+            unset($_SESSION['payment']);
  
             echo '<script>displaySuccessMessage("Your Order Has been Placed.");</script>'; 
         }else{

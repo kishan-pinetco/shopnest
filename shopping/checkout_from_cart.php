@@ -65,6 +65,10 @@ if (isset($_COOKIE['user_id'])) {
     $us = mysqli_fetch_assoc($user_query);
 }
 
+if (isset($_POST['placeOrder'])) {
+    $_SESSION['placeOrders'] = 1;
+}
+
 ?>
 
 <?php
@@ -253,6 +257,10 @@ if (isset($_POST['placeOrder'])) {
                         }
 
                         ob_end_flush();
+
+                        if(isset($_SESSION['placeOrders'])){
+                            unset($_SESSION['placeOrders']);
+                        }
                     }
                 } else {
                     // Log missing field for debugging
@@ -276,6 +284,7 @@ if (isset($_POST['placeOrder'])) {
                             setTimeout(() => {
                                 EpopUp.style.display = 'none';
                                 EpopUp.style.opacity = '0';
+                                window.location.href = '';
                             }, 1500);
                         </script>
                     <?php
@@ -496,8 +505,8 @@ if (isset($_POST['placeOrder'])) {
                         ?>" dir="rtl">
                     </div>
                 </div>
-                <div x-data="{ isLoading: false }">
-                    <input type="submit" name="placeOrder" value="Place Order" :disabled="isLoading" class="mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white cursor-pointer hover:bg-gray-800 transition duration-200">
+                <div>
+                    <input type="submit" name="placeOrder" value="Place Order" <?php echo isset($_SESSION['placeOrders']) ? 'disabled' : '' ?> class="<?php echo isset($_SESSION['placeOrders']) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-gray-800' ?> mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200">
                 </div>
             </div>
         </div>

@@ -167,7 +167,7 @@
                                         ?>
                                             <div class="flex flex-col md:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
                                                 <div class="img-box max-lg:w-full">
-                                                    <a href="">
+                                                    <a href="../order/track_order.php?order_id=<?php echo $res['order_id'];?>">
                                                         <img class="aspect-square w-full lg:max-w-[140px]" src="<?php echo isset($_COOKIE['user_id']) ? '../src/product_image/product_profile/' . $res['order_image'] : '../src/sample_images/product_1.jpg' ?>" alt="">
                                                     </a>
                                                 </div>

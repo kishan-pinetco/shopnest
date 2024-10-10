@@ -118,7 +118,11 @@ function displayRandomProducts($con, $limit)
             $Your_Price = $first_price['Your_Price'];
 
             // for qty
-            $qty = 1;
+            if($res['Quantity'] > 0){
+                $qty = 1;
+            }else{
+                $qty = 0;
+            }
 
             // for the size
             $size = $res['size'];
@@ -154,7 +158,17 @@ function displayRandomProducts($con, $limit)
                             </div>
                         </div>
                         <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
-                            <a href="shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $MRP ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                            <?php
+                                if($qty > 0){
+                                    ?>
+                                        <a href="<?php echo $qty > 0 ? '/shopnest/shopping/add_to_cart.php?product_id=' . urlencode($product_id) . '&title=' . $first_title . '&color=' . $first_color . '&size=' . $product_size . '&qty=' . $qty . '&MRP=' . $MRP : '#'; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                    <?php
+                                }else{
+                                    ?>
+                                        <h1 class="bg-white border-2 border-gray-800 text-red-600 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center cursor-default select-none">Out of Stock</h1>
+                                    <?php
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>

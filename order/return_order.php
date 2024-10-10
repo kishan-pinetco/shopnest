@@ -36,6 +36,11 @@ if (isset($_COOKIE['user_id'])) {
     $row = mysqli_fetch_assoc($user_info_query);
 
 }
+
+if(isset($_POST['ReturnProduct'])){
+    $_SESSION['ReturnProduct'] = 1;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -205,7 +210,7 @@ if (isset($_COOKIE['user_id'])) {
                     </div>
                 </div>
                 <div class="submit mt-6">
-                    <input name="ReturnProduct" class="rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white hover:bg-gray-700 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Return Order">
+                    <input name="ReturnProduct" <?php echo isset($_SESSION['ReturnProduct']) ? 'disabled' : '' ?> class="<?php echo isset($_SESSION['ReturnProduct']) ? 'cursor-not-allowed opacity-50 ' : 'cursor-pointer hover:bg-gray-800' ?> rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Return Order">
                 </div>
             </div>
         </form>
@@ -247,6 +252,7 @@ if (isset($_COOKIE['user_id'])) {
             setTimeout(() => {
                 EpopUp.style.display = 'none';
                 EpopUp.style.opacity = '0';
+                window.location.href = "";
             }, 1500);
         }
 
@@ -315,7 +321,7 @@ if (isset($_COOKIE['user_id'])) {
 
             $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
             $get_qty_query = mysqli_query($con, $get_qty);
-            echo $product_id;
+            
             // Check if the query was successful
             if ($get_qty_query) {
                 // Fetch the result
@@ -428,6 +434,10 @@ if (isset($_COOKIE['user_id'])) {
             </html>";
 
             $mail->send();
+
+            if(isset($_SESSION['ReturnProduct'])){
+                unset($_SESSION['ReturnProduct']);
+            }
             
             echo '<script>displaySuccessMessage("Your order has been successfully Return.");</script>';
         }

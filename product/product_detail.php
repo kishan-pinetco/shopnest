@@ -426,7 +426,7 @@
                                 <form method="post" action="" style="display: inline;">
                                     <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
                                     <button type="submit" style="display: none;"></button>
-                                    <label for="submit_<?php echo $index; ?>" class="border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center cursor-pointer <?php echo $isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'; ?>" <?php echo $isDisabled ? 'onclick="return false;"' : ''; ?>>
+                                    <label for="submit_<?php echo $index; ?>" class="<?php echo $isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'; ?> border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center <?php echo $isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'; ?>" <?php echo $isDisabled ? 'onclick="return false;"' : ''; ?>>
                                         <h1 class="text-lg <?php echo $isDisabled ? 'cursor-not-allowed' : ''; ?>"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?></h1>
                                     </label>
                                     <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="<?php echo $isDisabled ? 'return false;' : 'this.form.submit();'; ?>" style="display: none;" <?php echo $isDisabled ? 'disabled' : ''; ?>>

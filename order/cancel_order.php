@@ -34,6 +34,10 @@ if (isset($_COOKIE['user_id'])) {
 
     $row = mysqli_fetch_assoc($user_info_query);
 }
+
+if(isset($_POST['CancelProduct'])){
+    $_SESSION['CancelProduct'] = 1;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -202,7 +206,7 @@ if (isset($_COOKIE['user_id'])) {
                     </div>
                 </div>
                 <div class="submit mt-6">
-                    <input name="CancelProduct" class="rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white hover:bg-gray-700 cursor-pointer transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Cancel Order">
+                    <input name="CancelProduct" <?php echo isset($_SESSION['CancelProduct']) ? 'disabled' : '' ?> class="<?php echo isset($_SESSION['CancelProduct']) ? 'cursor-not-allowed opacity-50 ' : 'cursor-pointer hover:bg-gray-800' ?> rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Cancel Order">
                 </div>
             </div>
         </form>
@@ -244,6 +248,7 @@ if (isset($_COOKIE['user_id'])) {
             setTimeout(() => {
                 EpopUp.style.display = 'none';
                 EpopUp.style.opacity = '0';
+                window.location.href = "";
             }, 1500);
         }
 
@@ -419,6 +424,10 @@ if (isset($_COOKIE['user_id'])) {
                 </html>";
                 
                 $mail->send();
+            }
+
+            if(isset($_SESSION['CancelProduct'])){
+                unset($_SESSION['CancelProduct']);
             }
 
             echo '<script>displaySuccessMessage("Your order has been successfully canceled.");</script>';

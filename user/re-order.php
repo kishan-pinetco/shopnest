@@ -41,6 +41,11 @@
         $us = mysqli_fetch_assoc($user_query);
     }
 
+
+    if (isset($_POST['placeOrder'])) {
+        $_SESSION['payment'] = 1;
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +74,35 @@
     <title>Check Out Page</title>
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
+        <div class="flex items-center justify-center">
+            <a class="flex items-center" href="/shopnest/index.php">
+                <!-- icon logo div -->
+                <div class="mr-2">
+                    <img class="w-7 sm:w-14" src="/shopnest/src/logo/black_cart_logo.svg" alt="Cart Logo">
+                </div>
+                <!-- text logo -->
+                <div>
+                    <img class="w-20 sm:w-36" src="/shopnest/src/logo/black_text_logo.svg" alt="Shopnest Logo">
+                </div>
+            </a>
+        </div>
+        <div class="flex items-center">
+            <div x-data="{ dropdownOpen: false }" class="relative">
+                <button @click="dropdownOpen = !dropdownOpen" class="relative block w-8 h-8 md:w-10 md:h-10 overflow-hidden rounded-full shadow-lg focus:outline-none transition-transform transform hover:scale-105">
+                    <img class="object-cover w-full h-full" src="<?php echo isset($_COOKIE['user_id']) ? '/shopnest/src/user_dp/' . $us['profile_image'] : 'https://cdn-icons-png.freepik.com/512/3682/3682323.png'; ?>" alt="Your avatar">
+                </button>
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full" style="display: none;"></div>
+                <div x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl ring-2 ring-gray-300 divide-y-2 divide-gray-300" style="display: none;">
+                    <a href="/shopnest/user/profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Profile</a>
+                    <a href="/shopnest/user/show_orders.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Orders</a>
+                    <a href="/shopnest/user/user_logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <form class="max-w-screen-xl m-auto" action="" method="post">
         <div class="grid lg:grid-cols-2">
@@ -228,7 +261,7 @@
                             ?>" dir="rtl">
                     </div>
                 </div>
-                <input type="submit" name="placeOrder" value="Place Order" class="mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white cursor-pointer hover:bg-gray-800 transition duration-200">
+                <input type="submit" name="placeOrder" value="Place Order" <?php echo isset($_SESSION['payment']) ? 'disabled' : '' ?> class="<?php echo !isset($_SESSION['payment']) ? 'cursor-pointer hover:bg-gray-800' : 'cursor-not-allowed opacity-50' ?> mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200">
             </div>
         </div>
     </form>
@@ -319,6 +352,7 @@
                     setTimeout(() => {
                         EpopUp.style.display = 'none';
                         EpopUp.style.opacity = '0';
+                        window.location.href = '';
                     }, 1500);
                 </script>
             <?php
@@ -411,6 +445,8 @@
 
             $mail->send();
 
+            unset($_SESSION['payment']);
+
             ?>
                 <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
                     <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -456,6 +492,7 @@
                     setTimeout(() => {
                         EpopUp.style.display = 'none';
                         EpopUp.style.opacity = '0';
+                        window.location.href = '';
                     }, 1500);
                 </script>
             <?php

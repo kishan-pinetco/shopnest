@@ -628,7 +628,17 @@ $company_name = $_GET['brandName'];
                                     </div>
                                 </div>
                                 <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
-                                    <a href="<?php echo $qty > 0 ? '../shopping/add_to_cart.php?product_id=' . urlencode($product_id) . '&title=' . $first_title . '&color=' . $first_color . '&size=' . $product_size . '&qty=' . $qty . '&MRP=' . $res['vendor_mrp'] : '#'; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center <?php echo $qty <= 0 ? 'opacity-50 cursor-not-allowed' : ''; ?>" <?php echo $qty <= 0 ? 'onclick="return false;"' : ''; ?>>Add to cart</a>
+                                    <?php
+                                        if($qty > 0){
+                                            ?>
+                                                <a href="<?php echo $qty > 0 ? '../shopping/add_to_cart.php?product_id=' . urlencode($product_id) . '&title=' . $first_title . '&color=' . $first_color . '&size=' . $product_size . '&qty=' . $qty . '&MRP=' . $res['vendor_mrp'] : '#'; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                            <?php
+                                        }else{
+                                            ?>
+                                                <h1 class="bg-white border-2 border-gray-800 text-red-600 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center cursor-default select-none">Out of Stock</h1>
+                                            <?php
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         <?php
