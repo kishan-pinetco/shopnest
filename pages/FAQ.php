@@ -42,11 +42,11 @@
         
         <div class="faq-item border-b" @click="openItem === 1 ? openItem = null : openItem = 1">
             <div class="faq-question p-4 cursor-pointer flex justify-between items-center">
-                <span>What is ShopNest?</span>
+                <span>What is shopNest?</span>
                 <svg :class="{ 'transform rotate-180': openItem === 1 }" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </div>
             <div x-show="openItem === 1" x-transition class="faq-answer p-4">
-                ShopNest is your one-stop online shopping destination for top-quality products at unbeatable prices.
+                shopNest is your one-stop online shopping destination for top-quality products at unbeatable prices.
             </div>
         </div>
 

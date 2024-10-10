@@ -38,7 +38,7 @@
             <h1 class="text-4xl md:text-6xl font-bold text-center">Return & Exchange</h1>
         </div>
         <div>
-            <p class="text-lg font-medium mb-4">At ShopNest, we strive to ensure your complete satisfaction with every purchase. If, for any reason, you are dissatisfied with your order, we will gladly accept returns and exchanges under the following conditions:</p>
+            <p class="text-lg font-medium mb-4">At shopNest, we strive to ensure your complete satisfaction with every purchase. If, for any reason, you are dissatisfied with your order, we will gladly accept returns and exchanges under the following conditions:</p>
 
             <div class="mt-7">
                 <h1 class="text-2xl font-bold">Returns:</h1>

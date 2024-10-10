@@ -39,7 +39,7 @@
             <h1 class="text-6xl font-bold text-center">Payment Method</h1>
         </div>
         <div>
-            <p class="text-lg font-medium mb-4">At ShopNest, we offer a variety of secure and convenient payment options to ensure a smooth and hassle-free shopping experience. Choose the method that best suits your needs:</p>
+            <p class="text-lg font-medium mb-4">At shopNest, we offer a variety of secure and convenient payment options to ensure a smooth and hassle-free shopping experience. Choose the method that best suits your needs:</p>
             <ul class="list-decimal ml-6 mb-6">
                 <li class="mb-4">
                     <strong class="">Cash on Delivery (COD):</strong>
