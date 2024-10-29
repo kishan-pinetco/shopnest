@@ -215,8 +215,14 @@ if (isset($_COOKIE['vendor_id'])) {
                                         </div>
                                     </div>
                                     <div class="w-full flex justify-between h-10 divide-x-2 border-t-2 mt-2">
-                                        <a href="edit_vendor_products.php?product_id=<?php echo $res['product_id'] ?>&name=<?php echo $res['Category'] ?>" class="w-full inline-flex justify-center items-center gap-1 text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">Edit</a>
-                                        <a href="remove_product.php?product_id=<?php echo $res['product_id'] ?>" class="w-full inline-flex justify-center items-center gap-1 text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">Remove</a>
+                                        <a href="edit_vendor_products.php?product_id=<?php echo $res['product_id'] ?>&name=<?php echo $res['Category'] ?>" class="px-1 w-full inline-flex justify-center items-center gap-1 text-green-500 hover:text-green-600 transition duration-200 cursor-pointer">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                            <span>Edit</span>
+                                        </a>
+                                        <a href="remove_product.php?product_id=<?php echo $res['product_id'] ?>" class="px-1 w-full inline-flex justify-center items-center gap-1 text-red-500 hover:text-red-600 transition duration-200 cursor-pointer">
+                                            <i class="fa-solid fa-trash text-base"></i>
+                                            <span>Remove</span>
+                                        </a>
                                     </div>
                                 </div>
                             <?php

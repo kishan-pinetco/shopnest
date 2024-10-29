@@ -163,7 +163,7 @@ if (isset($_COOKIE['vendor_id'])) {
                             $retrieve_query = mysqli_query($con, $retrieve_user_data);
 
                         ?>
-                            <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-8">
+                            <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 xl:gap-8">
                                 <?php
                                 if ($retrieve_query) {
                                     while ($res = mysqli_fetch_assoc($retrieve_query)) {
