@@ -176,7 +176,7 @@ if (isset($_GET['product_id'])) {
                     </div>
                 </a>
             </div>
-            <h1 class="bg-gray-100 text-2xl font-bold flex items-center justify-center mb-6">Add products</h1>
+            <h1 class="bg-gray-100 text-2xl font-bold flex items-center justify-center mb-6">Edit products</h1>
             <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
                 <div class="grid gap-4 gap-y-1 text-sm grid-cols-1 lg:grid-cols-1">
                     <div class="lg:col-span-2">
