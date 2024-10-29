@@ -49,7 +49,6 @@
         <div class="max-w-screen-xl m-auto">
             <h1 class="text-6xl font-bold text-[rgb(29,33,40)]">How can we help you?</h1>
             <p class="text-lg font-normal">Our crew of superheroes are standing by for Help & Support!</p>
-            <span class="text-sm font-medium">Popular sections: <a href="" class="underline">Shop with an expert</a>, <a href="" class="underline">Help with password</a>, <a href="" class="underline">Tracking your item</a></span>
         </div>
     </div>
 
@@ -67,31 +66,25 @@
                 <div class="p-5 text-gray-900 border-gray-200 dark:border-gray-700 bg-[#b4f4de]">
                     <div class="grid grid-cols-1 gap-4 gap-y-6 md:grid-cols-2">
                         <div>
-                            <h1 class="text-lg font-semibold">Store Pickup:</h1>
-                            <ul class="list-disc pl-6 mt-3">
-                                <li>Shop online and pick up your order at a nearby store for added convenience.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h1 class="text-lg font-semibold">Cancel an Order:</h1>
+                            <h1 class="text-lg font-semibold">Cancel an order:</h1>
                             <ul class="list-disc pl-6 mt-3">
                                 <li>Change your mind? Easily cancel your order before it ships with a few clicks.</li>
                             </ul>
                         </div>
                         <div>
-                            <h1 class="text-lg font-semibold">Track a Package:</h1>
+                            <h1 class="text-lg font-semibold">Track a package:</h1>
                             <ul class="list-disc pl-6 mt-3">
                                 <li>Stay updated on your order's journey with real-time package tracking.</li>
                             </ul>
                         </div>
                         <div>
-                            <h1 class="text-lg font-semibold">In-Store Consultation:</h1>
+                            <h1 class="text-lg font-semibold">In-Store consultation:</h1>
                             <ul class="list-disc pl-6 mt-3">
                                 <li>Schedule a personalized consultation with our experts for tailored advice.</li>
                             </ul>
                         </div>
                         <div>
-                            <h1 class="text-lg font-semibold">Shop with an Expert:</h1>
+                            <h1 class="text-lg font-semibold">Shop with an expert:</h1>
                             <ul class="list-disc pl-6 mt-3">
                                 <li>Get guided assistance from our specialists to find the perfect products.</li>
                             </ul>
@@ -124,12 +117,6 @@
                             </ul>
                         </div>
                         <div>
-                            <h1 class="text-lg font-semibold">How do I cancel an order?:</h1>
-                            <ul class="list-disc pl-6 mt-3">
-                                <li>Cancel your order easily through your account before it ships.</li>
-                            </ul>
-                        </div>
-                        <div>
                             <h1 class="text-lg font-semibold">I've received a faulty/damaged item:</h1>
                             <ul class="list-disc pl-6 mt-3">
                                 <li>Notify us promptly; we'll arrange a replacement or refund.</li>
@@ -157,21 +144,9 @@
                 <div class="p-5 text-gray-900 border-gray-200 dark:border-gray-700 bg-[#b4f4de]">
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div>
-                            <h1 class="text-lg font-semibold">Buying with local pickup:</h1>
-                            <ul class="list-disc pl-6 mt-3">
-                                <li>Shop online and pick up locally to save time and shipping costs.</li>
-                            </ul>
-                        </div>
-                        <div>
                             <h1 class="text-lg font-semibold">Saving through combined shipping:</h1>
                             <ul class="list-disc pl-6 mt-3">
                                 <li>Combine purchases to save on shipping fees.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h1 class="text-lg font-semibold">Delivery date options for buyers:</h1>
-                            <ul class="list-disc pl-6 mt-3">
-                                <li>Select your preferred delivery date during checkout.</li>
                             </ul>
                         </div>
                         <div>
@@ -192,7 +167,7 @@
 
             <h2 id="accordion-color-heading-4">
                 <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-white border border-gray-300 dark:text-gray-900 hover:bg-gray-700 hover:text-white gap-3" data-accordion-target="#accordion-color-body-4" aria-expanded="false" aria-controls="accordion-color-body-4">
-                    <span>Fees & billing</span>
+                    <span>Fees & Billing</span>
                     <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
                     </svg>
@@ -231,9 +206,9 @@
         </div>
     </div>
 
-    <div class="bg-[#fff9e0] text-[rgb(29,33,40)] w-[90%] flex flex-col items-center justify-center gap-10 m-auto  ring-2 ring-[#1d2128] text-center p-12 md:w-[70%] md:p-36 mb-12">
+    <div class="bg-[#fff9e0] text-[rgb(29,33,40)] w-[90%] flex flex-col items-center justify-center gap-10 m-auto ring-2 ring-[#1d2128] text-center py-10 md:w-[70%] mb-12">
         <p class="text-lg font-medium">Still need help?</p>
-        <h1 class="text-3xl font-medium lg:text-6xl">Get help with common <br> questions or reach out to our <br> support team.</h1>
+        <h1 class="text-3xl md:text-4xl font-medium lg:text-5xl">Get help with common <br> questions or reach out to our <br> support team.</h1>
         <a href="contact_us.php" class="text-white font-semibold text-sm bg-black px-8 py-3 rounded-tl-xl rounded-br-xl">Contact Us</a>
     </div>
     

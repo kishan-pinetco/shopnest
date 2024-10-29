@@ -33,7 +33,7 @@ if (isset($_GET['product_id'])) {
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
-                    <span class="font-medium">Item Remove Successfully.</span>
+                    <span class="font-medium">Item remove successfully.</span>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@ if (isset($_GET['product_id'])) {
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
-                    <span class="font-medium">Please Try Again Later.</span>
+                    <span class="font-medium">Please try again later.</span>
                 </div>
             </div>
         </div>

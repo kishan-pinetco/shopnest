@@ -118,7 +118,7 @@ if(isset($_COOKIE['adminEmail'])){
         <hr class="mt-3"><br>
         <div class="sm:flex sm:items-center sm:justify-between sm:gap-10 px-2 py-2 space-y-3 sm:space-y-0">
             <div>
-                <p class="text-sm">Copyright &copy; <?php echo date('Y') ?> shopNest. All Rights Reserved.</p>
+                <p class="text-sm">Copyright &copy; <?php echo date('Y') ?> shopNest. All rights reserved.</p>
             </div>
             <div class="flex items-center gap-1">
                 <svg class="w-8" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 68 68" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">

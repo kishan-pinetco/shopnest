@@ -91,7 +91,7 @@
 
     <div class="w-[100%] mx-auto px-4 py-12 md:m-auto md:w-[70%]">
         <div class="grid grid-col-1 gap-y-4">
-            <h2 class="font-bold text-2xl text-black">Create Review</h2>
+            <h2 class="font-bold text-2xl text-black">Write review</h2>
             <div class="flex flex-col item-center justify-start gap-2 md:flex-row">
                 <img class="w-20 h-auto" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $first_images : '../src/sample_images/product_1.jpg'?>" alt="">
                 <span class="text-xl font-medium line-clamp-1 my-auto h-7 cursor-default" title="<?php echo isset($product_id) ? $title : 'product_title'?>"><?php echo isset($product_id) ? $title : 'product_title'?></span>

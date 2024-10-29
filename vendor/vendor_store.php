@@ -68,7 +68,7 @@ if (isset($_GET['vendor_id'])) {
                     <span class="text-base font-medium text-gray-400 mt-2 mb-7">Seller</span>
                 </div>
                 <div class="mt-6">
-                    <h3 class="text-base font-medium text-gray-950">About Me</h3>
+                    <h3 class="text-base font-medium text-gray-950">About me</h3>
                     <p class="text-sm font-normal text-gray-800 mt-4 max-w-3xl m-auto"><?php echo isset($_GET['vendor_id']) ? $vendor_Bio : 'vendor_Bio' ?></p>
                 </div>
             </div>

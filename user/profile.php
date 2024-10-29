@@ -149,6 +149,11 @@ if (isset($_COOKIE['user_id'])) {
 
     <!-- title -->
     <title>Profile</title>
+    <style>
+        [x-cloak]{
+            display: none;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -187,7 +192,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <path d="m90.895 25.211-42-21a2.004 2.004 0 0 0-1.789 0l-42 21A2 2 0 0 0 4 27v42a2 2 0 0 0 1.105 1.789l42 21a1.998 1.998 0 0 0 1.79 0l42-21A2 2 0 0 0 92 69V27a2 2 0 0 0-1.105-1.789zM48 8.236 85.528 27 77.5 31.014 39.973 12.25zm13.5 30.778L23.972 20.25 35.5 14.486 73.028 33.25zm1.5 3.722 12-6v14.877l-3.838-2.741a2.006 2.006 0 0 0-1.506-.343 2.007 2.007 0 0 0-1.301.832L63 57.098zm-43.5-20.25L57.027 41.25 48 45.764 10.472 27zM8 30.236l38 19v37.527l-38-19zm42 56.528V49.236l9-4.5V63.5a2 2 0 0 0 3.645 1.139l7.845-11.331 5.349 3.82A1.997 1.997 0 0 0 79 55.5V34.736l9-4.5v37.527z" fill="" opacity="1" data-original="#000000" class=""></path>
                             </g>
                         </svg>
-                        <span class="mx-3">Your Orders</span>
+                        <span class="mx-3">Your orders</span>
                     </a>
 
                     <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="cancled_product.php">
@@ -197,7 +202,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <path d="m422.627 400 12.686-12.686c6.249-6.249 6.249-16.379 0-22.628-6.248-6.248-16.379-6.248-22.627 0L400 377.372l-12.687-12.687c-6.248-6.248-16.379-6.248-22.627 0-6.249 6.249-6.249 16.379 0 22.628L377.373 400l-12.686 12.686c-6.249 6.249-6.249 16.379 0 22.628C367.811 438.438 371.905 440 376 440s8.189-1.562 11.313-4.686L400 422.627l12.687 12.687C415.811 438.438 419.905 440 424 440s8.189-1.562 11.313-4.686c6.249-6.249 6.249-16.379 0-22.628z" fill="" opacity="1" data-original="#000000" class=""></path>
                             </g>
                         </svg>
-                        <span class="mx-3">Cancled Orders</span>
+                        <span class="mx-3">Cancled orders</span>
                     </a>
 
                     <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="show_return_order.php">
@@ -206,7 +211,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <path d="M73.76 38.48v23.07a1.74 1.74 0 0 1-1.27 1.71l-21.8 7.65a1.59 1.59 0 0 1-1.38 0l-21.9-7.65a1.73 1.73 0 0 1-1.17-1.71l-.11-23.07a1.83 1.83 0 0 1 1.38-1.7l21.91-7.65a1.14 1.14 0 0 1 1.16 0l22 7.65a1.73 1.73 0 0 1 1.17 1.7zM29.21 89.94a1.81 1.81 0 0 1 1.71-3.19A41.41 41.41 0 0 0 82.27 24a.41.41 0 0 0-.75.32l.32 1.28c.64 2.34-2.87 3.19-3.51 1l-2.55-9.79A1.74 1.74 0 0 1 78 14.67l9.68 2.55a1.82 1.82 0 0 1-1 3.51l-1.91-.53c-.43-.11-.75.32-.43.63a45.06 45.06 0 0 1-55.13 69.11zm42.64-79.31c2.12 1.17.32 4.36-1.7 3.19A41.43 41.43 0 0 0 17.73 76a.44.44 0 0 0 .75-.42l-.32-1.17c-.64-2.34 2.87-3.19 3.51-1l2.55 9.78A1.75 1.75 0 0 1 22 85.37l-9.68-2.55c-2.34-.64-1.38-4.15.85-3.51l2 .53c.43.11.75-.32.43-.74C.51 61.45 1.68 34.66 18.16 18.18a45.07 45.07 0 0 1 53.69-7.55zm-20.1 37.1v18.4a.47.47 0 0 0 .64.42l17.54-6.17c.11-.1.32-.21.32-.42V41.57c0-.22-.32-.43-.63-.32l-17.55 6.06c-.21.1-.32.21-.32.42zm-3.61 18.4v-18.4a.55.55 0 0 0-.21-.42l-7.13-2.45a.47.47 0 0 0-.63.43v6.8a1.8 1.8 0 0 1-1.81 1.81 1.86 1.86 0 0 1-1.81-1.81v-8.4a.55.55 0 0 0-.21-.42l-6-2c-.31-.11-.63.1-.63.32V60c0 .21.1.32.32.42l17.54 6.17c.32.11.53-.11.53-.42zm-13.5-27.22 4.68 1.59a.19.19 0 0 0 .31 0l15.21-5.31c.21 0 .32-.21.32-.43a.35.35 0 0 0-.32-.32l-4.68-1.7h-.32l-15.2 5.32a.44.44 0 0 0 0 .85zm11.48 4 3.72 1.27h.32l15.2-5.31a.44.44 0 0 0 0-.85l-3.82-1.38h-.32l-15.1 5.46c-.43.1-.43.64 0 .85zm19.56 12.27a1.8 1.8 0 0 1 1.17 3.4L60.9 60.7a1.8 1.8 0 0 1-1.17-3.4z" fill="" opacity="1" data-original="#000000" class=""></path>
                             </g>
                         </svg>
-                        <span class="mx-3">Return Orders</span>
+                        <span class="mx-3">Return orders</span>
                     </a>
 
                     <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="show_reviews.php">
@@ -217,7 +222,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <path d="M466.201 96.976c-1.894-5.824-6.836-9.989-12.898-10.868l-17.688-2.565-7.915-16.025c-2.712-5.491-8.199-8.901-14.323-8.901h-.004c-6.125.002-11.613 3.415-14.322 8.908l-7.906 16.03-17.688 2.575c-6.061.883-11.001 5.05-12.892 10.876-1.891 5.825-.341 12.1 4.047 16.375l12.802 12.472-3.017 17.617c-1.034 6.038 1.402 12.023 6.359 15.623a15.918 15.918 0 0 0 9.372 3.065c2.54 0 5.094-.613 7.453-1.854l15.819-8.322 15.823 8.313c5.422 2.848 11.868 2.381 16.823-1.221 4.954-3.602 7.387-9.589 6.35-15.626l-3.026-17.615 12.797-12.48c4.381-4.278 5.928-10.553 4.034-16.377zm-32.313 16.017a15.971 15.971 0 0 0-4.59 14.141l2.003 11.662-10.479-5.506a15.977 15.977 0 0 0-14.864.006l-10.473 5.51 1.997-11.663a15.97 15.97 0 0 0-4.598-14.14l-8.477-8.258 11.711-1.705a15.965 15.965 0 0 0 12.025-8.741l5.235-10.613 5.24 10.61a15.973 15.973 0 0 0 12.03 8.735l11.711 1.698-8.471 8.264zM338.988 96.976c-1.895-5.824-6.836-9.988-12.898-10.868l-17.688-2.565-7.915-16.025c-2.712-5.491-8.199-8.901-14.323-8.901h-.004c-6.125.002-11.614 3.415-14.323 8.909l-7.905 16.029-17.688 2.575c-6.061.883-11.001 5.05-12.892 10.876-1.891 5.825-.341 12.1 4.047 16.375l12.802 12.472-3.017 17.617c-1.034 6.038 1.403 12.024 6.359 15.623a15.915 15.915 0 0 0 9.371 3.065c2.54 0 5.093-.613 7.452-1.854l15.819-8.322 15.824 8.313c5.423 2.848 11.867 2.381 16.823-1.221 4.954-3.602 7.387-9.589 6.35-15.626l-3.026-17.615 12.797-12.48c4.383-4.278 5.93-10.552 4.035-16.377zm-32.313 16.017a15.971 15.971 0 0 0-4.59 14.141l2.003 11.662-10.479-5.505a15.974 15.974 0 0 0-14.865.005l-10.473 5.51 1.997-11.663a15.97 15.97 0 0 0-4.598-14.14l-8.477-8.258 11.71-1.705a15.972 15.972 0 0 0 12.027-8.742l5.234-10.613 5.239 10.609a15.971 15.971 0 0 0 12.031 8.737l11.711 1.698-8.47 8.264zM211.776 96.976c-1.895-5.824-6.837-9.989-12.898-10.868l-17.688-2.565-7.915-16.025c-2.712-5.491-8.199-8.901-14.323-8.901h-.004c-6.125.002-11.614 3.415-14.323 8.909l-7.905 16.029-17.688 2.575c-6.062.883-11.001 5.051-12.893 10.877-1.891 5.825-.34 12.1 4.047 16.374l12.802 12.472-3.017 17.617c-1.034 6.038 1.403 12.024 6.359 15.623a15.915 15.915 0 0 0 9.371 3.065c2.54 0 5.093-.613 7.452-1.854l15.819-8.322 15.823 8.313c5.422 2.848 11.868 2.381 16.823-1.221 4.954-3.602 7.387-9.589 6.35-15.626l-3.026-17.615 12.797-12.48c4.385-4.278 5.931-10.552 4.037-16.377zm-32.313 16.017a15.971 15.971 0 0 0-4.59 14.141l2.003 11.662-10.479-5.505a15.974 15.974 0 0 0-14.865.005l-10.473 5.51 1.998-11.666a15.977 15.977 0 0 0-4.599-14.137l-8.477-8.258 11.71-1.705a15.972 15.972 0 0 0 12.027-8.742l5.234-10.613 5.239 10.609a15.971 15.971 0 0 0 12.031 8.737l11.712 1.698-8.471 8.264zM60.504 447.359c-5.523 0-10 4.478-10 10v.156c0 5.522 4.477 10 10 10s10-4.478 10-10v-.156c0-5.522-4.477-10-10-10z" fill="" opacity="1" data-original="#000000" class=""></path>
                             </g>
                         </svg>
-                        <span class="mx-3">Your Reviews</span>
+                        <span class="mx-3">Your reviews</span>
                     </a>
 
                     <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="my_address.php">
@@ -227,7 +232,7 @@ if (isset($_COOKIE['user_id'])) {
                                 <path d="M256 91c-41.355 0-75 33.645-75 75s33.645 75 75 75 75-33.645 75-75-33.645-75-75-75zm0 120c-24.813 0-45-20.187-45-45s20.187-45 45-45 45 20.187 45 45-20.187 45-45 45z" fill="" opacity="1" data-original="#000000"></path>
                             </g>
                         </svg>
-                        <span class="mx-3">Your Address</span>
+                        <span class="mx-3">Your address</span>
                     </a>
 
                     <a class="group flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="user_logout.php">
@@ -235,7 +240,7 @@ if (isset($_COOKIE['user_id'])) {
                             <path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path>
                             <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"></path>
                         </svg>
-                        <span class="mx-3">Log Out</span>
+                        <span class="mx-3">Log out</span>
                     </a>
                 </nav>
             </div>
@@ -284,11 +289,11 @@ if (isset($_COOKIE['user_id'])) {
                 </header>
                 <form action="" method="post" enctype="multipart/form-data" class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <div class="container px-6 py-8 mx-auto">
-                        <h3 class="text-3xl font-medium text-gray-700">Home</h3>
+                        <h3 class="text-3xl font-medium">Home</h3>
                         <div class="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-2">
                             <div class="bg-white max-h-max rounded-md shadow-lg p-8">
                                 <div>
-                                    <h1 class="font-semibold text-2xl">Account Information</h1>
+                                    <h1 class="font-semibold text-2xl">Account information</h1>
                                     <p class="text-gray-500">Edit your profile quickly</p>
                                 </div>
                                 <div class="mt-12">
@@ -310,22 +315,22 @@ if (isset($_COOKIE['user_id'])) {
                                         </label>
                                     </div>
                                     <div class="mt-4" class="mt-4">
-                                        <label for="first_name">First Name</label>
+                                        <label for="first_name">First name:</label>
                                         <input type="text" name="first_name" value="<?php echo isset($_COOKIE['user_id']) ? $row['first_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
                                     <div class="mt-4">
-                                        <label for="last_name">last Name</label>
+                                        <label for="last_name">Last name:</label>
                                         <input type="text" name="last_name" value="<?php echo isset($_COOKIE['user_id']) ? $row['last_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
                                     <div class="mt-4">
-                                        <label for="phone">phone</label>
+                                        <label for="phone">Phone:</label>
                                         <input type="text" name="phone" value="<?php echo isset($_COOKIE['user_id']) ? $row['phone'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
                                     <div class="mt-4">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email:</label>
                                         <input type="email" name="email" value="<?php echo isset($_COOKIE['user_id']) ? $row['email'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
-                                    <input type="submit" name="updateBtn" value="Update Now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
+                                    <input type="submit" name="updateBtn" value="Update now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
                                 </div>
                             </div>
                             <div class="bg-white max-h-max rounded-md shadow-lg p-8">
@@ -334,7 +339,7 @@ if (isset($_COOKIE['user_id'])) {
                                 </div>
                                 <div class="mt-12">
                                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
-                                        <label for="current_pass">Current Password</label>
+                                        <label for="current_pass">Current password:</label>
                                         <input name="current_pass" id="current_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" :type="showPassword ? 'text' : 'password'">
                                         <span class="absolute top-[2.5rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                                             <!-- Show Icon (when password is hidden) -->
@@ -351,7 +356,7 @@ if (isset($_COOKIE['user_id'])) {
                                         </span>
                                     </div>
                                     <div class="mt-4 relative" x-data="{ showPassword: false }">
-                                        <label for="new_pass">New Password</label>
+                                        <label for="new_pass">New password:</label>
                                         <input name="new_pass" id="new_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" x-bind:type="showPassword ? 'text' : 'password'">
                                         <span class="absolute top-[2.3rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                                             <!-- Show Icon (when password is hidden) -->
@@ -368,7 +373,7 @@ if (isset($_COOKIE['user_id'])) {
                                         </span>
                                     </div>
                                     <div class="mt-4 relative" x-data="{ showPassword: false }">
-                                        <label for="re_pass">Re-type New Password</label>
+                                        <label for="re_pass">Confirm password:</label>
                                         <input name="re_pass" id="re_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" x-bind:type="showPassword ? 'text' : 'password'">
                                         <span class="absolute top-[2.3rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                                             <!-- Show Icon (when password is hidden) -->
@@ -384,7 +389,7 @@ if (isset($_COOKIE['user_id'])) {
                                             </svg>
                                         </span>
                                     </div>
-                                    <input type="submit" name="changePass" value="Update Now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
+                                    <input type="submit" name="changePass" value="Update now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
                                 </div>
                             </div>
                         </div>

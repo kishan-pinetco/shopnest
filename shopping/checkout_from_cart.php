@@ -144,16 +144,16 @@ if (isset($_POST['placeOrder'])) {
                     $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
                     $update_qty_quary = mysqli_query($con, $update_qty);
 
-                    if($update_qty_quary){
+                    if ($update_qty_quary) {
                         $product_id = mysqli_real_escape_string($con, $Cproducts['cart_id']);
-                        
+
                         $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";
                         $retrieve_order_query = mysqli_query($con, $retrieve_order);
                         $res = mysqli_fetch_assoc($retrieve_order_query);
-                        
+
                         $mail->addAddress($user_email);
                         $mail->isHTML(true);
-                        
+
                         if ($res) {
                             $username = $res['user_first_name'] . ' ' . $res['user_last_name'];
                             $order_id = $res['order_id'];
@@ -170,7 +170,7 @@ if (isset($_POST['placeOrder'])) {
                             $total_price = $res['total_price'];
                             $today = date('d-m-Y', strtotime($res['date']));
                             $delivery_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
-                            
+
                             $mail->Subject = "New Order Confirmation - #$order_id";
                             $mail->Body = "<html>
                             <head>
@@ -224,30 +224,30 @@ if (isset($_POST['placeOrder'])) {
                             $mail->send();
                         }
 
-                        ?>
-                            <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
-                                <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                                    </svg>
-                                    <span class="sr-only">Info</span>
-                                    <div>
-                                        <span class="font-medium">Your Order Has been Placed.</span>
-                                    </div>
+?>
+                        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="popUp" style="display: none;">
+                            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div>
+                                    <span class="font-medium">Your order has been placed.</span>
                                 </div>
                             </div>
+                        </div>
 
-                            <script>
-                                let popUp = document.getElementById('popUp');
-                                popUp.style.display = 'flex';
-                                popUp.style.opacity = '100';
-                                setTimeout(() => {
-                                    popUp.style.display = 'none';
-                                    popUp.style.opacity = '0';
-                                    window.location.href = '../index.php';
-                                }, 1500);
-                            </script>
-                        <?php
+                        <script>
+                            let popUp = document.getElementById('popUp');
+                            popUp.style.display = 'flex';
+                            popUp.style.opacity = '100';
+                            setTimeout(() => {
+                                popUp.style.display = 'none';
+                                popUp.style.opacity = '0';
+                                window.location.href = '../index.php';
+                            }, 1500);
+                        </script>
+                    <?php
 
                         ob_start();
 
@@ -258,36 +258,36 @@ if (isset($_POST['placeOrder'])) {
 
                         ob_end_flush();
 
-                        if(isset($_SESSION['placeOrders'])){
+                        if (isset($_SESSION['placeOrders'])) {
                             unset($_SESSION['placeOrders']);
                         }
                     }
                 } else {
                     // Log missing field for debugging
                     ?>
-                        <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
-                            <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                                </svg>
-                                <span class="sr-only">Info</span>
-                                <div>
-                                    <span class="font-medium">Missing fields in the order data.</span>
-                                </div>
+                    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+                        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                                <span class="font-medium">Missing fields in the order data.</span>
                             </div>
                         </div>
+                    </div>
 
-                        <script>
-                            let EpopUp = document.getElementById('EpopUp');
-                            EpopUp.style.display = 'flex';
-                            EpopUp.style.opacity = '100';
-                            setTimeout(() => {
-                                EpopUp.style.display = 'none';
-                                EpopUp.style.opacity = '0';
-                                window.location.href = '';
-                            }, 1500);
-                        </script>
-                    <?php
+                    <script>
+                        let EpopUp = document.getElementById('EpopUp');
+                        EpopUp.style.display = 'flex';
+                        EpopUp.style.opacity = '100';
+                        setTimeout(() => {
+                            EpopUp.style.display = 'none';
+                            EpopUp.style.opacity = '0';
+                            window.location.href = '';
+                        }, 1500);
+                    </script>
+<?php
                 }
             }
         }
@@ -324,6 +324,14 @@ if (isset($_POST['placeOrder'])) {
 
     <!-- title -->
     <title>Check Out Page</title>
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -332,8 +340,8 @@ if (isset($_POST['placeOrder'])) {
     <form class="max-w-screen-xl m-auto" action="" method="post">
         <div class="grid lg:grid-cols-2">
             <div class="px-4 pt-8">
-                <p class="text-xl font-medium">Order Summary</p>
-                <p class="text-gray-400">Check your items. And select a suitable shipping method.</p>
+                <p class="text-xl font-medium">Order summary</p>
+                <p class="text-gray-400">Check your items. And select a suitable payment method.</p>
                 <?php
                 if (isset($_COOKIE['Cart_products'])) {
                     $cookie_value = $_COOKIE['Cart_products'];
@@ -359,7 +367,7 @@ if (isset($_POST['placeOrder'])) {
                                     <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($myCookie) ? '../src/product_image/product_profile/' . $cart_products_image : '../src/sample_images/product_1.jpg' ?>" alt="" />
                                     <div class="flex w-full flex-col px-4 py-4 gap-y-3">
                                         <span class="font-semibold line-clamp-2"><?php echo isset($myCookie) ? $cart_products_title : 'product title' ?></span>
-                                        <p class="text-lg font-semibold text-gray-600">₹<?php echo isset($myCookie) ? number_format($total_price) : 'MRP' ?></p>
+                                        <p class="text-lg font-semibold text-green-500">₹<?php echo isset($myCookie) ? number_format($total_price) : 'MRP' ?></p>
                                         <div class="flex item-center justify-between">
                                             <div class="flex item-center gap-1">
                                                 <span class="text-lg font-semibold">Color:</span>
@@ -383,7 +391,7 @@ if (isset($_POST['placeOrder'])) {
                 }
                 ?>
 
-                <p class="mt-8 text-xl font-medium">Payment Methods</p>
+                <p class="mt-8 text-xl font-medium">Payment methods</p>
                 <p class="text-gray-400">Complete your order by providing your payment details.</p>
                 <div class="mt-5 grid space-y-3 border bg-white rounded-lg px-2 py-4 sm:px-6">
                     <div class="flex items-center gap-3 cursor-pointer w-max">
@@ -391,53 +399,53 @@ if (isset($_POST['placeOrder'])) {
                         <label class="cursor-pointer text-base font-medium" for="UPI">UPI</label>
                     </div>
                     <div class="flex items-center gap-3 cursor-pointer w-max">
-                        <input type="radio" name="payment" id="COD" value="Cash On delivery" class="cursor-pointer text-gray-600 focus:ring-gray-600">
-                        <label class="cursor-pointer text-base font-medium" for="COD">Cash On delivery</label>
+                        <input type="radio" name="payment" id="COD" value="Cash on delivery" class="cursor-pointer text-gray-600 focus:ring-gray-600">
+                        <label class="cursor-pointer text-base font-medium" for="COD">Cash on delivery</label>
                     </div>
                 </div>
             </div>
             <div class="mt-10 px-4 pt-8 lg:mt-0">
-                <p class="text-xl font-medium">Billing Address</p>
+                <p class="text-xl font-medium">Billing details</p>
                 <div class="">
                     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                         <div>
-                            <label for="FirstName" class="mt-4 mb-2 block text-sm font-medium">First Name</label>
+                            <label for="FirstName" class="mt-4 mb-2 block text-sm font-medium require">First name:</label>
                             <div class="relative">
                                 <input type="text" id="FirstName" name="FirstName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($myCookie) ? $us['first_name'] : 'User First Name' ?>" />
                             </div>
                         </div>
                         <div>
-                            <label for="lastName" class="mt-4 mb-2 block text-sm font-medium">Last Name</label>
+                            <label for="lastName" class="mt-4 mb-2 block text-sm font-medium require">Last name:</label>
                             <div class="relative">
                                 <input type="text" id="lastName" name="lastName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($myCookie) ? $us['last_name'] : 'User Last Name' ?>" />
                             </div>
                         </div>
                     </div>
-                    <label for="Phone_number" class="mt-4 mb-2 block text-sm font-medium">Phone Number</label>
+                    <label for="Phone_number" class="mt-4 mb-2 block text-sm font-medium require">Phone number:</label>
                     <div class="relative">
                         <input type="number" id="Phone_number" name="Phone_number" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base uppercase shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($myCookie) ? $us['phone'] : 'User Phone Number' ?>" />
                     </div>
-                    <label for="user_email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+                    <label for="user_email" class="mt-4 mb-2 block text-sm font-medium require">Email:</label>
                     <div class="relative">
                         <input type="email" id="user_email" name="user_email" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($myCookie) ? $us['email'] : 'User email' ?>" />
                     </div>
-                    <label for="Address" class="mt-4 mb-2 block text-sm font-medium">Shipping Address</label>
+                    <label for="Address" class="mt-4 mb-2 block text-sm font-medium require">Shipping address:</label>
                     <div class="relative">
                         <input type="text" id="Address" name="Address" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($myCookie) ? $us['Address'] : 'User Address' ?>" />
                     </div>
-                    <label for="state" class="mt-4 mb-2 block text-sm font-medium">State</label>
+                    <label for="state" class="mt-4 mb-2 block text-sm font-medium require">State:</label>
                     <div class="relative">
                         <input type="text" id="state" name="state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($myCookie) ? $us['state'] : 'User state' ?>" />
                     </div>
                     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                         <div>
-                            <label for="city" class="mt-4 mb-2 block text-sm font-medium">City</label>
+                            <label for="city" class="mt-4 mb-2 block text-sm font-medium require">City:</label>
                             <div class="relative">
                                 <input type="text" id="city" name="city" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($myCookie) ? $us['city'] : 'User city' ?>" />
                             </div>
                         </div>
                         <div>
-                            <label for="pin" class="mt-4 mb-2 block text-sm font-medium">Pincode</label>
+                            <label for="pin" class="mt-4 mb-2 block text-sm font-medium require">Pincode:</label>
                             <div class="relative">
                                 <input type="tel" id="pin" name="pin" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" maxlength="6" value="<?php echo isset($myCookie) ? $us['pin'] : 'User Pin' ?>" />
                             </div>
@@ -487,26 +495,26 @@ if (isset($_POST['placeOrder'])) {
                             </h1>
                         </label>
                         <input type="text" id="totalPrice" class="hidden float-right bg-transparent border-none text-2xl font-semibold text-gray-900" name="totalProductPrice" value="₹<?php
-                        if (isset($myCookie)) {
-                            $product_mrp = $totalPrice;
-                            $products_price = explode(",", $product_mrp);
+                                                                                                                                                                                        if (isset($myCookie)) {
+                                                                                                                                                                                            $product_mrp = $totalPrice;
+                                                                                                                                                                                            $products_price = explode(",", $product_mrp);
 
-                            $productPrice = implode("", $products_price);
+                                                                                                                                                                                            $productPrice = implode("", $products_price);
 
-                            $total = $totalPrice + $shipping;
+                                                                                                                                                                                            $total = $totalPrice + $shipping;
 
-                            $formattedTotalPriceWithQty = number_format($totalPrice, 0);
-                            $formattedTotal = number_format($total, 0);
+                                                                                                                                                                                            $formattedTotalPriceWithQty = number_format($totalPrice, 0);
+                                                                                                                                                                                            $formattedTotal = number_format($total, 0);
 
-                            echo $formattedTotal;
-                        } else {
-                            echo 'Total Amount';
-                        }
-                        ?>" dir="rtl">
+                                                                                                                                                                                            echo $formattedTotal;
+                                                                                                                                                                                        } else {
+                                                                                                                                                                                            echo 'Total Amount';
+                                                                                                                                                                                        }
+                                                                                                                                                                                        ?>" dir="rtl">
                     </div>
                 </div>
                 <div>
-                    <input type="submit" name="placeOrder" value="Place Order" <?php echo isset($_SESSION['placeOrders']) ? 'disabled' : '' ?> class="<?php echo isset($_SESSION['placeOrders']) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-gray-800' ?> mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200">
+                    <input type="submit" name="placeOrder" value="Place order" <?php echo isset($_SESSION['placeOrders']) ? 'disabled' : '' ?> class="<?php echo isset($_SESSION['placeOrders']) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-gray-800' ?> mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200">
                 </div>
             </div>
         </div>

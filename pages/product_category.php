@@ -644,7 +644,7 @@ $Category = $_GET['Category'];
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6M9 16h6M10.29 8.293a1 1 0 011.42 0L12 9.414l.29-.29a1 1 0 011.42 1.42L13.414 12l.293.293a1 1 0 01-1.42 1.42L12 13.414l-.293.293a1 1 0 01-1.42-1.42L10.586 12l-.293-.293a1 1 0 010-1.42z" />
                         </svg>
-                        <h1 class="text-3xl font-semibold text-gray-800">No Products Found</h1>
+                        <h1 class="text-3xl font-semibold text-gray-800">No products found</h1>
                         <p class="text-gray-600 mt-2">It looks like no products match your selected filters.</p>
                     </div>
                 <?php

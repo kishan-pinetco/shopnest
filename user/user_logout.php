@@ -24,7 +24,7 @@
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                        <span class="font-medium">Logout successful.</span>
+                        <span class="font-medium">Logout successfully.</span>
                     </div>
                 </div>
             </div>

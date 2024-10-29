@@ -196,19 +196,19 @@
                           ?>
                               <!-- top seller -->
                               <section class="container mx-auto p-6">
-                                  <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top Seller Vendors</h2>
+                                  <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top seller vendors</h2>
                                   <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                                       <div class="w-full overflow-x-auto h-max text-center">
                                           <table class="w-full">
                                               <thead>
                                                   <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
                                                       <th class="px-4 py-3">Rank</th>
-                                                      <th class="px-4 py-3">Vendor Profile</th>
-                                                      <th class="px-4 py-3">UserName</th>
-                                                      <th class="px-4 py-3">Vendor Name</th>
-                                                      <th class="px-4 py-3">Vendor Email</th>
-                                                      <th class="px-4 py-3">Total Products</th>
-                                                      <th class="px-4 py-3">Total Sale Products</th>
+                                                      <th class="px-4 py-3">Vendor profile</th>
+                                                      <th class="px-4 py-3">User name</th>
+                                                      <th class="px-4 py-3">Vendor name</th>
+                                                      <th class="px-4 py-3">Vendor email</th>
+                                                      <th class="px-4 py-3">Total products</th>
+                                                      <th class="px-4 py-3">Total sale products</th>
                                                   </tr>
                                               </thead>
                                               <?php 
@@ -237,17 +237,17 @@
                                               
                               <!-- top buyers -->
                               <section class="container mx-auto p-6">
-                                  <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top Buyers</h2>
+                                  <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top buyers</h2>
                                   <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                                       <div class="w-full overflow-x-auto h-max text-center">
                                           <table class="w-full">
                                               <thead>
                                                   <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
                                                       <th class="px-4 py-3">Rank</th>
-                                                      <th class="px-4 py-3">User Profile</th>
-                                                      <th class="px-4 py-3">User Name</th>
-                                                      <th class="px-4 py-3">User Email</th>
-                                                      <th class="px-4 py-3">Buying Products</th>
+                                                      <th class="px-4 py-3">User profile</th>
+                                                      <th class="px-4 py-3">User name</th>
+                                                      <th class="px-4 py-3">User email</th>
+                                                      <th class="px-4 py-3">Buying products</th>
                                                   </tr>
                                               </thead>
                                               <?php 
@@ -275,18 +275,18 @@
                                               
                               <!-- top rated product -->
                               <section class="container mx-auto p-6">
-                                  <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top Rated Products</h2>
+                                  <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top rated products</h2>
                                   <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                                       <div class="w-full overflow-x-auto h-max text-center">
                                           <table class="w-full">
                                               <thead>
                                                   <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
                                                       <th class="px-4 py-3">Rank</th>
-                                                      <th class="px-4 py-3">Product Profile</th>
-                                                      <th class="px-4 py-3 w-96">Product Title</th>
+                                                      <th class="px-4 py-3">Product profile</th>
+                                                      <th class="px-4 py-3 w-96">Product title</th>
                                                       <th class="px-4 py-3">Seller</th>
-                                                      <th class="px-4 py-3">Total Rating</th>
-                                                      <th class="px-4 py-3">Total Reviews</th>
+                                                      <th class="px-4 py-3">Total rating</th>
+                                                      <th class="px-4 py-3">Total reviews</th>
                                                   </tr>
                                               </thead>
                                               <?php 
@@ -366,17 +366,17 @@
                                               
                               <!-- top buying products -->
                               <section class="container mx-auto p-6">
-                                  <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top Buying Products</h2>
+                                  <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top buying products</h2>
                                   <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                                       <div class="w-full overflow-x-auto h-max text-center">
                                           <table class="w-full">
                                               <thead>
                                                   <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
                                                       <th class="px-4 py-3">Rank</th>
-                                                      <th class="px-4 py-3">Product Profile</th>
-                                                      <th class="px-4 py-3 w-96">Product Title</th>
-                                                      <th class="px-4 py-3">Product Price</th>
-                                                      <th class="px-4 py-3">Total Buying</th>
+                                                      <th class="px-4 py-3">Product profile</th>
+                                                      <th class="px-4 py-3 w-96">Product title</th>
+                                                      <th class="px-4 py-3">Product price</th>
+                                                      <th class="px-4 py-3">Total buying</th>
                                                   </tr>
                                               </thead>
                                               <?php 

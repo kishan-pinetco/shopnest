@@ -165,7 +165,7 @@ function displayRandomProducts($con, $limit)
                                     <?php
                                 }else{
                                     ?>
-                                        <h1 class="bg-white border-2 border-gray-800 text-red-600 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center cursor-default select-none">Out of Stock</h1>
+                                        <h1 class="bg-white border-2 border-gray-800 text-red-600 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center cursor-not-allowed select-none">Out of stock</h1>
                                     <?php
                                 }
                             ?>
@@ -334,13 +334,13 @@ function displayRandomProducts($con, $limit)
                 <div>
                     <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Headphone">
                         <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-15off-Headphones.jpg?w=300&ssl=1" alt="">
-                        <span class="text-center text-ellipsis overflow-hidden truncate ...">15% off Headphone</span>
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">15% Off headphone</span>
                     </a>
                 </div>
                 <div>
                     <a class="flex justify-center flex-col gap-y-2 w-24" href="pages/product_category.php?Category=Processor">
                         <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-think-outside-the-box.jpg?w=300&ssl=1" alt="">
-                        <span class="text-center text-ellipsis overflow-hidden truncate ...">Think Outside The Box</span>
+                        <span class="text-center text-ellipsis overflow-hidden truncate ...">Think outside the box</span>
                     </a>
                 </div>
                 <div>
@@ -376,7 +376,7 @@ function displayRandomProducts($con, $limit)
                 <div class="swiper-slide flex items-center justify-center">
                     <img class="relative w-full h-[30vh] rounded-md md:h-[60vh] object-cover" src="https://i.pinimg.com/originals/db/12/fe/db12fea16a6836ac1a7580921983fa06.jpg" alt="">
                     <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
-                        <h1 class="text-base md:text-3xl font-bold">Timeless Elegance Awaits</h1>
+                        <h1 class="text-base md:text-3xl font-bold">Timeless elegance awaits</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Discover the perfect watch to elevate your style and keep you on time.</p>
                         <a href="pages/product_category.php?Category=Watch" class="bg-gray-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
                     </div>
@@ -384,7 +384,7 @@ function displayRandomProducts($con, $limit)
                 <div class="swiper-slide flex items-center justify-center">
                     <img class="relative w-full h-[30vh] rounded-md md:h-[60vh] object-cover" src="https://rog.asus.com/Microsite/ROG-X-INTEL-UNLEASH-THE-LEGEND-INSIDE/in/assets/img/list/ROG-STRIX-SCAR-15-17.jpg" alt="">
                     <div class="bg-gradient-to-r from-black/95 to-black/10 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
-                        <h1 class="text-base md:text-3xl font-bold">Unleash Your Productivity</h1>
+                        <h1 class="text-base md:text-3xl font-bold">Unleash your productivity</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Experience unparalleled performance and style with our cutting-edge laptops.</p>
                         <a href="pages/product_category.php?Category=Laptops/MacBook" class="bg-gray-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
                     </div>
@@ -392,7 +392,7 @@ function displayRandomProducts($con, $limit)
                 <div class="swiper-slide flex items-center justify-center">
                     <img class="relative w-full h-[30vh] rounded-md md:h-[60vh] object-cover" src="https://global.hisense.com/dam/jcr:3beab097-18ec-497a-acef-b5660937c0fb/uled-8k-tv-u80g-banner.jpg" alt="">
                     <div class="bg-gradient-to-r from-black/95 h-full absolute bottom-4 left-0 px-7 md:px-20 top-0 max-w-max flex justify-center flex-col gap-1 text-white">
-                        <h1 class="text-base md:text-3xl font-bold">Elevate Your Viewing Experience</h1>
+                        <h1 class="text-base md:text-3xl font-bold">Elevate your viewing experience</h1>
                         <p class="text-sm md:text-lg font-normal my-2 w-full md:w-[60%]">Immerse yourself in stunning clarity and vibrant colors with our latest TVs.</p>
                         <a href="pages/product_category.php?Category=TV" class="bg-gray-600 text-white text-sm md:text-base py-1 px-2 md:py-2 md:px-5 rounded-tl-xl rounded-br-xl max-w-max font-semibold tracking-wider">Click here</a>
                     </div>
@@ -478,7 +478,7 @@ function displayRandomProducts($con, $limit)
 
         <!-- card splide 1 -->
         <section class="swiper-container mySwiper1 relative px-3 overflow-hidden mt-5">
-            <h1 class="text-2xl">You Might Also Like</h1>
+            <h1 class="text-2xl">You might also like</h1>
             <div class="swiper-wrapper mt-5">
                 <?php
                 // Ensure that each product is wrapped in a 'swiper-slide' div
@@ -584,7 +584,7 @@ function displayRandomProducts($con, $limit)
 
         <!-- tranding deals -->
         <div class="mt-12">
-            <h1 class="text-2xl w-full">Trending Deals</h1>
+            <h1 class="text-2xl w-full">Trending deals</h1>
             <div class="style-2 flex overflow-x-scroll xl:overflow-hidden gap-8 py-5">
                 <a href="pages/product_category.php?Category=Game Item">
                     <div class="relative w-56 bg-[url('https://motta.uix.store/electronic/wp-content/uploads/sites/6/2023/02/homev9-gamerdays.jpg')] text-center h-[22rem] bg-center bg-cover py-5 cursor-pointer custom-hover-bg rounded">
@@ -604,7 +604,7 @@ function displayRandomProducts($con, $limit)
                                         <path fill="#36e318" style="fill: var(--color2, #36e318)" d="M63.503 20.174h-7.714v2.73h7.714v6.863h-9.675v-1.852h7.714v-3.173h-7.714v-6.42h9.675v1.852z"></path>
                                     </svg>
                                 </span>
-                                <p class="text-[#36e318] text-center underline underline-offset-4 text-sm">Shop Now</p>
+                                <p class="text-[#36e318] text-center underline underline-offset-4 text-sm">Shop now</p>
                             </div>
                         </div>
                     </div>
@@ -627,7 +627,7 @@ function displayRandomProducts($con, $limit)
                                         <path d="M50.397 29.978v-11.391h4.317c1.927 0 3.418 0.524 4.46 1.586 1.062 1.049 1.586 2.417 1.586 4.133s-0.524 3.105-1.566 4.133c-1.028 1.028-2.519 1.539-4.46 1.539h-4.337zM52.909 27.69h1.648c2.683 0 3.663-1.294 3.663-3.384 0-1.062-0.279-1.913-0.831-2.519-0.538-0.606-1.484-0.912-2.846-0.912h-1.634v6.815z"></path>
                                     </svg>
                                 </span>
-                                <p class="text-black text-center underline underline-offset-4 text-sm">Shop Now</p>
+                                <p class="text-black text-center underline underline-offset-4 text-sm">Shop now</p>
                             </div>
                         </div>
                     </div>
@@ -653,7 +653,7 @@ function displayRandomProducts($con, $limit)
                                         <path d="M76.2 27.533c0 0.727-0.22 1.307-0.653 1.747s-1.020 0.653-1.747 0.653h-6.56v-11.2h6.56c0.727 0 1.307 0.22 1.747 0.653s0.653 1.020 0.653 1.747v6.4zM70.92 21.773v5.12h1.6v-5.12h-1.6z"></path>
                                     </svg>
                                 </span>
-                                <p class="text-black text-center underline underline-offset-4 text-sm">Shop Now</p>
+                                <p class="text-black text-center underline underline-offset-4 text-sm">Shop now</p>
                             </div>
                         </div>
                     </div>
@@ -667,7 +667,7 @@ function displayRandomProducts($con, $limit)
                                 <span class="flex justify-center my-3">
                                     <h1 class="text-2xl uppercase font-bold">Cooking made catchy.</h1>
                                 </span>
-                                <p class="text-[#80f8ff] text-center underline underline-offset-4 text-sm">Shop Now</p>
+                                <p class="text-[#80f8ff] text-center underline underline-offset-4 text-sm">Shop now</p>
                             </div>
                         </div>
                     </div>
@@ -681,7 +681,7 @@ function displayRandomProducts($con, $limit)
                                 <span class="flex justify-center my-3">
                                     <h1 class="text-2xl uppercase font-bold">FASHION</h1>
                                 </span>
-                                <p class="text-center underline underline-offset-4 text-sm">Shop Now</p>
+                                <p class="text-center underline underline-offset-4 text-sm">Shop now</p>
                             </div>
                         </div>
                     </div>
@@ -692,7 +692,7 @@ function displayRandomProducts($con, $limit)
 
         <!-- card splide 2 -->
         <section class="swiper-container mySwiper2 relative px-3 overflow-hidden mt-5">
-            <h1 class="text-2xl">You Might Also Like</h1>
+            <h1 class="text-2xl">You might also like</h1>
             <div class="swiper-wrapper mt-5">
                 <?php
                 // Ensure that each product is wrapped in a 'swiper-slide' div
@@ -793,13 +793,13 @@ function displayRandomProducts($con, $limit)
         </script>
 
         <div class="my-5 mt-12">
-            <h1 class="text-2xl">Explore More Categories</h1>
+            <h1 class="text-2xl">Explore more categories</h1>
             <div class="flex justify-center w-full">
                 <div class="style-2 flex overflow-x-auto gap-10 py-5 px-2">
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Men accessories">
                             <img class="w-32 h-32 object-cover object-top rounded-full rings" src="https://amourfragrances.com/cdn/shop/files/Cashmeran.jpg?v=1704756785&width=720" alt="">
-                            <p>Men Accessories</p>
+                            <p>Men accessories</p>
                         </a>
                     </div>
                     <div>
@@ -823,7 +823,7 @@ function displayRandomProducts($con, $limit)
                     <div>
                         <a class="flex flex-col items-center space-y-2 w-32" href="pages/product_category.php?Category=Watch">
                             <img class="rounded-full rings" src="https://i0.wp.com/motta.uix.store/wp-content/uploads/2022/07/homev2-watches.jpg?w=340&ssl=1" alt="">
-                            <p>Wearable Tech</p>
+                            <p>Wearable tech</p>
                         </a>
                     </div>
                     <div>
@@ -844,7 +844,7 @@ function displayRandomProducts($con, $limit)
 
         <!-- card splide 3 -->
         <section class="swiper-container mySwiper3 relative px-3 overflow-hidden mt-5">
-            <h1 class="text-2xl">You Might Also Like</h1>
+            <h1 class="text-2xl">You might also like</h1>
             <div class="swiper-wrapper mt-5">
                 <?php
                 // Ensure that each product is wrapped in a 'swiper-slide' div
@@ -946,7 +946,7 @@ function displayRandomProducts($con, $limit)
 
         <!-- partner -->
         <div class="w-full flex flex-col items-center mt-12 mb-8">
-            <h1 class="text-2xl mt-3">Trending Brands</h1>
+            <h1 class="text-2xl mt-3">Trending brands</h1>
             <?php
             include "src/company_partner/_company.php";
             ?>

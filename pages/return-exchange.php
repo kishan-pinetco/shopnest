@@ -76,7 +76,7 @@
             <div class="mt-7">
                 <h1 class="text-2xl font-bold">How to Initiate a Return or Exchange:</h1>
                 <ul class="list-disc pl-8 mt-3">
-                    <li>To initiate a return or exchange, please contact our customer service team at <a href="tel:123456789" class="text-gray-500 underline">+91 123456789</a>. Please have your order number and details of the issue ready.</li>
+                    <li>To initiate a return or exchange, please contact our customer service team at <a href="tel:123456789" class="text-gray-500 underline">+91 8141391797</a>. Please have your order number and details of the issue ready.</li>
                 </ul>
             </div>
         </div>

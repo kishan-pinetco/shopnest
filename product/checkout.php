@@ -115,6 +115,14 @@ if (isset($_POST['placeOrder'])) {
 
     <!-- title -->
     <title>Check Out Page</title>
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -153,8 +161,8 @@ if (isset($_POST['placeOrder'])) {
     <form class="max-w-screen-xl m-auto" action="" method="post">
         <div class="grid lg:grid-cols-2">
             <div class="px-4 pt-8">
-                <p class="text-xl font-medium">Order Summary</p>
-                <p class="text-gray-400">Check your items. And select a suitable shipping method.</p>
+                <p class="text-xl font-medium">Order summary</p>
+                <p class="text-gray-400">Check your items. And select a suitable payment method.</p>
                 <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
                     <div class="flex flex-col rounded-lg bg-white sm:flex-row">
                         <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $pimg : '../src/sample_images/product_1.jpg' ?>" alt="" />
@@ -186,7 +194,7 @@ if (isset($_POST['placeOrder'])) {
                         </div>
                     </div>
                 </div>
-                <p class="mt-8 text-xl font-medium">Payment Methods</p>
+                <p class="mt-8 text-xl font-medium">Payment methods</p>
                 <p class="text-gray-400">Complete your order by providing your payment details.</p>
                 <div class="mt-5 grid space-y-3 border bg-white rounded-lg px-2 py-4 sm:px-6">
                     <div class="flex items-center gap-3 cursor-pointer w-max">
@@ -194,53 +202,53 @@ if (isset($_POST['placeOrder'])) {
                         <label class="cursor-pointer text-base font-medium" for="UPI">UPI</label>
                     </div>
                     <div class="flex items-center gap-3 cursor-pointer w-max">
-                        <input type="radio" name="payment" id="COD" value="Cash On delivery" class="cursor-pointer text-gray-600 focus:ring-gray-600">
-                        <label class="cursor-pointer text-base font-medium" for="COD">Cash On delivery</label>
+                        <input type="radio" name="payment" id="COD" value="Cash on delivery" class="cursor-pointer text-gray-600 focus:ring-gray-600">
+                        <label class="cursor-pointer text-base font-medium" for="COD">Cash on delivery</label>
                     </div>
                 </div>
             </div>
             <div class="mt-10 px-4 pt-8 lg:mt-0">
-                <p class="text-xl font-medium">Billing Address</p>
+                <p class="text-xl font-medium">Billing details</p>
                 <div class="">
                     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                         <div>
-                            <label for="FirstName" class="mt-4 mb-2 block text-sm font-medium">First Name</label>
+                            <label for="FirstName" class="mt-4 mb-2 block text-sm font-medium require">First name:</label>
                             <div class="relative">
                                 <input type="text" id="FirstName" name="FirstName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['first_name'] : 'User First Name' ?>" />
                             </div>
                         </div>
                         <div>
-                            <label for="lastName" class="mt-4 mb-2 block text-sm font-medium">Last Name</label>
+                            <label for="lastName" class="mt-4 mb-2 block text-sm font-medium require">Last name:</label>
                             <div class="relative">
                                 <input type="text" id="lastName" name="lastName" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['last_name'] : 'User Last Name' ?>" />
                             </div>
                         </div>
                     </div>
-                    <label for="Phone_number" class="mt-4 mb-2 block text-sm font-medium">Phone Number</label>
+                    <label for="Phone_number" class="mt-4 mb-2 block text-sm font-medium require">Phone number:</label>
                     <div class="relative">
                         <input type="number" id="Phone_number" name="Phone_number" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base uppercase shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['phone'] : 'User Phone Number' ?>" />
                     </div>
-                    <label for="user_email" class="mt-4 mb-2 block text-sm font-medium">Email</label>
+                    <label for="user_email" class="mt-4 mb-2 block text-sm font-medium require">Email:</label>
                     <div class="relative">
                         <input type="email" id="user_email" name="user_email" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['email'] : 'User email' ?>" />
                     </div>
-                    <label for="Address" class="mt-4 mb-2 block text-sm font-medium">Shipping Address</label>
+                    <label for="Address" class="mt-4 mb-2 block text-sm font-medium require">Shipping address:</label>
                     <div class="relative">
                         <input type="text" id="Address" name="Address" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['Address'] : 'User Address' ?>" />
                     </div>
-                    <label for="state" class="mt-4 mb-2 block text-sm font-medium">State</label>
+                    <label for="state" class="mt-4 mb-2 block text-sm font-medium require">State:</label>
                     <div class="relative">
                         <input type="text" id="state" name="state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['state'] : 'User state' ?>" />
                     </div>
                     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                         <div>
-                            <label for="city" class="mt-4 mb-2 block text-sm font-medium">City</label>
+                            <label for="city" class="mt-4 mb-2 block text-sm font-medium require">City:</label>
                             <div class="relative">
                                 <input type="text" id="city" name="city" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" value="<?php echo isset($product_id) ? $us['city'] : 'User city' ?>" />
                             </div>
                         </div>
                         <div>
-                            <label for="pin" class="mt-4 mb-2 block text-sm font-medium">Pincode</label>
+                            <label for="pin" class="mt-4 mb-2 block text-sm font-medium require">Pincode:</label>
                             <div class="relative">
                                 <input type="tel" id="pin" name="pin" class="w-full rounded-md border border-gray-200 px-4 py-3 text-base shadow-sm outline-none focus:z-10 focus:border-gray-500 focus:ring-gray-500" maxlength="6" value="<?php echo isset($product_id) ? $us['pin'] : 'User Pin' ?>" />
                             </div>
@@ -264,21 +272,21 @@ if (isset($_POST['placeOrder'])) {
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
                             <p class="font-semibold text-gray-900">₹<?php
-                            if (isset($product_id)) {
-                                $totalPriceWithQty = str_replace(',', '', $totalPriceWithQty);
-                                $totalPriceWithQty = (int) $totalPriceWithQty;
-                                if ($totalPriceWithQty <= 599) {
-                                    $shipping = 40;
-                                } else {
-                                    $shipping = 0;
-                                }
-                            } else {
-                                $shipping = 0;
-                            }
+                                                                    if (isset($product_id)) {
+                                                                        $totalPriceWithQty = str_replace(',', '', $totalPriceWithQty);
+                                                                        $totalPriceWithQty = (int) $totalPriceWithQty;
+                                                                        if ($totalPriceWithQty <= 599) {
+                                                                            $shipping = 40;
+                                                                        } else {
+                                                                            $shipping = 0;
+                                                                        }
+                                                                    } else {
+                                                                        $shipping = 0;
+                                                                    }
 
-                            // Output the shipping value
-                            echo $shipping;
-                            ?></p>
+                                                                    // Output the shipping value
+                                                                    echo $shipping;
+                                                                    ?></p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
@@ -305,26 +313,26 @@ if (isset($_POST['placeOrder'])) {
                             </h1>
                         </label>
                         <input type="text" id="totalPrice" class="hidden float-right bg-transparent border-none text-2xl font-semibold text-gray-900" name="totalProductPrice" value="₹<?php
-                        if (isset($product_id)) {
-                            $productPrice = (float)$productPrice;
-                            $qty = (int)$qty;
+                                                                                                                                                                                        if (isset($product_id)) {
+                                                                                                                                                                                            $productPrice = (float)$productPrice;
+                                                                                                                                                                                            $qty = (int)$qty;
 
-                            $totalPriceWithQty = $productPrice * $qty;
+                                                                                                                                                                                            $totalPriceWithQty = $productPrice * $qty;
 
-                            $total = $totalPriceWithQty + $shipping;
+                                                                                                                                                                                            $total = $totalPriceWithQty + $shipping;
 
-                            $formattedTotalPriceWithQty = number_format($totalPriceWithQty, 0);
-                            $formattedTotal = number_format($total, 0);
+                                                                                                                                                                                            $formattedTotalPriceWithQty = number_format($totalPriceWithQty, 0);
+                                                                                                                                                                                            $formattedTotal = number_format($total, 0);
 
-                            echo $formattedTotal;
-                        } else {
-                            echo 'Total Amount';
-                        }
-                        ?>" dir="rtl">
+                                                                                                                                                                                            echo $formattedTotal;
+                                                                                                                                                                                        } else {
+                                                                                                                                                                                            echo 'Total Amount';
+                                                                                                                                                                                        }
+                                                                                                                                                                                        ?>" dir="rtl">
                     </div>
                 </div>
                 <div>
-                    <input type="submit" name="placeOrder" value="Place Order" <?php echo isset($_SESSION['payment']) ? 'disabled' : '' ?> class="<?php echo !isset($_SESSION['payment']) ? 'cursor-pointer hover:bg-gray-800' : 'cursor-not-allowed opacity-50' ?> mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200">
+                    <input type="submit" name="placeOrder" value="Place order" <?php echo isset($_SESSION['payment']) ? 'disabled' : '' ?> class="<?php echo !isset($_SESSION['payment']) ? 'cursor-pointer hover:bg-gray-800' : 'cursor-not-allowed opacity-50' ?> mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200">
                 </div>
             </div>
         </div>
@@ -357,11 +365,11 @@ if (isset($_POST['placeOrder'])) {
         function displayErrorMessage(message) {
             let popUp = document.getElementById('popUp');
             let errorMessage = document.getElementById('errorMessage');
-            
+
             errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
             popUp.style.display = 'flex';
             popUp.style.opacity = '100';
-            
+
             setTimeout(() => {
                 window.location.href = "";
                 popUp.style.display = 'none';
@@ -460,40 +468,40 @@ if (isset($_POST['placeOrder'])) {
         $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
         $update_qty_quary = mysqli_query($con, $update_qty);
 
-        if($order_insert_query && $update_qty_quary){
+        if ($order_insert_query && $update_qty_quary) {
             // sending email
             include "../pages/mail.php";
             $mail->addAddress($user_email);
             $mail->isHTML(true);
- 
+
             // order information
             if (isset($_GET['product_id'])) {
                 $product_id = $_GET['product_id'];
- 
+
                 $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";
                 $retrieve_order_query = mysqli_query($con, $retrieve_order);
                 $res = mysqli_fetch_assoc($retrieve_order_query);
- 
+
                 $username = $res['user_first_name'] . ' ' . $res['user_last_name'];
                 $order_id = $res['order_id'];
                 $order_date = $res['date'];
- 
+
                 $order_title = $res['order_title'];
                 $order_image = '../src/product_image/product_profile/' . $res['order_image'];
                 $order_price = $res['order_price'];
                 $order_color = $res['order_color'];
                 $order_size = $res['order_size'];
                 $order_qty = $res['qty'];
- 
+
                 $user_email = $res['user_email'];
                 $user_mobile = $res['user_mobile'];
                 $user_address = $res['user_address'];
- 
+
                 $total_price = $res['total_price'];
                 $today = date('d-m-Y', strtotime($res['date']));
                 $delivery_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
             }
- 
+
             $mail->Subject = "New Order Confirmation - #$order_id";
             $mail->Body = "<html>
                 <head>
@@ -543,13 +551,13 @@ if (isset($_POST['placeOrder'])) {
                     shopnest2603@gmail.com</p>
                 </body>
                 </html>";
- 
+
             $mail->send();
 
             unset($_SESSION['payment']);
- 
-            echo '<script>displaySuccessMessage("Your Order Has been Placed.");</script>'; 
-        }else{
+
+            echo '<script>displaySuccessMessage("Your Order Has been Placed.");</script>';
+        } else {
             echo '<script>displayErrorMessage("Order Not Placed Please try again.");</script>';
         }
     } else {

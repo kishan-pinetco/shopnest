@@ -125,14 +125,14 @@ if (isset($_COOKIE['vendor_id'])) {
                                 <path d="M18.25 14.687V13a.75.75 0 0 0-1.5 0v1.688a.75.75 0 0 0 1.5-.001zM20.019 16.042l1.193-1.194a.749.749 0 1 0-1.06-1.06l-1.194 1.193a.752.752 0 0 0 0 1.061.752.752 0 0 0 1.061 0zM20.312 18.25H22a.75.75 0 0 0 0-1.5h-1.688a.75.75 0 0 0 0 1.5zM18.958 20.019l1.194 1.193a.749.749 0 1 0 1.06-1.06l-1.193-1.194a.752.752 0 0 0-1.061 0 .752.752 0 0 0 0 1.061zM16.75 20.312V22a.75.75 0 0 0 1.5 0v-1.688a.75.75 0 0 0-1.5 0zM14.981 18.958l-1.193 1.194a.749.749 0 1 0 1.06 1.06l1.194-1.193a.752.752 0 0 0 0-1.061.752.752 0 0 0-1.061 0zM14.687 16.75H13a.75.75 0 0 0 0 1.5h1.687a.75.75 0 1 0 0-1.5zM16.042 14.981l-1.194-1.193a.749.749 0 1 0-1.06 1.06l1.193 1.194a.752.752 0 0 0 1.061 0 .752.752 0 0 0 0-1.061z" fill="" opacity="1" data-original="#000000" class=""></path>
                             </g>
                         </svg>
-                        <span class="mx-3">Account Setting</span>
+                        <span class="mx-3">Account setting</span>
                     </a>
 
                     <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="choose_product.php">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
-                        <span class="mx-3">Add Product</span>
+                        <span class="mx-3">Add product</span>
                     </a>
 
                     <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="view_orders.php">
@@ -154,7 +154,7 @@ if (isset($_COOKIE['vendor_id'])) {
                             <path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path>
                             <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"></path>
                         </svg>
-                        <span class="mx-3">Log Out</span>
+                        <span class="mx-3">Log out</span>
                     </a>
                 </nav>
             </div>
@@ -189,7 +189,7 @@ if (isset($_COOKIE['vendor_id'])) {
                     </div>
                 </header>
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 px-6 py-8 md:p-8">
-                    <h1 class="mb-8 font-semibold text-3xl">Add Your Products</h1>
+                    <h1 class="mb-8 font-semibold text-3xl">Add your products</h1>
                     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-6">
                         <a href="add_product.php?name=Phones" class="bg-white p-3 rounded-md shadow-2xl flex items-center gap-1 cursor-pointer hover:bg-gray-100 hover:ring-[1.5px] hover:ring-gray-500 focus:outline-none focus:ring-[1.5px] focus:ring-gray-500 focus:bg-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -302,7 +302,7 @@ if (isset($_COOKIE['vendor_id'])) {
                                     <path d="M192 32h16v16h-16zM192 64h16v16h-16zM136 32H40a8 8 0 0 0-8 8v72a8 8 0 0 0 8 8h96a8 8 0 0 0 8-8V40a8 8 0 0 0-8-8zm-8 72H48V48h80zM200 100c-6.629 0-12 5.371-12 12s5.371 12 12 12 12-5.371 12-12-5.371-12-12-12zm0 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0 0" fill="#000000" opacity="1" data-original="#000000"></path>
                                 </g>
                             </svg>
-                            <h1>Electronics Item</h1>
+                            <h1>Electronics item</h1>
                         </a>
                         <a href="add_product.php?name=Tech Accessories" class="bg-white p-3 rounded-md shadow-2xl flex items-center gap-1 cursor-pointer hover:bg-gray-100 hover:ring-[1.5px] hover:ring-gray-500 focus:outline-none focus:ring-[1.5px] focus:ring-gray-500 focus:bg-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 64 64" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -314,7 +314,7 @@ if (isset($_COOKIE['vendor_id'])) {
                                     <path d="M44 35H34a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1zm-1 4h-8v-2h8zM51 37h2v2h-2zM55 37h2v2h-2z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
                                 </g>
                             </svg>
-                            <h1>Tech Accessories</h1>
+                            <h1>Tech accessories</h1>
                         </a>
                         <a href="add_product.php?name=Cameras" class="bg-white p-3 rounded-md shadow-2xl flex items-center gap-1 cursor-pointer hover:bg-gray-100 hover:ring-[1.5px] hover:ring-gray-500 focus:outline-none focus:ring-[1.5px] focus:ring-gray-500 focus:bg-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -338,7 +338,7 @@ if (isset($_COOKIE['vendor_id'])) {
                                     <circle cx="258.573" cy="139.381" r="14" fill="#000000" opacity="1" data-original="#000000"></circle>
                                 </g>
                             </svg>
-                            <h1>Game Item</h1>
+                            <h1>Game item</h1>
                         </a>
                         <a href="add_product.php?name=Kitchen" class="bg-white p-3 rounded-md shadow-2xl flex items-center gap-1 cursor-pointer hover:bg-gray-100 hover:ring-[1.5px] hover:ring-gray-500 focus:outline-none focus:ring-[1.5px] focus:ring-gray-500 focus:bg-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512.001 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">

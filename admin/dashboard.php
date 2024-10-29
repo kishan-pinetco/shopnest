@@ -194,7 +194,7 @@ if(isset($_COOKIE['adminEmail'])){
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-gray-950"><?php echo isset($_COOKIE['adminEmail']) ? $Cview : '0'?></h3>
-                                <span class="text-sm font-medium text-gray-500">Total View</span>
+                                <span class="text-sm font-medium text-gray-500">Total view</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
@@ -203,7 +203,7 @@ if(isset($_COOKIE['adminEmail'])){
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-gray-950"><?php echo isset($_COOKIE['adminEmail']) ? '₹' . number_format($totalEarnings) : '0'?></h3>
-                                <span class="text-sm font-medium text-gray-500">Total Profit</span>
+                                <span class="text-sm font-medium text-gray-500">Total profit</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
@@ -212,7 +212,7 @@ if(isset($_COOKIE['adminEmail'])){
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-gray-950"><?php echo isset($_COOKIE['adminEmail']) ? $products : '0'?></h3>
-                                <span class="text-sm font-medium text-gray-500">Total Product</span>
+                                <span class="text-sm font-medium text-gray-500">Total product</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
@@ -221,7 +221,7 @@ if(isset($_COOKIE['adminEmail'])){
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-gray-950"><?php echo isset($_COOKIE['adminEmail']) ? $user : '0'?></h3>
-                                <span class="text-sm font-medium text-gray-500">Total Users</span>
+                                <span class="text-sm font-medium text-gray-500">Total users</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
@@ -230,12 +230,12 @@ if(isset($_COOKIE['adminEmail'])){
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-gray-950"><?php echo isset($_COOKIE['adminEmail']) ? $vendor : '0'?></h3>
-                                <span class="text-sm font-medium text-gray-500">Total Vendors</span>
+                                <span class="text-sm font-medium text-gray-500">Total vendors</span>
                             </div>
                         </div>
                     </div>
                     <div class="bg-white shadow-xl rounded-md px-4 py-3 mt-12">
-                        <h1 class="text-2xl font-bold text-gray-950">Visitors Analytics</h1>
+                        <h1 class="text-2xl font-bold text-gray-950">Visitors analytics</h1>
                         <div id="chart" style="height: 250px;"></div>
                         <script>
                             $(document).ready(function() {

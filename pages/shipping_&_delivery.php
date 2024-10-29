@@ -64,7 +64,7 @@
                         <h2 class="text-lg font-semibold mt-3">Order Processing Time:</h2>
                         <ul class="list-disc pl-6 mt-3">
                             <li>Orders are typically processed within 1-2 business days.</li>
-                            <li>You will receive a confirmation email once your order has been shipped, including a tracking number to monitor your shipment.</li>
+                            <li>You will receive a confirmation email once your order has been placed, including a tracking number to monitor your shipment.</li>
                         </ul>
                     </div>
                 </div>
@@ -79,14 +79,6 @@
                             <li>Expedited Shipping: 2-3 business days</li>
                             <li>Express Shipping: 1-2 business days</li>
                             <li>Please note that delivery times may vary based on your location and unforeseen circumstances such as weather conditions or carrier delays.</li>
-                        </ul>
-                    </div>
-
-                    <div class="pl-6">
-                        <h2 class="text-lg font-semibold mt-3">International Shipping:</h2>
-                        <ul class="list-disc pl-6 mt-3">
-                            <li>We offer international shipping to select countries. Shipping times and costs for international orders will vary.</li>
-                            <li>Customers are responsible for any customs duties or taxes imposed by their country.</li>
                         </ul>
                     </div>
 

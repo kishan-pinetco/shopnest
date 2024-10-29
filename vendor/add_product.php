@@ -108,12 +108,12 @@ if (isset($_GET['name'])) {
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
-                                    <label for="full_name" class="require">Product Tital:</label>
+                                    <label for="full_name" class="require">Product tital:</label>
                                     <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['full_name']) ? $_SESSION['full_name'] : ''; ?>" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="Company_name" class="require">Company Name:</label>
+                                    <label for="Company_name" class="require">Company name:</label>
                                     <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['Company_name']) ? $_SESSION['Company_name'] : ''; ?>" placeholder="" />
                                 </div>
 
@@ -136,7 +136,7 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="your_price" class="require">Your Price:</label>
+                                    <label for="your_price" class="require">Your price:</label>
                                     <div class="relative">
                                         <input type="number" name="your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['your_price']) ? $_SESSION['your_price'] : ''; ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
@@ -149,10 +149,10 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="condition" class="require">Item Condition:</label>
+                                    <label for="condition" class="require">Item condition:</label>
                                     <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['condition']) ? $_SESSION['condition'] : ''; ?>">
-                                        <option value="New Condition">New Condition</option>
-                                        <option value="Old Condition">Old Condition</option>
+                                        <option value="New Condition">New condition</option>
+                                        <option value="Old Condition">Old condition</option>
                                     </select>
                                 </div>
 
@@ -168,15 +168,15 @@ if (isset($_GET['name'])) {
                                             <input type="text" name="keyword[]" placeholder="Enter keyword" class="relative h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600">
                                         </div>
                                     </div>
-                                    <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Keyword</button>
+                                    <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add more keyword</button>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
-                                    <label for="size">Size</label>
+                                    <label for="size" class="require">Size:</label>
                                     <div id="size-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
 
                                     </div>
-                                    <button id="add-size" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Size</button>
+                                    <button id="add-size" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add more size</button>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
@@ -194,7 +194,7 @@ if (isset($_GET['name'])) {
                                             <div id="previewWrapper1" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput1').click();">
                                                 <img id="previewImage1" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
                                                 <h2 id="imageText1" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                    Insert Product Image 1
+                                                    Insert product image 1
                                                 </h2>
                                             </div>
                                             <input class="hidden" name="ProfileImage1" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput1" onchange="productImagePreview(event, 'previewImage1', 'imageText1')">
@@ -205,7 +205,7 @@ if (isset($_GET['name'])) {
                                             <div id="previewWrapper2" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput2').click();">
                                                 <img id="previewImage2" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 2">
                                                 <h2 id="imageText2" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                    Insert Product Image 2
+                                                    Insert product image 2
                                                 </h2>
                                             </div>
                                             <input class="hidden" name="ProfileImage2" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput2" onchange="productImagePreview(event, 'previewImage2', 'imageText2')">
@@ -216,7 +216,7 @@ if (isset($_GET['name'])) {
                                             <div id="previewWrapper3" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput3').click();">
                                                 <img id="previewImage3" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 3">
                                                 <h2 id="imageText3" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                    Insert Product Image 3
+                                                    Insert product image 3
                                                 </h2>
                                             </div>
                                             <input class="hidden" name="ProfileImage3" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput3" onchange="productImagePreview(event, 'previewImage3', 'imageText3')">
@@ -227,7 +227,7 @@ if (isset($_GET['name'])) {
                                             <div id="previewWrapper4" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput4').click();">
                                                 <img id="previewImage4" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 4">
                                                 <h2 id="imageText4" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                    Insert Product Image 4
+                                                    Insert product image 4
                                                 </h2>
                                             </div>
                                             <input class="hidden" name="ProfileImage4" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput4" onchange="productImagePreview(event, 'previewImage4', 'imageText4')">
@@ -237,13 +237,13 @@ if (isset($_GET['name'])) {
                                 </div>
 
                                 <div class="md:col-span-5 mt-4">
-                                    <label for="" class="text-lg require">Cover Images:</label>
+                                    <label for="" class="text-lg require">Cover images:</label>
                                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-12 gap-5 mt-9">
                                         <div class="w-full relative">
                                             <div id="coverImageWrapper1" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('coverImageInput1').click();">
                                                 <img id="coverPreviewImage1" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
                                                 <label id="coverImageText1" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                    Insert Cover Image 1
+                                                    Insert cover image 1
                                                 </label>
                                             </div>
                                             <input class="hidden" name="CoverImage1" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput1" onchange="productImagePreview(event, 'coverPreviewImage1', 'coverImageText1')">
@@ -254,7 +254,7 @@ if (isset($_GET['name'])) {
                                             <div id="coverImageWrapper2" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('coverImageInput2').click();">
                                                 <img id="coverPreviewImage2" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
                                                 <label id="coverImageText2" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                    Insert Cover Image 2
+                                                    Insert cover image 2
                                                 </label>
                                             </div>
                                             <input class="hidden" name="CoverImage2" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput2" onchange="productImagePreview(event, 'coverPreviewImage2', 'coverImageText2')">
@@ -265,7 +265,7 @@ if (isset($_GET['name'])) {
                                             <div id="coverImageWrapper3" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('coverImageInput3').click();">
                                                 <img id="coverPreviewImage3" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
                                                 <label id="coverImageText3" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                    Insert Cover Image 3
+                                                    Insert cover image 3
                                                 </label>
                                             </div>
                                             <input class="hidden" name="CoverImage3" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput3" onchange="productImagePreview(event, 'coverPreviewImage3', 'coverImageText3')">
@@ -276,7 +276,7 @@ if (isset($_GET['name'])) {
                                             <div id="coverImageWrapper4" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('coverImageInput4').click();">
                                                 <img id="coverPreviewImage4" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
                                                 <label id="coverImageText4" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                    Insert Cover Image 4
+                                                    Insert cover image 4
                                                 </label>
                                             </div>
                                             <input class="hidden" name="CoverImage4" accept="image/jpg, image/png, image/jpeg" type="file" id="coverImageInput4" onchange="productImagePreview(event, 'coverPreviewImage4', 'coverImageText4')">

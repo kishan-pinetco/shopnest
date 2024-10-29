@@ -88,11 +88,11 @@ if (isset($_COOKIE['user_id'])) {
                 <?php
                 if (isset($future_date) && isset($todays) && $future_date < $todays) {
                 ?>
-                    <h2 class="text-xl font-semibold sm:text-2xl">Your Order is Delivered</h2>
+                    <h2 class="text-xl font-semibold sm:text-2xl">Your order is delivered</h2>
                 <?php
                 } else {
                 ?>
-                    <h2 class="text-xl font-semibold sm:text-2xl">Your Order is Confirmed</h2>
+                    <h2 class="text-xl font-semibold sm:text-2xl">Your order is confirmed</h2>
                 <?php
                 }
                 ?>
@@ -101,11 +101,11 @@ if (isset($_COOKIE['user_id'])) {
                     <?php
                     if (isset($future_date) && isset($todays) &&  $future_date < $todays) {
                     ?>
-                        <span>Your Order is Delivered</span>
+                        <span>Your order is delivered</span>
                     <?php
                     } else {
                     ?>
-                        <span>Your Order has been confirmed and will be Delivered soon</span>
+                        <span>Your order has been confirmed and will be delivered soon.</span>
                     <?php
                     }
                     ?>
@@ -129,19 +129,19 @@ if (isset($_COOKIE['user_id'])) {
                 <h3 class="text-xl font-medium sm:text-2xl">Order ID: #<?php echo isset($_COOKIE['user_id']) ? $res['order_id'] : 'product ID' ?></h3>
                 <div class="grid grid-cols-1 mt-12 gap-7 w-full md:grid-cols-2 lg:grid-cols-4 lg:gap-x-12">
                     <div>
-                        <h4 class="font-semibold mb-2">Full Name</h4>
+                        <h4 class="font-semibold mb-2">Full name</h4>
                         <p><?php echo isset($_COOKIE['user_id']) ? $res['user_first_name'] . ' ' . $res['user_last_name'] : '-' ?></p>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-2">User Email</h4>
+                        <h4 class="font-semibold mb-2">User email</h4>
                         <p><?php echo isset($_COOKIE['user_id']) ? $res['user_email'] : '-' ?></p>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-2">User Mobile</h4>
+                        <h4 class="font-semibold mb-2">User mobile</h4>
                         <p><?php echo isset($_COOKIE['user_id']) ? $res['user_mobile'] : '-' ?></p>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-2">Devliery Address</h4>
+                        <h4 class="font-semibold mb-2">Devliery address</h4>
                         <p><?php echo isset($_COOKIE['user_id']) ? $res['user_address'] : '-' ?></p>
                     </div>
                     <div>
@@ -153,11 +153,11 @@ if (isset($_COOKIE['user_id'])) {
                         <p><?php echo isset($_COOKIE['user_id']) ? $res['user_city'] : '-' ?></p>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-2">Order Date</h4>
+                        <h4 class="font-semibold mb-2">Order date</h4>
                         <p><?php echo isset($_COOKIE['user_id']) ? $res['date'] : '-' ?></p>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-2">Payment Information</h4>
+                        <h4 class="font-semibold mb-2">Payment information</h4>
                         <p><?php echo isset($_COOKIE['user_id']) ? $res['payment_type'] : '-' ?></p>
                     </div>
                 </div>
@@ -185,7 +185,7 @@ if (isset($_COOKIE['user_id'])) {
                 <?php
                     if(isset($future_date) && isset($todays) && $future_date < $todays){
                         ?>
-                            <h2 class="font-semibold text-2xl mb-4">Your Order is Delivered</h2>
+                            <h2 class="font-semibold text-2xl mb-4">Your order is delivered</h2>
                         <?php
                     }else{
                         ?>
@@ -196,7 +196,7 @@ if (isset($_COOKIE['user_id'])) {
             </div>
             <div class="mt-6 grow sm:mt-8 lg:mt-0">
                 <div class="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-                    <h3 class="text-xl font-semibold text-gray-900">Order Traking</h3>
+                    <h3 class="text-xl font-semibold text-gray-900">Order traking</h3>
 
                     <?php
                         if(isset($_COOKIE['user_id'])){

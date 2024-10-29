@@ -183,12 +183,12 @@ if (isset($_GET['product_id'])) {
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
-                                    <label for="full_name" class="require">Product Tital:</label>
+                                    <label for="full_name" class="require">Product tital:</label>
                                     <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $first_title : 'title' ?>" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="Company_name" class="require">Company Name:</label>
+                                    <label for="Company_name" class="require">Company name:</label>
                                     <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['company_name'] : 'company_name' ?>" placeholder="" />
                                 </div>
 
@@ -211,7 +211,7 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="your_price" class="require">Your Price:</label>
+                                    <label for="your_price" class="require">Your price:</label>
                                     <div class="relative">
                                         <input type="text" name="My_your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:border-gray-600 focus:ring-gray-600 z-10" value="<?php echo isset($_GET['product_id']) ? $Your_Price : 'Your_Price' ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
@@ -224,10 +224,10 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="condition" class="require">Item Condition:</label>
+                                    <label for="condition" class="require">Item condition:</label>
                                     <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Item_Condition'] : 'Item_Condition' ?>">
-                                        <option value="New Condition">New Condition</option>
-                                        <option value="Old Condition">Old Condition</option>
+                                        <option value="New Condition">New condition</option>
+                                        <option value="Old Condition">Old condition</option>
                                     </select>
                                 </div>
 
@@ -256,7 +256,7 @@ if (isset($_GET['product_id'])) {
                                     <input type="hidden" id="keyword-data" value='<?php echo $keywords_json; ?>'>
                                     <?php
                                     ?>
-                                    <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Keyword</button>
+                                    <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add more keyword</button>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
@@ -303,7 +303,7 @@ if (isset($_GET['product_id'])) {
                                     </div>
 
                                     <input type="hidden" id="size-data" value='<?php echo $size_json ?>'>
-                                    <button id="add-size" type="button" class="px-4 py-2 bg-gray-600 text-white rounded-lg mt-2 hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-400">Add More Size</button>
+                                    <button id="add-size" type="button" class="px-4 py-2 bg-gray-600 text-white rounded-lg mt-2 hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-400">Add more size</button>
 
                                 </div>
 

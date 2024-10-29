@@ -126,7 +126,7 @@ include "../include/connect.php";
                         <small class="text-red-500 translate-x-1">Message must be require</small>
                     </div>
                 </div>
-                <input type="submit" name="contact" value="Get In Touch" class=" font-medium text-center rounded-tl-xl rounded-br-xl w-full bg-gray-700 text-white mt-5 py-4 cursor-pointer hover:bg-gray-800">
+                <input type="submit" name="contact" value="Get in touch" class=" font-medium text-center rounded-tl-xl rounded-br-xl w-full bg-gray-700 text-white mt-5 py-4 cursor-pointer hover:bg-gray-800">
             </form>
         </div>
     </div>

@@ -71,7 +71,7 @@
 
     <div class="w-[100%] mx-auto px-4 py-12 md:m-auto md:w-[70%]">
         <div class="grid grid-col-1 gap-y-4">
-            <h2 class="font-bold text-2xl text-black">Create Review</h2>
+            <h2 class="font-bold text-2xl text-black">Edit review</h2>
             <div class="flex flex-col item-center justify-start gap-2 md:flex-row">
                 <img class="w-20 h-auto" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $rev['product_img'] : '../src/sample_images/product_1.jpg'?>" alt="">
                 <span class="text-xl font-medium line-clamp-1 my-auto h-7 cursor-default" title="<?php echo isset($product_id) ? $rev['product_title'] : 'product_title'?>"><?php echo isset($product_id) ? $rev['product_title'] : 'product_title'?></span>
@@ -193,7 +193,7 @@
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
                         <span class="sr-only">Info</span>
                         <div>
-                            <span class="font-medium">Review Update Successfully.</span>
+                            <span class="font-medium">Review updated successfully.</span>
                         </div>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                             <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
                             <span class="sr-only">Info</span>
                             <div>
-                                <span class="font-medium">Update Failed try again.</span>
+                                <span class="font-medium">Update failed try again.</span>
                             </div>
                         </div>
                     </div>
@@ -247,7 +247,7 @@
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
                         <span class="sr-only">Info</span>
                         <div>
-                            <span class="font-medium">Please Select a Rating.</span>
+                            <span class="font-medium">Please select a rating.</span>
                         </div>
                     </div>
                 </div>

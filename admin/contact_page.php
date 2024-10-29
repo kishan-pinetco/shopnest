@@ -158,7 +158,7 @@
                         <?php
                             if(isset($_COOKIE['adminEmail'])){
                                 ?>
-                                <h1 class="text-4xl font-bold text-center mb-8 text-gray-600">Customer Inquiries</h1>
+                                <h1 class="text-4xl font-bold text-center mb-8 text-black">Customer inquiries</h1>
                                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <?php    
                                 include "../include/connect.php";
@@ -168,7 +168,7 @@
 
                                 while($res = mysqli_fetch_assoc($contact_query)){
                                     ?>
-                                    <div class="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col">
+                                    <div class="bg-white shadow-lg rounded-tl-xl rounded-br-xl overflow-hidden flex flex-col">
                                         <div class="p-6 flex-1">
                                             <div class="flex gap-2">
                                                 <p class="font-bold">Name:</p>
@@ -195,8 +195,8 @@
                                                 <p class="font-medium w-2/3 text-gray-500"><?php echo $res['date']?></p>
                                             </div>
                                         </div>
-                                        <div class="bg-gray-100 p-4 text-right">
-                                            <a href="mailto:abc@gmail.com" class="bg-gray-600 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Contact</a>
+                                        <div class="p-4 text-right">
+                                            <a href="mailto:abc@gmail.com" class="bg-gray-600 text-white font-semibold py-2 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Contact</a>
                                         </div>
                                     </div>
                                     <?php

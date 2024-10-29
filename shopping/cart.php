@@ -167,8 +167,8 @@ if(isset($_SESSION['selectedSize'])){
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6M9 16h6M10.29 8.293a1 1 0 011.42 0L12 9.414l.29-.29a1 1 0 011.42 1.42L13.414 12l.293.293a1 1 0 01-1.42 1.42L12 13.414l-.293.293a1 1 0 01-1.42-1.42L10.586 12l-.293-.293a1 1 0 010-1.42z" />
                                     </svg>
-                                    <h1 class="text-3xl font-semibold text-gray-800">Your Cart is Empty</h1>
-                                    <p class="text-gray-600 mt-2">Looks like you haven’t added any products to your cart yet.</p>
+                                    <h1 class="text-3xl font-semibold text-gray-800">Your cart is empty</h1>
+                                    <p class="text-gray-600 mt-2">Looks like you haven't added any products to your cart yet.</p>
                                 </div>
                             <?php
                             }
@@ -178,8 +178,8 @@ if(isset($_SESSION['selectedSize'])){
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6M9 16h6M10.29 8.293a1 1 0 011.42 0L12 9.414l.29-.29a1 1 0 011.42 1.42L13.414 12l.293.293a1 1 0 01-1.42 1.42L12 13.414l-.293.293a1 1 0 01-1.42-1.42L10.586 12l-.293-.293a1 1 0 010-1.42z" />
                                 </svg>
-                                <h1 class="text-3xl font-semibold text-gray-800">Your Cart is Empty</h1>
-                                <p class="text-gray-600 mt-2">Looks like you haven’t added any products to your cart yet.</p>
+                                <h1 class="text-3xl font-semibold text-gray-800">Your cart is empty</h1>
+                                <p class="text-gray-600 mt-2">Looks like you haven't added any products to your cart yet.</p>
                             </div>
                         <?php
                         }
@@ -222,11 +222,11 @@ if(isset($_SESSION['selectedSize'])){
 
                         if (isset($_COOKIE['Cart_products']) && $totalCartPrice > 0) {
                         ?>
-                            <a href="<?php echo $url ?>" class="flex w-full items-center justify-center rounded-tl-xl rounded-br-xl bg-gray-600 hover:bg-gray-700 transition duration-200 text-white px-5 py-2.5 text-sm font-medium cursor-pointer">Proceed to Checkout</a>
+                            <a href="<?php echo $url ?>" class="flex w-full items-center justify-center rounded-tl-xl rounded-br-xl bg-gray-600 hover:bg-gray-700 transition duration-200 text-white px-5 py-2.5 text-sm font-medium cursor-pointer">Proceed to checkout</a>
                         <?php
                         } else {
                         ?>
-                            <h1 class="flex w-full items-center justify-center rounded-tl-xl rounded-br-xl bg-gray-600 text-white px-5 py-2.5 text-sm font-medium select-none opacity-40 cursor-not-allowed">Proceed to Checkout</h1>
+                            <h1 class="flex w-full items-center justify-center rounded-tl-xl rounded-br-xl bg-gray-600 text-white px-5 py-2.5 text-sm font-medium select-none opacity-40 cursor-not-allowed">Proceed to checkout</h1>
                         <?php
                         }
                         ?>
@@ -234,7 +234,7 @@ if(isset($_SESSION['selectedSize'])){
                         <div class="flex items-center justify-center gap-2">
                             <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> or </span>
                             <a href="../index.php" title="" class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">
-                                Continue Shopping
+                                Continue shopping
                                 <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
                                 </svg>
@@ -248,7 +248,7 @@ if(isset($_SESSION['selectedSize'])){
 
 
     <div class="py-12 max-w-screen-xl m-auto px-6">
-        <span class="text-2xl font-medium">People Also Search</span>
+        <span class="text-2xl font-medium">People also search</span>
         <div class="product-container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10 mt-4">
             <?php
             $product_find = "SELECT * FROM items ORDER BY RAND() LIMIT 4";
