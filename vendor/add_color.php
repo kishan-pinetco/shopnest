@@ -151,12 +151,19 @@ if (isset($_COOKIE['adminEmail'])) {
 
 
                             <div class="md:col-span-5 text-right mt-10">
-                                <div class="inline-flex items-end">
+                                <div class="inline-flex justify-between items-end w-full">
+                                    <a href="view_products.php" class="bg-black text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1"><span> <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 31.418 31.418" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-3">
+                                            <g>
+                                                <path d="M26.585 3v25.418a3.002 3.002 0 0 1-4.883 2.335L5.949 18.044a2.999 2.999 0 0 1 0-4.67L21.703.665a3.004 3.004 0 0 1 3.178-.372A3.003 3.003 0 0 1 26.585 3z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path>
+                                            </g>
+                                        </svg></span> 
+                                        <span>Back</span>
+                                    </a>
                                     <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
                                 </div>
                             </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
