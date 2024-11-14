@@ -67,6 +67,14 @@ if (isset($_COOKIE['user_id'])) {
 </head>
 <body style="font-family: 'Outfit', sans-serif;">
 
+    <!-- Full screen overlay -->
+    <div id="overlay" class="overlay fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 text-white flex items-center justify-center text-xl font-semibold z-50 hidden">
+        <div>
+            <div class="text-gray-200 w-12 h-12 border-4 border-white border-opacity-30 border-t-4 border-t-black rounded-full animate-spin mx-auto"></div>
+            <p class="mt-4">Sending Email... Please Wait.</p>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
     <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
@@ -282,16 +290,14 @@ if (isset($_COOKIE['user_id'])) {
                 if (!billingEmail) {
                     displayErrorMessage('Please Enter Your Billing Email.')
                     return;
-                }
-
-                if (!Preceive) {
+                }else if (!Preceive) {
                     displayErrorMessage('Please Select Receive Payment Method.')
                     return;
-                }
-
-                if (!OrderCancle) {
+                }else if (!OrderCancle) {
                     displayErrorMessage('Please Select Why are you cancelling the order?')
                     return;
+                }else{
+                    document.getElementById('overlay').style.display = 'flex';
                 }
 
                 $.ajax({
@@ -379,5 +385,101 @@ if (isset($_COOKIE['user_id'])) {
 
         $update_qty = "UPDATE items SET Quantity='$update_qty' WHERE product_id = '$product_id'";
         $update_qty_quary = mysqli_query($con, $update_qty);
+
+        if($update_qty_quary){
+            echo "<script>document.getElementById('overlay').style.display = 'flex';</script>";
+
+            // Include PHPMailer
+            include '../pages/mail.php';
+
+            // Add recipient and other email properties
+            $mail->addAddress($user_email);
+            $mail->isHTML(true);
+
+            if(isset($_GET['order_id']))
+            {
+                $order_id = $_GET['order_id'];
+        
+                $retrieve_cancle_order = "SELECT * FROM cancel_orders WHERE order_id = '$order_id'";
+                $retrieve_cancle_order_query = mysqli_query($con, $retrieve_cancle_order);
+                $cnsl = mysqli_fetch_assoc($retrieve_cancle_order_query);
+    
+                $username = $cnsl['user_name'];
+                $cancle_order_id = $cnsl['order_id'];
+                $cancle_order_date = date('d-m-Y');
+                $cancle_order_title = $cnsl['cancle_order_title'];
+                $cancle_order_image = '../src/product_image/product_profile/' . $cnsl['cancle_order_image'];
+                $cancle_order_price = $cnsl['cancle_order_price'];
+                $cancle_order_qty = $cnsl['cancle_order_qty'];
+                $cancle_order_color = $cnsl['cancle_order_color'];
+                $cancle_order_size = $cnsl['cancle_order_size'];
+                $user_mobile = $cnsl['user_phone'];
+                $user_mail = $cnsl['user_email'];
+                $reason	 = $cnsl['reason'];
+                $total_price = $cnsl['cancle_order_price'];
+            }
+            
+            $mail->Subject = "Order Cancellation Confirmation - #$cancle_order_id";
+            $mail->Body = "<html>
+                <head>
+                    <title>Order Cancellation Confirmation</title>
+                </head>
+                <body>
+                    <p>Dear $username,</p>
+                    <p>We regret to inform you that your order has been successfully cancelled. Below are the details of your cancelled order:</p>
+                    <p><strong>Order Number:</strong> $cancle_order_id<br>
+                    <strong>Cancle Order Date:</strong> $cancle_order_date</p>
+
+                    <h3>Cancelled Items:</h3>
+                    <table border='1' cellpadding='10'>
+                        <tr>
+                            <td><strong>Product Name:</strong></td>
+                            <td>$cancle_order_title</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Image:</strong></td>
+                            <td><img src='$cancle_order_image' alt='Product Image' width='100'></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Price:</strong></td>
+                            <td>$cancle_order_price</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quantity:</strong></td>
+                            <td>$cancle_order_qty</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Color:</strong></td>
+                            <td>$cancle_order_color</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Size:</strong></td>
+                            <td>$cancle_order_size</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>Mobile Number:</strong> $user_mobile</p>
+                    <p><strong>Billing E-mail:</strong> $user_mail</p>
+                    <p><strong>Reason:</strong> $reason</p>
+                    <p><strong>Order Total Price:</strong> $total_price</p>
+
+                    <p>Your payment has been refunded, and the cancellation has been processed successfully.</p>
+                    <p>Thank you for choosing shopNest. We hope to serve you again in the future!</p>
+
+                    <p>Best regards,<br>
+                    shopNest<br>
+                    shopnest2603@gmail.com</p>
+                </body>
+            </html>";
+
+            // Send the email
+            if ($mail->send()) {
+                echo "<script>
+                    document.getElementById('overlay').style.display = 'none';
+                </script>";
+            } else {
+                echo "<p class='text-red-500'>There was an error sending the email. Please try again later.</p>";
+            }
+        }
     }
 ?>
