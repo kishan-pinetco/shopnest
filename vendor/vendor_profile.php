@@ -1,13 +1,13 @@
 <?php
-    if(isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/index.php");
-        exit;
-    }
+if (isset($_COOKIE['user_id'])) {
+    header("Location: /shopnest/index.php");
+    exit;
+}
 
-    if(isset($_COOKIE['adminEmail'])){
-        header("Location: /shopnest/admin/dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['adminEmail'])) {
+    header("Location: /shopnest/admin/dashboard.php");
+    exit;
+}
 ?>
 
 <?php
@@ -47,6 +47,24 @@ if (isset($_COOKIE['vendor_id'])) {
 
     <!-- title -->
     <title>Vendor Deshboard</title>
+    <style>
+        /* width */
+        .scrollBar::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        .scrollBar::-webkit-scrollbar {
+            width: 10px;
+            height: 7px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollBar::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -157,7 +175,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         </div>
                     </div>
                 </header>
-                <main id="main" class="overflow-y-scroll overflow-hidden">
+                <main id="main" class="overflow-y-scroll scrollBar overflow-hidden">
                     <div class="mx-4 md:mx-12 my-12 bg-white shadow-lg">
                         <div class="relative">
                             <div class="relative">

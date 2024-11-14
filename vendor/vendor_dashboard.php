@@ -1,13 +1,13 @@
 <?php
-    if(isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/index.php");
-        exit;
-    }
+if (isset($_COOKIE['user_id'])) {
+    header("Location: /shopnest/index.php");
+    exit;
+}
 
-    if(isset($_COOKIE['adminEmail'])){
-        header("Location: /shopnest/admin/dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['adminEmail'])) {
+    header("Location: /shopnest/admin/dashboard.php");
+    exit;
+}
 ?>
 
 <?php
@@ -105,6 +105,24 @@ if (isset($_COOKIE['vendor_id'])) {
 
     <!-- title -->
     <title>Vendor Deshboard</title>
+    <style>
+        /* width */
+        .scrollBar::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        .scrollBar::-webkit-scrollbar {
+            width: 10px;
+            height: 7px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollBar::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -215,7 +233,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         </div>
                     </div>
                 </header>
-                <main id="main" class="px-4 md:px-12 py-12 overflow-y-scroll overflow-hidden">
+                <main id="main" class="px-4 md:px-12 py-12 overflow-y-scroll scrollBar overflow-hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                         <div class="flex items-center gap-4 bg-white shadow-xl rounded-md px-4 py-3">
                             <div class="bg-gray-50 rounded-md max-w-max p-2">
@@ -279,7 +297,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         <script>
                             $(document).ready(function() {
                                 var chartData = <?php echo $data_json; ?>;
-                                                        
+
                                 if (chartData.length === 0) {
                                     $('#chart').html('<div style="text-align: center; margin-top: 80px; font-size: 30px; color: #000;">No data available for this period.</div>');
                                 } else {

@@ -35,6 +35,23 @@ if (isset($_COOKIE['vendor_id'])) {
 
     <!-- title -->
     <title>View Users</title>
+    <style>
+        .scrollBar::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        .scrollBar::-webkit-scrollbar {
+            width: 10px;
+            height: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollBar::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -153,7 +170,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         </div>
                     </div>
                 </header>
-                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+                <main class="flex-1 overflow-x-hidden overflow-y-auto scrollBar bg-gray-200">
                     <section class="container mx-auto p-6 text-center">
                         <?php
                         include "../include/connect.php";
@@ -185,10 +202,10 @@ if (isset($_COOKIE['vendor_id'])) {
                                                     </svg>
                                                     <h1><?php echo isset($_COOKIE['adminEmail']) ? $res['phone'] : '' ?></h1>
                                                 </a>
-                                                <button class="w-full py-2 space-x-1 text-red-600">
+                                                <a href="remove_user.php?id=<?php echo $res['user_id'] ?>" class="w-full py-2 space-x-1 text-red-600">
                                                     <i class="fa-solid fa-trash text-base"></i>
                                                     <span>Remove</span>
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                 <?php

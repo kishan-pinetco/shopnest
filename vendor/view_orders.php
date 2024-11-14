@@ -1,13 +1,13 @@
 <?php
-    if(isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/index.php");
-        exit;
-    }
+if (isset($_COOKIE['user_id'])) {
+    header("Location: /shopnest/index.php");
+    exit;
+}
 
-    if(isset($_COOKIE['adminEmail'])){
-        header("Location: /shopnest/admin/dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['adminEmail'])) {
+    header("Location: /shopnest/admin/dashboard.php");
+    exit;
+}
 ?>
 
 <?php
@@ -162,14 +162,25 @@ if (isset($_COOKIE['vendor_id'])) {
                     <section class="container mx-auto p-6">
                         <style>
                             /* width */
-                            ::-webkit-scrollbar {
+                            .scrollBar::-webkit-scrollbar-track {
+                                border-radius: 10px;
+                                background-color: #e6e6e6;
+                            }
+
+                            .scrollBar::-webkit-scrollbar {
                                 width: 10px;
-                                height: 4px;
+                                height: 7px;
+                                background-color: #F5F5F5;
+                            }
+
+                            .scrollBar::-webkit-scrollbar-thumb {
+                                border-radius: 10px;
+                                background-color: #bfbfbf;
                             }
                         </style>
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Place Orders</h2>
                         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg" id="place">
-                            <div class="w-full overflow-x-auto h-max text-center">
+                            <div class="w-full overflow-x-auto scrollBar h-max text-center">
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
@@ -231,7 +242,7 @@ if (isset($_COOKIE['vendor_id'])) {
                     <section class="container mx-auto p-6">
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Cancel Orders</h2>
                         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                            <div class="w-full overflow-x-auto h-max text-center">
+                            <div class="w-full overflow-x-auto scrollBar h-max text-center">
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
@@ -285,7 +296,7 @@ if (isset($_COOKIE['vendor_id'])) {
                     <section class="container mx-auto p-6">
                         <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Return Orders</h2>
                         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                            <div class="w-full overflow-x-auto h-max text-center">
+                            <div class="w-full overflow-x-auto scrollBar h-max text-center">
                                 <table class="w-full">
                                     <thead>
                                         <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">

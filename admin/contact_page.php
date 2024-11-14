@@ -1,13 +1,13 @@
 <?php
-    if(isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/index.php");
-        exit;
-    }
+if (isset($_COOKIE['user_id'])) {
+    header("Location: /shopnest/index.php");
+    exit;
+}
 
-    if(isset($_COOKIE['vendor_id'])){
-        header("Location: /shopnest/vendor/vendor_dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['vendor_id'])) {
+    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +35,35 @@
 
     <!-- title -->
     <title>View Vendors</title>
+    <style>
+        .scrollBar::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        .scrollBar::-webkit-scrollbar {
+            width: 10px;
+            height: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollBar::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
+
+        @media (max-width: 343px) {
+
+            #custInqContainer {
+                font-size: 0.75rem
+                    /* 12px */
+                ;
+                line-height: 1rem
+                    /* 16px */
+                ;
+            }
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -48,11 +77,11 @@
                     <a class="flex w-fit" href="">
                         <!-- icon logo div -->
                         <div>
-                            <img class="w-7 sm:w-14 mt-0.5" src="/shopnest/src/logo/white_cart_logo.svg" alt="">
+                            <img class="w-12 sm:w-14 mt-0.5" src="/shopnest/src/logo/white_cart_logo.svg" alt="">
                         </div>
                         <!-- text logo -->
                         <div>
-                            <img class="w-16 sm:w-36" src="/shopnest/src/logo/white_text_logo.svg" alt="">
+                            <img class="w-28 sm:w-36" src="/shopnest/src/logo/white_text_logo.svg" alt="">
                         </div>
                     </a>
                 </div>
@@ -153,61 +182,61 @@
                         </div>
                     </div>
                 </header>
-                <main class="verflow-x-hidden overflow-y-auto bg-gray-200">
+                <main class="verflow-x-hidden overflow-y-auto scrollBar bg-gray-200">
                     <div class="container mx-auto p-6">
                         <?php
-                            if(isset($_COOKIE['adminEmail'])){
-                                ?>
-                                <h1 class="text-4xl font-bold text-center mb-8 text-black">Customer inquiries</h1>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <?php    
+                        if (isset($_COOKIE['adminEmail'])) {
+                        ?>
+                            <h1 class="text-4xl font-bold text-center mb-8 text-black">Customer inquiries</h1>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
+                                <?php
                                 include "../include/connect.php";
 
                                 $get_contacts = "SELECT * FROM contact_us";
                                 $contact_query = mysqli_query($con, $get_contacts);
 
-                                while($res = mysqli_fetch_assoc($contact_query)){
-                                    ?>
-                                    <div class="bg-white shadow-lg rounded-tl-xl rounded-br-xl overflow-hidden flex flex-col">
-                                        <div class="p-6 flex-1">
-                                            <div class="flex gap-2">
+                                while ($res = mysqli_fetch_assoc($contact_query)) {
+                                ?>
+                                    <div class="bg-white shadow-lg rounded-tl-xl rounded-br-xl p-4 sm:p-6">
+                                        <div id="custInqContainer" class=" flex flex-col gap-y-4 text-sm sm:text-base">
+                                            <div class="flex gap-1 sm:gap-2">
                                                 <p class="font-bold">Name:</p>
-                                                <p class="font-medium w-2/3 text-gray-800"><?php echo $res['name']?></p>
+                                                <p class="font-medium text-gray-800"><?php echo $res['name'] ?></p>
                                             </div>
 
-                                            <div class="flex mt-4 gap-2">
+                                            <div class="flex gap-1 sm:gap-2">
                                                 <p class="font-bold">Email:</p>
-                                                <p class="font-medium w-2/3 text-gray-800"><?php echo $res['user_email']?></p>
+                                                <p class="font-medium text-gray-800"><?php echo $res['user_email'] ?></p>
                                             </div>
 
-                                            <div class="flex mt-4 gap-2">
+                                            <div class="flex gap-1 sm:gap-2">
                                                 <p class="font-bold">Subject:</p>
-                                                <p class="font-medium w-2/3 text-gray-800"><?php echo $res['subject']?></p>
+                                                <p class="font-medium text-gray-800"><?php echo $res['subject'] ?></p>
                                             </div>
 
-                                            <div class="flex mt-4 gap-2">
+                                            <div class="flex gap-1 sm:gap-2">
                                                 <p class="font-bold">Message:</p>
-                                                <p class="font-medium w-2/3 text-gray-800"><?php echo $res['message']?></p>
+                                                <p class="font-medium text-gray-800"><?php echo $res['message'] ?></p>
                                             </div>
 
-                                            <div class="flex mt-4 gap-2">
+                                            <div class="flex gap-1 sm:gap-2">
                                                 <p class="font-bold">Date:</p>
-                                                <p class="font-medium w-2/3 text-gray-500"><?php echo $res['date']?></p>
+                                                <p class="font-medium text-gray-500"><?php echo $res['date'] ?></p>
                                             </div>
                                         </div>
-                                        <div class="p-4 text-right">
+                                        <div class="text-right">
                                             <a href="mailto:abc@gmail.com" class="bg-gray-600 text-white font-semibold py-2 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Contact</a>
                                         </div>
                                     </div>
-                                    <?php
+                                <?php
 
                                 }
                                 ?>
                             </div>
-                                <?php
-                            }else{
-                                echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
-                            }
+                        <?php
+                        } else {
+                            echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
+                        }
                         ?>
                     </div>
                 </main>

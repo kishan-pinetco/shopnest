@@ -47,6 +47,24 @@ if (isset($_COOKIE['vendor_id'])) {
 
     <!-- title -->
     <title>View Products</title>
+    <style>
+        /* width */
+        .scrollBar::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        .scrollBar::-webkit-scrollbar {
+            width: 10px;
+            height: 7px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollBar::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -157,7 +175,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         </div>
                     </div>
                 </header>
-                <main class="relative flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+                <main class="relative flex-1 overflow-x-hidden overflow-y-auto scrollBar bg-gray-200">
                     <div class="py-12 max-w-screen-xl m-auto px-6">
                         <span class="text-2xl font-semibold">Your products</span>
                         <div class="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 min-[1258px]:grid-cols-4 gap-y-8 text-[#1d2128] mt-4">

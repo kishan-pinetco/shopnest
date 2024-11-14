@@ -35,6 +35,23 @@ if (isset($_COOKIE['vendor_id'])) {
 
     <!-- title -->
     <title>View Products</title>
+    <style>
+        .scrollBar::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #e6e6e6;
+        }
+
+        .scrollBar::-webkit-scrollbar {
+            width: 10px;
+            height: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollBar::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #bfbfbf;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
@@ -153,7 +170,7 @@ if (isset($_COOKIE['vendor_id'])) {
                         </div>
                     </div>
                 </header>
-                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 p-6">
+                <main class="flex-1 overflow-x-hidden overflow-y-auto scrollBar bg-gray-200 p-6">
                     <?php
 
                     include "../include/connect.php";

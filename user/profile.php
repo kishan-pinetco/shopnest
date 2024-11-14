@@ -1,13 +1,13 @@
 <?php
-    if(isset($_COOKIE['vendor_id'])){
-        header("Location: /shopnest/vendor/vendor_dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['vendor_id'])) {
+    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    exit;
+}
 
-    if(isset($_COOKIE['adminEmail'])){
-        header("Location: /shopnest/admin/dashboard.php");
-        exit;
-    }
+if (isset($_COOKIE['adminEmail'])) {
+    header("Location: /shopnest/admin/dashboard.php");
+    exit;
+}
 ?>
 
 <?php
@@ -42,7 +42,7 @@ if (isset($_COOKIE['user_id'])) {
                 $up_query = mysqli_query($con, $up_pass);
 
                 if ($up_query) {
-                ?>
+?>
                     <script>
                         alert("Password Updated Successfully.")
                     </script>
@@ -150,8 +150,15 @@ if (isset($_COOKIE['user_id'])) {
     <!-- title -->
     <title>Profile</title>
     <style>
-        [x-cloak]{
+        [x-cloak] {
             display: none;
+        }
+
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
         }
     </style>
 </head>
@@ -315,19 +322,19 @@ if (isset($_COOKIE['user_id'])) {
                                         </label>
                                     </div>
                                     <div class="mt-4" class="mt-4">
-                                        <label for="first_name">First name:</label>
+                                        <label for="first_name" class="require">First name:</label>
                                         <input type="text" name="first_name" value="<?php echo isset($_COOKIE['user_id']) ? $row['first_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
                                     <div class="mt-4">
-                                        <label for="last_name">Last name:</label>
+                                        <label for="last_name" class="require">Last name:</label>
                                         <input type="text" name="last_name" value="<?php echo isset($_COOKIE['user_id']) ? $row['last_name'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
                                     <div class="mt-4">
-                                        <label for="phone">Phone:</label>
+                                        <label for="phone" class="require">Phone:</label>
                                         <input type="text" name="phone" value="<?php echo isset($_COOKIE['user_id']) ? $row['phone'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
                                     <div class="mt-4">
-                                        <label for="email">Email:</label>
+                                        <label for="email" class="require">Email:</label>
                                         <input type="email" name="email" value="<?php echo isset($_COOKIE['user_id']) ? $row['email'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
                                     <input type="submit" name="updateBtn" value="Update now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
@@ -339,7 +346,7 @@ if (isset($_COOKIE['user_id'])) {
                                 </div>
                                 <div class="mt-12">
                                     <div class="flex flex-col gap-1 relative" x-data="{ showPassword: false }">
-                                        <label for="current_pass">Current password:</label>
+                                        <label for="current_pass" class="require">Current password:</label>
                                         <input name="current_pass" id="current_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" :type="showPassword ? 'text' : 'password'">
                                         <span class="absolute top-[2.5rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                                             <!-- Show Icon (when password is hidden) -->
@@ -356,7 +363,7 @@ if (isset($_COOKIE['user_id'])) {
                                         </span>
                                     </div>
                                     <div class="mt-4 relative" x-data="{ showPassword: false }">
-                                        <label for="new_pass">New password:</label>
+                                        <label for="new_pass" class="require">New password:</label>
                                         <input name="new_pass" id="new_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" x-bind:type="showPassword ? 'text' : 'password'">
                                         <span class="absolute top-[2.3rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                                             <!-- Show Icon (when password is hidden) -->
@@ -373,7 +380,7 @@ if (isset($_COOKIE['user_id'])) {
                                         </span>
                                     </div>
                                     <div class="mt-4 relative" x-data="{ showPassword: false }">
-                                        <label for="re_pass">Confirm password:</label>
+                                        <label for="re_pass" class="require">Confirm password:</label>
                                         <input name="re_pass" id="re_pass" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500" x-bind:type="showPassword ? 'text' : 'password'">
                                         <span class="absolute top-[2.3rem] right-2.5 cursor-pointer" @click="showPassword = !showPassword">
                                             <!-- Show Icon (when password is hidden) -->
