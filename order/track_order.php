@@ -31,8 +31,13 @@ if (isset($_COOKIE['user_id'])) {
 
     $res = mysqli_fetch_assoc($retrieve_order_query);
 
-    $product_id = $res['product_id'];
+    $product_id = $res['order_id'];
+    $products_id = $res['product_id'];
+    $product_title = $res['order_title'];
     $product_color = $res['order_color'];
+    $product_size = $res['order_size'];
+    $product_qty = $res['qty'];
+    $product_MRP = $res['order_price'];
     $todays = date('Y-m-d');
 
     $today = date('Y-m-d', strtotime($res['date']));
@@ -115,7 +120,8 @@ if (isset($_COOKIE['user_id'])) {
                 <?php
                     if(isset($_COOKIE['user_id']) && isset($_GET['order_id'])){
                         ?>
-                            <a href="../user/re-order.php?product_id=<?php echo $product_id; ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a>
+                            <!-- <a href="../user/re-order.php?order_id=<?php echo $product_id; ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a> -->
+                            <a href="../user/re-order.php?product_id=<?php echo urlencode($products_id); ?>&title=<?php echo $product_title; ?>&color=<?php echo $product_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $product_qty; ?>&MRP=<?php echo $product_MRP ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a>
                         <?php
                     }else{
                         ?>

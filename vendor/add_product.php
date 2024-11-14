@@ -42,6 +42,9 @@ if (isset($_GET['name'])) {
     <!-- Fontawesome Link for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -549,8 +552,8 @@ if (isset($_POST['submitBtn'])) {
     $Company_name = mysqli_real_escape_string($con, $_POST['Company_name']);
     $Category = mysqli_real_escape_string($con, $_GET['name']);
     $type = mysqli_real_escape_string($con, $_POST['type']);
-    $your_price = number_format($_POST['your_price']);
-    $MRP = number_format($_POST['MRP']);
+    $your_price = $_POST['your_price'];
+    $MRP = $_POST['MRP'];
     $quantity = mysqli_real_escape_string($con, $_POST['quantity']);
     $condition = mysqli_real_escape_string($con, $_POST['condition']);
     $description = mysqli_real_escape_string($con, $_POST['description']);
@@ -570,8 +573,8 @@ if (isset($_POST['submitBtn'])) {
                         'Your_Price' => $your_price,
                     ];
                 } else {
-                    $MRP2 = number_format($_POST['MRP2']);
-                    $your_price2 = number_format($_POST['your_price2']);
+                    $MRP2 = $_POST['MRP2'];
+                    $your_price2 = $_POST['your_price2'];
 
                     if (isset($MRP2[$index - 1]) && isset($your_price2[$index - 1])) {
                         $size_img[$psize] = [
@@ -612,6 +615,7 @@ if (isset($_POST['submitBtn'])) {
     
     $allFilesUploaded = true;
     
+    $profileImages = [];
     // Process main images
     for ($i = 1; $i <= 4; $i++) {
         $profileImageKey = "ProfileImage$i";
@@ -623,6 +627,8 @@ if (isset($_POST['submitBtn'])) {
             if (isValidImage($filename)) {
                 if (!move_uploaded_file($tempName, $folder)) {
                     $allFilesUploaded = false;
+                }else{
+                    $profileImages[] = $filename;
                 }
             } else {
                 $allFilesUploaded = false; // Invalid file type
@@ -631,22 +637,36 @@ if (isset($_POST['submitBtn'])) {
     }
     
     // Process cover images
+    $coverImages = [];
+    
+    // Loop through the four possible cover images
     for ($i = 1; $i <= 4; $i++) {
         $coverImageKey = "CoverImage$i";
+        
         if (isset($_FILES[$coverImageKey]) && $_FILES[$coverImageKey]['error'] === UPLOAD_ERR_OK) {
             $filename = $_FILES[$coverImageKey]['name'];
             $tempName = $_FILES[$coverImageKey]['tmp_name'];
             $folder = '../src/product_image/product_cover/' . $filename;
-    
+        
             if (isValidImage($filename)) {
+                // Move the uploaded file to the target directory
                 if (!move_uploaded_file($tempName, $folder)) {
                     $allFilesUploaded = false;
+                } else {
+                    // Store the file name in an array to display later
+                    $coverImages[] = $filename;
                 }
             } else {
                 $allFilesUploaded = false; // Invalid file type
             }
         }
     }
+
+    $coverImage1 = isset($coverImages[0]) ? $coverImages[0] : '';
+    $coverImage2 = isset($coverImages[1]) ? $coverImages[1] : '';
+    $coverImage3 = isset($coverImages[2]) ? $coverImages[2] : '';
+    $coverImage4 = isset($coverImages[3]) ? $coverImages[3] : '';
+
     
     $color = $_POST['color'];
 
@@ -659,50 +679,6 @@ if (isset($_POST['submitBtn'])) {
     $normalized_color = array_map('strtolower', (array)$color); // Ensure $color is treated as an array
 
     // Validation for colors
-    if (
-        is_array($normalized_color) && !empty($normalized_color) &&
-        !in_array('', $normalized_color) && !in_array('none', $normalized_color)
-    ) {
-
-        // Build the color image array
-        $color_img = [];
-        $color_img[$color] = [
-            'img1' => $ProfileImage1,
-            'img2' => $ProfileImage2,
-            'img3' => $ProfileImage3,
-            'img4' => $ProfileImage4
-        ];
-
-        // Encode the color image array to JSON
-        $color_img_json = json_encode($color_img);
-
-        $product_titles = [
-            $color => [
-                'product_name' => $full_name
-            ],
-        ];
-
-        $product_titles_json = json_encode($product_titles);
-    } else {
-        $color_img['N-A'] = [
-            'img1' => $ProfileImage1,
-            'img2' => $ProfileImage2,
-            'img3' => $ProfileImage3,
-            'img4' => $ProfileImage4
-        ];
-
-        // Encode the color image array to JSON
-        $color_img_json = json_encode($color_img);
-
-
-        $product_titles = [
-            'N-A' => [
-                'product_name' => $full_name
-            ],
-        ];
-
-        $product_titles_json = json_encode($product_titles);
-    }
 
     $avg_rating = '0.0';
     $total_reviews = '0';
@@ -761,25 +737,69 @@ if (isset($_POST['submitBtn'])) {
         echo '<script>displayErrorMessage("Please fill Keywords.");</script>';
         exit();
     }
-
-    if (empty($ProfileImage1)) {
-        echo '<script>displayErrorMessage("Please Insert ProfileImage1 Image.");</script>';
+    
+    if (empty($profileImages[0])) {
+        echo '<script>displayErrorMessage("Please Insert first Image.");</script>';
         exit();
     }
 
-    if (empty($ProfileImage2)) {
-        echo '<script>displayErrorMessage("Please Insert ProfileImage2 Image.");</script>';
+    if (empty($profileImages[1])) {
+        echo '<script>displayErrorMessage("Please Insert Second Image Image.");</script>';
         exit();
     }
 
     if (
         empty($full_name) || empty($Company_name) || empty($type) ||
-        empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($ProfileImage1) || empty($ProfileImage2)
+        empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($profileImages[0]) || empty($profileImages[1])
     ) {
         echo '<script>displayErrorMessage("Please fill in all required fields.");</script>';
     } else {
         if ($allFilesUploaded) {
-            $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$CoverImage1', '$CoverImage2', '$CoverImage3', '$CoverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$pcolor', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
+            if (
+                is_array($normalized_color) && !empty($normalized_color) &&
+                !in_array('', $normalized_color) && !in_array('none', $normalized_color)
+            ) {
+        
+                // Build the color image array
+                $color_img = [];
+                $color_img[$color] = [
+                    'img1' => $profileImages[0],
+                    'img2' => $profileImages[1],
+                    'img3' => $profileImages[2],
+                    'img4' => $profileImages[3]
+                ];
+        
+                // Encode the color image array to JSON
+                $color_img_json = json_encode($color_img);
+        
+                $product_titles = [
+                    $color => [
+                        'product_name' => $full_name
+                    ],
+                ];
+        
+                $product_titles_json = json_encode($product_titles);
+            } else {
+                $color_img['N-A'] = [
+                    'img1' => $profileImages[0],
+                    'img2' => $profileImages[1],
+                    'img3' => $profileImages[2],
+                    'img4' => $profileImages[3]
+                ];
+        
+                // Encode the color image array to JSON
+                $color_img_json = json_encode($color_img);
+        
+        
+                $product_titles = [
+                    'N-A' => [
+                        'product_name' => $full_name
+                    ],
+                ];
+        
+                $product_titles_json = json_encode($product_titles);
+            }
+            $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$coverImage1', '$coverImage2', '$coverImage3', '$coverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$pcolor', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
             $product_query = mysqli_query($con, $product_insert);
 
             if ($product_query) {

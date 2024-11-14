@@ -28,15 +28,13 @@ if (isset($_COOKIE['user_id'])) {
     $res = mysqli_fetch_assoc($retrieve_order_query);
 
     $user_id = $_COOKIE['user_id'];
+    $product_id  = $res['product_id'];
+    $vendor_id = $res['vendor_id'];
 
     $user_info = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
     $user_info_query = mysqli_query($con, $user_info);
 
     $row = mysqli_fetch_assoc($user_info_query);
-}
-
-if(isset($_POST['CancelProduct'])){
-    $_SESSION['CancelProduct'] = 1;
 }
 ?>
 <!DOCTYPE html>
@@ -46,6 +44,9 @@ if(isset($_POST['CancelProduct'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Fontawesome Link for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -115,7 +116,7 @@ if(isset($_POST['CancelProduct'])){
             </div>
         </div>
         <hr class="my-5">
-        <form action="" method="post">
+        <form id="cancelForm" action="" method="post">
             <div>
                 <div class="headline">
                     <p class="cursor-default font-semibold text-2xl">Billing Email</p>
@@ -206,7 +207,7 @@ if(isset($_POST['CancelProduct'])){
                     </div>
                 </div>
                 <div class="submit mt-6">
-                    <input name="CancelProduct" <?php echo isset($_SESSION['CancelProduct']) ? 'disabled' : '' ?> class="<?php echo isset($_SESSION['CancelProduct']) ? 'cursor-not-allowed opacity-50 ' : 'cursor-pointer hover:bg-gray-800' ?> rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Cancel Order">
+                    <button id="CancelProduct" type="submit" class="rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30 cursor-pointer hover:bg-gray-800">Cancel Order</button>
                 </div>
             </div>
         </form>
@@ -248,8 +249,7 @@ if(isset($_POST['CancelProduct'])){
             setTimeout(() => {
                 EpopUp.style.display = 'none';
                 EpopUp.style.opacity = '0';
-                window.location.href = "";
-            }, 1500);
+            }, 2000);
         }
 
         // displaly success msg
@@ -268,6 +268,64 @@ if(isset($_POST['CancelProduct'])){
             }, 1500);
         }
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#cancelForm").on('submit', function(e){
+                e.preventDefault();
+
+                let billingEmail = $('#billingEmail').val().trim()
+
+                let Preceive = $('input[name="Preceive"]:checked').val();
+                let OrderCancle = $('input[name="OrderCancle"]:checked').val();
+
+                if (!billingEmail) {
+                    displayErrorMessage('Please Enter Your Billing Email.')
+                    return;
+                }
+
+                if (!Preceive) {
+                    displayErrorMessage('Please Select Receive Payment Method.')
+                    return;
+                }
+
+                if (!OrderCancle) {
+                    displayErrorMessage('Please Select Why are you cancelling the order?')
+                    return;
+                }
+
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: {
+                        order_id: "<?php echo $order_id?>",
+                        product_id: "<?php echo $product_id?>",
+                        user_id: "<?php echo $user_id?>",
+                        vendor_id: "<?php echo $vendor_id?>",
+
+                        billingEmail: billingEmail,
+                        Preceive: Preceive,
+                        OrderCancle: OrderCancle,
+
+                        user_name: "<?php echo $res['user_first_name']?>",
+                        user_phone: "<?php echo $res['user_mobile']?>",
+
+                        cancle_order_title: "<?php echo $res['order_title']?>",
+                        cancle_order_image: "<?php echo $res['order_image']?>",
+                        cancle_order_price: "<?php echo $res['total_price']?>",
+                        cancle_order_qty: "<?php echo $res['qty']?>",
+                        cancle_order_color: "<?php echo $res['order_color']?>",
+                        cancle_order_size: "<?php echo $res['order_size']?>",
+                    },
+                    success: function (response) {
+                        $('input[name="Preceive"]:checked').prop('checked', false);
+                        $('input[name="OrderCancle"]:checked').prop('checked', false);
+                        displaySuccessMessage("Your order has been successfully canceled.")
+                    }
+                });
+            });
+        });
+    </script>
             
 
     <!-- chatboat script -->
@@ -278,160 +336,48 @@ if(isset($_POST['CancelProduct'])){
 
 <?php 
 
-    if(isset($_POST['CancelProduct'])){
-        $order_id = $_GET['order_id'];
-        $product_id  = $res['product_id'];
-        $user_id = $res['user_id'];
-        $vendor_id = $res['vendor_id'];
-        $user_name = $res['user_first_name'];
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $order_id = $_POST['order_id'];
+        $product_id  = $_POST['product_id'];
+        $user_id = $_POST['user_id'];
+        $vendor_id = $_POST['vendor_id'];
+        
+        $user_name = $_POST['user_name'];
+        $user_phone = $_POST['user_phone'];
         $user_email = $_POST['billingEmail'];
-        $user_phone = $res['user_mobile'];
-        if(isset($_POST['Preceive'])){
-            $receive_payment = $_POST['Preceive'];
-        }
-        $cancle_order_title = $res['order_title'];
-        $cancle_order_image = $res['order_image'];
-        $cancle_order_price = $res['total_price'];
-        $cancle_order_qty = $res['qty'];
-        $cancle_order_color = $res['order_color'];
-        $cancle_order_size = $res['order_size'];
-        if(isset($_POST['OrderCancle'])){
-            $reason = $_POST['OrderCancle'];
-        }
+
+        $reason = $_POST['OrderCancle'];
+        $receive_payment = $_POST['Preceive'];
+        
+        $cancle_order_title = $_POST['cancle_order_title'];
+        $cancle_order_image = $_POST['cancle_order_image'];
+        $cancle_order_price = $_POST['cancle_order_price'];
+        $cancle_order_qty = $_POST['cancle_order_qty'];
+        $cancle_order_color = $_POST['cancle_order_color'];
+        $cancle_order_size = $_POST['cancle_order_size'];
+    
+
         $date = date('d-m-Y');
 
-        if(empty($user_email)){
-            echo '<script>displayErrorMessage("Please enter your email address");</script>';
-        }else if(empty($reason)){
-            echo '<script>displayErrorMessage("Please enter the reason for canceling your order");</script>';
-        }else if(empty($receive_payment)){
-            echo '<script>displayErrorMessage("Please Select Receive Payment method");</script>';
-        }else{
-            $insert_cancle_order = "INSERT INTO cancel_orders(order_id, product_id, user_id, vendor_id, user_name, user_email, user_phone, receive_payment, cancle_order_title, cancle_order_image, cancle_order_price, cancle_order_color, cancle_order_size, cancle_order_qty, reason, date) VALUES ('$order_id','$product_id','$user_id','$vendor_id','$user_name','$user_email','$user_phone','$receive_payment','$cancle_order_title','$cancle_order_image','$cancle_order_price','$cancle_order_color','$cancle_order_size', '$cancle_order_qty','$reason','$date')";
-            $cancle_order_query = mysqli_query($con, $insert_cancle_order);
+        $insert_cancle_order = "INSERT INTO cancel_orders(order_id, product_id, user_id, vendor_id, user_name, user_email, user_phone, receive_payment, cancle_order_title, cancle_order_image, cancle_order_price, cancle_order_color, cancle_order_size, cancle_order_qty, reason, date) VALUES ('$order_id','$product_id','$user_id','$vendor_id','$user_name','$user_email','$user_phone','$receive_payment','$cancle_order_title','$cancle_order_image','$cancle_order_price','$cancle_order_color','$cancle_order_size', '$cancle_order_qty','$reason','$date')";
+        $cancle_order_query = mysqli_query($con, $insert_cancle_order);
 
-            $delete_order = "DELETE FROM orders WHERE order_id = '$order_id'";
-            $delete_query = mysqli_query($con, $delete_order);
+        $delete_order = "DELETE FROM orders WHERE order_id = '$order_id'";
+        $delete_query = mysqli_query($con, $delete_order);
 
-            // insert quantity of products
+        // insert quantity of products
+        $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
+        $get_qty_query = mysqli_query($con, $get_qty);
 
-            $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
-            $get_qty_query = mysqli_query($con, $get_qty);
- 
-            $qty = mysqli_fetch_assoc($get_qty_query);
-            $product_quty = $qty['Quantity'];
- 
-            $qty_replace = str_replace(",", "", $cancle_order_qty);
-            $qty_replace = (int)$qty_replace;
+        $qty = mysqli_fetch_assoc($get_qty_query);
+        $product_quty = $qty['Quantity'];
 
-            $remove_quty = number_format($product_quty + $qty_replace);
- 
-            $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
-            $update_qty_quary = mysqli_query($con, $update_qty);
+        $qty_replace = str_replace(",", "", $cancle_order_qty);
+        $qty_replace = (int)$qty_replace;
 
-            // sending email
+        $update_qty = number_format($product_quty + $qty_replace);
 
-            include "../pages/mail.php";
-            if (filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
-                $mail->addAddress($user_email);
-            } else {
-                echo 'Invalid email address.';
-            }
-            $mail->isHTML(true);
-
-            // order information
-            if(isset($_GET['order_id'])){
-                $order_id = $_GET['order_id'];
-
-                // Retrieve order details from the database
-                $retrieve_order = "SELECT * FROM cancel_orders WHERE order_id = '$order_id'";
-                $retrieve_order_query = mysqli_query($con, $retrieve_order);
-                $retPr = mysqli_fetch_assoc($retrieve_order_query);
-
-                // Check if the order exists
-                if ($retPr) {
-                    $username = htmlspecialchars($retPr['user_name']);
-                    $order_id = htmlspecialchars($retPr['order_id']);
-                    $cancle_date = htmlspecialchars($retPr['date']);
-                
-                    $cancle_order_title = htmlspecialchars($retPr['cancle_order_title']);
-                    $cancle_order_image = '../src/product_image/product_profile/' . htmlspecialchars($retPr['cancle_order_image']);
-                    $cancle_order_price = htmlspecialchars($retPr['cancle_order_price']);
-                    $cancle_order_color = htmlspecialchars($retPr['cancle_order_color']);
-                    $cancle_order_size = htmlspecialchars($retPr['cancle_order_size']);
-                    $cancle_order_qty = htmlspecialchars($retPr['cancle_order_qty']);
-                    $payment_type = htmlspecialchars($retPr['receive_payment']);
-                    $reason = htmlspecialchars($retPr['reason']);
-
-                    $user_email = htmlspecialchars($retPr['user_email']);
-                    $user_phone = htmlspecialchars($retPr['user_phone']);
-                }
-
-
-                $mail->Subject = "cancle Request for Your Order";
-                $mail->Body = "<html>
-                <head>
-                    <title>cancle Request</title>
-                </head>
-                <body>
-                    <h1>cancle Request Received</h1>
-                    <p>Dear $username,</p>
-                    <p>We have received your request to cancle the following order:</p>
-                    <p><strong>Order Number:</strong> #$order_id</p>
-                    <p><strong>Order Cancle Date:</strong> $cancle_date</p>
-                    <h3>Items Ordered:</h3>
-                    <table border='1' cellpadding='10'>
-                        <tr>
-                            <td><strong>Product Name:</strong></td>
-                            <td>$cancle_order_title</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Image:</strong></td>
-                            <td><img src='$cancle_order_image' alt='Product Image' width='100'></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Price:</strong></td>
-                            <td>$cancle_order_price</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Quantity:</strong></td>
-                            <td>$cancle_order_qty</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Color:</strong></td>
-                            <td>$cancle_order_color</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Size:</strong></td>
-                            <td>$cancle_order_size</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Reason:</strong></td>
-                            <td>$reason</td>
-                        </tr>
-                        <tr>
-                            <td><strong>payment Type:</strong></td>
-                            <td>$payment_type</td>
-                        </tr>
-                    </table>
-                    <p><strong>Mobile Number:</strong> $user_phone</p>
-                    <p><strong>Billing E-mail:</strong> $user_email</p>
-                    <p><strong>Order Total Price:</strong> $cancle_order_price</p>
-                    <p>Our team will process your cancle request and get back to you within 2-3 business days.</p>
-                    <p>Thank you for shopping with us!</p>
-                    <p>Best regards,<br>shopNest</p>
-                </body>
-                </html>";
-                
-                $mail->send();
-            }
-
-            if(isset($_SESSION['CancelProduct'])){
-                unset($_SESSION['CancelProduct']);
-            }
-
-            echo '<script>displaySuccessMessage("Your order has been successfully canceled.");</script>';
-        }
+        $update_qty = "UPDATE items SET Quantity='$update_qty' WHERE product_id = '$product_id'";
+        $update_qty_quary = mysqli_query($con, $update_qty);
     }
-
 ?>

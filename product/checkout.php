@@ -79,12 +79,6 @@ if (isset($_GET['product_id'])) {
     $us = mysqli_fetch_assoc($user_query);
 }
 
-
-
-if (isset($_POST['placeOrder'])) {
-    $_SESSION['payment'] = 1;
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -98,6 +92,9 @@ if (isset($_POST['placeOrder'])) {
 
     <!-- alpine CDN -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Fontawesome Link for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -126,6 +123,14 @@ if (isset($_POST['placeOrder'])) {
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
+
+    <!-- Full screen overlay -->
+    <div id="overlay" class="overlay fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 text-white flex items-center justify-center text-xl font-semibold z-50 hidden">
+        <div>
+            <div class="text-gray-200 w-12 h-12 border-4 border-white border-opacity-30 border-t-4 border-t-black rounded-full animate-spin mx-auto"></div>
+            <p class="mt-4">Sending Email... Please Wait.</p>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
@@ -158,7 +163,7 @@ if (isset($_POST['placeOrder'])) {
     </header>
 
 
-    <form class="max-w-screen-xl m-auto" action="" method="post">
+    <form class="max-w-screen-xl m-auto" id="dataForm" action="" method="post">
         <div class="grid lg:grid-cols-2">
             <div class="px-4 pt-8">
                 <p class="text-xl font-medium">Order summary</p>
@@ -272,21 +277,21 @@ if (isset($_POST['placeOrder'])) {
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Shipping</p>
                             <p class="font-semibold text-gray-900">₹<?php
-                                                                    if (isset($product_id)) {
-                                                                        $totalPriceWithQty = str_replace(',', '', $totalPriceWithQty);
-                                                                        $totalPriceWithQty = (int) $totalPriceWithQty;
-                                                                        if ($totalPriceWithQty <= 599) {
-                                                                            $shipping = 40;
-                                                                        } else {
-                                                                            $shipping = 0;
-                                                                        }
-                                                                    } else {
-                                                                        $shipping = 0;
-                                                                    }
+                                if (isset($product_id)) {
+                                    $totalPriceWithQty = str_replace(',', '', $totalPriceWithQty);
+                                    $totalPriceWithQty = (int) $totalPriceWithQty;
+                                    if ($totalPriceWithQty <= 599) {
+                                        $shipping = 40;
+                                    } else {
+                                        $shipping = 0;
+                                    }
+                                } else {
+                                    $shipping = 0;
+                                }
 
-                                                                    // Output the shipping value
-                                                                    echo $shipping;
-                                                                    ?></p>
+                                // Output the shipping value
+                                echo $shipping;
+                                ?></p>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
@@ -313,26 +318,26 @@ if (isset($_POST['placeOrder'])) {
                             </h1>
                         </label>
                         <input type="text" id="totalPrice" class="hidden float-right bg-transparent border-none text-2xl font-semibold text-gray-900" name="totalProductPrice" value="₹<?php
-                                                                                                                                                                                        if (isset($product_id)) {
-                                                                                                                                                                                            $productPrice = (float)$productPrice;
-                                                                                                                                                                                            $qty = (int)$qty;
+                            if (isset($product_id)) {
+                                $productPrice = (float)$productPrice;
+                                $qty = (int)$qty;
 
-                                                                                                                                                                                            $totalPriceWithQty = $productPrice * $qty;
+                                $totalPriceWithQty = $productPrice * $qty;
 
-                                                                                                                                                                                            $total = $totalPriceWithQty + $shipping;
+                                $total = $totalPriceWithQty + $shipping;
 
-                                                                                                                                                                                            $formattedTotalPriceWithQty = number_format($totalPriceWithQty, 0);
-                                                                                                                                                                                            $formattedTotal = number_format($total, 0);
+                                $formattedTotalPriceWithQty = number_format($totalPriceWithQty, 0);
+                                $formattedTotal = number_format($total, 0);
 
-                                                                                                                                                                                            echo $formattedTotal;
-                                                                                                                                                                                        } else {
-                                                                                                                                                                                            echo 'Total Amount';
-                                                                                                                                                                                        }
-                                                                                                                                                                                        ?>" dir="rtl">
+                                echo $formattedTotal;
+                            } else {
+                                echo 'Total Amount';
+                            }
+                            ?>" dir="rtl">
                     </div>
                 </div>
                 <div>
-                    <input type="submit" name="placeOrder" value="Place order" <?php echo isset($_SESSION['payment']) ? 'disabled' : '' ?> class="<?php echo !isset($_SESSION['payment']) ? 'cursor-pointer hover:bg-gray-800' : 'cursor-not-allowed opacity-50' ?> mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200">
+                    <button id="checkOutBtn" type="submit" name="placeOrder" class="mt-4 mb-8 w-full rounded-tl-xl rounded-br-xl bg-gray-700 px-6 py-3 font-medium text-white transition duration-200 cursor-pointer hover:bg-gray-800">Place Order</button>                    
                 </div>
             </div>
         </div>
@@ -371,7 +376,6 @@ if (isset($_POST['placeOrder'])) {
             popUp.style.opacity = '100';
 
             setTimeout(() => {
-                window.location.href = "";
                 popUp.style.display = 'none';
                 popUp.style.opacity = '0';
             }, 1800);
@@ -388,9 +392,73 @@ if (isset($_POST['placeOrder'])) {
             setTimeout(() => {
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
+                document.getElementById('overlay').style.display = 'none';
                 window.location.href = "/shopnest/index.php";
             }, 1500);
         }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataForm').on('submit', function(e) {
+
+                e.preventDefault();
+    
+                let FirstName = $('#FirstName').val().trim();
+                let lastName = $('#lastName').val().trim();
+                let Phone_number = $('#Phone_number').val().trim();
+                let user_email = $('#user_email').val().trim();
+                let Address = $('#Address').val().trim();
+                let state = $('#state').val().trim();
+                let city = $('#city').val().trim();
+                let pin = $('#pin').val().trim();
+                let paymentType = $('input[name="payment"]:checked').val();
+    
+                if (FirstName === '' || lastName === '' || Phone_number === '' || user_email === '' || Address === '' || state === '' || city === '' || pin === '') {
+                    displayErrorMessage('Please fill out all fields.')
+                    return
+                }else if(!paymentType){
+                    displayErrorMessage('Please select payment method.')
+                    return
+                }else{
+                    document.getElementById('overlay').style.display = 'flex';
+                }
+    
+                $.ajax({
+                    type: "POST",
+                    url: "",
+                    data: {
+                        title: "<?php echo $title ?>",
+                        pimg: "<?php echo $pimg ?>",
+                        totalPriceWithQty: "<?php echo $totalPriceWithQty ?>",
+                        color: "<?php echo $color ?>",
+                        size: "<?php echo $size ?>",
+                        qty: "<?php echo $qty ?>",
+    
+                        product_id: "<?php echo $product_id?>",
+                        vendor_id: "<?php echo $vendor_id?>",
+                        user_id: "<?php echo $user_id?>",
+    
+                        shipping: "<?php echo $shipping ?>",
+                        formattedTotal: "<?php echo $formattedTotal ?>",
+    
+                        FirstName: FirstName,
+                        lastName: lastName,
+                        Phone_number: Phone_number,
+                        user_email: user_email,
+                        Address: Address,
+                        state: state,
+                        city: city,
+                        pin: pin,
+                        paymentType: paymentType
+                    },
+                    success: function (response) {
+                        $('input[name="payment"]:checked').prop('checked', false);
+                        displaySuccessMessage("Order Place Successfully")
+                    }
+                });
+            });
+        });
     </script>
 
 
@@ -402,56 +470,50 @@ if (isset($_POST['placeOrder'])) {
     <!-- chatboat script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
 </body>
-
 </html>
 
 <?php
 
-if (isset($_POST['placeOrder'])) {
-    $order_title = mysqli_real_escape_string($con, $title);
-    $order_image = mysqli_real_escape_string($con, $pimg);
-    $order_price = mysqli_real_escape_string($con, $totalPriceWithQty);
-    $order_color = mysqli_real_escape_string($con, $color);
-    $order_size = mysqli_real_escape_string($con, $size);
+include "../include/connect.php";
 
-    $product_qty = $qty;
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $order_title = $_POST['title'];
+        $order_image = $_POST['pimg'];
+        $order_price = $_POST['totalPriceWithQty'];
+        $order_color = $_POST['color'];
+        $order_size = $_POST['size'];
+        $product_qty = $_POST['qty'];
 
-    $user_id = mysqli_real_escape_string($con, $_COOKIE['user_id']);
-    $product_id = mysqli_real_escape_string($con, $_GET['product_id']);
-    $vendor_id = mysqli_real_escape_string($con, $row['vendor_id']);
+        $shipping = $_POST['shipping'];
+        $formattedTotal = $_POST['formattedTotal'];
 
-    $FirstName = mysqli_real_escape_string($con, $_POST['FirstName']);
-    $lastName = mysqli_real_escape_string($con, $_POST['lastName']);
-    $user_email = mysqli_real_escape_string($con, $_POST['user_email']);
-    $Phone_number = mysqli_real_escape_string($con, $_POST['Phone_number']);
-    $Address = mysqli_real_escape_string($con, $_POST['Address']);
-    $state = mysqli_real_escape_string($con, $_POST['state']);
-    $city = mysqli_real_escape_string($con, $_POST['city']);
-    $pin = mysqli_real_escape_string($con, $_POST['pin']);
+        $product_id = $_POST['product_id'];
+        $vendor_id = $_POST['vendor_id'];
+        $user_id = $_POST['user_id'];
 
-    if (isset($_POST['payment'])) {
-        $paymentType = mysqli_real_escape_string($con, $_POST['payment']);
-        $_SESSION['payment'] = $paymentType;
-    }
-
-
-
-    $bac = str_replace(",", "", $order_price);
-    $bac = (int)$bac;
-
-    $totalProductPrice = number_format($bac + $shipping);
+        $FirstName = $_POST['FirstName'];
+        $lastName = $_POST['lastName'];
+        $Phone_number = $_POST['Phone_number'];
+        $user_email = $_POST['user_email'];
+        $Address = $_POST['Address'];
+        $state = $_POST['state'];
+        $city = $_POST['city'];
+        $pin = $_POST['pin'];
+        $paymentType = $_POST['paymentType'];
 
 
-    $orders_prices = str_replace(",", "", $order_price);
+        $bac = str_replace(",", "", $order_price);
+        $bac = (int)$bac;
 
-    $admin_profit = 20 + $shipping;
-    $vendor_profit = number_format($orders_prices - $admin_profit);
+        $totalProductPrice = number_format($bac + $shipping);
 
-    $review_insert_Date = date('d-m-Y');
+        $orders_prices = str_replace(",", "", $order_price);
 
-    if (!empty($FirstName) && !empty($lastName) && !empty($Phone_number) && !empty($user_email) && !empty($Address) && !empty($state) && !empty($city) && !empty($pin) && !empty($paymentType)) {
+        $admin_profit = 20 + $shipping;
+        $vendor_profit = number_format($orders_prices - $admin_profit);
 
-        // remove quantity of products
+        $order_place_date = date('d-m-Y');
+
         $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
         $get_qty_query = mysqli_query($con, $get_qty);
 
@@ -462,41 +524,44 @@ if (isset($_POST['placeOrder'])) {
 
         $remove_quty = $qty_replace - $product_qty;
 
-        $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";
+        $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$order_place_date')";
         $order_insert_query = mysqli_query($con, $order_insert_sql);
 
         $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
         $update_qty_quary = mysqli_query($con, $update_qty);
 
-        if ($order_insert_query && $update_qty_quary) {
-            // sending email
-            include "../pages/mail.php";
+        if($update_qty_quary){
+            echo "<script>document.getElementById('overlay').style.display = 'flex';</script>";
+
+            // Include PHPMailer
+            include '../pages/mail.php';
+
+            // Add recipient and other email properties
             $mail->addAddress($user_email);
             $mail->isHTML(true);
 
-            // order information
-            if (isset($_GET['product_id'])) {
+            if(isset($_GET['product_id'])){
                 $product_id = $_GET['product_id'];
-
+    
                 $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";
                 $retrieve_order_query = mysqli_query($con, $retrieve_order);
                 $res = mysqli_fetch_assoc($retrieve_order_query);
-
-                $username = $res['user_first_name'] . ' ' . $res['user_last_name'];
+            
+                $username = $res['user_first_name'] .' '. $res['user_last_name'];
                 $order_id = $res['order_id'];
                 $order_date = $res['date'];
-
+    
                 $order_title = $res['order_title'];
                 $order_image = '../src/product_image/product_profile/' . $res['order_image'];
                 $order_price = $res['order_price'];
                 $order_color = $res['order_color'];
                 $order_size = $res['order_size'];
                 $order_qty = $res['qty'];
-
+            
                 $user_email = $res['user_email'];
                 $user_mobile = $res['user_mobile'];
                 $user_address = $res['user_address'];
-
+            
                 $total_price = $res['total_price'];
                 $today = date('d-m-Y', strtotime($res['date']));
                 $delivery_date = date('d-m-Y', strtotime('+5 days', strtotime($today)));
@@ -504,65 +569,72 @@ if (isset($_POST['placeOrder'])) {
 
             $mail->Subject = "New Order Confirmation - #$order_id";
             $mail->Body = "<html>
-                <head>
-                    <title>Order Confirmation</title>
-                </head>
-                <body>
-                    <p>Dear $username,</p>
-                    <p>Thank you for placing an order with us! We are excited to confirm the details of your purchase. Below are the specifics of your order:</p>
-                    <p><strong>Order Number:</strong> $order_id<br>
-                    <strong>Order Date:</strong> $order_date</p>
-                    <h3>Items Ordered:</h3>
-                    <table border='1' cellpadding='10'>
-                        <tr>
-                            <td><strong>Product Name:</strong></td>
-                            <td>$order_title</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Image:</strong></td>
-                            <td><img src='$order_image' alt='Product Image' width='100'></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Price:</strong></td>
-                            <td>$order_price</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Quantity:</strong></td>
-                            <td>$order_qty</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Color:</strong></td>
-                            <td>$order_color</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Size:</strong></td>
-                            <td>$order_size</td>
-                        </tr>
-                    </table>
-                    <p><strong>Mobile Number:</strong> $user_mobile</p>
-                    <p><strong>Billing E-mail:</strong> $user_email</p>
-                    <p><strong>Billing Address:</strong> $user_address</p>
-                    <p><strong>Order Total Price:</strong> $total_price</p>
-                    <p><strong>Estimated Delivery Date:</strong> $delivery_date</p>
-                    <p>We will send you an update when your order is on its way. If you have any questions or need further assistance, please do not hesitate to contact us.</p>
-                    <p>Thank you for choosing shopNest. We look forward to serving you again!</p>
-                    <p>Best regards,<br>
-                    shopNest<br>
-                    shopnest2603@gmail.com</p>
-                </body>
-                </html>";
+            <head>
+                <title>Order Confirmation</title>
+            </head>
+            <body>
+                <p>Dear $username,</p>
+                <p>Thank you for placing an order with us! We are excited to confirm the details of your purchase. Below are the specifics of your order:</p>
+                <p><strong>Order Number:</strong> $order_id<br>
+                <strong>Order Date:</strong> $order_date</p>
+                <h3>Items Ordered:</h3>
+                <table border='1' cellpadding='10'>
+                    <tr>
+                        <td><strong>Product Name:</strong></td>
+                        <td>$order_title</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Image:</strong></td>
+                        <td><img src='$order_image' alt='Product Image' width='100'></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price:</strong></td>
+                        <td>$order_price</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quantity:</strong></td>
+                        <td>$order_qty</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Color:</strong></td>
+                        <td>$order_color</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Size:</strong></td>
+                        <td>$order_size</td>
+                    </tr>
+                </table>
+                <p><strong>Mobile Number:</strong> $user_mobile</p>
+                <p><strong>Billing E-mail:</strong> $user_email</p>
+                <p><strong>Billing Address:</strong> $user_address</p>
+                <p><strong>Order Total Price:</strong> $total_price</p>
+                <p><strong>Estimated Delivery Date:</strong> $delivery_date</p>
+                <p>We will send you an update when your order is on its way. If you have any questions or need further assistance, please do not hesitate to contact us.</p>
+                <p>Thank you for choosing shopNest. We look forward to serving you again!</p>
+                <p>Best regards,<br>
+                shopNest<br>
+                shopnest2603@gmail.com</p>
+            </body>
+            </html>";
 
-            $mail->send();
-
-            unset($_SESSION['payment']);
-
-            echo '<script>displaySuccessMessage("Your Order Has been Placed.");</script>';
-        } else {
-            echo '<script>displayErrorMessage("Order Not Placed Please try again.");</script>';
+            // Send the email
+            if ($mail->send()) {
+                ?>
+                <!-- <script>
+                    document.getElementById('overlay').style.display = 'none';
+                    window.location.href = '';   
+                </script> -->
+                <?php
+                echo "<script>
+                    document.getElementById('overlay').style.display = 'none';
+                    window.location.href = '../index.php';
+                </script>";
+            } else {
+                echo "<p class='text-red-500'>There was an error sending the email. Please try again later.</p>";
+            }
         }
-    } else {
-        // Log missing field for debugging
-        echo '<script>displayErrorMessage("Missing fields in the order data.");</script>';
     }
-}
+    ?>
+    
+    <?php
 ?>

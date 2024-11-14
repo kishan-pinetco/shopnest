@@ -164,18 +164,6 @@ if (isset($_GET['product_id'])) {
     <!-- component -->
     <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
         <div class="container max-w-screen-lg font-medium text-gray-800 mx-auto">
-            <div class="flex items-center justify-center mt-8 mb-7 mr-2">
-                <a class="flex w-fit" href="view_products.php">
-                    <!-- icon logo div -->
-                    <div>
-                        <img class="w-7 sm:w-14 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
-                    </div>
-                    <!-- text logo -->
-                    <div>
-                        <img class="w-16 sm:w-36" src="/shopnest/src/logo/black_text_logo.svg" alt="">
-                    </div>
-                </a>
-            </div>
             <h1 class="bg-gray-100 text-2xl font-bold flex items-center justify-center mb-6">Edit products</h1>
             <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
                 <div class="grid gap-4 gap-y-1 text-sm grid-cols-1 lg:grid-cols-1">

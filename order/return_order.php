@@ -29,16 +29,14 @@ if (isset($_COOKIE['user_id'])) {
     $res = mysqli_fetch_assoc($retrieve_order_query);
 
     $user_id = $_COOKIE['user_id'];
+    $vendor_id = $res['vendor_id'];
+    $product_id  = $res['product_id'];
 
     $user_info = "SELECT * FROM user_registration WHERE user_id = '$user_id'";
     $user_info_query = mysqli_query($con, $user_info);
 
     $row = mysqli_fetch_assoc($user_info_query);
 
-}
-
-if(isset($_POST['ReturnProduct'])){
-    $_SESSION['ReturnProduct'] = 1;
 }
 
 ?>
@@ -49,6 +47,9 @@ if(isset($_POST['ReturnProduct'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Tailwind Script  -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Fontawesome Link for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -119,7 +120,7 @@ if(isset($_POST['ReturnProduct'])){
             </div>
         </div>
         <hr class="my-5">
-        <form action="" method="post">
+        <form action="" id="returnForm" method="post">
             <div>
                 <div class="headline">
                     <p class="cursor-default font-semibold text-2xl">Billing Email</p>
@@ -160,9 +161,9 @@ if(isset($_POST['ReturnProduct'])){
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_3" value="Return or Exchange Due to Change in Preferences or Priorities" class="text-gray-600 focus:ring-gray-600">
+                            <input type="radio" name="OrderReturn" id="Return_3" value="Return Due to Change in Preferences or Priorities" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_3">
-                                <p>Return or Exchange Due to Change in Preferences or Priorities</p>
+                                <p>Return Due to Change in Preferences or Priorities</p>
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
@@ -196,21 +197,15 @@ if(isset($_POST['ReturnProduct'])){
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_9" value="Found Better Price After Purchase (Request for Return or Adjustment)" class="text-gray-600 focus:ring-gray-600">
+                            <input type="radio" name="OrderReturn" id="Return_9" value="Found Better Price After Purchase" class="text-gray-600 focus:ring-gray-600">
                             <label for="Return_9">
-                                <p>Found Better Price After Purchase (Request for Return or Adjustment)</p>
-                            </label>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <input type="radio" name="OrderReturn" id="Return_10" value="Unwanted Gift (Prompting Return or Exchange Request)" class="text-gray-600 focus:ring-gray-600">
-                            <label for="Return_10">
-                                <p>Unwanted Gift (Prompting Return or Exchange Request)</p>
+                                <p>Found Better Price After Purchase</p>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="submit mt-6">
-                    <input name="ReturnProduct" <?php echo isset($_SESSION['ReturnProduct']) ? 'disabled' : '' ?> class="<?php echo isset($_SESSION['ReturnProduct']) ? 'cursor-not-allowed opacity-50 ' : 'cursor-pointer hover:bg-gray-800' ?> rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30" type="submit" value="Return Order">
+                    <button id="ReturnProduct" type="submit" class="rounded-tl-xl rounded-br-xl text-center bg-gray-600 py-3 px-6 text-white transition duration-300 group-invalid:pointer-events-none group-invalid:opacity-30 cursor-pointer hover:bg-gray-800">Return Order</button>
                 </div>
             </div>
         </form>
@@ -252,8 +247,7 @@ if(isset($_POST['ReturnProduct'])){
             setTimeout(() => {
                 EpopUp.style.display = 'none';
                 EpopUp.style.opacity = '0';
-                window.location.href = "";
-            }, 1500);
+            }, 2000);
         }
 
         // displaly success msg
@@ -269,8 +263,68 @@ if(isset($_POST['ReturnProduct'])){
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
                 window.location.href = "../user/show_return_order.php";
-            }, 1500);
+            }, 1800);
         }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#returnForm').on('submit', function(e){
+                e.preventDefault();
+
+                let billingEmail = $('#billingEmail').val().trim()
+                            
+                let Preceive = $('input[name="Preceive"]:checked').val();
+                let OrderReturn = $('input[name="OrderReturn"]:checked').val();
+
+
+                if (!billingEmail) {
+                    displayErrorMessage('Please Enter Your Billing Email.')
+                    return;
+                }
+
+                if (!Preceive) {
+                    displayErrorMessage('Please Select Receive Payment Method.')
+                    return;
+                }
+
+                if (!OrderReturn) {
+                    displayErrorMessage('Please Select Why are you Retrun the order?')
+                    return;
+                }
+
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: {
+                        order_id: "<?php echo $order_id?>",
+                        product_id: "<?php echo $product_id?>",
+                        user_id: "<?php echo $user_id?>",
+                        vendor_id: "<?php echo $vendor_id?>",
+
+                        billingEmail: billingEmail,
+                        Preceive: Preceive,
+                        OrderReturn: OrderReturn,
+                        
+                        user_name: "<?php echo $res['user_first_name']?>",
+                        user_phone: "<?php echo $res['user_mobile']?>",
+
+                        return_order_title: "<?php echo $res['order_title']?>",
+                        return_order_image: "<?php echo $res['order_image']?>",
+                        return_order_price: "<?php echo $res['total_price']?>",
+                        return_order_qty: "<?php echo $res['qty']?>",
+                        return_order_color: "<?php echo $res['order_color']?>",
+                        return_order_size: "<?php echo $res['order_size']?>",
+                    },
+                    success: function (response) {
+                        $('input[name="Preceive"]:checked').prop('checked', false);
+                        $('input[name="OrderReturn"]:checked').prop('checked', false);
+                        displaySuccessMessage("Your order has been successfully Return.")
+                    }
+                });
+            });
+        });
+        
     </script>
             
 
@@ -281,166 +335,53 @@ if(isset($_POST['ReturnProduct'])){
 
 <?php 
 
-    if(isset($_POST['ReturnProduct'])){
-        $order_id = $_GET['order_id'];
-        $product_id  = $res['product_id'];
-        $user_id = $res['user_id'];
-        $vendor_id = $res['vendor_id'];
-        $user_name = $res['user_first_name'];
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $order_id = $_POST['order_id'];
+        $product_id  = $_POST['product_id'];
+        $user_id = $_POST['user_id'];
+        $vendor_id = $_POST['vendor_id'];
+            
+        $user_name = $_POST['user_name'];
+        $user_phone = $_POST['user_phone'];
+
         $user_email = $_POST['billingEmail'];
-        $user_phone = $res['user_mobile'];
-        if(isset($_POST['Preceive'])){
-            $receive_payment = $_POST['Preceive'];
-        }
-        $return_order_title = $res['order_title'];
-        $return_order_image = $res['order_image'];
-        $return_order_price = $res['total_price'];
-        $return_order_qty = $res['qty'];
-        $return_order_color = $res['order_color'];
-        $return_order_size = $res['order_size'];
-        if(isset($_POST['OrderReturn'])){
-            $reason = $_POST['OrderReturn'];
-        }
+        $receive_payment = $_POST['Preceive'];
+        $reason = $_POST['OrderReturn'];
+    
+        $return_order_title = $_POST['return_order_title'];
+        $return_order_image = $_POST['return_order_image'];
+        $return_order_price = $_POST['return_order_price'];
+        $return_order_qty = $_POST['return_order_qty'];
+        $return_order_color = $_POST['return_order_color'];
+        $return_order_size = $_POST['return_order_size'];
+    
         $date = date('d-m-Y');
 
-        if(empty($user_email)){
-            echo '<script>displayErrorMessage("Please enter your email address");</script>';
-        }else if(empty($reason)){
-            echo '<script>displayErrorMessage("Please enter the reason for Returning your order");</script>';
-        }else if(empty($receive_payment)){
-            echo '<script>displayErrorMessage("Please Select Receive Payment method");</script>';
-        }else{
+        $insert_return_order = "INSERT INTO return_orders(order_id, product_id, user_id, vendor_id, user_name, user_email, user_phone, return_order_image, return_order_title, return_order_price, return_order_color, return_order_size, return_order_qty, payment_type, reason, date) VALUES ('$order_id','$product_id','$user_id','$vendor_id','$user_name','$user_email','$user_phone','$return_order_image','$return_order_title','$return_order_price','$return_order_color','$return_order_size','$return_order_qty','$receive_payment','$reason','$date')";
+        $return_order_query = mysqli_query($con, $insert_return_order);
 
-            $insert_return_order = "INSERT INTO return_orders(order_id, product_id, user_id, vendor_id, user_name, user_email, user_phone, return_order_image, return_order_title, return_order_price, return_order_color, return_order_size, return_order_qty, payment_type, reason, date) VALUES ('$order_id','$product_id','$user_id','$vendor_id','$user_name','$user_email','$user_phone','$return_order_image','$return_order_title','$return_order_price','$return_order_color','$return_order_size','$return_order_qty','$receive_payment','$reason','$date')";
-            $return_order_query = mysqli_query($con, $insert_return_order);
+        $delete_order = "DELETE FROM orders WHERE order_id = '$order_id'";
+        $delete_query = mysqli_query($con, $delete_order);
 
-            $delete_order = "DELETE FROM orders WHERE order_id = '$order_id'";
-            $delete_query = mysqli_query($con, $delete_order);
-
-            // insert quantity of items
-
-            $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
-            $get_qty_query = mysqli_query($con, $get_qty);
-            
-            // Check if the query was successful
-            if ($get_qty_query) {
-                // Fetch the result
-                $qty = mysqli_fetch_assoc($get_qty_query);
-            
-                // Check if the result is not null
-                if ($qty) {
-                    $product_qty = (int)$qty['Quantity'];
-                    $qty_replace = (int)str_replace(",", "", $return_order_qty);
-                    $remove_qty = number_format($product_qty + $qty_replace);
-                } else {
-                    echo "No product found with ID: $product_id.";
-                }
+        // insert quantity of items
+        $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
+        $get_qty_query = mysqli_query($con, $get_qty);
+        
+        // Check if the query was successful
+        if ($get_qty_query) {
+            // Fetch the result
+            $qty = mysqli_fetch_assoc($get_qty_query);
+        
+            // Check if the result is not null
+            if ($qty) {
+                $product_qty = (int)$qty['Quantity'];
+                $qty_replace = (int)str_replace(",", "", $return_order_qty);
+                $update_qty = number_format($product_qty + $qty_replace);
             }
- 
-            $update_qty = "UPDATE items SET Quantity='$remove_qty' WHERE product_id = '$product_id'";
-            $update_qty_quary = mysqli_query($con, $update_qty);
-
-            // sending email
-
-            include "../pages/mail.php";
-            if (filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
-                $mail->addAddress($user_email);
-            } else {
-                echo 'Invalid email address.';
-            }
-            $mail->isHTML(true);
-
-            // order information
-            if(isset($_GET['order_id'])){
-                $order_id = $_GET['order_id'];
-
-                $retrieve_order = "SELECT * FROM return_orders WHERE order_id = '$order_id'";
-                $retrieve_order_query = mysqli_query($con, $retrieve_order);
-                $retPr = mysqli_fetch_assoc($retrieve_order_query);
-            
-                $username = $retPr['user_name'];
-                $order_id = $retPr['order_id'];
-                $return_date = $retPr['date'];
-
-                $return_order_title = $retPr['return_order_title'];
-                $return_order_image = '../src/product_image/product_profile/' . $retPr['return_order_image'];
-                $return_order_price = $retPr['return_order_price'];
-                $return_order_color = $retPr['return_order_color'];
-                $return_order_size = $retPr['return_order_size'];
-                $return_order_qty = $retPr['return_order_qty'];
-                $payment_type = $retPr['payment_type'];
-                $reason = $retPr['reason'];
-            
-                $user_email = $retPr['user_email'];
-                $user_phone = $retPr['user_phone'];
-            
-                $return_order_price = $retPr['return_order_price'];
-            }
-
-
-            $mail->Subject = "Return Request for Your Order";
-            $mail->Body = "<html>
-            <head>
-                <title>Return Request</title>
-            </head>
-            <body>
-                <h1>Return Request Received</h1>
-                <p>Dear $username,</p>
-                <p>We have received your request to return the following order:</p>
-                <p><strong>Order Number:</strong> #$order_id</p>
-                <p><strong>Order Return Date:</strong> $return_date</p>
-                <h3>Items Ordered:</h3>
-                <table border='1' cellpadding='10'>
-                    <tr>
-                        <td><strong>Product Name:</strong></td>
-                        <td>$return_order_title</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Image:</strong></td>
-                        <td><img src='$return_order_image' alt='Product Image' width='100'></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Price:</strong></td>
-                        <td>$return_order_price</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Quantity:</strong></td>
-                        <td>$return_order_qty</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Color:</strong></td>
-                        <td>$return_order_color</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Size:</strong></td>
-                        <td>$return_order_size</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Reason:</strong></td>
-                        <td>$reason</td>
-                    </tr>
-                    <tr>
-                        <td><strong>payment Type:</strong></td>
-                        <td>$payment_type</td>
-                    </tr>
-                </table>
-                <p><strong>Mobile Number:</strong> $user_phone</p>
-                <p><strong>Billing E-mail:</strong> $user_email</p>
-                <p><strong>Order Total Price:</strong> $return_order_price</p>
-                <p>Our team will process your return request and get back to you within 2-3 business days.</p>
-                <p>Thank you for shopping with us!</p>
-                <p>Best regards,<br>shopNest</p>
-            </body>
-            </html>";
-
-            $mail->send();
-
-            if(isset($_SESSION['ReturnProduct'])){
-                unset($_SESSION['ReturnProduct']);
-            }
-            
-            echo '<script>displaySuccessMessage("Your order has been successfully Return.");</script>';
         }
+ 
+        $update_qty = "UPDATE items SET Quantity='$update_qty' WHERE product_id = '$product_id'";
+        $update_qty_quary = mysqli_query($con, $update_qty);
     }
 
 ?>

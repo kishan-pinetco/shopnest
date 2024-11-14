@@ -14,6 +14,9 @@ include "../include/connect.php";
     <!-- Fontawesome Link for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,7 +102,7 @@ include "../include/connect.php";
                 <h2 class="text-3xl font-medium">Contact form</h2>
                 <p class="text-lg font-medium mt-2">We look forward to hearing from you and will try to respond within three days.</p>
             </div>
-            <form action="" method="post" class="m-auto">
+            <form action="" id="Contect" method="post" class="m-auto">
                 <div class="grid grid-cols-1 md:gap-2 lg:grid-cols-2 lg:gap-5">
                     <div class="flex flex-col gap-1 mt-4">
                         <label for="username" class="text-sm font-medium require">Name:</label>
@@ -159,7 +162,6 @@ include "../include/connect.php";
         </div>
     </div>
 
-    <!-- JavaScript function -->
     <script>
         function displayErrorMessage(message) {
             let popUp = document.getElementById('popUp');
@@ -184,11 +186,56 @@ include "../include/connect.php";
             SpopUp.style.opacity = '100';
 
             setTimeout(() => {
-                ApopUp.style.display = 'none';
-                ApopUp.style.opacity = '0';
+                SpopUp.style.display = 'none';
+                SpopUp.style.opacity = '0';
+                window.location.href = "/shopnest/index.php";
             }, 1500);
-            window.location.href = "../index.php";
         }
+    </script>
+
+    <!-- ajax -->
+    <script>
+        $(document).ready(function () {
+            $('#Contect').on("submit",function(e){
+                e.preventDefault();
+
+                let username = $('#username').val().trim();
+                let useremail = $('#useremail').val().trim();
+                let subject = $('#subject').val().trim();
+                let message = $('#message').val().trim();
+
+                if(!username){
+                    displayErrorMessage("Please enter your Name before submitting the form.");
+                    return;
+                }
+                if(!useremail){
+                    displayErrorMessage("Please enter your Email before submitting the form.");
+                    return;
+                }
+                if(!subject){
+                    displayErrorMessage("Please enter your Subject before submitting the form.");
+                    return;
+                }
+                if(!message){
+                    displayErrorMessage("Please enter your Message before submitting the form.");
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "",
+                    data: {
+                        username: username,
+                        useremail: useremail,
+                        subject: subject,
+                        message: message
+                    },
+                    success: function (response) {
+                        displaySuccessMessage("Thank you! Your message has been successfully sent. We'll get back to you soon!")
+                    }
+                });
+            });
+        });
     </script>
 
     <!-- chatboat script -->
@@ -197,62 +244,19 @@ include "../include/connect.php";
 
 </html>
 
+
 <?php
 include "../include/connect.php";
 
-if (isset($_POST['contact'])) {
-    $name = $_POST['name'];
-    $user_email = $_POST['user_email'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['username'];
+    $user_email = $_POST['useremail'];
     $subject = $_POST['subject'];
     $message = $_POST['message'];
     $date = date('d-m-Y');
 
-    if (empty($name)) {
-?>
-        <script>
-            displayErrorMessage("Please enter your Name before submitting the form.")
-        </script>
-    <?php
-    } elseif (empty($user_email)) {
-    ?>
-        <script>
-            displayErrorMessage("Please enter your Email before submitting the form.")
-        </script>
-    <?php
-    } elseif (empty($subject)) {
-    ?>
-        <script>
-            displayErrorMessage("Please enter your Subject before submitting the form.")
-        </script>
-    <?php
-    } elseif (empty($message)) {
-    ?>
-        <script>
-            displayErrorMessage("Please enter your Message before submitting the form.")
-        </script>
-        <?php
-    } else {
-
-        $insert_contact_date = "INSERT INTO contact_us(name, user_email, subject, message, date) VALUES ('$name','$user_email','$subject','$message','$date')";
-        $insert_query = mysqli_query($con, $insert_contact_date);
-
-        if ($insert_query) {
-            // successfully
-        ?>
-            <script>
-                displaySuccessMessage("Thank you! Your message has been successfully sent. We'll get back to you soon!")
-            </script>
-        <?php
-
-        } else {
-            // error
-        ?>
-            <script>
-                displayErrorMessage("First name must be 2-10 character long and shuld not start with a number.")
-            </script>
-<?php
-        }
-    }
+    $insert_contact_date = "INSERT INTO contact_us(name, user_email, subject, message, date) VALUES ('$name','$user_email','$subject','$message','$date')";
+    $insert_query = mysqli_query($con, $insert_contact_date);
 }
 
 ?>

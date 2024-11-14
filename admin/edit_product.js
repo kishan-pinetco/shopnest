@@ -1,4 +1,3 @@
-// add more keywords
 document.addEventListener('DOMContentLoaded', function() {
     let keywordContainer = document.getElementById('keyword-container');
     let keywordsData = document.getElementById('keyword-data').value;
@@ -43,6 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // Prevent default button behavior
         let keywordItem = createKeywordItem('');
         keywordContainer.appendChild(keywordItem);
+    });
+
+    // Prevent form submission when pressing Enter in any input field
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent Enter from triggering form submit or other default actions
+            }
+        });
     });
 });
 
@@ -186,62 +194,6 @@ document.addEventListener('click', (event) => {
         document.querySelectorAll('.suggestions-container').forEach(container => {
             container.classList.add('hidden');
         });
-    }
-});
-
-
-
-
-
-
-// color suggetions
-const colors  = [
-    "Amber", "Almond", "Aqua", "Apricot", "Ash", "Beige", "Black", "Blush", "Bone", "Bordeaux",
-    "Brown", "Burgundy", "Burnt Orange", "Cabernet", "Canary", "Champagne", "Charcoal", "Chocolate",
-    "Cocoa", "Coffee", "Copper", "Cordovan", "Coral", "Cream", "Crimson", "Cobalt", "Cyan",
-    "Deep Teal", "Ebony", "Eggplant", "Eggshell", "Emerald", "Fuchsia", "Forest Green", "Gold",
-    "Gold Leaf", "Goldenrod", "Graphite", "Gray", "Green", "Hot Pink", "Ivory", "Khaki",
-    "Lavender", "Lemon", "Lilac", "Lime", "Maroon", "Magenta", "Mint", "Midnight", "Mustard",
-    "Navy", "Olive", "Onyx", "Orange", "Orchid", "Peach", "Pearl", "Periwinkle", "Plum",
-    "Powder Blue", "Purple", "Raspberry", "Red", "Rose", "Rust", "Salmon", "Sand", "Scarlet",
-    "Seafoam", "Sea Green", "Silver", "Sky Blue", "Slate", "Steel", "Tan", "Tangerine", "Teal",
-    "Thistle", "Turquoise", "Violet", "White", "Wine", "Wintergreen", "Wisteria", "Yellow"
-];
-
-
-const colorInput = document.getElementById('colorInput');
-const colorSuggestions = document.getElementById('colorSuggestions');
-
-colorInput.addEventListener('input', () => {
-    console.log("step;")
-    const query = colorInput.value.toLowerCase();
-    colorSuggestions.innerHTML = ''; // Clear existing suggestions
-    if (query) {
-        const filteredColors = colors.filter(color => color.toLowerCase().includes(query));
-        if (filteredColors.length) {
-            filteredColors.forEach(color => {
-                const colorItem = document.createElement('div');
-                colorItem.className = 'p-2 cursor-pointer hover:bg-gray-100';
-                colorItem.textContent = color;
-                colorItem.addEventListener('click', () => {
-                    colorInput.value = color;
-                    colorSuggestions.innerHTML = '';
-                    colorSuggestions.classList.add('hidden');
-                });
-                colorSuggestions.appendChild(colorItem);
-            });
-            colorSuggestions.classList.remove('hidden');
-        } else {
-            colorSuggestions.classList.add('hidden');
-        }
-    } else {
-        colorSuggestions.classList.add('hidden');
-    }
-});
-
-document.addEventListener('click', (event) => {
-    if (!colorSuggestions.contains(event.target) && event.target !== colorInput) {
-        colorSuggestions.classList.add('hidden');
     }
 });
 

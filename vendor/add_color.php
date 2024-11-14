@@ -150,6 +150,61 @@
         </div>
     </div>
 
+    <!-- success Message -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="SpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="successMessage"></div>
+        </div>
+    </div>
+
+    <!-- Error message container -->
+    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="EpopUp" style="display: none;">
+        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div id="errorMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        // displaly error msg
+        function displayErrorMessage(message) {
+            let EpopUp = document.getElementById('EpopUp');
+            let errorMessage = document.getElementById('errorMessage');
+
+            errorMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+            EpopUp.style.display = 'flex';
+            EpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                EpopUp.style.display = 'none';
+                EpopUp.style.opacity = '0';
+            }, 1500);
+        }
+
+        // displaly success msg
+        function displaySuccessMessage(message) {
+            let SpopUp = document.getElementById('SpopUp');
+            let successMessage = document.getElementById('successMessage');
+
+            successMessage.innerHTML = '<span class="font-medium">' + message + '</span>';
+            SpopUp.style.display = 'flex';
+            SpopUp.style.opacity = '100';
+
+            setTimeout(() => {
+                SpopUp.style.display = 'none';
+                SpopUp.style.opacity = '0';
+                window.location.href = "view_products.php";
+            }, 700);
+        }
+    </script>
+
     <script>
         // upload images
         function setupImagePreview(imageInputId, previewImageId, imageLabelId) {
@@ -193,49 +248,44 @@
     include "../include/connect.php";
 
     if(isset($_POST["submitBtn"])) {
-
         $product_id = $_GET['product_id'];
-
         $colorNames = $_POST['productColor'];
 
         // main images 
-        $ProfileImage1 = $_FILES['ProfileImage1']['name'];
-        $tempName1 = $_FILES['ProfileImage1']['tmp_name'];
-        $folder1 = '../src/product_image/product_profile/' . $ProfileImage1;
-
-
-        $ProfileImage2 = $_FILES['ProfileImage2']['name'];
-        $tempName2 = $_FILES['ProfileImage2']['tmp_name'];
-        $folder2 = '../src/product_image/product_profile/' . $ProfileImage2;
-
-
-        $ProfileImage3 = $_FILES['ProfileImage3']['name'];
-        $tempName3 = $_FILES['ProfileImage3']['tmp_name'];
-        $folder3 = '../src/product_image/product_profile/' . $ProfileImage3;
-
-
-        $ProfileImage4 = $_FILES['ProfileImage4']['name'];
-        $tempName4 = $_FILES['ProfileImage4']['tmp_name'];
-        $folder4 = '../src/product_image/product_profile/' . $ProfileImage4;
-
-        $allFilesUploaded = true;
-
-
-        
-        
+        function isValidImage($filename) {
+            $validExtensions = ['jpg', 'jpeg', 'png'];
+            $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+            return in_array($extension, $validExtensions);
+        }
+                
+        $profileImages = [];
         // Process main images
-        if (!empty($tempName1) && !move_uploaded_file($tempName1, $folder1)) $allFilesUploaded = false;
-        if (!empty($tempName2) && !move_uploaded_file($tempName2, $folder2)) $allFilesUploaded = false;
-        if (!empty($tempName3) && !move_uploaded_file($tempName3, $folder3)) $allFilesUploaded = false;
-        if (!empty($tempName4) && !move_uploaded_file($tempName4, $folder4)) $allFilesUploaded = false;
-
-        // Prepare file names for database insertion
-        $ProfileImage1 = $_FILES['ProfileImage1']['error'] === UPLOAD_ERR_OK ? $ProfileImage1 : '';
-        $ProfileImage2 = $_FILES['ProfileImage2']['error'] === UPLOAD_ERR_OK ? $ProfileImage2 : '';
-        $ProfileImage3 = $_FILES['ProfileImage3']['error'] === UPLOAD_ERR_OK ? $ProfileImage3 : '';
-        $ProfileImage4 = $_FILES['ProfileImage4']['error'] === UPLOAD_ERR_OK ? $ProfileImage4 : '';
-
+        for ($i = 1; $i <= 4; $i++) {
+            $profileImageKey = "ProfileImage$i";
+            if (isset($_FILES[$profileImageKey]) && $_FILES[$profileImageKey]['error'] === UPLOAD_ERR_OK) {
+                $filename = $_FILES[$profileImageKey]['name'];
+                $tempName = $_FILES[$profileImageKey]['tmp_name'];
+                $folder = '../src/product_image/product_profile/' . $filename;
         
+                if (isValidImage($filename)) {
+                    if (!move_uploaded_file($tempName, $folder)) {
+                        $allFilesUploaded = false;
+                    }else{            
+                        $profileImages[] = $filename;
+                        $allFilesUploaded = true;
+                    }
+                } else {
+                    $allFilesUploaded = false; // Invalid file type
+                }
+            }
+        }
+    
+        // Prepare file names for database insertion
+        $ProfileImage1 = isset($profileImages[0]) ? $profileImages[0] : '';
+        $ProfileImage2 = isset($profileImages[1]) ? $profileImages[1] : '';
+        $ProfileImage3 = isset($profileImages[2]) ? $profileImages[2] : '';
+        $ProfileImage4 = isset($profileImages[3]) ? $profileImages[3] : '';
+
 
         $select = "SELECT * FROM items WHERE product_id = '$product_id'";
         $query = mysqli_query($con, $select);
@@ -284,25 +334,37 @@
             print_r($merge_title_json);
         }
 
+        if (empty($colorNames)) {
+            echo '<script>displayErrorMessage("Please Insert Color names for the Product.");</script>';
+            exit();
+        }
+        if (empty($product_title)) {
+            echo '<script>displayErrorMessage("Please Insert Product Title for the Product.");</script>';
+            exit();
+        }
+
+        if (empty($ProfileImage1)) {
+            echo '<script>displayErrorMessage("Please Insert First Image.");</script>';
+            exit();
+        }
+    
+        if (empty($ProfileImage2)) {
+            echo '<script>displayErrorMessage("Please Insert Second Image Image.");</script>';
+            exit();
+        }
+
         if ($allFilesUploaded) {
             
             $update_colors = "UPDATE items SET title='$merge_title_json',image='$merge_array',color='$allColors' WHERE product_id = '$product_id'";
             $update_query = mysqli_query($con, $update_colors);
-            if ($update_query) {
-                ?>
-                    <script>alert('Data Inserted.')</script>
-                    <script>window.location.href = 'view_products.php'</script>
-                <?php 
 
+            if ($update_query) {
+                echo '<script>displaySuccessMessage("Data updated successfully.");</script>';
             } else {
-                ?>
-                    <script>alert('Data not Inserted Properly.')</script>
-                <?php 
+                echo '<script>displayErrorMessage("Data not Inserted Properly..");</script>';
             }
-        } else {
-            ?>
-                <script>alert('Some files could not be uploaded.')</script>
-            <?php 
+        } else { 
+            echo '<script>displayErrorMessage("Enter Valid Details.");</script>';
         }
     }
 ?>

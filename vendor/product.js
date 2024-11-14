@@ -1,4 +1,3 @@
-
 // for Keyword Input
 document.getElementById('add-keyword').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent default button behavior
@@ -37,6 +36,17 @@ document.getElementById('add-keyword').addEventListener('click', function(event)
     // Append the keyword item container to the main container
     keywordContainer.appendChild(keywordItem);
 });
+
+// Prevent form submission when pressing Enter in any input field inside a form
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            // Prevent form submission if Enter is pressed
+            event.preventDefault();
+        }
+    });
+});
+
 
 
 // upload images
@@ -115,7 +125,6 @@ function displayErrorMessage(message) {
     setTimeout(() => {
         EpopUp.style.display = 'none';
         EpopUp.style.opacity = '0';
-        window.location.href = "";
     }, 1500);
 }
 
