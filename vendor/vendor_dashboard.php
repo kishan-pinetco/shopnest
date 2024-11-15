@@ -56,7 +56,7 @@ if (isset($_COOKIE['vendor_id'])) {
 
     $totalEarnings = 0;
     foreach ($earning_query as $earnings) {
-        $trimEarnings = str_replace(",", "", $earnings['vendor_profit']);
+        $trimEarnings = floatval(str_replace(",", "", $earnings['vendor_profit']));
         $totalEarnings += $trimEarnings;
     }
 
