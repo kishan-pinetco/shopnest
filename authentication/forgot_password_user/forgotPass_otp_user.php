@@ -179,23 +179,30 @@ if (isset($_COOKIE['adminEmail'])) {
             </div>
         </a>
     </div>
-    <div class="w-96 border-2 border-gray-300 space-y-3 rounded-xl bg-white overflow-hidden" id="forgotPass-container">
+    <div class="w-80 md:w-96 border-2 border-gray-300 space-y-3 rounded-xl bg-white overflow-hidden" id="forgotPass-container">
         <h1 class="text-2xl py-2 px-4 font-semibold border-b-2 border-gray-300">Forgot Password</h1>
         <form action="" method="post" id="form2" class="flex flex-col items-center pb-5">
             <div class="flex flex-col space-y-3">
                 <label for="OTP" class="require">OTP:</label>
                 <div class="flex space-x-3" id="otp-container">
-                    <input type="text" name="otp1" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
-                    <input type="text" name="otp2" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
-                    <input type="text" name="otp3" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
-                    <input type="text" name="otp4" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
-                    <input type="text" name="otp5" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
-                    <input type="text" name="otp6" maxlength="1" class="otp-box w-11 h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" name="otp1" maxlength="1" class="otp-box w-9 h-9 md:w-11 md:h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" name="otp2" maxlength="1" class="otp-box w-9 h-9 md:w-11 md:h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" name="otp3" maxlength="1" class="otp-box w-9 h-9 md:w-11 md:h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" name="otp4" maxlength="1" class="otp-box w-9 h-9 md:w-11 md:h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" name="otp5" maxlength="1" class="otp-box w-9 h-9 md:w-11 md:h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
+                    <input type="text" name="otp6" maxlength="1" class="otp-box w-9 h-9 md:w-11 md:h-11 text-center text-lg rounded-md border-2 border-gray-300 hover:border-gray-500 focus:border-gray-700 focus:ring-0" autocomplete="off" />
                 </div>
             </div>
-            <div class="space-x-5 mt-5">
-                <button id="back1" onclick="window.location.href='forgotPass_email_user.php'" type="button" class="bg-gray-700 hover:bg-gray-800 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Back</button>
-                <button id="next2" type="submit" class="bg-gray-700 hover:bg-gray-800 px-2 w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Next</button>
+            <div class="space-x-5 mt-5 flex items-center">
+                <button id="back1" onclick="window.location.href='forgotPass_email_user.php'" type="button" class="bg-black hover:bg-gray-800 px-2 w-28 md:w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl flex items-center justify-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 31.418 31.418" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-3">
+                        <g>
+                            <path d="M26.585 3v25.418a3.002 3.002 0 0 1-4.883 2.335L5.949 18.044a2.999 2.999 0 0 1 0-4.67L21.703.665a3.004 3.004 0 0 1 3.178-.372A3.003 3.003 0 0 1 26.585 3z" fill="currentColor" opacity="1" data-original="currentColor"></path>
+                        </g>
+                    </svg>
+                    Back
+                </button>
+                <button id="next2" type="submit" class="bg-gray-700 hover:bg-gray-800 px-2 w-28 md:w-32 text-white tracking-wide h-10 rounded-tl-xl rounded-br-xl">Next</button>
             </div>
             <a href="../user_auth/user_login.php" class="mt-5 flex justify-center items-center">
                 <svg class="w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 447.243 447.243" style="enable-background:new 0 0 512 512" xml:space="preserve">

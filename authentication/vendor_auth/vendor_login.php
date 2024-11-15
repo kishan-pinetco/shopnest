@@ -111,7 +111,7 @@ if (isset($_COOKIE['adminEmail'])) {
     <?php
     include "../../include/connect.php";
     session_start();
-    
+
     unset(
         $_SESSION['vendor_name'],
         $_SESSION['vendor_email'],
@@ -120,13 +120,13 @@ if (isset($_COOKIE['adminEmail'])) {
         $_SESSION['vendor_gst'],
         $_SESSION['vendor_bio']
     );
-        
+
     if (isset($_POST['loginBtn'])) {
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
 
         $_SESSION['vendorEmail'] = $email;
-    
+
         // Check if fields are empty
         if (empty($email) || empty($password)) {
             echo '<script>displayErrorMessage("Email and password are required.");</script>';
@@ -137,77 +137,77 @@ if (isset($_COOKIE['adminEmail'])) {
             if ($admin_email === 'vishvjit+admin@gmail.com' && $admin_pass === 'vishvjit+2608') {
                 setcookie('adminEmail', $admin_email, time() + (365 * 24 * 60 * 60), "/");
                 setcookie('adminPass', $admin_pass, time() + (365 * 24 * 60 * 60), "/");
-                
-                ?>
-                    <!-- Successfully -->
-                    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
-                        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                            </svg>
-                            <span class="sr-only">Info</span>
-                            <div>
-                                <span class="font-medium">Admin login successful.</span>
-                            </div>
+
+    ?>
+                <!-- Successfully -->
+                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
+                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Admin login successful.</span>
                         </div>
                     </div>
+                </div>
 
-                    <script>
-                        let ApopUp = document.getElementById('ApopUp');
+                <script>
+                    let ApopUp = document.getElementById('ApopUp');
 
-                        ApopUp.style.display = 'flex';
-                        ApopUp.style.opacity = '100';
+                    ApopUp.style.display = 'flex';
+                    ApopUp.style.opacity = '100';
 
-                        setTimeout(() => {
-                            ApopUp.style.display = 'none';
-                            ApopUp.style.opacity = '0';
-                            window.location.href = "/shopnest/admin/dashboard.php";
-                        }, 1500);
-                    </script>
-                <?php
+                    setTimeout(() => {
+                        ApopUp.style.display = 'none';
+                        ApopUp.style.opacity = '0';
+                        window.location.href = "/shopnest/admin/dashboard.php";
+                    }, 1500);
+                </script>
+            <?php
             }
 
             if ($admin_email === 'abhijeet+admin@gmail.com' && $admin_pass === 'abhijeet+3904') {
                 setcookie('adminEmail', $admin_email, time() + (365 * 24 * 60 * 60), "/");
                 setcookie('adminPass', $admin_pass, time() + (365 * 24 * 60 * 60), "/");
-                ?>
-                    <!-- Successfully -->
-                    <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
-                        <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                            </svg>
-                            <span class="sr-only">Info</span>
-                            <div>
-                                <span class="font-medium">Admin login successful.</span>
-                            </div>
+            ?>
+                <!-- Successfully -->
+                <div class="validInfo fixed top-0 mt-2 w-full transition duration-300 z-50" id="ApopUp" style="display: none;">
+                    <div class="flex items-center m-auto justify-center px-6 py-3 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Admin login successful.</span>
                         </div>
                     </div>
+                </div>
 
-                    <script>
-                        let ApopUp = document.getElementById('ApopUp');
+                <script>
+                    let ApopUp = document.getElementById('ApopUp');
 
-                        ApopUp.style.display = 'flex';
-                        ApopUp.style.opacity = '100';
+                    ApopUp.style.display = 'flex';
+                    ApopUp.style.opacity = '100';
 
-                        setTimeout(() => {
-                            ApopUp.style.display = 'none';
-                            ApopUp.style.opacity = '0';
-                            window.location.href = "/shopnest/admin/dashboard.php";
-                        }, 1500);
-                    </script>
-                <?php
+                    setTimeout(() => {
+                        ApopUp.style.display = 'none';
+                        ApopUp.style.opacity = '0';
+                        window.location.href = "/shopnest/admin/dashboard.php";
+                    }, 1500);
+                </script>
+    <?php
             }
 
             // Query to find the vendor by email
             $email_search = "SELECT * FROM vendor_registration WHERE email = '$email'";
             $search_query = mysqli_query($con, $email_search);
-        
+
             if ($search_query && mysqli_num_rows($search_query) > 0) {
                 $email_pass = mysqli_fetch_assoc($search_query);
                 $dbpass = $email_pass['password'];
                 $id = $email_pass['vendor_id'];
-            
+
                 // Verify the password
                 if (password_verify($password, $dbpass)) {
                     // Successful login
@@ -215,7 +215,7 @@ if (isset($_COOKIE['adminEmail'])) {
 
                     unset($_SESSION['vendorEmail']);
 
-                    echo '<script>displaySuccessMessage("Login successful.");</script>';    
+                    echo '<script>displaySuccessMessage("Login successful.");</script>';
                 } else {
                     // Invalid password
                     echo '<script>displayErrorMessage("Invalid password.");</script>';
@@ -275,8 +275,16 @@ if (isset($_COOKIE['adminEmail'])) {
                     <div class="text-center">
                         <input type="submit" class="bg-gray-700 hover:bg-gray-800 py-1 h-10 w-full text-lg rounded-tl-xl rounded-br-xl text-white cursor-pointer hover:transition" name="loginBtn" value="Login">
                     </div>
-                    <div>
+                    <div class="space-y-2">
                         <a href="vendor_register.php" class="text-sm font-semibold tracking-wide flex justify-center underline">New Vendor? Create account</a>
+                        <a href="../../index.php" class="text-sm font-semibold tracking-wide flex justify-center gap-1 underline">
+                            <svg class="w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 447.243 447.243" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                                <g>
+                                    <path d="M420.361 192.229a31.967 31.967 0 0 0-5.535-.41H99.305l6.88-3.2a63.998 63.998 0 0 0 18.08-12.8l88.48-88.48c11.653-11.124 13.611-29.019 4.64-42.4-10.441-14.259-30.464-17.355-44.724-6.914a32.018 32.018 0 0 0-3.276 2.754l-160 160c-12.504 12.49-12.515 32.751-.025 45.255l.025.025 160 160c12.514 12.479 32.775 12.451 45.255-.063a32.084 32.084 0 0 0 2.745-3.137c8.971-13.381 7.013-31.276-4.64-42.4l-88.32-88.64a64.002 64.002 0 0 0-16-11.68l-9.6-4.32h314.24c16.347.607 30.689-10.812 33.76-26.88 2.829-17.445-9.019-33.88-26.464-36.71z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path>
+                                </g>
+                            </svg>
+                            Return to home page
+                        </a>
                     </div>
                 </div>
             </form>

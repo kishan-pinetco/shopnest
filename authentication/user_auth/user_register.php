@@ -143,20 +143,20 @@ if (isset($_COOKIE['adminEmail'])) {
         // Validation for first name
         if (!preg_match($firstname_pattern, $fname)) {
             echo '<script>displayErrorMessage("First name must be 2-10 character long and shuld not start with a number.");</script>';
-        }else{
+        } else {
             $_SESSION['fname'] = $fname;
         }
         // Validation for last name
         if (!preg_match($lastname_pattern, $lname)) {
             echo '<script>displayErrorMessage("Last name must be 2-10 character long and shuld not start with a number.");</script>';
-        }else{
+        } else {
             $_SESSION['lname'] = $lname;
         }
 
         // Validation for email
         if (!preg_match($email_pattern, $email)) {
             echo '<script>displayErrorMessage("Invalid Email.");</script>';
-        }else{
+        } else {
             $_SESSION['user_email'] = $email;
         }
         // Validation for password
@@ -166,31 +166,31 @@ if (isset($_COOKIE['adminEmail'])) {
         // Validation for adddress
         if (!preg_match($address_pattern, $address)) {
             echo '<script>displayErrorMessage("Invalid Address.");</script>';
-        }else{
+        } else {
             $_SESSION['user_address'] = $address;
         }
         // Validation for phone number
         if (!preg_match($number_pattern, $mobileno)) {
             echo '<script>displayErrorMessage("Invalid Phone Number.");</script>';
-        }else{
+        } else {
             $_SESSION['user_mobileno'] = $mobileno;
         }
         // Validation for state
         if (!preg_match($state_pattern, $state)) {
             echo '<script>displayErrorMessage("Invalid State.");</script>';
-        }else{
+        } else {
             $_SESSION['user_state'] = $state;
         }
         // Validation for City
         if (!preg_match($city_pattern, $city)) {
             echo '<script>displayErrorMessage("Invalid City.");</script>';
-        }else{
+        } else {
             $_SESSION['user_city'] = $city;
         }
         // Validation for pincode
         if (!preg_match($pincode_pattern, $pincode)) {
             echo '<script>displayErrorMessage("Invalid Pincode.");</script>';
-        }else{
+        } else {
             $_SESSION['user_pincode'] = $pincode;
         }
 
@@ -210,9 +210,9 @@ if (isset($_COOKIE['adminEmail'])) {
         if ($emailCount > 0) {
             // error Message
             echo '<script>displayErrorMessage("Email already Exists.");</script>';
-        }elseif(!preg_match($firstname_pattern, $fname) && !preg_match($lastname_pattern, $lname) && !preg_match($email_pattern, $email) && !preg_match($password_pattern, $password) && !preg_match($address_pattern, $address) && !preg_match($number_pattern, $mobileno) && !preg_match($state_pattern, $state) && !preg_match($city_pattern, $city) && !preg_match($pincode_pattern, $pincode)) {
+        } elseif (!preg_match($firstname_pattern, $fname) && !preg_match($lastname_pattern, $lname) && !preg_match($email_pattern, $email) && !preg_match($password_pattern, $password) && !preg_match($address_pattern, $address) && !preg_match($number_pattern, $mobileno) && !preg_match($state_pattern, $state) && !preg_match($city_pattern, $city) && !preg_match($pincode_pattern, $pincode)) {
             echo '<script>displayErrorMessage("All fields are invalid. Please correct them.");</script>';
-        }elseif(preg_match($firstname_pattern, $fname) && preg_match($lastname_pattern, $lname) && preg_match($email_pattern, $email) && preg_match($password_pattern, $password) && preg_match($address_pattern, $address) && preg_match($number_pattern, $mobileno) && preg_match($state_pattern, $state) && preg_match($city_pattern, $city) && preg_match($pincode_pattern, $pincode)) {
+        } elseif (preg_match($firstname_pattern, $fname) && preg_match($lastname_pattern, $lname) && preg_match($email_pattern, $email) && preg_match($password_pattern, $password) && preg_match($address_pattern, $address) && preg_match($number_pattern, $mobileno) && preg_match($state_pattern, $state) && preg_match($city_pattern, $city) && preg_match($pincode_pattern, $pincode)) {
             $insert_reg_data = "INSERT INTO user_registration(first_name, last_name, phone, email, profile_image, Address, state, city, pin, password, date) VALUES ('$fname','$lname','$mobileno','$email','$user_name_first_letter','$address','$state','$city','$pincode','$pass','$user_reg_date')";
             $iquery = mysqli_query($con, $insert_reg_data);
 
@@ -327,6 +327,13 @@ if (isset($_COOKIE['adminEmail'])) {
         <div class="flex flex-col items-center gap-2 mt-5">
             <a class="underline font-semibold" href="../vendor_auth/vendor_register.php">Become a Vendor</a>
             <a class="underline font-semibold" href="user_login.php">Already a member? Login</a>
+            <a href="../../index.php" class=" font-semibold tracking-wide flex justify-center gap-1 underline">
+                <svg class="w-4" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 447.243 447.243" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                    <g>
+                        <path d="M420.361 192.229a31.967 31.967 0 0 0-5.535-.41H99.305l6.88-3.2a63.998 63.998 0 0 0 18.08-12.8l88.48-88.48c11.653-11.124 13.611-29.019 4.64-42.4-10.441-14.259-30.464-17.355-44.724-6.914a32.018 32.018 0 0 0-3.276 2.754l-160 160c-12.504 12.49-12.515 32.751-.025 45.255l.025.025 160 160c12.514 12.479 32.775 12.451 45.255-.063a32.084 32.084 0 0 0 2.745-3.137c8.971-13.381 7.013-31.276-4.64-42.4l-88.32-88.64a64.002 64.002 0 0 0-16-11.68l-9.6-4.32h314.24c16.347.607 30.689-10.812 33.76-26.88 2.829-17.445-9.019-33.88-26.464-36.71z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path>
+                    </g>
+                </svg>
+                Return to home page</a>
         </div>
     </div>
 
