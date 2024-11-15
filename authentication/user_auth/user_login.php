@@ -138,7 +138,7 @@ unset(
             $admin_email = $_POST['email'];
             $admin_pass = $_POST['password'];
 
-            if ($admin_email === 'vishvjit+admin@gmail.com' && $admin_pass === 'vishvjit+2605') {
+            if ($admin_email === 'vishvjit+admin@gmail.com' && $admin_pass === 'vishvjit+2608') {
                 setcookie('adminEmail', $admin_email, time() + (365 * 24 * 60 * 60), "/");
                 setcookie('adminPass', $admin_pass, time() + (365 * 24 * 60 * 60), "/");
                 
