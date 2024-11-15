@@ -168,7 +168,7 @@ if (isset($_GET['name'])) {
                                     <label for="keyword" class="require">Keywords:</label>
                                     <div id="keyword-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
                                         <div class="flex items-center relative">
-                                            <input type="text" name="keyword[]" placeholder="Enter keyword" class="relative h-10 border rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600">
+                                            <input type="text" name="keyword[]" placeholder="Enter keyword" class="relative h-10 border rounded px-4 md:w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600">
                                         </div>
                                     </div>
                                     <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add more keyword</button>
@@ -190,9 +190,9 @@ if (isset($_GET['name'])) {
                                     </div>
                                 </div>
 
-                                <div class="md:col-span-5 mt-4">
-                                    <label for="" class="text-lg require">Images:</label>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-12 gap-5 mt-9">
+                                <div class="md:col-span-5 mt-4 mb-10">
+                                    <label for="" class=" require">Images:</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-12 gap-5 mt-5">
                                         <div class="w-full relative">
                                             <div id="previewWrapper1" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput1').click();">
                                                 <img id="previewImage1" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
@@ -239,9 +239,9 @@ if (isset($_GET['name'])) {
                                     </div>
                                 </div>
 
-                                <div class="md:col-span-5 mt-4">
-                                    <label for="" class="text-lg require">Cover images:</label>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-12 gap-5 mt-9">
+                                <div class="md:col-span-5 mb-10">
+                                    <label for="" class="require">Cover images:</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-12 gap-5 mt-5">
                                         <div class="w-full relative">
                                             <div id="coverImageWrapper1" class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('coverImageInput1').click();">
                                                 <img id="coverPreviewImage1" class="w-full h-48 z-50 object-cover object-center hidden" src="" alt="Product Image 1">
@@ -290,10 +290,19 @@ if (isset($_GET['name'])) {
                             </div>
                             <div class="flex justify-between mt-7">
                                 <div>
-                                    <input type="button" value="Back" onclick="window.location.href='choose_product.php'" name="backBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                    <a href="choose_product.php" class="bg-black text-white font-semibold py-2 px-6 sm:px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 31.418 31.418" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-3">
+                                                <g>
+                                                    <path d="M26.585 3v25.418a3.002 3.002 0 0 1-4.883 2.335L5.949 18.044a2.999 2.999 0 0 1 0-4.67L21.703.665a3.004 3.004 0 0 1 3.178-.372A3.003 3.003 0 0 1 26.585 3z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <span>Back</span>
+                                    </a>
                                 </div>
                                 <div>
-                                    <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                    <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 sm:px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1">
                                 </div>
                             </div>
                         </form>
@@ -607,14 +616,15 @@ if (isset($_POST['submitBtn'])) {
 
 
     // main images 
-    function isValidImage($filename) {
+    function isValidImage($filename)
+    {
         $validExtensions = ['jpg', 'jpeg', 'png'];
         $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         return in_array($extension, $validExtensions);
     }
-    
+
     $allFilesUploaded = true;
-    
+
     $profileImages = [];
     // Process main images
     for ($i = 1; $i <= 4; $i++) {
@@ -623,11 +633,11 @@ if (isset($_POST['submitBtn'])) {
             $filename = $_FILES[$profileImageKey]['name'];
             $tempName = $_FILES[$profileImageKey]['tmp_name'];
             $folder = '../src/product_image/product_profile/' . $filename;
-    
+
             if (isValidImage($filename)) {
                 if (!move_uploaded_file($tempName, $folder)) {
                     $allFilesUploaded = false;
-                }else{
+                } else {
                     $profileImages[] = $filename;
                 }
             } else {
@@ -635,19 +645,19 @@ if (isset($_POST['submitBtn'])) {
             }
         }
     }
-    
+
     // Process cover images
     $coverImages = [];
-    
+
     // Loop through the four possible cover images
     for ($i = 1; $i <= 4; $i++) {
         $coverImageKey = "CoverImage$i";
-        
+
         if (isset($_FILES[$coverImageKey]) && $_FILES[$coverImageKey]['error'] === UPLOAD_ERR_OK) {
             $filename = $_FILES[$coverImageKey]['name'];
             $tempName = $_FILES[$coverImageKey]['tmp_name'];
             $folder = '../src/product_image/product_cover/' . $filename;
-        
+
             if (isValidImage($filename)) {
                 // Move the uploaded file to the target directory
                 if (!move_uploaded_file($tempName, $folder)) {
@@ -667,7 +677,7 @@ if (isset($_POST['submitBtn'])) {
     $coverImage3 = isset($coverImages[2]) ? $coverImages[2] : '';
     $coverImage4 = isset($coverImages[3]) ? $coverImages[3] : '';
 
-    
+
     $color = $_POST['color'];
 
     if (!empty($_POST['color'])) {
@@ -737,7 +747,7 @@ if (isset($_POST['submitBtn'])) {
         echo '<script>displayErrorMessage("Please fill Keywords.");</script>';
         exit();
     }
-    
+
     if (empty($profileImages[0])) {
         echo '<script>displayErrorMessage("Please Insert first Image.");</script>';
         exit();
@@ -759,7 +769,7 @@ if (isset($_POST['submitBtn'])) {
                 is_array($normalized_color) && !empty($normalized_color) &&
                 !in_array('', $normalized_color) && !in_array('none', $normalized_color)
             ) {
-        
+
                 // Build the color image array
                 $color_img = [];
                 $color_img[$color] = [
@@ -768,16 +778,16 @@ if (isset($_POST['submitBtn'])) {
                     'img3' => $profileImages[2],
                     'img4' => $profileImages[3]
                 ];
-        
+
                 // Encode the color image array to JSON
                 $color_img_json = json_encode($color_img);
-        
+
                 $product_titles = [
                     $color => [
                         'product_name' => $full_name
                     ],
                 ];
-        
+
                 $product_titles_json = json_encode($product_titles);
             } else {
                 $color_img['N-A'] = [
@@ -786,17 +796,17 @@ if (isset($_POST['submitBtn'])) {
                     'img3' => $profileImages[2],
                     'img4' => $profileImages[3]
                 ];
-        
+
                 // Encode the color image array to JSON
                 $color_img_json = json_encode($color_img);
-        
-        
+
+
                 $product_titles = [
                     'N-A' => [
                         'product_name' => $full_name
                     ],
                 ];
-        
+
                 $product_titles_json = json_encode($product_titles);
             }
             $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$coverImage1', '$coverImage2', '$coverImage3', '$coverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$pcolor', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
@@ -814,7 +824,6 @@ if (isset($_POST['submitBtn'])) {
                 unset($_SESSION['color']);
 
                 echo '<script>displaySuccessMessage("Data Inserted.");</script>';
-                
             } else {
                 echo '<script>displayErrorMessage("Data not Inserted Properly.");</script>';
             }

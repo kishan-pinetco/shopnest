@@ -57,7 +57,7 @@ if (isset($_COOKIE['adminEmail'])) {
                     <div class="lg:col-span-2">
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="md:col-span-5 mt-5">
-                                <label for="color">Color:</label>
+                                <label for="color" class="require">Color:</label>
                                 <div class="flex items-center gap-1 flex-wrap mt-2">
                                     <input list="colors" id="colorInput" name="productColor" placeholder="Add a color..." class="relative h-10 border rounded px-4 w-52 bg-gray-50 focus:ring-gray-600 focus:border-gray-600" autocomplete="off">
                                     <datalist id="colors" class="h-20">
@@ -77,51 +77,56 @@ if (isset($_COOKIE['adminEmail'])) {
                             </div>
 
                             <div class="md:col-span-5 mt-5">
-                                <label for="full_name">Product Tital:</label>
+                                <label for="full_name" class="require">Product Tital:</label>
                                 <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="" />
                             </div>
 
-                            <div class="md:col-span-5 mt-4">
-                                <label for="" class="text-lg">Images:</label>
-                                <div class="grid grid-cols-1 min-[321px]:grid-cols-2 md:grid-cols-4 gap-y-12 gap-5 mt-9">
-                                    <div>
+                            <div class="md:col-span-5 mt-4 pb-5">
+                                <label for="" class="require">Images:</label>
+                                <div class="grid grid-cols-1 min-[321px]:grid-cols-2 md:grid-cols-4 gap-y-12 gap-5 mt-4">
+                                    <div class="w-full relative">
                                         <div class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput1').click();">
                                             <img id="previewImage1" class="w-full h-48 z-50 object-cover object-center hidden" alt="Product Image 1" src="">
                                             <h2 id="imageLabel1" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
                                                 Upload image 1
                                             </h2>
                                         </div>
-                                        <input class="hidden" name="ProfileImage1" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput1" onchange="productImagePreview(event, 'previewImage1', 'imageLabel1')">
+                                        <input class="hidden" name="ProfileImage1" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput1" onchange="productImagePreview(event, 'previewImage1', 'imageLabel1', 'error-message1')">
+                                        <small id="error-message1" class="text-red-500 mt-2 absolute text-xs hidden">The product image must be a file type of: PNG, JPG, or JPEG.</small>
                                     </div>
 
-                                    <div>
+
+                                    <div class="w-full relative">
                                         <div class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput2').click();">
-                                            <img id="previewImage2" class="w-full h-48 z-50 object-cover object-center hidden" alt="Product Image 1" src="">
+                                            <img id="previewImage2" class="w-full h-48 z-50 object-cover object-center hidden" alt="Product Image 2" src="">
                                             <h2 id="imageLabel2" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                Upload image 2
+                                                Upload image 1
                                             </h2>
                                         </div>
-                                        <input class="hidden" name="ProfileImage2" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput2" onchange="productImagePreview(event, 'previewImage2', 'imageLabel2')">
+                                        <input class="hidden" name="ProfileImage2" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput2" onchange="productImagePreview(event, 'previewImage2', 'imageLabel2', 'error-message2')">
+                                        <small id="error-message2" class="text-red-500 mt-2 absolute text-xs hidden">The product image must be a file type of: PNG, JPG, or JPEG.</small>
                                     </div>
 
-                                    <div>
+                                    <div class="w-full relative">
                                         <div class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput3').click();">
-                                            <img id="previewImage3" class="w-full h-48 z-50 object-cover object-center hidden" alt="Product Image 1" src="">
+                                            <img id="previewImage3" class="w-full h-48 z-50 object-cover object-center hidden" alt="Product Image 3" src="">
                                             <h2 id="imageLabel3" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                Upload image 3
+                                                Upload image 1
                                             </h2>
                                         </div>
-                                        <input class="hidden" name="ProfileImage3" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput3" onchange="productImagePreview(event, 'previewImage3', 'imageLabel3')">
+                                        <input class="hidden" name="ProfileImage3" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput3" onchange="productImagePreview(event, 'previewImage3', 'imageLabel3', 'error-message3')">
+                                        <small id="error-message3" class="text-red-500 mt-2 absolute text-xs hidden">The product image must be a file type of: PNG, JPG, or JPEG.</small>
                                     </div>
 
-                                    <div>
+                                    <div class="w-full relative">
                                         <div class="relative border border-gray-600 border-dashed rounded-tl-xl rounded-br-xl overflow-hidden cursor-pointer h-48" onclick="document.getElementById('imageInput4').click();">
-                                            <img id="previewImage4" class="w-full h-48 z-50 object-cover object-center hidden" alt="Product Image 1" src="">
+                                            <img id="previewImage4" class="w-full h-48 z-50 object-cover object-center hidden" alt="Product Image 4" src="">
                                             <h2 id="imageLabel4" class="absolute left-0 top-0 flex items-center justify-center w-full h-full">
-                                                Upload image 4
+                                                Upload image 1
                                             </h2>
                                         </div>
-                                        <input class="hidden" name="ProfileImage4" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput4" onchange="productImagePreview(event, 'previewImage4', 'imageLabel4')">
+                                        <input class="hidden" name="ProfileImage4" accept="image/jpg, image/png, image/jpeg" type="file" id="imageInput4" onchange="productImagePreview(event, 'previewImage4', 'imageLabel4', 'error-message4')">
+                                        <small id="error-message1" class="text-red-500 mt-2 absolute text-xs hidden">The product image must be a file type of: PNG, JPG, or JPEG.</small>
                                     </div>
 
                                 </div>
@@ -131,6 +136,8 @@ if (isset($_COOKIE['adminEmail'])) {
                                         const file = event.target.files[0];
                                         const imgElement = document.getElementById(imgId);
                                         const labelElement = document.getElementById(labelId);
+                                        console.log(labelElement);
+
 
                                         if (file && file.type.startsWith('image/')) {
                                             const reader = new FileReader();
@@ -152,14 +159,16 @@ if (isset($_COOKIE['adminEmail'])) {
 
                             <div class="md:col-span-5 text-right mt-10">
                                 <div class="inline-flex justify-between items-end w-full">
-                                    <a href="view_products.php" class="bg-black text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1"><span> <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 31.418 31.418" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-3">
-                                            <g>
-                                                <path d="M26.585 3v25.418a3.002 3.002 0 0 1-4.883 2.335L5.949 18.044a2.999 2.999 0 0 1 0-4.67L21.703.665a3.004 3.004 0 0 1 3.178-.372A3.003 3.003 0 0 1 26.585 3z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path>
-                                            </g>
-                                        </svg></span> 
+                                    <a href="view_products.php" class="bg-black text-white font-semibold py-2 px-6 sm:px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1">
+                                        <span> <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 31.418 31.418" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-3">
+                                                <g>
+                                                    <path d="M26.585 3v25.418a3.002 3.002 0 0 1-4.883 2.335L5.949 18.044a2.999 2.999 0 0 1 0-4.67L21.703.665a3.004 3.004 0 0 1 3.178-.372A3.003 3.003 0 0 1 26.585 3z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path>
+                                                </g>
+                                            </svg>
+                                        </span>
                                         <span>Back</span>
                                     </a>
-                                    <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                    <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 sm:px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
                                 </div>
                             </div>
                         </form>
@@ -350,7 +359,6 @@ if (isset($_POST["submitBtn"])) {
         $prevColor = $row['color'];
         $allColors = $prevColor . ',' . $colorNames;
 
-        print_r($merge_title_json);
     }
 
     if (empty($colorNames)) {
