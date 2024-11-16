@@ -245,7 +245,7 @@ if (isset($_COOKIE['vendor_id'])) {
                             </div>
                             <div class="flex justify-between mt-7">
                                 <div>
-                                    <a href="choose_product.php" class="bg-black text-white font-semibold py-2 px-6 sm:px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1">
+                                    <a href="view_products.php" class="bg-black text-white font-semibold py-2 px-6 sm:px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1">
                                         <span>
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 31.418 31.418" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-3">
                                                 <g>
