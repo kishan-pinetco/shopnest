@@ -216,7 +216,15 @@ if (isset($_COOKIE['vendor_id'])) {
                                 <div class="bg-white rounded-tl-xl rounded-br-xl shadow-sm overflow-hidden max-w-xs w-full">
                                     <div class="relative flex justify-center p-2">
                                         <img src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $first_images : '../src/sample_images/product_1.jpg' ?>" alt="Product Image" class="h-64 w-64 object-cover rounded-tl-xl rounded-br-xl">
-                                        <span class="absolute top-2 right-2 bg-green-500 px-2 pt-0.5 pb-1 text-white text-xs font-semibold tracking-wide rounded-tl-lg rounded-br-lg"><?php echo isset($_COOKIE['adminEmail']) ? $res['Item_Condition'] : 'Item_Condition' ?></span>
+                                        <span class="absolute top-2 right-2 <?php echo $conditionClass; ?> px-2 pt-0.5 pb-1 text-white text-xs font-semibold tracking-wide rounded-tl-lg rounded-br-lg">
+                                            <?php echo isset($_COOKIE['adminEmail']) ? $res['Item_Condition'] : 'Item_Condition'; ?>
+                                        </span>
+                                        <!-- php for change background color for item condition -->
+                                        <?php
+                                        $conditionClass = isset($_COOKIE['adminEmail'])
+                                            ? ($res['Item_Condition'] === 'Old Condition' ? 'bg-orange-500' : 'bg-green-500')
+                                            : 'bg-green-500';
+                                        ?>
                                     </div>
                                     <div class="px-4 pt-2">
                                         <h2 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $first_titles : 'title' ?></h2>

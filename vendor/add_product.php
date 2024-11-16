@@ -302,7 +302,7 @@ if (isset($_GET['name'])) {
                                     </a>
                                 </div>
                                 <div>
-                                    <input type="submit" value="Submit" name="submitBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 sm:px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1">
+                                    <input type="submit" value="Submit" name="submitBtn" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 sm:px-8 rounded-tl-lg rounded-br-lg cursor-pointer inline-flex items-center gap-1">
                                 </div>
                             </div>
                         </form>
