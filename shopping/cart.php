@@ -118,7 +118,7 @@ if(isset($_SESSION['selectedSize'])){
                                                 <form method="post" action="">
                                                     <select name="qty" id="qty_<?php echo $cart_products_id; ?>" class="border mt-1 rounded pr-9 pl-4 bg-gray-50 focus:border-gray-600 focus:ring-gray-600" onchange="this.form.submit()">
                                                     <?php
-                                                        $forQty = "SELECT * FROM items WHERE product_id = '$cart_products_id'";
+                                                        $forQty = "SELECT * FROM products WHERE product_id = '$cart_products_id'";
                                                         $qty_query = mysqli_query($con, $forQty);
 
                                                         $row = mysqli_fetch_assoc($qty_query);
@@ -251,50 +251,16 @@ if(isset($_SESSION['selectedSize'])){
         <span class="text-2xl font-medium">People also search</span>
         <div class="product-container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10 mt-4">
             <?php
-            $product_find = "SELECT * FROM items ORDER BY RAND() LIMIT 4";
+            $product_find = "SELECT * FROM products ORDER BY RAND() LIMIT 4";
             $product_query = mysqli_query($con, $product_find);
         
             if ($product_query) {
         
                 while ($res = mysqli_fetch_assoc($product_query)) {
                     $product_id = $res['product_id'];
-        
-                    // for image
-                    $json_img = $res['image'];
-                    $decode_img = json_decode($json_img, true);
-        
-                    foreach ($decode_img as $key => $value) {
-                        $first_color = $key;
-                        break;
-                    }
-        
-                    $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
-                    $first_image = $first_photo['img1'];
-        
-                    // for the title
-                    $json_title = $res['title'];
-                    $decode_title = json_decode($json_title, true);
-        
-                    foreach ($decode_title as $key => $value) {
-                        $first_color_title = $key;
-                        break;
-                    }
-        
-                    $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
-                    $first_title = $first_image_title['product_name'];
-        
-                    // for the price
-                    $json_mrp = $res['MRP'];
-                    $decodemrp = json_decode($json_mrp, true);
-        
-                    foreach ($decodemrp as $key => $value) {
-                        $first_size_price = $key;
-                        break;
-                    }
-                    $first_price = isset($decodemrp[$first_size_price]) ? $decodemrp[$first_size_price] : '';
-                    $MRP = $first_price['MRP'];
-                    $Your_Price = $first_price['Your_Price'];
-        
+                    
+                    $MRP = $res['vendor_mrp'];
+
                     // for qty
                     if($res['Quantity'] > 0){
                         $qty = 1;
@@ -315,14 +281,14 @@ if(isset($_SESSION['selectedSize'])){
                         <div class=" flex justify-center">
                             <div class="product-card card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl w-64 hover:ring-none overflow-hidden">
                                 <div class="p-2" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                                    <img src="<?php echo '/shopnest/src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-xl rounded-br-xl" loading="lazy" sizes="">
+                                    <img src="<?php echo '/shopnest/src/product_image/product_profile/' . $res['profile_image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-xl rounded-br-xl" loading="lazy" sizes="">
                                 </div>
                                 <div class="mt-2 space-y-3" onclick="window.location.href = 'product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                                    <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
+                                    <a href="product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $res['title'] ?></a>
                                     <div class="flex justify-between px-2">
                                         <p class="space-x-1">
-                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $MRP ?></span>
-                                            <del class="text-xs font-medium">₹<?php echo $Your_Price ?></del>
+                                            <span class="text-lg font-medium text-gray-900">₹<?php echo number_format($MRP) ?></span>
+                                            <del class="text-xs font-medium">₹<?php echo number_format($res['vendor_price']) ?></del>
                                         </p>
                                         <div class="flex items-center">
                                             <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
@@ -339,7 +305,7 @@ if(isset($_SESSION['selectedSize'])){
                                     <?php
                                         if($qty > 0){
                                             ?>
-                                                <a href="<?php echo $qty > 0 ? '/shopnest/shopping/add_to_cart.php?product_id=' . urlencode($product_id) . '&title=' . $first_title . '&color=' . $first_color . '&size=' . $product_size . '&qty=' . $qty . '&MRP=' . $MRP : '#'; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                                <a href="<?php echo $qty > 0 ? '/shopnest/shopping/add_to_cart.php?product_id=' . urlencode($product_id) . '&size=' . $product_size . '&qty=' . $qty . '&MRP=' . $MRP : '#'; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                                             <?php
                                         }else{
                                             ?>

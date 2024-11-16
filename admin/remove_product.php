@@ -17,7 +17,7 @@ include "../include/connect.php";
 if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
 
-    $delete_product = "DELETE FROM items WHERE product_id = '$product_id'";
+    $delete_product = "DELETE FROM products WHERE product_id = '$product_id'";
     $delete_query = mysqli_query($con, $delete_product);
 
     if ($delete_query) {

@@ -46,7 +46,7 @@ if (isset($_COOKIE['adminEmail'])) {
 
 
     // for total products
-    $products = "SELECT * FROM items";
+    $products = "SELECT * FROM products";
     $products_query = mysqli_query($con, $products);
 
     $products = mysqli_num_rows($products_query);

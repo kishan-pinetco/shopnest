@@ -79,11 +79,13 @@ if (isset($_GET['vendor_id'])) {
             <div class="grid grid-cols-4 gap-4">
                 <?php
                 if (isset($_GET['vendor_id'])) {
-                    $vendor_products = "SELECT * FROM items WHERE vendor_id = '$vendor_id'";
+                    $vendor_products = "SELECT * FROM products WHERE vendor_id = '$vendor_id'";
                     $vendorProduct_query = mysqli_query($con, $vendor_products);
 
                     while ($res = mysqli_fetch_assoc($vendorProduct_query)) {
                         $product_id = $res['product_id'];
+
+                        $MRP = $res['vendor_mrp'];
 
                         $get_reviews = "SELECT * FROM user_review WHERE product_id = '$product_id'";
                         $review_query = mysqli_query($con, $get_reviews);
@@ -104,31 +106,7 @@ if (isset($_GET['vendor_id'])) {
                         }else {
                             $formatted_average = "0.0";
                         }
-                        
-                        // for image
-                        $json_img = $res['image'];
-                        $decode_img = json_decode($json_img, true);
-            
-                        foreach ($decode_img as $key => $value) {
-                            $first_color = $key;
-                            break;
-                        }
-            
-                        $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
-                        $first_image = $first_photo['img1'];
-            
-                        // for the title
-                        $json_title = $res['title'];
-                        $decode_title = json_decode($json_title, true);
-            
-                        foreach ($decode_title as $key => $value) {
-                            $first_color_title = $key;
-                            break;
-                        }
-            
-                        $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
-                        $first_title = $first_image_title['product_name'];
-            
+
                         // for qty
                         $qty = 1;
             
@@ -143,14 +121,14 @@ if (isset($_GET['vendor_id'])) {
                             <li class="splide__slide flex justify-center mt-3">
                                 <div class="card flex flex-col items-center ring-2 ring-gray-300 rounded-tl-2xl rounded-br-2xl hover:ring-none w-64 overflow-hidden">
                                     <div class="p-2" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                                        <img src="<?php echo '../src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
+                                        <img src="<?php echo '../src/product_image/product_profile/' . $res['profile_image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
                                     </div>
                                     <div class="mt-2 space-y-3" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                                        <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
+                                        <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $res['title'] ?></a>
                                         <div class="flex justify-between px-2">
                                             <p class="space-x-1">
-                                                <span class="text-lg font-medium text-gray-900">₹<?php echo $res['MRP'] ?></span>
-                                                <del class="text-xs font-medium">₹<?php echo $res['Your_Price'] ?></del>
+                                                <span class="text-lg font-medium text-gray-900">₹<?php echo $MRP ?></span>
+                                                <del class="text-xs font-medium">₹<?php echo $res['vendor_price'] ?></del>
                                             </p>
                                             <div class="flex items-center">
                                                 <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
@@ -164,7 +142,17 @@ if (isset($_GET['vendor_id'])) {
                                         </div>
                                     </div>
                                     <div class="bg-gray-600 w-full mt-2 py-1.5 flex justify-center">
-                                        <a href="../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $first_title; ?>&color=<?php echo $first_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $qty; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                        <?php
+                                            if($qty > 0){
+                                                ?>
+                                                    <a href="<?php echo $qty > 0 ? '../shopping/add_to_cart.php?product_id=' . urlencode($product_id) . '&size=' . $product_size . '&qty=' . $qty . '&MRP=' . $MRP : '#'; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                                <?php
+                                            }else{
+                                                ?>
+                                                    <h1 class="bg-white border-2 border-gray-800 text-red-600 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center cursor-default select-none">Out of Stock</h1>
+                                                <?php
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </li>

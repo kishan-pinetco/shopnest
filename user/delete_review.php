@@ -42,7 +42,7 @@
             $formatted_average = "0.0";
         }
 
-        $update_review = "UPDATE items SET avg_rating='$formatted_average',total_reviews='$totalReviews' WHERE product_id = '$product_id'";
+        $update_review = "UPDATE products SET avg_rating='$formatted_average',total_reviews='$totalReviews' WHERE product_id = '$product_id'";
         $update_review_query = mysqli_query($con, $update_review);
 
         if($delete_query){

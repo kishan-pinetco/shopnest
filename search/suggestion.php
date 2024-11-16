@@ -42,7 +42,7 @@ if (isset($_POST["query"]) || isset($_POST["query2"])) {
     $output = "";
     $searchTerm = isset($_POST["query"]) ? $_POST["query"] : $_POST["query2"];
     $mydata = mysqli_real_escape_string($con, $searchTerm);
-    $query = "SELECT * FROM items WHERE keywords LIKE '%$mydata%'";
+    $query = "SELECT * FROM products WHERE keywords LIKE '%$mydata%'";
     $result = mysqli_query($con, $query);
     
     // Use rounded-b-lg to only round the bottom corners

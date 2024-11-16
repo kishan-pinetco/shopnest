@@ -120,8 +120,7 @@ if (isset($_COOKIE['user_id'])) {
                 <?php
                     if(isset($_COOKIE['user_id']) && isset($_GET['order_id'])){
                         ?>
-                            <!-- <a href="../user/re-order.php?order_id=<?php echo $product_id; ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a> -->
-                            <a href="../user/re-order.php?product_id=<?php echo urlencode($products_id); ?>&title=<?php echo $product_title; ?>&color=<?php echo $product_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $product_qty; ?>&MRP=<?php echo $product_MRP ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a>
+                            <a href="../user/re-order.php?product_id=<?php echo urlencode($products_id); ?>&color=<?php echo $product_color; ?>&size=<?php echo $product_size; ?>&qty=<?php echo $product_qty; ?>&MRP=<?php echo $product_MRP ?>" class="bg-gray-600 text-white font-semibold py-2.5 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Re-Order</a>
                         <?php
                     }else{
                         ?>

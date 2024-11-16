@@ -23,30 +23,13 @@
     if(isset($_GET['product_id'])) {
         $product_id = $_GET['product_id'];
         
-        $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
+        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
         
         $row = mysqli_fetch_assoc($product_query);
+        $productImage = $row['profile_image_1'];
 
-        $json_img = $row['image'];
-
-        $decodeImg = json_decode($json_img, true);
-
-        $color_of_image = $_GET['color'];
-
-        foreach($decodeImg as $key => $value){
-            $first_color_img = $key;
-            if($first_color_img == $color_of_image){
-                break;
-            }
-        }
-
-        $first_img = isset($decodeImg[$first_color_img]) ? $decodeImg[$first_color_img] : '';
-
-        $first_images = $first_img['img1'];
-
-        // title 
-        $title = $_GET['title'];
+        $title = $row['title'];
     }
 
     if(isset($_COOKIE['user_id'])){
@@ -93,7 +76,7 @@
         <div class="grid grid-col-1 gap-y-4">
             <h2 class="font-bold text-2xl text-black">Write review</h2>
             <div class="flex flex-col item-center justify-start gap-2 md:flex-row">
-                <img class="w-20 h-auto" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $first_images : '../src/sample_images/product_1.jpg'?>" alt="">
+                <img class="w-20 h-auto" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $row['profile_image_1'] : '../src/sample_images/product_1.jpg'?>" alt="">
                 <span class="text-xl font-medium line-clamp-1 my-auto h-7 cursor-default" title="<?php echo isset($product_id) ? $title : 'product_title'?>"><?php echo isset($product_id) ? $title : 'product_title'?></span>
             </div>
         </div>
@@ -179,7 +162,7 @@
             $selectedStars = $_POST['stars'];
             $starString = implode(", ", $selectedStars);
 
-            $insertReview = "INSERT INTO user_review(product_id, user_id, product_img, product_title, Rating, Headline, description, public_name, profile_image, date) VALUES ('$product_id','$userId','$first_images','$title','$starString','$headline','$description','$public_Name','$userprofileImage','$review_insert_Date')";
+            $insertReview = "INSERT INTO user_review(product_id, user_id, product_img, product_title, Rating, Headline, description, public_name, profile_image, date) VALUES ('$product_id','$userId','$productImage','$title','$starString','$headline','$description','$public_Name','$userprofileImage','$review_insert_Date')";
             $review_query = mysqli_query($con, $insertReview);
 
             if($review_query){
@@ -205,7 +188,7 @@
                     $formatted_average = "0.0";
                 }
 
-                $update_review = "UPDATE items SET avg_rating='$formatted_average',total_reviews='$totalReviews' WHERE product_id = '$product_id'";
+                $update_review = "UPDATE products SET avg_rating='$formatted_average',total_reviews='$totalReviews' WHERE product_id = '$product_id'";
                 $update_review_query = mysqli_query($con, $update_review);
 
                 ?>

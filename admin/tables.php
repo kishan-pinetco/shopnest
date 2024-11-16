@@ -27,7 +27,7 @@ if (isset($_COOKIE['adminEmail'])) {
               COUNT(DISTINCT p.product_id) AS total_products,
               COUNT(DISTINCT o.order_id) AS total_sales
           FROM vendor_registration vr
-          LEFT JOIN items p ON vr.vendor_id = p.vendor_id
+          LEFT JOIN products p ON vr.vendor_id = p.vendor_id
           LEFT JOIN orders o ON vr.vendor_id = o.vendor_id
           GROUP BY vr.vendor_id
           ORDER BY total_products DESC
@@ -343,48 +343,16 @@ if (isset($_COOKIE['adminEmail'])) {
                                         $i = 1;
                                         while ($tr = mysqli_fetch_array($topRated_query)) {
                                             $product_id = $tr['product_id'];
-                                            $selectProducts = "SELECT * FROM items WHERE product_id = '$product_id'";
+                                            $selectProducts = "SELECT * FROM products WHERE product_id = '$product_id'";
                                             $pQeury = mysqli_query($con, $selectProducts);
 
                                             $row = mysqli_fetch_assoc($pQeury);
 
                                             if (mysqli_num_rows($pQeury) > 0) {
-                                                // for image
-                                                $json_img = $row['image'];
-                                                $decode_img = json_decode($json_img, true);
-
-                                                foreach ($decode_img as $key => $value) {
-                                                    $first_color = $key;
-                                                    break;
-                                                }
-
-                                                $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
-                                                $first_image = $first_photo['img1'];
 
                                                 // for the title
-                                                $json_title = $row['title'];
-                                                $decode_title = json_decode($json_title, true);
-
-                                                foreach ($decode_title as $key => $value) {
-                                                    $first_color_title = $key;
-                                                    break;
-                                                }
-
-                                                $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
-                                                $first_title = $first_image_title['product_name'];
-
-                                                // for price
-                                                $json_mrp = $row['MRP'];
-                                                $decodemrp = json_decode($json_mrp, true);
-
-                                                foreach ($decodemrp as $key => $value) {
-                                                    $first_size_price = $key;
-                                                    break;
-                                                }
-
-                                                $first_price = isset($decodemrp[$first_size_price]) ? $decodemrp[$first_size_price] : '';
-                                                $MRP = $first_price['MRP'];
-                                                $Your_Price = $first_price['Your_Price'];
+                                                $title = $row['title'];
+                                                $MRP = $row['vendor_mrp'];
 
                                                 // for seller
                                                 $vendor_id = $row['vendor_id'];
@@ -392,18 +360,18 @@ if (isset($_COOKIE['adminEmail'])) {
                                                 $sQuery = mysqli_query($con, $seller);
                                                 $ven = mysqli_fetch_assoc($sQuery);
 
-                                        ?>
-                                                <tbody class="bg-white border">
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 border"><?php echo $i; ?></td>
-                                                        <td class="px-4 py-3 border"><img class="h-20 w-20 object-cover m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $first_image : 'product Img'; ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                        <td class="px-4 py-3 leading-9 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $first_title : 'title'; ?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $ven['username'] : 'username'; ?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['avg_rating'] : 'formatted_average'; ?></td>
-                                                        <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['total_reviews'] : 'totalRatings'; ?></td>
-                                                    </tr>
-                                                </tbody>
-                                        <?php
+                                                ?>
+                                                    <tbody class="bg-white border">
+                                                        <tr class="text-gray-700">
+                                                            <td class="px-4 py-3 border"><?php echo $i; ?></td>
+                                                            <td class="px-4 py-3 border"><img class="h-20 w-20 object-cover m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $row['profile_image_1'] : 'product Img'; ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                            <td class="px-4 py-3 leading-9 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $title : 'title'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $ven['username'] : 'username'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['avg_rating'] : 'formatted_average'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['total_reviews'] : 'totalRatings'; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                <?php
                                                 $i++;
                                             } else {
                                             }

@@ -1,4 +1,10 @@
 <?php
+
+if (!isset($_GET['name'])) {
+    header("Location: choose_product.php");
+    exit;
+}
+
 if (isset($_COOKIE['user_id'])) {
     header("Location: /shopnest/user/profile.php");
     exit;
@@ -111,6 +117,14 @@ if (isset($_GET['name'])) {
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
+                                    <label for="same_id" class="require">Product Id:</label>
+                                    <input type="text" name="same_id" id="same_id" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['same_id']) ? $_SESSION['same_id'] : ''; ?>" />
+                                    
+                                    <p id="showError" class="text-red-600 mt-1" style="display:none;">* This Product ID is already in use. Please choose a different one.</p>
+                                    <p id="showsuccess" class="text-green-600 mt-1" style="display:none;">* This Product ID is available and can be used.</p> 
+                                </div>
+
+                                <div class="md:col-span-5">
                                     <label for="full_name" class="require">Product tital:</label>
                                     <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_SESSION['full_name']) ? $_SESSION['full_name'] : ''; ?>" />
                                 </div>
@@ -122,7 +136,7 @@ if (isset($_GET['name'])) {
 
                                 <div class="md:col-span-2">
                                     <label for="category" class="require">Category:</label>
-                                    <input type="text" name="Category" id="Category" class="hover:cursor-not-allowed opacity-60 h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_GET['name']) ? $product : 'Category' ?>" placeholder="" disabled />
+                                    <input type="text" name="Category" id="Category" class="hover:cursor-not-allowed opacity-60 h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($product) ? $product : 'Category' ?>" placeholder="" disabled />
                                 </div>
 
                                 <div class="md:col-span-1">
@@ -311,6 +325,36 @@ if (isset($_GET['name'])) {
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#same_id').on("input", function(e){
+                e.preventDefault();
+            
+                let sameId = $('#same_id').val();
+            
+                $.ajax({
+                    type: "POST",
+                    url: "checkId.php",
+                    data: { sameId: sameId },
+                    success: function(response) {
+                        if (response === 'taken') {
+                            // ID is already taken
+                            $('#showError').show();
+                            $('#showsuccess').hide();
+                        } else if (response === 'available') {
+                            // ID is available
+                            $('#showsuccess').show();
+                            $('#showError').hide();
+                        }
+                    },
+                    error: function() {
+                        console.log("AJAX request failed.");
+                    }
+                });
+            });
+        });
+    </script>
 
 
     <!-- success Message -->
@@ -556,6 +600,7 @@ if (isset($_POST['submitBtn'])) {
 
     $Product_insert_Date = date('d-m-Y');
 
+    $same_id = $_POST['same_id'];
     $products_name = $_POST['full_name'];
     $full_name = str_replace("'", "/", $products_name);
     $Company_name = mysqli_real_escape_string($con, $_POST['Company_name']);
@@ -646,6 +691,11 @@ if (isset($_POST['submitBtn'])) {
         }
     }
 
+    $profileImage1 = $profileImages[0];
+    $profileImage2 = $profileImages[1];
+    $profileImage3 = $profileImages[2];
+    $profileImage4 = $profileImages[3];
+
     // Process cover images
     $coverImages = [];
 
@@ -693,6 +743,7 @@ if (isset($_POST['submitBtn'])) {
     $avg_rating = '0.0';
     $total_reviews = '0';
 
+    $_SESSION['same_id'] = $same_id;
     $_SESSION['full_name'] = $full_name;
     $_SESSION['Company_name'] = $Company_name;
     $_SESSION['type'] = $type;
@@ -702,6 +753,11 @@ if (isset($_POST['submitBtn'])) {
     $_SESSION['condition'] = $condition;
     $_SESSION['description'] = $description;
     $_SESSION['color'] = $pcolor;
+
+    if (empty($same_id)) {
+        echo '<script>displayErrorMessage("Please fill Product Id.");</script>';
+        exit();
+    }
 
     if (empty($full_name)) {
         echo '<script>displayErrorMessage("Please fill Product Title.");</script>';
@@ -748,71 +804,28 @@ if (isset($_POST['submitBtn'])) {
         exit();
     }
 
-    if (empty($profileImages[0])) {
+    if (empty($profileImage1)) {
         echo '<script>displayErrorMessage("Please Insert first Image.");</script>';
         exit();
     }
 
-    if (empty($profileImages[1])) {
+    if (empty($profileImage2)) {
         echo '<script>displayErrorMessage("Please Insert Second Image Image.");</script>';
         exit();
     }
 
     if (
-        empty($full_name) || empty($Company_name) || empty($type) ||
-        empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($profileImages[0]) || empty($profileImages[1])
+        empty($same_id) || empty($full_name) || empty($Company_name) || empty($type) ||
+        empty($your_price) || empty($MRP) || empty($quantity) || empty($condition) || empty($keywords_value) || empty($profileImage1) || empty($profileImage2)
     ) {
         echo '<script>displayErrorMessage("Please fill in all required fields.");</script>';
     } else {
         if ($allFilesUploaded) {
-            if (
-                is_array($normalized_color) && !empty($normalized_color) &&
-                !in_array('', $normalized_color) && !in_array('none', $normalized_color)
-            ) {
-
-                // Build the color image array
-                $color_img = [];
-                $color_img[$color] = [
-                    'img1' => $profileImages[0],
-                    'img2' => $profileImages[1],
-                    'img3' => $profileImages[2],
-                    'img4' => $profileImages[3]
-                ];
-
-                // Encode the color image array to JSON
-                $color_img_json = json_encode($color_img);
-
-                $product_titles = [
-                    $color => [
-                        'product_name' => $full_name
-                    ],
-                ];
-
-                $product_titles_json = json_encode($product_titles);
-            } else {
-                $color_img['N-A'] = [
-                    'img1' => $profileImages[0],
-                    'img2' => $profileImages[1],
-                    'img3' => $profileImages[2],
-                    'img4' => $profileImages[3]
-                ];
-
-                // Encode the color image array to JSON
-                $color_img_json = json_encode($color_img);
-
-
-                $product_titles = [
-                    'N-A' => [
-                        'product_name' => $full_name
-                    ],
-                ];
-
-                $product_titles_json = json_encode($product_titles);
-            }
-            $product_insert = "INSERT INTO items (vendor_id, title, image, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$vendor_id', '$product_titles_json', '$color_img_json', '$coverImage1', '$coverImage2', '$coverImage3', '$coverImage4', '$Company_name', '$Category', '$type', '$json_size_encode', '$MRP', '$your_price', '$quantity', '$condition', '$description', '$pcolor', '$size_filter', '$keywords_value', '$avg_rating', '$total_reviews', '$Product_insert_Date')";
+            $product_insert = "INSERT INTO products(same_id, vendor_id, title, profile_image_1, profile_image_2, profile_image_3, profile_image_4, cover_image_1, cover_image_2, cover_image_3, cover_image_4, company_name, Category, Type, MRP, vendor_mrp, vendor_price, Quantity, Item_Condition, Description, color, size, keywords, avg_rating, total_reviews, date) VALUES ('$same_id','$vendor_id','$full_name','$profileImage1','$profileImage2','$profileImage3','$profileImage4','$coverImage1','$coverImage2','$coverImage3','$coverImage4','$Company_name','$Category','$type','$json_size_encode','$MRP','$your_price','$quantity','$condition','$description','$pcolor','$size_filter','$keywords_value','$avg_rating','$total_reviews','$Product_insert_Date')";
             $product_query = mysqli_query($con, $product_insert);
 
             if ($product_query) {
+                unset($_SESSION['same_id']);
                 unset($_SESSION['full_name']);
                 unset($_SESSION['Company_name']);
                 unset($_SESSION['type']);

@@ -328,7 +328,7 @@ $_SESSION['searchWord'] = $keywords;
                         <div class="mt-3 text-gray-600">
                             <ul class="space-y-2 text-gray-700">
                                 <?php
-                                $select_color = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
+                                $select_color = "SELECT * FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                                 $color_query = mysqli_query($con, $select_color);
 
                                 $color_array = [];
@@ -373,7 +373,7 @@ $_SESSION['searchWord'] = $keywords;
                         <div class="mt-2 text-gray-700">
                             <ul class="space-y-2">
                                 <?php
-                                $select_size = "SELECT size FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
+                                $select_size = "SELECT size FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                                 $size_query = mysqli_query($con, $select_size);
 
 
@@ -508,19 +508,19 @@ $_SESSION['searchWord'] = $keywords;
                 $sort_order = 'ASC';
 
                 if ($filter_query) {
-                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') AND $filter_query";
+                    $products = "SELECT * FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') AND $filter_query";
                 } elseif ($selected === 'Newest') {
-                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
+                    $products = "SELECT * FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                 } elseif ($selected === 'All') {
-                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
+                    $products = "SELECT * FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                 } elseif ($selected === 'Low to High') {
-                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) $sort_order";
+                    $products = "SELECT * FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) $sort_order";
                 } elseif ($selected === 'High to Low') {
-                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) DESC";
+                    $products = "SELECT * FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY CAST(REPLACE($sort_column, ',', '') AS UNSIGNED) DESC";
                 } elseif ($selected === 'Most Popular') {
                     $products = "SELECT
                             pr.product_id,
-                            pr.image,
+                            pr.profile_image_1,
                             pr.title,
                             pr.MRP,
                             pr.vendor_mrp,
@@ -531,15 +531,15 @@ $_SESSION['searchWord'] = $keywords;
                             pr.avg_rating,
                             pr.total_reviews,
                             COUNT(o.product_id) AS order_count
-                        FROM items pr
+                        FROM products pr
                         LEFT JOIN orders o ON pr.product_id = o.product_id
                         WHERE (pr.keywords LIKE '%$keywords%' OR pr.Category LIKE '%$keywords%')
-                        GROUP BY pr.product_id, pr.image, pr.title, pr.MRP, pr.vendor_mrp, pr.vendor_price, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
+                        GROUP BY pr.product_id, pr.profile_image_1, pr.title, pr.MRP, pr.vendor_mrp, pr.vendor_price, pr.size, pr.color, pr.Quantity, pr.avg_rating, pr.total_reviews
                         ORDER BY order_count DESC";
                 } elseif ($selected === 'Best Rating') {
-                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY avg_rating DESC";
+                    $products = "SELECT * FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%') ORDER BY avg_rating DESC";
                 } else {
-                    $products = "SELECT * FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
+                    $products = "SELECT * FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                 }
 
                 $Product_query = mysqli_query($con, $products);
@@ -559,29 +559,7 @@ $_SESSION['searchWord'] = $keywords;
                         while ($res = mysqli_fetch_assoc($Product_query)) {
                             $product_id = $res['product_id'];
 
-                            // for image
-                            $json_img = $res['image'];
-                            $decode_img = json_decode($json_img, true);
-
-                            foreach ($decode_img as $key => $value) {
-                                $first_color = $key;
-                                break;
-                            }
-
-                            $first_photo = isset($decode_img[$first_color]) ? $decode_img[$first_color] : '';
-                            $first_image = $first_photo['img1'];
-
-                            // for the title
-                            $json_title = $res['title'];
-                            $decode_title = json_decode($json_title, true);
-
-                            foreach ($decode_title as $key => $value) {
-                                $first_color_title = $key;
-                                break;
-                            }
-
-                            $first_image_title = isset($decode_title[$first_color_title]) ? $decode_title[$first_color_title] : '';
-                            $first_title = $first_image_title['product_name'];
+                            $MRP = $res['vendor_mrp'];
 
                             // for qty
                             if($res['Quantity'] > 0){
@@ -601,14 +579,14 @@ $_SESSION['searchWord'] = $keywords;
                         ?>
                             <div class="product-card ring-2 ring-gray-300  rounded-tl-xl rounded-br-xl h-fit w-60 overflow-hidden">
                                 <div class="p-2" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                                    <img src="<?php echo '../src/product_image/product_profile/' . $first_image; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
+                                    <img src="<?php echo '../src/product_image/product_profile/' . $res['profile_image_1']; ?>" alt="" class="product-card__hero-image css-1fxh5tw h-56 w-64 object-cover rounded-tl-2xl rounded-br-2xl" loading="lazy" sizes="">
                                 </div>
                                 <div class="mt-2 space-y-3" onclick="window.location.href = '../product/product_detail.php?product_id=<?php echo $res['product_id']; ?>'">
-                                    <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $first_title ?></a>
+                                    <a href="../product/product_detail.php?product_id=<?php echo $res['product_id'] ?>" class="text-sm font-medium line-clamp-2 cursor-pointer px-2"><?php echo $res['title'] ?></a>
                                     <div class="flex justify-between px-2">
                                         <p class="space-x-1">
-                                            <span class="text-lg font-medium text-gray-900">₹<?php echo $res['vendor_mrp'] ?></span>
-                                            <del class="text-xs font-medium">₹<?php echo $res['vendor_price'] ?></del>
+                                            <span class="text-lg font-medium text-gray-900">₹<?php echo number_format($MRP) ?></span>
+                                            <del class="text-xs font-medium">₹<?php echo number_format($res['vendor_price']) ?></del>
                                         </p>
                                         <div class="flex items-center">
                                             <span class="bg-gray-900 rounded-tl-md rounded-br-md px-2 py-0.5 flex items-center gap-1">
@@ -625,7 +603,7 @@ $_SESSION['searchWord'] = $keywords;
                                     <?php
                                         if($qty > 0){
                                             ?>
-                                                <a href="<?php echo '../shopping/add_to_cart.php?product_id=' . urlencode($product_id) . '&title=' . urlencode($first_title) . '&color=' . urlencode($first_color) . '&size=' . urlencode($product_size) . '&qty=' . intval($qty) . '&MRP=' . intval($res['vendor_mrp']); ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
+                                                <a href="<?php echo $qty > 0 ? '../shopping/add_to_cart.php?product_id=' . urlencode($product_id) . '&size=' . $product_size . '&qty=' . $qty . '&MRP=' . $MRP : '#'; ?>" class="bg-white border-2 border-gray-800 text-gray-900 rounded-tl-xl rounded-br-xl w-40 py-1 text-sm font-semibold text-center">Add to cart</a>
                                             <?php
                                         }else{
                                             ?>
@@ -898,7 +876,7 @@ $_SESSION['searchWord'] = $keywords;
                         <div x-show="open" class="mt-2 text-gray-600" style="display: none;">
                             <ul class="space-y-2">
                                 <?php
-                                $select_size = "SELECT size FROM items WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
+                                $select_size = "SELECT size FROM products WHERE (keywords LIKE '%$keywords%' OR Category LIKE '%$keywords%' OR Type LIKE '%$keywords%' OR company_name LIKE '%$keywords%')";
                                 $size_query = mysqli_query($con, $select_size);
 
 

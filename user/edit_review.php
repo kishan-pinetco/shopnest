@@ -17,7 +17,7 @@
         $product_id = $_GET['product_id'];
         $review_id = $_GET['review_id'];
         
-        $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
+        $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
         $product_query = mysqli_query($con,$product_find);
         
         $row = mysqli_fetch_assoc($product_query);

@@ -12,6 +12,10 @@
         exit;
     }
 
+    if(isset($_SESSION['same_id'])){
+        unset($_SESSION['same_id']);
+    }
+
     if(isset($_SESSION['full_name'])){
         unset($_SESSION['full_name']);
     }

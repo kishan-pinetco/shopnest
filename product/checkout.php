@@ -21,26 +21,13 @@ include "../include/connect.php";
 
 if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
-    $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
+    $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
     $product_query = mysqli_query($con, $product_find);
+    $res = mysqli_fetch_assoc($product_query);
 
-    $pimg = '';
-
-    while ($res = mysqli_fetch_assoc($product_query)) {
-        $color = $_GET['color'];
-
-        $json_img = $res['image'];
-
-        $color_img = json_decode($json_img, true);
-
-        $product_imge = isset($color_img[$color]) ? $color_img[$color] : '';
-
-        $pimg = $product_imge['img1'];
-    }
-
-    $title = $_GET['title'];
-
-    $color = $_GET['color'];
+    $title = $res['title'];
+    $image = $res['profile_image_1'];
+    $color = $res['color'];
 
     if ($_GET['size'] == '') {
         $size = '-';
@@ -49,11 +36,6 @@ if (isset($_GET['product_id'])) {
     }
 
     $qty = $_GET['qty'];
-
-    $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
-    $product_query = mysqli_query($con, $product_find);
-
-    $row = mysqli_fetch_assoc($product_query);
 
     if (isset($product_id)) {
         $MRP = $_GET['MRP'];
@@ -65,7 +47,7 @@ if (isset($_GET['product_id'])) {
         $totalPriceWithQty = number_format($productPrice * $qty);
     }
 
-    $vendor_id = $row['vendor_id'];
+    $vendor_id = $res['vendor_id'];
 
     $vendor_find = "SELECT * FROM vendor_registration WHERE vendor_id  = '$vendor_id'";
     $vendor_query = mysqli_query($con, $vendor_find);
@@ -170,7 +152,7 @@ if (isset($_GET['product_id'])) {
                 <p class="text-gray-400">Check your items. And select a suitable payment method.</p>
                 <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
                     <div class="flex flex-col rounded-lg bg-white sm:flex-row">
-                        <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $pimg : '../src/sample_images/product_1.jpg' ?>" alt="" />
+                        <img class="m-2 h-full md:h-32 rounded-md object-cover object-center" src="<?php echo isset($product_id) ? '../src/product_image/product_profile/' . $image : '../src/sample_images/product_1.jpg' ?>" alt="" />
                         <div class="flex w-full flex-col px-4 py-4 gap-y-3">
                             <span class="font-semibold line-clamp-2"><?php echo isset($product_id) ? $title : 'product title' ?></span>
                             <p class="text-lg font-semibold text-green-500">₹<?php echo isset($product_id) ? $totalPriceWithQty : 'MRP' ?></p>
@@ -429,7 +411,7 @@ if (isset($_GET['product_id'])) {
                     url: "",
                     data: {
                         title: "<?php echo $title ?>",
-                        pimg: "<?php echo $pimg ?>",
+                        image: "<?php echo $image ?>",
                         totalPriceWithQty: "<?php echo $totalPriceWithQty ?>",
                         color: "<?php echo $color ?>",
                         size: "<?php echo $size ?>",
@@ -478,7 +460,7 @@ include "../include/connect.php";
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $order_title = $_POST['title'];
-        $order_image = $_POST['pimg'];
+        $order_image = $_POST['image'];
         $order_price = $_POST['totalPriceWithQty'];
         $order_color = $_POST['color'];
         $order_size = $_POST['size'];
@@ -514,7 +496,7 @@ include "../include/connect.php";
 
         $order_place_date = date('d-m-Y');
 
-        $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
+        $get_qty = "SELECT * FROM products WHERE product_id = '$product_id'";
         $get_qty_query = mysqli_query($con, $get_qty);
 
         $qty = mysqli_fetch_assoc($get_qty_query);
@@ -527,7 +509,7 @@ include "../include/connect.php";
         $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$order_place_date')";
         $order_insert_query = mysqli_query($con, $order_insert_sql);
 
-        $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
+        $update_qty = "UPDATE products SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
         $update_qty_quary = mysqli_query($con, $update_qty);
 
         if($update_qty_quary){
@@ -618,13 +600,7 @@ include "../include/connect.php";
             </html>";
 
             // Send the email
-            if ($mail->send()) {
-                ?>
-                <!-- <script>
-                    document.getElementById('overlay').style.display = 'none';
-                    window.location.href = '';   
-                </script> -->
-                <?php
+            if ($mail->send()) {    
                 echo "<script>
                     document.getElementById('overlay').style.display = 'none';
                     window.location.href = '../index.php';

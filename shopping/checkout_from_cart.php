@@ -39,7 +39,7 @@ if (isset($_COOKIE['user_id'])) {
         }
     }
 
-    $product_find = "SELECT * FROM items WHERE product_id = '$cart_products_id'";
+    $product_find = "SELECT * FROM products WHERE product_id = '$cart_products_id'";
     $product_query = mysqli_query($con, $product_find);
 
     $row = mysqli_fetch_assoc($product_query);
@@ -130,7 +130,7 @@ if (isset($_POST['placeOrder'])) {
 
                     $product_qty = $product_quantity = isset($quantityMap[$index]) ? $quantityMap[$index] : 'N/A';
 
-                    $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
+                    $get_qty = "SELECT * FROM products WHERE product_id = '$product_id'";
                     $get_qty_query = mysqli_query($con, $get_qty);
 
                     $qty = mysqli_fetch_assoc($get_qty_query);
@@ -141,7 +141,7 @@ if (isset($_POST['placeOrder'])) {
                     $order_insert_sql = "INSERT INTO orders (order_title, order_image, order_price, order_color, order_size, qty, user_id, product_id, vendor_id, user_first_name, user_last_name, user_email, user_mobile, user_address, user_state, user_city, user_pin, payment_type, total_price, vendor_profit, admin_profit, date) VALUES ('$order_title', '$order_image', '$order_price', '$order_color', '$order_size', '$product_qty', '$user_id', '$product_id', '$vendor_id', '$FirstName', '$lastName', '$user_email', '$Phone_number', '$Address', '$state', '$city', '$pin', '$paymentType', '$totalProductPrice', '$vendor_profit', '$admin_profit', '$review_insert_Date')";
                     $order_insert_query = mysqli_query($con, $order_insert_sql);
 
-                    $update_qty = "UPDATE items SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
+                    $update_qty = "UPDATE products SET Quantity='$remove_quty' WHERE product_id = '$product_id'";
                     $update_qty_quary = mysqli_query($con, $update_qty);
 
                     if ($update_qty_quary) {

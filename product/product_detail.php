@@ -17,62 +17,33 @@ if (isset($_COOKIE['adminEmail'])) {
 ?>
 
 <?php
-session_start();
-
 include "../include/connect.php";
 
 if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
 
-    $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
+    $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
     $product_query = mysqli_query($con, $product_find);
 
     $res = mysqli_fetch_assoc($product_query);
     $colors = $res['color'];
 
-    // for image
-    $json_img = $res["image"];
-    $color_img = json_decode($json_img, true);
-    foreach ($color_img as $key => $value) {
-        $first_color = $key;
-        break;
-    }
-
-    $first_img = isset($color_img[$first_color]) ? $color_img[$first_color] : '';
-
-    $first_img1 = $first_img['img1'];
-    $first_img2 = $first_img['img2'];
-    $first_img3 = $first_img['img3'];
-    $first_img4 = $first_img['img4'];
+    $first_img1 = $res['profile_image_1'];
+    $first_img2 = $res['profile_image_2'];
+    $first_img3 = $res['profile_image_3'];
+    $first_img4 = $res['profile_image_4'];
 
 
     // for the title
-    $json_title = $res['title'];
-    $title_json = json_decode($json_title, true);
-
-    foreach ($title_json as $key => $value) {
-        $first_color_title = $key;
-        break;
-    }
-
-    $first_name = isset($title_json[$first_color_title]) ? $title_json[$first_color_title] : '';
-    $first_title = $first_name['product_name'];
+    $title = $res['title'];
 
     // for the price
     $json_mrp = $res['MRP'];
     $decodemrp = json_decode($json_mrp, true);
 
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        die("Error decoding JSON: " . json_last_error_msg());
-    }
-
+    // for the size
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['size'])) {
         $_SESSION['selectedSize'] = $_POST['size'];
-        unset($_SESSION['selectedColor1']);
-        unset($_SESSION['product_title1']);
-
-        unset($_SESSION['selectedColor2']);
-        unset($_SESSION['product_title2']);
     }
 
     // for the size
@@ -96,128 +67,12 @@ if (isset($_GET['product_id'])) {
     $MRP = isset($first_price['MRP']) ? $first_price['MRP'] : null;
     $Your_Price = isset($first_price['Your_Price']) ? $first_price['Your_Price'] : null;
 
-    if ($MRP === null || $Your_Price === null) {
-        echo "Error: Price information is not available.";
-    }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['colorName'])) {
-            $colorName = htmlspecialchars($_POST['colorName'], ENT_QUOTES, 'UTF-8');
-
-            $first_img = isset($color_img[$colorName]) ? $color_img[$colorName] : '';
-
-            if (is_array($first_img)) {
-                $first_img1 = isset($first_img['img1']) ? $first_img['img1'] : '';
-                $first_img2 = isset($first_img['img2']) ? $first_img['img2'] : '';
-                $first_img3 = isset($first_img['img3']) ? $first_img['img3'] : '';
-                $first_img4 = isset($first_img['img4']) ? $first_img['img4'] : '';
-            } else {
-                // Handle error or set default values
-                $first_img1 = $first_img2 = $first_img3 = $first_img4 = '';
-            }
-
-            $first_name = isset($title_json[$colorName]) ? $title_json[$colorName] : '';
-            $first_title = is_array($first_name) ? $first_name['product_name'] : '';
-        }
-    }
-
-    foreach ($color_img as $key => $value) {
-        $defaultColor = $key;
-        break;
-    }
-
-    foreach ($title_json as $key => $value) {
-        $my_product_title = $key;
-        $first_name = isset($title_json[$my_product_title]) ? $title_json[$my_product_title] : '';
-        $My_first_title = $first_name['product_name'];
-        break;
-    }
-
-
-    // for buy button
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['colorChoice'])) {
-            $_SESSION['selectedColor1'][$product_id] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-            $_SESSION['product_title1'][$product_id] = $first_title;
-        } else {
-            if (!isset($_SESSION['selectedColor1'])) {
-                $_SESSION['selectedColor1'][$product_id] = $defaultColor;
-                $_SESSION['product_title1'][$product_id] = $My_first_title;
-            }
-        }
-
-        $selectedColor = $_SESSION['selectedColor1'];
-        $product_first_name = $_SESSION['product_title1'];
-
-        if (isset($_POST['buyBtn'])) {
-            $myColor = isset($_SESSION['selectedColor1'][$product_id]) ? $_SESSION['selectedColor1'][$product_id] : $defaultColor;
-            $myTitle = isset($_SESSION['product_title1'][$product_id]) ? $_SESSION['product_title1'][$product_id] : $My_first_title;
-
-            $size = isset($_POST['size']) ? $_POST['size'] : null;
-            $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
-
-            if (isset($_COOKIE['user_id'])) {
-                $encoded_product_id = urlencode($product_id);
-                $encoded_size = urlencode($size);
-                $encoded_qty = urlencode($qty);
-
-?>
-                <script>
-                    window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $MRP ?>'
-                </script>
-                <?php
-                unset($_SESSION['selectedColor1'][$product_id]);
-                unset($_SESSION['product_title1'][$product_id]);
-                unset($_SESSION['selectedSize'][$product_id]);
-                ?>
-            <?php
-            } else {
-
-            ?>
-                <script>
-                    window.location.href = '../authentication/user_auth/user_login.php'
-                </script>
-            <?php
-                unset($_SESSION['selectedColor1']);
-                unset($_SESSION['product_title1']);
-                unset($_SESSION['selectedSize']);
-            }
-        }
-    }
-
-    // for add to cart
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['colorChoice'])) {
-            $_SESSION['selectedColor2'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-            $_SESSION['product_title2'] = $first_title;
-        } else {
-            if (!isset($_SESSION['selectedColor2'])) {
-                $_SESSION['selectedColor2'] = $defaultColor;
-                $_SESSION['product_title2'] = $My_first_title;
-            }
-        }
-
-        $selectedColor = $_SESSION['selectedColor2'];
-        $products_first_name = $_SESSION['product_title2'];
-
-        if (isset($_POST['AddtoCart'])) {
-            $myColor = isset($_SESSION['selectedColor2']) ? $_SESSION['selectedColor2'] : $defaultColor;
-            $myTitle = isset($_SESSION['product_title2']) ? $_SESSION['product_title2'] : $My_first_title;
-
-            $size = isset($_POST['size']) ? $_POST['size'] : null;
-            $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
-
-            $encoded_product_id = urlencode($product_id);
-            $encoded_qty = urlencode($qty);
-            ?>
-            <script>
-                window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&title=<?php echo $myTitle; ?>&color=<?php echo $myColor; ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $MRP ?>'
-            </script>
-<?php
-
-            unset($_SESSION['selectedColor2']);
-            unset($_SESSION['product_title2']);
-        }
+    if (isset($selectedSize) && isset($decodemrp[$selectedSize])) {
+        $first_price = $decodemrp[$selectedSize];
+    } else {
+        reset($decodemrp);
+        $first_price = current($decodemrp);
     }
 
 
@@ -232,6 +87,45 @@ if (isset($_GET['product_id'])) {
 
     $rev = mysqli_fetch_assoc($review_query);
     $totalReviews = mysqli_num_rows($review_query);
+
+    // for add to cart Button
+    if (isset($_POST['buyBtn'])) {
+        $size = isset($_POST['size']) ? $_POST['size'] : null;
+        $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
+
+        if (isset($_COOKIE['user_id'])) {
+            $encoded_qty = urlencode($qty);
+            ?>
+                <script>
+                    window.location.href = 'checkout.php?product_id=<?php echo urlencode($product_id); ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $MRP ?>'
+                </script>
+            <?php
+            unset($_SESSION['selectedSize'][$product_id]);
+        }else{
+            ?>
+                <script>
+                    window.location.href = '../authentication/user_auth/user_login.php'
+                </script>
+            <?php
+            unset($_SESSION['selectedSize']);
+        }
+    } 
+
+
+    // for add to cart Button
+    if (isset($_POST['AddtoCart'])) {
+        $size = isset($_POST['size']) ? $_POST['size'] : null;
+        $qty = isset($_POST['qty']) ? $_POST['qty'] : null;
+
+        $encoded_product_id = urlencode($product_id);
+        $encoded_qty = urlencode($qty);
+        ?>
+            <script>
+                window.location.href = '../shopping/add_to_cart.php?product_id=<?php echo urlencode($product_id); ?>&size=<?php echo $selectedSize; ?>&qty=<?php echo $qty; ?>&MRP=<?php echo $MRP ?>'
+            </script>
+        <?php
+        unset($_SESSION['selectedSize'][$product_id]);
+    }
 }
 
 ?>
@@ -259,7 +153,7 @@ if (isset($_GET['product_id'])) {
     <link rel="shortcut icon" href="../src/logo/favIcon.svg">
 
     <!-- title -->
-    <title><?php echo isset($_GET['product_id']) ? $first_title : 'Product Details' ?></title>
+    <title><?php echo isset($_GET['product_id']) ? $title : 'Product Details' ?></title>
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -397,7 +291,7 @@ if (isset($_GET['product_id'])) {
         <form action="" Method="post">
             <div class="flex flex-col gap-3 w-full mt-12 px-2">
                 <div class="flex flex-col gap-2">
-                    <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]"><?php echo isset($_GET['product_id']) ? $first_title : 'Product title' ?></h1>
+                    <h1 class="text-base font-medium text-[#1d2128] leading-6 md:leading-10 md:font-medium md:text-[28px]"><?php echo isset($_GET['product_id']) ? $title : 'Product title' ?></h1>
                 </div>
                 <!-- vendor Store -->
                 <a href="../vendor/vendor_store.php?vendor_id=<?php echo $ven['vendor_id']; ?>" class="text-lg text-gray-600 font-bold hover:underline cursor-pointer max-w-max">Visit a <span><?php echo isset($product_id) ? $ven['username'] : 'vendor store Name'; ?></span> Store</a>
@@ -407,8 +301,8 @@ if (isset($_GET['product_id'])) {
                         <?php
 
                         ?>
-                        <span class="text-2xl font-medium">₹<?php echo isset($_GET['product_id']) ? $MRP : 'MRP' ?></span>
-                        <del class="text-sm font-normal">₹<?php echo isset($_GET['product_id']) ? $Your_Price : 'Product price' ?></del>
+                        <span class="text-2xl font-medium">₹<?php echo isset($_GET['product_id']) ? number_format($MRP) : 'MRP' ?></span>
+                        <del class="text-sm font-normal">₹<?php echo isset($_GET['product_id']) ? number_format($Your_Price) : 'Product price' ?></del>
                     </div>
                     <?php
 
@@ -432,117 +326,105 @@ if (isset($_GET['product_id'])) {
                     ?>
                 </div>
                 <!-- color -->
-                <?php
-                if ($res['color'] == '-') {
-                    echo "";
-                } else {
-                ?>
-                    <div class="mt-3">
-                        <h1 class="text-xl font-medium">Colors:</h1>
-                        <div class="flex item-center gap-4 mt-2">
-                            <?php
-                            $filter_pcolor = explode(',', $colors);
-                            foreach ($filter_pcolor as $index => $pcolor) {
-                                $isDisabled = ($product_qty <= 0);
-                            ?>
-                                <form method="post" action="" style="display: inline;">
-                                    <input type="hidden" name="colorName" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>">
-                                    <button type="submit" style="display: none;"></button>
-                                    <label for="submit_<?php echo $index; ?>" class="<?php echo $isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'; ?> border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center <?php echo $isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'; ?>" <?php echo $isDisabled ? 'onclick="return false;"' : ''; ?>>
-                                        <h1 class="text-lg <?php echo $isDisabled ? 'cursor-not-allowed' : ''; ?>"><?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?></h1>
-                                    </label>
-                                    <input type="radio" id="submit_<?php echo $index; ?>" name="colorChoice" value="<?php echo htmlspecialchars($pcolor, ENT_QUOTES, 'UTF-8'); ?>" onclick="<?php echo $isDisabled ? 'return false;' : 'this.form.submit();'; ?>" style="display: none;" <?php echo $isDisabled ? 'disabled' : ''; ?>>
-                                </form>
-                            <?php
-                            }
-                            ?>
-                        </div>
+                <div class="flex items-center gap-5">
+
                     <?php
-                }
-                    ?>
-                    </div>
-                    <!-- size -->
-                    <div>
-                        <div class="md:col-span-2 mt-3">
-                            <?php
-                            if (isset($product_id)) {
-                                if ($res['size'] == '-') {
-                                    echo '';
-                                } else {
+                        $sameId = $res['same_id'];
+                        $color_product_find = "SELECT * FROM products WHERE same_id = '$sameId'";
+                        $color_product_query = mysqli_query($con, $color_product_find);
+
+                        while($clr = mysqli_fetch_assoc($color_product_query)){
                             ?>
-                                    <label for="size" class="text-xl font-medium">Size:</label>
-                                    <form method="post" action="">
-                                        <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 <?php echo ($product_qty <= 0) ? 'cursor-not-allowed' : ''; ?>" onchange="this.form.submit();" <?php echo ($product_qty <= 0) ? 'disabled' : ''; ?>>
-                                            <?php
-                                            $product_size[] = $res['size'];
-                                            foreach ($product_size as $productSize) {
-                                                $size_array = explode(',', $productSize);
-                                                foreach ($size_array as $size) {
-                                                    $sz = trim($size);
-                                            ?>
-                                                    <option value="<?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>" <?php if ($selectedSize === $sz) echo 'selected'; ?>>
-                                                        <?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>
-                                                    </option>
-                                            <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </form>
+                                <a href="../product/product_detail.php?product_id=<?php echo $clr['product_id'] ?>" class="border-2 border-black flex items-center gap-2 py-1 px-2 rounded-tl-xl rounded-br-xl text-center hover:bg-gray-200 w-max cursor-pointer">
+                                    <h1 class="text-lg"><?php echo $clr['color'] ?></h1>
+                                </a>
                             <?php
+                        }
+                    
+                    ?>
+                </div>
+                <!-- size -->
+                <div>
+                    <div class="md:col-span-2 mt-3">
+                        <?php
+                        if (isset($product_id)) {
+                            if ($res['size'] == '-') {
+                                echo '';
+                            } else {
+                        ?>
+                                <label for="size" class="text-xl font-medium">Size:</label>
+                                <form method="post" action="">
+                                    <select name="size" id="size" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 <?php echo ($product_qty <= 0) ? 'cursor-not-allowed' : ''; ?>" onchange="this.form.submit();" <?php echo ($product_qty <= 0) ? 'disabled' : ''; ?>>
+                                        <?php
+                                        $product_size[] = $res['size'];
+                                        foreach ($product_size as $productSize) {
+                                            $size_array = explode(',', $productSize);
+                                            foreach ($size_array as $size) {
+                                                $sz = trim($size);
+                                        ?>
+                                                <option value="<?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>" <?php if ($selectedSize === $sz) echo 'selected'; ?>>
+                                                    <?php echo htmlspecialchars($sz, ENT_QUOTES, 'UTF-8'); ?>
+                                                </option>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </form>
+                        <?php
+                            }
+                        } else {
+                            echo "Size of products";
+                        }
+                        ?>
+
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <label for="qty">QTY:</label>
+                    <div class="flex items-center flex-wrap gap-2">
+                        <select name="qty" id="qty" class="h-10 border mt-1 rounded px-4 w-16 bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 <?php echo ($product_qty <= 0) ? 'cursor-not-allowed' : ''; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
+                            <?php
+                            if ($product_qty > 0) {
+                                // Determine the maximum quantity to display
+                                $max_qty = ($product_qty > 10) ? 10 : $product_qty;
+
+                                // Show options from 1 to the determined maximum quantity
+                                for ($i = 1; $i <= $max_qty; $i++) {
+                            ?>
+                                    <option value="<?php echo $i; ?>" <?php if ($product_qty === $i) echo 'selected'; ?>>
+                                        <?php echo $i; ?>
+                                    </option>
+                                <?php
                                 }
                             } else {
-                                echo "Size of products";
+                                // Show a single option if stock is zero
+                                ?>
+                                <option value="0" disabled selected>0</option>
+                            <?php
                             }
                             ?>
+                        </select>
+                    </div>
+                </div>
 
-                        </div>
+                <div class="flex justify-between items-center mt-6 mb-4">
+                    <div class="flex item-center gap-1">
+                        <span class="bg-gray-900 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
+                            <h1 class="font-semibold text-base text-white"><?php echo $res['avg_rating'] ?></h1>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
+                                <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
+                            </svg>
+                        </span>
+                        <span class="text-sm ml-2 mt-1">(<?php echo $res['total_reviews'] ?>)</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <label for="qty">QTY:</label>
-                        <div class="flex items-center flex-wrap gap-2">
-                            <select name="qty" id="qty" class="h-10 border mt-1 rounded px-4 w-16 bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 <?php echo ($product_qty <= 0) ? 'cursor-not-allowed' : ''; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
-                                <?php
-                                if ($product_qty > 0) {
-                                    // Determine the maximum quantity to display
-                                    $max_qty = ($product_qty > 10) ? 10 : $product_qty;
-
-                                    // Show options from 1 to the determined maximum quantity
-                                    for ($i = 1; $i <= $max_qty; $i++) {
-                                ?>
-                                        <option value="<?php echo $i; ?>" <?php if ($product_qty === $i) echo 'selected'; ?>>
-                                            <?php echo $i; ?>
-                                        </option>
-                                    <?php
-                                    }
-                                } else {
-                                    // Show a single option if stock is zero
-                                    ?>
-                                    <option value="0" disabled selected>0</option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center mt-6 mb-4">
-                        <div class="flex item-center gap-1">
-                            <span class="bg-gray-900 rounded-tl-lg rounded-br-lg px-2 py-1 flex items-center gap-1">
-                                <h1 class="font-semibold text-base text-white"><?php echo $res['avg_rating'] ?></h1>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.991 511" class="w-3 h-3 m-auto fill-current text-white">
-                                    <path d="M510.652 185.883a27.177 27.177 0 0 0-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 0 0 7.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0 0 15.957 5.184 27.14 27.14 0 0 0 13.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0 0 29.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 0 0 7.937-28.926zM258.45 409.605"></path>
-                                </svg>
-                            </span>
-                            <span class="text-sm ml-2 mt-1">(<?php echo $res['total_reviews'] ?>)</span>
-                        </div>
-                        <p class="text-sm font-medium text-[#0080ff]">Free delivery</p>
-                    </div>
-                    <hr>
-                    <div class="mt-4 flex flex-col gap-5 md:flex-row">
-                        <input type="submit" name="AddtoCart" value="Add To Cart" class="w-40 text-center text-sm font-medium text-white bg-gray-700 py-4 rounded-tl-xl rounded-br-xl transition duration-200 <?php echo ($product_qty == 0) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800'; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
-                        <input type="submit" name="buyBtn" value="Buy Now" class="w-40 text-sm font-medium text-gray-700 border-2 border-gray-700 py-4 rounded-tl-xl rounded-br-xl text-center <?php echo ($product_qty == 0) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
-                    </div>
+                    <p class="text-sm font-medium text-[#0080ff]">Free delivery</p>
+                </div>
+                <hr>
+                <div class="mt-4 flex flex-col gap-5 md:flex-row">
+                    <input type="submit" name="AddtoCart" value="Add To Cart" class="w-40 text-center text-sm font-medium text-white bg-gray-700 py-4 rounded-tl-xl rounded-br-xl transition duration-200 <?php echo ($product_qty == 0) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800'; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
+                    <input type="submit" name="buyBtn" value="Buy Now" class="w-40 text-sm font-medium text-gray-700 border-2 border-gray-700 py-4 rounded-tl-xl rounded-br-xl text-center <?php echo ($product_qty == 0) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'; ?>" <?php echo ($product_qty == 0) ? 'disabled' : ''; ?>>
+                </div>
             </div>
         </form>
 
@@ -556,7 +438,7 @@ if (isset($_GET['product_id'])) {
                 <h1 class="text-3xl font-semibold md:text-5xl"><?php echo isset($_GET['product_id']) ? $res['Type'] : 'Product Name' ?></h1>
                 <hr class="my-6">
                 <div class="">
-                    <span class="text-xl font-medium"><?php echo isset($_GET['product_id']) ? $first_title : 'Product Name' ?></span>
+                    <span class="text-xl font-medium"><?php echo isset($_GET['product_id']) ? $title : 'Product Name' ?></span>
                 </div>
                 <div class="grid grid-cols-1 mt-8 gap-2 md:grid-cols-1 m-auto">
                     <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_1'] : '../src/sample_images/cover_1.jpg' ?>" alt="">
@@ -655,38 +537,14 @@ if (isset($_GET['product_id'])) {
                             <span class="text-sm font-normal">Share your thoughts with other customers</span>
 
                             <?php
-                            if (isset($_POST['colorChoice'])) {
-                                $_SESSION['selectedColor3'] = htmlspecialchars($_POST['colorChoice'], ENT_QUOTES, 'UTF-8');
-                                $_SESSION['product_title3'] = $first_title;
-                            } else {
-                                if (!isset($_SESSION['selectedColor3'])) {
-                                    $_SESSION['selectedColor3'] = $defaultColor;
-                                    $_SESSION['product_title3'] = $My_first_title;
-                                }
-                            }
-
-                            $selectedColor = $_SESSION['selectedColor3'];
-                            $products_first_name = $_SESSION['product_title3'];
-
                             if (isset($_COOKIE['user_id'])) {
-                                $myColor = isset($_SESSION['selectedColor3']) ? $_SESSION['selectedColor3'] : $defaultColor;
-                                $myTitle = isset($_SESSION['product_title3']) ? $_SESSION['product_title3'] : $My_first_title;
-
-                                $encoded_product_id = urlencode($product_id);
-                                $encoded_product_id = urlencode($product_id);
-
-                            ?>
-                                <a href="add_review.php?product_id=<?php echo $product_id; ?>&title=<?php echo urlencode($myTitle); ?>&color=<?php echo urlencode($myColor); ?>" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
-                            <?php
-
-                                unset($_SESSION['selectedColor3']);
-                                unset($_SESSION['product_title3']);
+                                ?>
+                                    <a href="add_review.php?product_id=<?php echo $product_id; ?>" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
+                                <?php
                             } else {
-                            ?>
-                                <a href="../authentication/user_auth/user_login.php" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
-                            <?php
-                                unset($_SESSION['selectedColor3']);
-                                unset($_SESSION['product_title3']);
+                                ?>
+                                    <a href="../authentication/user_auth/user_login.php" class="text-sm font-medium text-white text-center bg-gray-700 py-3 hover:bg-gray-800 rounded-tl-xl rounded-br-xl transition duration-200">Write a review</a>
+                                <?php
                             }
                             ?>
                         </div>

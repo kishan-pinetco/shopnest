@@ -370,7 +370,7 @@ if (isset($_COOKIE['user_id'])) {
         $delete_query = mysqli_query($con, $delete_order);
 
         // insert quantity of items
-        $get_qty = "SELECT * FROM items WHERE product_id = '$product_id'";
+        $get_qty = "SELECT * FROM products WHERE product_id = '$product_id'";
         $get_qty_query = mysqli_query($con, $get_qty);
         
         // Check if the query was successful
@@ -386,7 +386,7 @@ if (isset($_COOKIE['user_id'])) {
             }
         }
  
-        $update_qty = "UPDATE items SET Quantity='$update_qty' WHERE product_id = '$product_id'";
+        $update_qty = "UPDATE products SET Quantity='$update_qty' WHERE product_id = '$product_id'";
         $update_qty_quary = mysqli_query($con, $update_qty);
 
         if($update_qty_quary){
