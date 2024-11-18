@@ -229,18 +229,39 @@ if (isset($_GET['product_id'])) {
         <div class="">
             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2 w-auto h-auto md:h-96">
                 <div class="swiper-wrapper h-52 md:h-full">
-                    <div class="swiper-slide w-auto h-auto zoom-container">
-                        <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img1 : '../src/sample_images/product_1.jpg' ?>" />
-                    </div>
-                    <div class="swiper-slide h-auto zoom-container">
-                        <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img2 : '../src/sample_images/product_2.jpg' ?>" />
-                    </div>
-                    <div class="swiper-slide h-auto zoom-container">
-                        <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img3 : '../src/sample_images/product_3.jpg' ?>" />
-                    </div>
-                    <div class="swiper-slide h-auto zoom-container">
-                        <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img4 : '../src/sample_images/product_4.jpg' ?>" />
-                    </div>
+                    <?php
+                        if(!empty($first_img1)){
+                            ?>
+                                <div class="swiper-slide w-auto h-auto zoom-container">
+                                    <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img1 : '../src/sample_images/product_1.jpg' ?>" />
+                                </div>
+                            <?php
+                        }
+
+                        if(!empty($first_img2)){
+                            ?>
+                                <div class="swiper-slide h-auto zoom-container">
+                                    <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img2 : '../src/sample_images/product_2.jpg' ?>" />
+                                </div>
+                            <?php
+                        }
+
+                        if(!empty($first_img3)){
+                            ?>
+                                <div class="swiper-slide h-auto zoom-container">
+                                    <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img3 : '../src/sample_images/product_3.jpg' ?>" />
+                                </div>
+                            <?php
+                        }
+
+                        if(!empty($first_img4)){
+                            ?>
+                                <div class="swiper-slide h-auto zoom-container">
+                                    <img class="h-full zoom-image" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img4 : '../src/sample_images/product_4.jpg' ?>" />
+                                </div>
+                            <?php
+                        }
+                    ?>
                 </div>
             </div>
             <!-- image zoom effect js -->
@@ -273,18 +294,39 @@ if (isset($_GET['product_id'])) {
             </script>
             <div thumbsSlider="" class="swiper mySwiper md:w-80 h-auto mt-6 px-2">
                 <div class="swiper-wrapper flex item-center justify-center">
-                    <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img1 : '../src/sample_images/product_1.jpg' ?>" />
-                    </div>
-                    <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img2 : '../src/sample_images/product_2.jpg' ?>" />
-                    </div>
-                    <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img3 : '../src/sample_images/product_3.jpg' ?>" />
-                    </div>
-                    <div class="swiper-slide border border-black p-1">
-                        <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img4 : '../src/sample_images/product_4.jpg' ?>" />
-                    </div>
+                    <?php
+                        if(!empty($first_img1)){
+                            ?>
+                                <div class="swiper-slide border border-black p-1 cursor-pointer">
+                                    <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img1 : '../src/sample_images/product_1.jpg' ?>" />
+                                </div>
+                            <?php
+                        }
+
+                        if(!empty($first_img2)){
+                            ?>
+                                <div class="swiper-slide border border-black p-1 cursor-pointer">
+                                    <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img2 : '../src/sample_images/product_1.jpg' ?>" />
+                                </div>
+                            <?php
+                        }
+
+                        if(!empty($first_img3)){
+                            ?>
+                                <div class="swiper-slide border border-black p-1 cursor-pointer">
+                                    <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img3 : '../src/sample_images/product_1.jpg' ?>" />
+                                </div>
+                            <?php
+                        }
+
+                        if(!empty($first_img4)){
+                            ?>
+                                <div class="swiper-slide border border-black p-1 cursor-pointer">
+                                    <img class="w-full h-full m-auto aspect-square" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_profile/' . $first_img4 : '../src/sample_images/product_1.jpg' ?>" />
+                                </div>
+                            <?php
+                        }
+                    ?>
                 </div>
             </div>
         </div>
