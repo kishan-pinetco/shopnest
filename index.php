@@ -57,19 +57,17 @@ unset(
     $_SESSION['vendor_bio']
 );
 
-// session_start();
+if (isset($_SESSION['views'])) {
+    $_SESSION['views'] = $_SESSION['views'] + 1;
+} else {
+    $_SESSION['views'] = 1;
+}
 
-// if (isset($_SESSION['views'])) {
-//     $_SESSION['views'] = $_SESSION['views'] + 1;
-// } else {
-//     $_SESSION['views'] = 1;
-// }
+$page_view = $_SESSION['views'];
+$view_date = date('d-m-y');
 
-// $page_view = $_SESSION['views'];
-// $view_date = date('d-m-y');
-
-// $view_count = "INSERT INTO page_count(view_count, view_date) VALUES ('$page_view','$view_date')";
-// $view_query = mysqli_query($con, $view_count);
+$view_count = "INSERT INTO page_count(view_count, view_date) VALUES ('$page_view','$view_date')";
+$view_query = mysqli_query($con, $view_count);
 
 function displayRandomProducts($con, $limit)
 {

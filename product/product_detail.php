@@ -441,10 +441,32 @@ if (isset($_GET['product_id'])) {
                     <span class="text-xl font-medium"><?php echo isset($_GET['product_id']) ? $title : 'Product Name' ?></span>
                 </div>
                 <div class="grid grid-cols-1 mt-8 gap-2 md:grid-cols-1 m-auto">
-                    <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_1'] : '../src/sample_images/cover_1.jpg' ?>" alt="">
-                    <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_2'] : '../src/sample_images/cover_2.jpg' ?>" alt="">
-                    <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_3'] : '../src/sample_images/cover_3.jpg' ?>" alt="">
-                    <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_4'] : '../src/sample_images/cover_4.jpg' ?>" alt="">
+                    <?php
+                        if(!empty($res['cover_image_1'])){
+                            ?>
+                                <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_1'] : '../src/sample_images/cover_1.jpg' ?>" alt="">
+                            <?php
+                        }
+
+                        if(!empty($res['cover_image_2'])){
+                            ?>
+                                <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_2'] : '../src/sample_images/cover_2.jpg' ?>" alt="">
+                            <?php
+                        }
+                    
+                        if(!empty($res['cover_image_3'])){
+                            ?>
+                                <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_3'] : '../src/sample_images/cover_3.jpg' ?>" alt="">
+                            <?php
+                        }
+                
+                        if(!empty($res['cover_image_4'])){
+                            ?>
+                                <img class="border w-full h-full object-cover m-auto" src="<?php echo isset($_GET['product_id']) ? '../src/product_image/product_cover/' . $res['cover_image_4'] : '../src/sample_images/cover_4.jpg' ?>" alt="">
+                            <?php
+                        }
+                    ?>
+
                 </div>
                 <div class="mt-12">
                     <h2 class="text-lg font-medium">More information</h2>
