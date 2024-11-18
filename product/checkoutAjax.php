@@ -147,7 +147,7 @@ include "../include/connect.php";
             if ($mail->send()) {    
                 echo "<script>
                     document.getElementById('overlay').style.display = 'none';
-                    window.location.href = '/user/show_orders.php';
+                    window.location.href = '../user/show_orders.php';
                 </script>";
             } else {
                 echo "<p class='text-red-500'>There was an error sending the email. Please try again later.</p>";

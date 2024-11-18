@@ -375,7 +375,7 @@ if (isset($_GET['product_id'])) {
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
                 document.getElementById('overlay').style.display = 'none';
-                window.location.href = "/user/show_orders.php";
+                window.location.href = "../user/show_orders.php";
             }, 1500);
         }
     </script>
