@@ -4,12 +4,11 @@ if (isset($_COOKIE['user_id'])) {
     exit;
 }
 
-if (isset($_COOKIE['vendor_id'])) {
+if(isset($_COOKIE['vendor_id'])){
     header("Location: /shopnest/vendor/vendor_dashboard.php");
     exit;
 }
 ?>
-
 <?php
 
 include "../include/connect.php";
@@ -19,67 +18,27 @@ if (isset($_GET['product_id'])) {
     $product = $_GET['name'];
 
     $product_id = $_GET['product_id'];
-    $product_find = "SELECT * FROM items WHERE product_id = '$product_id'";
+    $product_find = "SELECT * FROM products WHERE product_id = '$product_id'";
     $product_query = mysqli_query($con, $product_find);
     $row = mysqli_fetch_assoc($product_query);
 
     $colors = $row['color'];
-    $filter_clr = explode(",", $colors);
-    $total_colors = count($filter_clr);
-
-    if (!isset($_GET['color']) && $total_colors > 1) {
-?>
-        <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-30">
-            <div class="bg-white rounded-lg shadow-lg p-6 w-max relative">
-                <span class="absolute top-2 right-2 text-xl cursor-pointer" onclick="window.location.href='view_product.php'">&times;</span>
-                <h2 class="text-lg font-semibold">Select The color For Update the Product</h2>
-                <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <?php
-                    foreach ($filter_clr as $clr) {
-                    ?>
-                        <a href="edit_vendor_products.php?product_id=<?php echo $row['product_id'] ?>&name=<?php echo $row['Category'] ?>&color=<?php echo $clr ?>" class="bg-gray-600 hover:bg-gray-700 text-white text-center font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer"><?php echo $clr ?></a>
-                    <?php
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-<?php
-    }
-
-    if (isset($_GET['color'])) {
-        $product_color = $_GET['color'];
-    } else {
-        $json_title = $row['title'];
-        $decoded_title = json_decode($json_title, true);
-        $first_title = '';
-        foreach ($decoded_title as $key => $title) {
-            $product_color = $key;
-            break;
-        }
-    }
 
     $productType = $_GET['name'];
-    $optionsForType = isset($options[$productType]) ? $options[$productType] : [];
 
-    $json_title = $row['title'];
-    $title_json = json_decode($json_title, true);
+    $title = $row['title'];
 
-    $first_name = isset($title_json[$product_color]) ? $title_json[$product_color] : '';
-    $first_title = $first_name['product_name'];
+    $MRP = $row['vendor_mrp'];
+    $Your_Price = $row['vendor_price'];
 
-    // for the price
-    $json_price = $row['MRP'];
-    $price_json = json_decode($json_price, true);
+    if (isset($_COOKIE['vendor_id'])) {
+        $vendor_id = $_COOKIE['vendor_id'];
 
-    foreach ($price_json as $key => $pc) {
-        $product_price = $key;
-        break;
+        $retrieve_data = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
+        $retrieve_query = mysqli_query($con, $retrieve_data);
+
+        $res = mysqli_fetch_assoc($retrieve_query);
     }
-
-    $first_price = isset($price_json[$product_price]) ? $price_json[$product_price] : '';
-    $MRP = $first_price['MRP'];
-    $Your_Price = $first_price['Your_Price'];
 }
 
 
@@ -109,54 +68,67 @@ if (isset($_GET['product_id'])) {
     <link rel="shortcut icon" href="../src/logo/favIcon.svg">
 
     <!-- title -->
-    <title><?php echo isset($first_title) ? $first_title : "Update Products" ?></title>
+    <title><?php echo isset($title) ? $title : "Update Products" ?></title>
+
+    <style>
+        .require:after {
+            content: " *";
+            font-weight: bold;
+            color: red;
+            margin-left: 3px;
+            font-size: medium;
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Outfit', sans-serif;">
 
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-gray-600">
+        <div class="flex items-center justify-center mt-8 mb-7 mr-2">
+            <a class="flex w-fit" href="view_product.php">
+                <!-- icon logo div -->
+                <div>
+                    <img class="w-7 sm:w-14 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
+                </div>
+                <!-- text logo -->
+                <div>
+                    <img class="w-16 sm:w-36" src="/shopnest/src/logo/black_text_logo.svg" alt="">
+                </div>
+            </a>
+        </div>
+    </header>
+
     <!-- component -->
     <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
         <div class="container max-w-screen-lg font-medium text-gray-800 mx-auto">
-            <div class="flex items-center justify-center mt-8 mb-7 mr-2">
-                <a class="flex w-fit" href="view_product.php">
-                    <!-- icon logo div -->
-                    <div>
-                        <img class="w-7 sm:w-14 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
-                    </div>
-                    <!-- text logo -->
-                    <div>
-                        <img class="w-16 sm:w-36" src="/shopnest/src/logo/black_text_logo.svg" alt="">
-                    </div>
-                </a>
-            </div>
-            <h1 class="bg-gray-100 text-2xl font-bold flex items-center justify-center mb-6">Add products</h1>
+            <h1 class="bg-gray-100 text-2xl font-bold flex items-center justify-center mb-6">Edit products</h1>
             <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
                 <div class="grid gap-4 gap-y-1 text-sm grid-cols-1 lg:grid-cols-1">
                     <div class="lg:col-span-2">
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="grid gap-4 gap-y-4 items-center text-sm grid-cols-1 md:grid-cols-5">
                                 <div class="md:col-span-5">
-                                    <label for="full_name">Product Tital</label>
-                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $first_title : 'title' ?>" />
+                                    <label for="full_name" class="require">Product tital:</label>
+                                    <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $title : 'title' ?>" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="Company_name">Company Name</label>
+                                    <label for="Company_name" class="require">Company name:</label>
                                     <input type="text" name="Company_name" id="Company_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['company_name'] : 'company_name' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="category">Category</label>
-                                    <input type="text" name="Category" id="Category" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Category'] : 'Category' ?>" placeholder="" />
+                                    <label for="category" class="require">Category:</label>
+                                    <input type="text" name="Category" id="Category" class="hover:cursor-not-allowed opacity-60 h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:ring-gray-600 focus:border-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Category'] : 'Category' ?>" placeholder="" disabled />
                                 </div>
 
                                 <div class="md:col-span-1">
-                                    <label for="type">Type</label>
+                                    <label for="type" class="require">Type:</label>
                                     <input type="text" name="type" id="type" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Type'] : 'Type' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-3">
-                                    <label for="MRP">MRP</label>
+                                    <label for="MRP" class="require">MRP:</label>
                                     <div class="relative">
                                         <input type="text" name="MyMRP" id="MRP" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:border-gray-600 focus:ring-gray-600 z-10" value="<?php echo isset($_GET['product_id']) ? $MRP : 'MRP' ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
@@ -164,7 +136,7 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="your_price">Your Price</label>
+                                    <label for="your_price" class="require">Your price:</label>
                                     <div class="relative">
                                         <input type="text" name="My_your_price" id="your_price" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 pl-10 focus:border-gray-600 focus:ring-gray-600 z-10" value="<?php echo isset($_GET['product_id']) ? $Your_Price : 'Your_Price' ?>" placeholder="" />
                                         <div class="absolute left-0 rounded-l top-1 w-9 h-10 bg-white border border-gray-500 m-auto text-center flex items-center justify-center">₹</div>
@@ -172,25 +144,25 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-3">
-                                    <label for="quantity">Quantity</label>
+                                    <label for="quantity" class="require">Quantity:</label>
                                     <input type="text" name="quantity" id="quantity" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Quantity'] : 'Quantity' ?>" placeholder="" />
                                 </div>
 
                                 <div class="md:col-span-2">
-                                    <label for="condition">Item Condition</label>
+                                    <label for="condition" class="require">Item condition:</label>
                                     <select name="condition" id="condition" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" value="<?php echo isset($_GET['product_id']) ? $row['Item_Condition'] : 'Item_Condition' ?>">
-                                        <option value="New Condition">New Condition</option>
-                                        <option value="Old Condition">Old Condition</option>
+                                        <option value="New Condition">New condition</option>
+                                        <option value="Old Condition">Old condition</option>
                                     </select>
                                 </div>
 
                                 <div class="md:col-span-5">
-                                    <label for="description">Description</label>
+                                    <label for="description" class="require">Description:</label>
                                     <textarea name="description" id="description" class="h-32 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600 resize-none" value="" placeholder=""><?php echo isset($_GET['product_id']) ? $row['Description'] : 'Description' ?></textarea>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
-                                    <label for="keyword">Keywords</label>
+                                    <label for="keyword" class="require">Keywords:</label>
                                     <div id="keyword-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
 
                                     </div>
@@ -209,11 +181,11 @@ if (isset($_GET['product_id'])) {
                                     <input type="hidden" id="keyword-data" value='<?php echo $keywords_json; ?>'>
                                     <?php
                                     ?>
-                                    <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add More Keyword</button>
+                                    <button id="add-keyword" class="px-4 py-2 bg-gray-600 text-white rounded-tl-lg rounded-br-lg mt-2">Add more keyword</button>
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
-                                    <label for="size" class="block font-semibold">Size</label>
+                                    <label for="size" class="block font-semibold">Size:</label>
                                     <div id="size-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-2 gap-3">
                                         <?php
                                         $all_sizes = [];
@@ -256,36 +228,24 @@ if (isset($_GET['product_id'])) {
                                     </div>
 
                                     <input type="hidden" id="size-data" value='<?php echo $size_json ?>'>
-                                    <button id="add-size" type="button" class="px-4 py-2 bg-gray-600 text-white rounded-lg mt-2 hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-400">Add More Size</button>
+                                    <button id="add-size" type="button" class="px-4 py-2 bg-gray-600 text-white rounded-lg mt-2 hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-400">Add more size</button>
 
                                 </div>
 
                                 <div class="md:col-span-5 mt-5">
                                     <label for="color">Color:</label>
                                     <div class="relative mt-2">
-                                        <input type="text" value="<?php echo isset($_GET['product_id']) ? isset($_GET['color']) ? $_GET['color'] : $row['color'] : 'Colors' ?>" id="colorInput" name="color" placeholder="Type a color..." class="h-10 border rounded px-4 z-10 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" autocomplete="off" readonly>
+                                        <input type="text" value="<?php echo isset($_GET['product_id']) ? $row['color'] : 'Colors' ?>" id="colorInput" name="color" placeholder="Type a color..." class="h-10 border rounded px-4 z-10 w-full bg-gray-50 focus:border-gray-600 focus:ring-gray-600" autocomplete="off" readonly>
                                         <div id="colorSuggestions" class="absolute left-0 mt-1 w-full bg-white border border-gray-300 rounded-lg z-10 hidden"></div>
                                     </div>
                                 </div>
 
                                 <?php
-                                $json_img = $row['image'];
-                                $decode_img = json_decode($json_img, true);
-
-                                $first_color_imaegs = isset($decode_img[$product_color]) ? $decode_img[$product_color] : '';
-
                                 // profile_images
-                                // Ensure $first_color_imaegs is an array before accessing it
-                                if (is_array($first_color_imaegs)) {
-                                    $img1 = $first_color_imaegs['img1'] ?? '';
-                                    $img2 = $first_color_imaegs['img2'] ?? '';
-                                    $img3 = $first_color_imaegs['img3'] ?? '';
-                                    $img4 = $first_color_imaegs['img4'] ?? '';
-                                } else {
-                                    // Handle the case where it's not an array
-                                    $img1 = $img2 = $img3 = $img4 = '';
-                                    error_log("Expected an array for color '$product_color', but got: " . print_r($first_color_imaegs, true));
-                                }
+                                $img1 = $row['profile_image_1'] ?? '';
+                                $img2 = $row['profile_image_2'] ?? '';
+                                $img3 = $row['profile_image_3'] ?? '';
+                                $img4 = $row['profile_image_4'] ?? '';
 
                                 // cover images
                                 $cover_img1 = $row['cover_image_1'];
@@ -296,7 +256,7 @@ if (isset($_GET['product_id'])) {
                                 ?>
 
                                 <div class="md:col-span-5 mt-4">
-                                    <label for="" class="text-lg">Images:</label>
+                                    <label for="" class="text-lg require">Images:</label>
                                     <div class="grid grid-cols-1 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-24 mt-9">
                                         <div class="relative w-full max-w-max m-auto">
                                             <div class="flex items-stretch justify-center -mt-8">
@@ -339,7 +299,7 @@ if (isset($_GET['product_id'])) {
                                 </div>
 
                                 <div class="md:col-span-5 mt-12 mb-4">
-                                    <label for="" class="text-lg">Cover Images:</label>
+                                    <label for="" class="text-lg require">Cover Images:</label>
                                     <div class="grid grid-cols-1 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-24 mt-9">
                                         <div class="relative w-full max-w-max m-auto">
                                             <div class="flex items-stretch justify-center -mt-8">
@@ -379,12 +339,10 @@ if (isset($_GET['product_id'])) {
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                             <div class="flex justify-between mt-10">
                                 <div>
-                                    <input type="button" value="Back" onclick="window.location.href='view_product.php'" name="backBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                    <input type="button" value="Back" onclick="window.location.href='view_products.php'" name="backBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
                                 </div>
                                 <div class="inline-flex items-end">
                                     <input type="submit" value="Update" name="updateBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
@@ -448,7 +406,7 @@ if (isset($_GET['product_id'])) {
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
                 window.location.href = "view_product.php";
-            }, 1500);
+            }, 700);
         }
     </script>
 
@@ -474,7 +432,7 @@ if (isset($_POST['updateBtn'])) {
     // Escape user inputs
     $full_name = mysqli_real_escape_string($con, $_POST['full_name']);
     $Company_name = mysqli_real_escape_string($con, $_POST['Company_name']);
-    $Category = mysqli_real_escape_string($con, $_POST['Category']);
+    $Category = mysqli_real_escape_string($con, $_GET['name']);
     $type = mysqli_real_escape_string($con, $_POST['type']);
     $MRP = $_POST['MyMRP'];
     $your_price = $_POST['My_your_price'];
@@ -521,45 +479,11 @@ if (isset($_POST['updateBtn'])) {
     }
 
     // Colors and Keywords
-    $color = $_GET['color'];
     $keyword = isset($_POST['keyword']) && is_array($_POST['keyword']) ? $_POST['keyword'] : [];
     $size = isset($_POST['size']) && is_array($_POST['size']) ? $_POST['size'] : [];
 
     $key_value = implode(',', $keyword);
     $size_value = !empty($size) ? implode(', ', $size) : '-';
-
-    $json_img = $row['image'];
-    $decode_img = json_decode($json_img, true); // Decode existing images
-
-    $new_img = [
-        $color => [
-            'img1' => $uploadedFiles['ProfileImage1'],
-            'img2' => $uploadedFiles['ProfileImage2'],
-            'img3' => $uploadedFiles['ProfileImage3'],
-            'img4' => $uploadedFiles['ProfileImage4']
-        ],
-    ];
-
-    // update Image 
-    $normalized_decode_img = $decode_img;
-    $normalized_decode_img[$color] = $new_img[$color];
-    $merge_color_json = json_encode($normalized_decode_img);
-
-    // Title processing
-    $json_name = $row['title'];
-    $decode_name = json_decode($json_name, true); // Decode existing titles
-
-    $new_name = [
-        $color => [
-            'product_name' => $full_name,
-        ],
-    ];
-
-    // update new Title
-    $normalized_decode_title = $decode_name;
-    $normalized_decode_title[$color] = $new_name[$color];
-    $merge_title_json = json_encode($normalized_decode_title);
-
 
     if (isset($_POST['size']) && !empty($_POST['size'])) {
         $size = $_POST['size'];
@@ -603,14 +527,17 @@ if (isset($_POST['updateBtn'])) {
 
     // Update the database
     if ($allFilesUploaded) {
-        $product_update = "UPDATE items 
+        $product_update = "UPDATE products 
         SET 
-            title = '$merge_title_json',
-            image = '$merge_color_json',
-            cover_image_1='{$uploadedFiles['CoverImage1']}', 
-            cover_image_2='{$uploadedFiles['CoverImage2']}', 
-            cover_image_3='{$uploadedFiles['CoverImage3']}', 
-            cover_image_4='{$uploadedFiles['CoverImage4']}', 
+            title = '$full_name',
+            profile_image_1 = '{$uploadedFiles['ProfileImage1']}',
+            profile_image_2 = '{$uploadedFiles['ProfileImage2']}',
+            profile_image_3 = '{$uploadedFiles['ProfileImage3']}',
+            profile_image_4 = '{$uploadedFiles['ProfileImage4']}',
+            cover_image_1 = '{$uploadedFiles['CoverImage1']}', 
+            cover_image_2 = '{$uploadedFiles['CoverImage2']}', 
+            cover_image_3 = '{$uploadedFiles['CoverImage3']}', 
+            cover_image_4 = '{$uploadedFiles['CoverImage4']}', 
             company_name='$Company_name', 
             Category='$Category', 
             Type='$type', 
@@ -622,8 +549,10 @@ if (isset($_POST['updateBtn'])) {
             Description='$description',  
             size = '$size_filter',
             keywords='$key_value' 
-        WHERE product_id = '$product_id'";
+        WHERE product_id = '$product_id'";        
 
+
+        // print_r($product_update);
 
         $product_query = mysqli_query($con, $product_update);
         if ($product_query) {

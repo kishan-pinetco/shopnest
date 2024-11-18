@@ -1,3 +1,4 @@
+// add more keywords
 document.addEventListener('DOMContentLoaded', function() {
     let keywordContainer = document.getElementById('keyword-container');
     let keywordsData = document.getElementById('keyword-data').value;
