@@ -7,7 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data = json_decode($json_data, true);
 
-    $cartProducts = json_decode($_COOKIE['Cart_products'], true);
+    if (isset($_COOKIE['Cart_products'])) {
+        // Decode the cart products from the cookie
+        $cartProducts = json_decode($_COOKIE['Cart_products'], true);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Cart is empty']);
+        exit;
+    }
 
     if (json_last_error() !== JSON_ERROR_NONE) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid JSON format']);
@@ -18,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
         exit;
     }
+
+    $response = ['status' => 'success', 'message' => 'Order placed successfully'];
 
     if (isset($data['items'])) {
         include '../pages/mail.php';
@@ -161,22 +169,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
                 // Send the email
                 if ($mail->send()) {
-                    echo json_encode(['status' => 'success', 'message' => 'Order placed successfully']);
-                    break;
+                    $response = ['status' => 'success', 'message' => 'Order placed successfully'];
                 } else {
-                    echo json_encode(['status' => 'error', 'message' => 'Failed to send confirmation email']);
-                    break;
+                    $response = ['status' => 'error', 'message' => 'Failed to send confirmation email'];
+                }
+
+
+                $productIdToRemove = $item['cart_id'];
+
+                $productExists = false;
+                foreach ($cartProducts as $key => $cartItem) {
+                    if ($cartItem['cart_id'] == $productIdToRemove) {
+                        $productExists = true;
+                        // Remove the product from the cart array
+                        unset($cartProducts[$key]);
+                        break;
+                    }
+                }
+
+                // Re-index the array after removing the item to avoid gaps
+                $cartProducts = array_values($cartProducts);
+
+                // If the product was found and removed, update the cookie
+                if ($productExists) {
+                    // If cart is empty after removal, delete the cookie
+                    if (empty($cartProducts)) {
+                        setcookie('Cart_products', '', time() - 3600, '/'); // Expire the cookie
+                    } else {
+                        // Update the cookie with the new cart data
+                        setcookie('Cart_products', json_encode($cartProducts), time() + (86400 * 30), '/'); // Expire in 30 days
+                    }
                 }
 
             } else {
-                echo json_encode(['status' => 'error', 'message' => 'Failed to update product quantity']);
-                break;
+                $response = ['status' => 'error', 'message' => 'Failed to update product quantity'];
+                break; // If update fails, stop further processing and return the error
             }
         }
 
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to place the order']);
-        exit;
     }
 }
+echo json_encode($response);
 ?>
