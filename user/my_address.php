@@ -232,7 +232,7 @@ if (isset($_COOKIE['user_id'])) {
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" value="Update now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-lg rounded-br-lg cursor-pointer mt-7" name="updateAddress">
+                                <input type="submit" value="Update now" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-tl-lg rounded-br-lg cursor-pointer mt-7" name="updateAddress">
                             </div>
                         </div>
                     </div>

@@ -337,7 +337,7 @@ if (isset($_COOKIE['user_id'])) {
                                         <label for="email" class="require">Email:</label>
                                         <input type="email" name="email" value="<?php echo isset($_COOKIE['user_id']) ? $row['email'] : 'Sign In'; ?>" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
                                     </div>
-                                    <input type="submit" name="updateBtn" value="Update now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
+                                    <input type="submit" name="updateBtn" value="Update now" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
                                 </div>
                             </div>
                             <div class="bg-white max-h-max rounded-md shadow-lg p-8">
@@ -396,7 +396,7 @@ if (isset($_COOKIE['user_id'])) {
                                             </svg>
                                         </span>
                                     </div>
-                                    <input type="submit" name="changePass" value="Update now" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
+                                    <input type="submit" name="changePass" value="Update now" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-tl-xl rounded-br-xl cursor-pointer mt-7">
                                 </div>
                             </div>
                         </div>

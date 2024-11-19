@@ -4,7 +4,7 @@ if (isset($_COOKIE['user_id'])) {
     exit;
 }
 
-if(isset($_COOKIE['vendor_id'])){
+if (isset($_COOKIE['vendor_id'])) {
     header("Location: /shopnest/vendor/vendor_dashboard.php");
     exit;
 }
@@ -342,10 +342,20 @@ if (isset($_GET['product_id'])) {
                             </div>
                             <div class="flex justify-between mt-10">
                                 <div>
-                                    <input type="button" value="Back" onclick="window.location.href='view_products.php'" name="backBtn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 w-24 sm:w-28 rounded-tl-lg rounded-br-lg cursor-pointer">
+
+                                    <a href="view_products.php" class="flex items-center gap-1 bg-black text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 31.418 31.418" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-3">
+                                                <g>
+                                                    <path d="M26.585 3v25.418a3.002 3.002 0 0 1-4.883 2.335L5.949 18.044a2.999 2.999 0 0 1 0-4.67L21.703.665a3.004 3.004 0 0 1 3.178-.372A3.003 3.003 0 0 1 26.585 3z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <span>Back</span>
+                                    </a>
                                 </div>
                                 <div class="inline-flex items-end">
-                                    <input type="submit" value="Update" name="updateBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
+                                    <input type="submit" value="Update" name="updateBtn" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-8 rounded-tl-lg rounded-br-lg cursor-pointer">
                                 </div>
                             </div>
                         </form>
@@ -549,7 +559,7 @@ if (isset($_POST['updateBtn'])) {
             Description='$description',  
             size = '$size_filter',
             keywords='$key_value' 
-        WHERE product_id = '$product_id'";        
+        WHERE product_id = '$product_id'";
 
 
         // print_r($product_update);
