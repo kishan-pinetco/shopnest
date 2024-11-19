@@ -311,22 +311,26 @@ if (isset($_COOKIE['adminEmail'])) {
                             $(document).ready(function() {
                                 var chartData = <?php echo $data_json; ?>;
 
-                                new Morris.Bar({
-                                    element: 'chart',
-                                    data: chartData,
-                                    xkey: 'date',
-                                    ykeys: ['count'],
-                                    labels: ['View Count'],
-                                    barColors: ['#00a65a'],
-                                    hideHover: 'auto',
-                                    resize: true,
-                                    xLabelAngle: 60, // Optional: rotate x-axis labels to avoid overlapping
-                                    xLabels: 'day', // Optional: set format to day if needed
-                                    dateFormat: function(x) {
-                                        var d = new Date(x);
-                                        return (d.getDate() < 10 ? '0' : '') + d.getDate() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1) + '-' + d.getFullYear();
-                                    } // Optional: custom date formatting
-                                });
+                                if (chartData.length === 0) {
+                                    $('#chart').html('<div style="text-align: center; margin-top: 80px; font-size: 30px; color: #000;">No data available for this period.</div>');
+                                } else{
+                                    new Morris.Bar({
+                                        element: 'chart',
+                                        data: chartData,
+                                        xkey: 'date',
+                                        ykeys: ['count'],
+                                        labels: ['View Count'],
+                                        barColors: ['#00a65a'],
+                                        hideHover: 'auto',
+                                        resize: true,
+                                        xLabelAngle: 60,
+                                        xLabels: 'day',
+                                        dateFormat: function(x) {
+                                            var d = new Date(x);
+                                            return (d.getDate() < 10 ? '0' : '') + d.getDate() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1) + '-' + d.getFullYear();
+                                        }
+                                    });
+                                }
                             });
                         </script>
                     </div>

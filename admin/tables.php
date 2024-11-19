@@ -242,186 +242,225 @@ if (isset($_COOKIE['adminEmail'])) {
                 </header>
                 <main class="overflow-y-auto scrollBar">
                     <?php
-                    if (isset($_COOKIE['adminEmail'])) {
-                    ?>
-                        <!-- top seller -->
-                        <section class="container mx-auto p-6">
-                            <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top seller vendors</h2>
-                            <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                                <div class="w-full overflow-x-auto h-max text-center">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
-                                                <th class="px-4 py-3">Rank</th>
-                                                <th class="px-4 py-3">Vendor profile</th>
-                                                <th class="px-4 py-3">User name</th>
-                                                <th class="px-4 py-3">Vendor name</th>
-                                                <th class="px-4 py-3">Vendor email</th>
-                                                <th class="px-4 py-3">Total products</th>
-                                                <th class="px-4 py-3">Total sale products</th>
-                                            </tr>
-                                        </thead>
+                        if (isset($_COOKIE['adminEmail'])) {
+                        ?>
+                            <!-- top seller -->
+                            <section class="container mx-auto p-6">
+                                <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top seller vendors</h2>
+                                <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                                    <div class="w-full overflow-x-auto h-max text-center">
                                         <?php
-                                        $i = 1;
-                                        while ($top = mysqli_fetch_array($vendor_query)) {
-                                        ?>
-                                            <tbody class="bg-white border">
-                                                <tr class="text-gray-700">
-                                                    <td class="px-4 py-3 border"><?php echo $i; ?></td>
-                                                    <td class="px-4 py-3 border"><img class="h-10 w-10 object-cover rounded-full m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/vendor_images/vendor_profile_image/' . $top['dp_image'] : 'Vendor_profile Img'; ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['username'] : 'username'; ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['name'] : 'name'; ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['email'] : 'email'; ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['total_products'] : 'totalProducts'; ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['total_sales'] : 'totalSales'; ?></td>
-                                                </tr>
-                                            </tbody>
-                                        <?php
-                                            $i++;
-                                        }
-                                        ?>
-                                    </table>
-                                </div>
-                            </div>
-                        </section>
+                                            if(mysqli_num_rows($vendor_query) > 0){
+                                                ?>
+                                                    <table class="w-full">
+                                                        <thead>
+                                                            <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
+                                                                <th class="px-4 py-3">Rank</th>
+                                                                <th class="px-4 py-3">Vendor profile</th>
+                                                                <th class="px-4 py-3">User name</th>
+                                                                <th class="px-4 py-3">Vendor name</th>
+                                                                <th class="px-4 py-3">Vendor email</th>
+                                                                <th class="px-4 py-3">Total products</th>
+                                                                <th class="px-4 py-3">Total sale products</th>
+                                                            </tr>
+                                                        </thead>
+                                                <?php
+                                            }
 
-                        <!-- top buyers -->
-                        <section class="container mx-auto p-6">
-                            <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top buyers</h2>
-                            <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                                <div class="w-full overflow-x-auto h-max text-center">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
-                                                <th class="px-4 py-3">Rank</th>
-                                                <th class="px-4 py-3">User profile</th>
-                                                <th class="px-4 py-3">User name</th>
-                                                <th class="px-4 py-3">User email</th>
-                                                <th class="px-4 py-3">Buying products</th>
-                                            </tr>
-                                        </thead>
-                                        <?php
-                                        $i = 1;
-                                        while ($buyers = mysqli_fetch_array($buyer_queyr)) {
-                                        ?>
-                                            <tbody class="bg-white border">
-                                                <tr class="text-gray-700">
-                                                    <td class="px-4 py-3 border"><?php echo $i; ?></td>
-                                                    <td class="px-4 py-3 border"><img class="h-10 w-10 object-cover rounded-full m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/user_dp/' . $buyers['profile_image'] : 'profile_image'; ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $buyers['first_name'] . ' ' . $buyers['last_name'] : 'username'; ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $buyers['email'] : 'email'; ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $buyers['total_buy'] : 'total_buy'; ?></td>
-                                                    <!-- <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $buyers['total_sales'] : 'totalSales'; ?></td> -->
-                                                </tr>
-                                            </tbody>
-                                        <?php
-                                            $i++;
-                                        }
-                                        ?>
-                                    </table>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- top rated product -->
-                        <section class="container mx-auto p-6">
-                            <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top rated products</h2>
-                            <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                                <div class="w-full overflow-x-auto h-max text-center">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
-                                                <th class="px-4 py-3">Rank</th>
-                                                <th class="px-4 py-3">Product profile</th>
-                                                <th class="px-4 py-3 w-96">Product title</th>
-                                                <th class="px-4 py-3">Seller</th>
-                                                <th class="px-4 py-3">Total rating</th>
-                                                <th class="px-4 py-3">Total reviews</th>
-                                            </tr>
-                                        </thead>
-                                        <?php
-                                        $i = 1;
-                                        while ($tr = mysqli_fetch_array($topRated_query)) {
-                                            $product_id = $tr['product_id'];
-                                            $selectProducts = "SELECT * FROM products WHERE product_id = '$product_id'";
-                                            $pQeury = mysqli_query($con, $selectProducts);
-
-                                            $row = mysqli_fetch_assoc($pQeury);
-
-                                            if (mysqli_num_rows($pQeury) > 0) {
-
-                                                // for the title
-                                                $title = $row['title'];
-                                                $MRP = $row['vendor_mrp'];
-
-                                                // for seller
-                                                $vendor_id = $row['vendor_id'];
-                                                $seller = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
-                                                $sQuery = mysqli_query($con, $seller);
-                                                $ven = mysqli_fetch_assoc($sQuery);
-
+                                            $i = 1;
+                                            if(mysqli_num_rows($vendor_query) > 0){
+                                                while ($top = mysqli_fetch_array($vendor_query)) {
                                                 ?>
                                                     <tbody class="bg-white border">
                                                         <tr class="text-gray-700">
                                                             <td class="px-4 py-3 border"><?php echo $i; ?></td>
-                                                            <td class="px-4 py-3 border"><img class="h-20 w-20 object-cover m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $row['profile_image_1'] : 'product Img'; ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                            <td class="px-4 py-3 leading-9 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $title : 'title'; ?></td>
-                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $ven['username'] : 'username'; ?></td>
-                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['avg_rating'] : 'formatted_average'; ?></td>
-                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['total_reviews'] : 'totalRatings'; ?></td>
+                                                            <td class="px-4 py-3 border"><img class="h-10 w-10 object-cover rounded-full m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/vendor_images/vendor_profile_image/' . $top['dp_image'] : 'Vendor_profile Img'; ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['username'] : 'username'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['name'] : 'name'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['email'] : 'email'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['total_products'] : 'totalProducts'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $top['total_sales'] : 'totalSales'; ?></td>
                                                         </tr>
                                                     </tbody>
                                                 <?php
-                                                $i++;
-                                            } else {
+                                                    $i++;
+                                                }
+                                            }else{
+                                                ?>
+                                                    <div class="font-bold text-xl md:text-2xl w-max m-auto py-4">No data available for this period.</div>
+                                                <?php
                                             }
-                                        }
-                                        ?>
-                                    </table>
+                                            ?>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
 
-                        <!-- top buying products -->
-                        <section class="container mx-auto p-6">
-                            <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top buying products</h2>
-                            <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                                <div class="w-full overflow-x-auto h-max text-center">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
-                                                <th class="px-4 py-3">Rank</th>
-                                                <th class="px-4 py-3">Product profile</th>
-                                                <th class="px-4 py-3 w-96">Product title</th>
-                                                <th class="px-4 py-3">Product price</th>
-                                                <th class="px-4 py-3">Total buying</th>
-                                            </tr>
-                                        </thead>
+                            <!-- top buyers -->
+                            <section class="container mx-auto p-6">
+                                <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top buyers</h2>
+                                <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                                    <div class="w-full overflow-x-auto h-max text-center">
                                         <?php
-                                        $i = 1;
-                                        while ($tb = mysqli_fetch_assoc($topBuying_query)) {
-                                        ?>
-                                            <tbody class="bg-white border">
-                                                <tr class="text-gray-700">
-                                                    <td class="px-4 py-3 border"><?php echo $i; ?></td>
-                                                    <td class="px-4 py-3 border"><img class="h-14 w-14 object-cover rounded-full m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $tb['order_image'] : 'order_image'; ?>" alt="" class="w-20 h-20 m-auto"></td>
-                                                    <td class="px-4 py-3 leading-9 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $tb['order_title'] : 'order_title'; ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $tb['total_price'] : 'total_price'; ?></td>
-                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $tb['totalProducts'] : 'totalProducts'; ?></td>
-                                                </tr>
-                                            </tbody>
-                                        <?php
-                                            $i++;
-                                        }
-                                        ?>
-                                    </table>
+                                            if(mysqli_num_rows($buyer_queyr) > 0){
+                                                ?>
+                                                    <table class="w-full">
+                                                        <thead>
+                                                            <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
+                                                                <th class="px-4 py-3">Rank</th>
+                                                                <th class="px-4 py-3">User profile</th>
+                                                                <th class="px-4 py-3">User name</th>
+                                                                <th class="px-4 py-3">User email</th>
+                                                                <th class="px-4 py-3">Buying products</th>
+                                                            </tr>
+                                                        </thead>
+                                                <?php
+                                            }
+                                            $i = 1;
+                                            if(mysqli_num_rows($buyer_queyr) > 0){
+                                                while ($buyers = mysqli_fetch_array($buyer_queyr)) {
+                                                ?>
+                                                    <tbody class="bg-white border">
+                                                        <tr class="text-gray-700">
+                                                            <td class="px-4 py-3 border"><?php echo $i; ?></td>
+                                                            <td class="px-4 py-3 border"><img class="h-10 w-10 object-cover rounded-full m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/user_dp/' . $buyers['profile_image'] : 'profile_image'; ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $buyers['first_name'] . ' ' . $buyers['last_name'] : 'username'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $buyers['email'] : 'email'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $buyers['total_buy'] : 'total_buy'; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                <?php
+                                                    $i++;
+                                                }
+                                            }else{
+                                                ?>
+                                                    <div class="font-bold text-xl md:text-2xl w-max m-auto py-4">No data available for this period.</div>
+                                                <?php
+                                            }
+                                            ?>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-                    <?php
-                    } else {
-                        echo '<div class="font-bold text-2xl mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
-                    }
+                            </section>
+
+                            <!-- top rated product -->
+                            <section class="container mx-auto p-6">
+                                <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top rated products</h2>
+                                <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                                    <div class="w-full overflow-x-auto h-max text-center">
+                                        <?php
+                                            if(mysqli_num_rows($topRated_query) > 0){
+                                                ?>
+                                                    <table class="w-full">
+                                                        <thead>
+                                                            <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
+                                                                <th class="px-4 py-3">Rank</th>
+                                                                <th class="px-4 py-3">Product profile</th>
+                                                                <th class="px-4 py-3 w-96">Product title</th>
+                                                                <th class="px-4 py-3">Seller</th>
+                                                                <th class="px-4 py-3">Total rating</th>
+                                                                <th class="px-4 py-3">Total reviews</th>
+                                                            </tr>
+                                                        </thead>
+                                                <?php
+                                            }
+                                            $i = 1;
+                                            if(mysqli_num_rows($topRated_query) > 0){
+                                                while ($tr = mysqli_fetch_array($topRated_query)) {
+                                                    $product_id = $tr['product_id'];
+                                                    $selectProducts = "SELECT * FROM products WHERE product_id = '$product_id'";
+                                                    $pQeury = mysqli_query($con, $selectProducts);
+    
+                                                    $row = mysqli_fetch_assoc($pQeury);
+    
+                                                    if (mysqli_num_rows($pQeury) > 0) {
+    
+                                                        // for the title
+                                                        $title = $row['title'];
+                                                        $MRP = $row['vendor_mrp'];
+    
+                                                        // for seller
+                                                        $vendor_id = $row['vendor_id'];
+                                                        $seller = "SELECT * FROM vendor_registration WHERE vendor_id = '$vendor_id'";
+                                                        $sQuery = mysqli_query($con, $seller);
+                                                        $ven = mysqli_fetch_assoc($sQuery);
+    
+                                                        ?>
+                                                            <tbody class="bg-white border">
+                                                                <tr class="text-gray-700">
+                                                                    <td class="px-4 py-3 border"><?php echo $i; ?></td>
+                                                                    <td class="px-4 py-3 border"><img class="h-20 w-20 object-cover m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $row['profile_image_1'] : 'product Img'; ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                                    <td class="px-4 py-3 leading-9 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $title : 'title'; ?></td>
+                                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $ven['username'] : 'username'; ?></td>
+                                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['avg_rating'] : 'formatted_average'; ?></td>
+                                                                    <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $row['total_reviews'] : 'totalRatings'; ?></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        <?php
+                                                        $i++;
+                                                    }
+                                                }
+                                            }else{
+                                                ?>
+                                                    <div class="font-bold text-xl md:text-2xl w-max m-auto py-4">No data available for this period.</div>
+                                                <?php
+                                            }
+                                            ?>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- top buying products -->
+                            <section class="container mx-auto p-6">
+                                <h2 class="font-manrope font-bold text-4xl leading-10 text-black mb-5">Top buying products</h2>
+                                <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                                    <div class="w-full overflow-x-auto h-max text-center">
+                                            <?php
+                                            if(mysqli_num_rows($topBuying_query) > 0){
+                                                ?>
+                                                    <table class="w-full">
+                                                        <thead>
+                                                            <tr class="text-md font-semibold tracking-wide text-center text-gray-900 bg-gray-100 border-b border-gray-600">
+                                                                <th class="px-4 py-3">Rank</th>
+                                                                <th class="px-4 py-3">Product profile</th>
+                                                                <th class="px-4 py-3 w-96">Product title</th>
+                                                                <th class="px-4 py-3">Product price</th>
+                                                                <th class="px-4 py-3">Total buying</th>
+                                                            </tr>
+                                                        </thead>
+                                                <?php
+                                            }
+                                            $i = 1;
+                                            if(mysqli_num_rows($topBuying_query) > 0){
+                                                while ($tb = mysqli_fetch_assoc($topBuying_query)) {
+                                                ?>
+                                                    <tbody class="bg-white border">
+                                                        <tr class="text-gray-700">
+                                                            <td class="px-4 py-3 border"><?php echo $i; ?></td>
+                                                            <td class="px-4 py-3 border"><img class="h-14 w-14 object-cover rounded-full m-auto" src="<?php echo isset($_COOKIE['adminEmail']) ? '../src/product_image/product_profile/' . $tb['order_image'] : 'order_image'; ?>" alt="" class="w-20 h-20 m-auto"></td>
+                                                            <td class="px-4 py-3 leading-9 line-clamp-2"><?php echo isset($_COOKIE['adminEmail']) ? $tb['order_title'] : 'order_title'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $tb['total_price'] : 'total_price'; ?></td>
+                                                            <td class="px-4 py-3 border"><?php echo isset($_COOKIE['adminEmail']) ? $tb['totalProducts'] : 'totalProducts'; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                <?php
+                                                    $i++;
+                                                }
+                                            }else{
+                                                ?>
+                                                    <div class="font-bold text-xl md:text-2xl w-max m-auto py-4">No data available for this period.</div>
+                                                <?php
+                                            }
+                                            ?>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        <?php
+                        } else {
+                            echo '<div class="font-bold text-2xl mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
+                        }
                     ?>
 
                 </main>

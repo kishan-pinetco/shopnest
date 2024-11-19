@@ -195,47 +195,54 @@ if (isset($_COOKIE['vendor_id'])) {
                                 $get_contacts = "SELECT * FROM contact_us";
                                 $contact_query = mysqli_query($con, $get_contacts);
 
-                                while ($res = mysqli_fetch_assoc($contact_query)) {
-                                ?>
-                                    <div class="bg-white shadow-lg rounded-tl-xl rounded-br-xl p-4 sm:p-6">
-                                        <div id="custInqContainer" class=" flex flex-col gap-y-4 text-sm sm:text-base">
-                                            <div class="flex gap-1 sm:gap-2">
-                                                <p class="font-bold">Name:</p>
-                                                <p class="font-medium text-gray-800"><?php echo $res['name'] ?></p>
+                                if(mysqli_num_rows($contact_query) > 0){
+                                    while ($res = mysqli_fetch_assoc($contact_query)) {
+                                        ?>
+                                            <div class="bg-white shadow-lg rounded-tl-xl rounded-br-xl p-4 sm:p-6">
+                                                <div id="custInqContainer" class=" flex flex-col gap-y-4 text-sm sm:text-base">
+                                                    <div class="flex gap-1 sm:gap-2">
+                                                        <p class="font-bold">Name:</p>
+                                                        <p class="font-medium text-gray-800"><?php echo $res['name'] ?></p>
+                                                    </div>
+        
+                                                    <div class="flex gap-1 sm:gap-2">
+                                                        <p class="font-bold">Email:</p>
+                                                        <p class="font-medium text-gray-800"><?php echo $res['user_email'] ?></p>
+                                                    </div>
+        
+                                                    <div class="flex gap-1 sm:gap-2">
+                                                        <p class="font-bold">Subject:</p>
+                                                        <p class="font-medium text-gray-800"><?php echo $res['subject'] ?></p>
+                                                    </div>
+        
+                                                    <div class="flex gap-1 sm:gap-2">
+                                                        <p class="font-bold">Message:</p>
+                                                        <p class="font-medium text-gray-800"><?php echo $res['message'] ?></p>
+                                                    </div>
+        
+                                                    <div class="flex gap-1 sm:gap-2">
+                                                        <p class="font-bold">Date:</p>
+                                                        <p class="font-medium text-gray-500"><?php echo $res['date'] ?></p>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <a href="mailto:abc@gmail.com" class="bg-gray-600 text-white font-semibold py-2 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Contact</a>
+                                                </div>
                                             </div>
-
-                                            <div class="flex gap-1 sm:gap-2">
-                                                <p class="font-bold">Email:</p>
-                                                <p class="font-medium text-gray-800"><?php echo $res['user_email'] ?></p>
-                                            </div>
-
-                                            <div class="flex gap-1 sm:gap-2">
-                                                <p class="font-bold">Subject:</p>
-                                                <p class="font-medium text-gray-800"><?php echo $res['subject'] ?></p>
-                                            </div>
-
-                                            <div class="flex gap-1 sm:gap-2">
-                                                <p class="font-bold">Message:</p>
-                                                <p class="font-medium text-gray-800"><?php echo $res['message'] ?></p>
-                                            </div>
-
-                                            <div class="flex gap-1 sm:gap-2">
-                                                <p class="font-bold">Date:</p>
-                                                <p class="font-medium text-gray-500"><?php echo $res['date'] ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <a href="mailto:abc@gmail.com" class="bg-gray-600 text-white font-semibold py-2 px-6 rounded-tl-xl rounded-br-xl hover:bg-gray-700 transition cursor-pointer">Contact</a>
-                                        </div>
-                                    </div>
-                                <?php
-
+                                        <?php
+                                    }
+                                }else{
+                                    ?>
+                                        <div class="col-span-full font-bold text-xl md:text-2xl w-max m-auto py-4">No Inquiries Found for this period.</div>
+                                    <?php
                                 }
                                 ?>
                             </div>
                         <?php
-                        } else {
-                            echo '<div class="relative font-bold text-2xl w-max text-center mt-12 flex items-center justify-center m-auto">No data available for this period.</div>';
+                        }else{
+                            ?>
+                                <div class="font-bold text-xl md:text-2xl w-max m-auto py-4">No Inquiries Found for this period.</div>
+                            <?php
                         }
                         ?>
                     </div>

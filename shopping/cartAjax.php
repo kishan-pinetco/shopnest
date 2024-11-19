@@ -83,8 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if($update_qty_quary){
     
                 // Add recipient and other email properties
-                // $mail->addAddress($user_email);
-                $mail->addAddress('abhijeetdabhi9304@gmail.com');
+                $mail->addAddress($user_email);
                 $mail->isHTML(true);
     
                 $retrieve_order = "SELECT * FROM orders WHERE product_id = '$product_id'";

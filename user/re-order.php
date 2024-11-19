@@ -183,10 +183,6 @@ if (isset($_GET['product_id'])) {
                 <p class="text-gray-400">Complete your order by providing your payment details.</p>
                 <div class="mt-5 grid space-y-3 border bg-white rounded-lg px-2 py-4 sm:px-6">
                     <div class="flex items-center gap-3 cursor-pointer w-max">
-                        <input type="radio" name="payment" id="UPI" value="Other UPI" class="cursor-pointer text-gray-600 focus:ring-gray-600">
-                        <label class="cursor-pointer text-base font-medium" for="UPI">UPI</label>
-                    </div>
-                    <div class="flex items-center gap-3 cursor-pointer w-max">
                         <input type="radio" name="payment" id="COD" value="Cash on delivery" class="cursor-pointer text-gray-600 focus:ring-gray-600">
                         <label class="cursor-pointer text-base font-medium" for="COD">Cash on delivery</label>
                     </div>
