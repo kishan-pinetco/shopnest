@@ -1,11 +1,11 @@
 <?php
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/index.php");
+    header("Location: /index.php");
     exit;
 }
 
 if(isset($_COOKIE['vendor_id'])){
-    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    header("Location: /vendor/vendor_dashboard.php");
     exit;
 }
 ?>
@@ -88,11 +88,11 @@ if (isset($_GET['product_id'])) {
             <a class="flex w-fit" href="view_product.php">
                 <!-- icon logo div -->
                 <div>
-                    <img class="w-7 sm:w-14 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
+                    <img class="w-7 sm:w-14 mt-0.5" src="/src/logo/black_cart_logo.svg" alt="">
                 </div>
                 <!-- text logo -->
                 <div>
-                    <img class="w-16 sm:w-36" src="/shopnest/src/logo/black_text_logo.svg" alt="">
+                    <img class="w-16 sm:w-36" src="/src/logo/black_text_logo.svg" alt="">
                 </div>
             </a>
         </div>
@@ -414,7 +414,7 @@ if (isset($_GET['product_id'])) {
     <script src="edit_product.js"></script>
 
     <!-- chatboat script -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/48196419.js"></script>
 </body>
 
 </html>

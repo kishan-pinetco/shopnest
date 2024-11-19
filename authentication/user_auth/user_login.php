@@ -1,16 +1,16 @@
 <?php
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/index.php");
+    header("Location: /index.php");
     exit;
 }
 
 if (isset($_COOKIE['vendor_id'])) {
-    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    header("Location: /vendor/vendor_dashboard.php");
     exit;
 }
 
 if (isset($_COOKIE['adminEmail'])) {
-    header("Location: /shopnest/admin/dashboard.php");
+    header("Location: /admin/dashboard.php");
     exit;
 }
 
@@ -115,7 +115,7 @@ unset(
             setTimeout(() => {
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
-                window.location.href = "/shopnest/index.php";
+                window.location.href = "/index.php";
             }, 1800);
         }
     </script>
@@ -165,13 +165,13 @@ unset(
                     setTimeout(() => {
                         ApopUp.style.display = 'none';
                         ApopUp.style.opacity = '0';
-                        window.location.href = "/shopnest/admin/dashboard.php";
+                        window.location.href = "/admin/dashboard.php";
                     }, 1500);
                 </script>
             <?php
             }
 
-            if ($admin_email === 'abhijeet+admin@gmail.com' && $admin_pass === 'abhijeet+3904') {
+            if ($admin_email === 'kishan@gmail.com' && $admin_pass === 'password') {
                 setcookie('adminEmail', $admin_email, time() + (365 * 24 * 60 * 60), "/");
                 setcookie('adminPass', $admin_pass, time() + (365 * 24 * 60 * 60), "/");
             ?>
@@ -197,7 +197,7 @@ unset(
                     setTimeout(() => {
                         ApopUp.style.display = 'none';
                         ApopUp.style.opacity = '0';
-                        window.location.href = "/shopnest/admin/dashboard.php";
+                        window.location.href = "/admin/dashboard.php";
                     }, 1500);
                 </script>
     <?php
@@ -235,14 +235,14 @@ unset(
     <div class="w-96">
         <!-- header -->
         <div class="p-2 flex items-center justify-center">
-            <a class="flex items-center mb-2" href="/shopnest/index.php">
+            <a class="flex items-center mb-2" href="/index.php">
                 <!-- icon logo div -->
                 <div>
-                    <img class="w-7 sm:w-12 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
+                    <img class="w-7 sm:w-12 mt-0.5" src="/src/logo/black_cart_logo.svg" alt="">
                 </div>
                 <!-- text logo -->
                 <div>
-                    <img class="w-16 sm:w-32" src="/shopnest/src/logo/black_text_logo.svg" alt="">
+                    <img class="w-16 sm:w-32" src="/src/logo/black_text_logo.svg" alt="">
                 </div>
             </a>
         </div>
@@ -274,7 +274,7 @@ unset(
                         </span>
                     </div>
                     <div class="flex justify-end w-full">
-                        <a href="/shopnest/authentication/forgot_password_user/forgotPass_email_user.php" class="text-sm font-semibold tracking-wide underline">Forgot password?</a>
+                        <a href="/authentication/forgot_password_user/forgotPass_email_user.php" class="text-sm font-semibold tracking-wide underline">Forgot password?</a>
                     </div>
                     <div class="text-center">
                         <input type="submit" class="bg-gray-700 hover:bg-gray-800 hover:transition py-1 h-10 w-full text-lg rounded-tl-xl rounded-br-xl text-white cursor-pointer" name="loginBtn" value="Login">
@@ -295,7 +295,7 @@ unset(
     </div>
 
     <!-- chatboat script -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/48196419.js"></script>
 </body>
 
 </html>

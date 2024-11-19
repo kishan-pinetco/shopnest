@@ -1,17 +1,17 @@
 <?php
 
     if(!isset($_GET['order_id']) || !isset($_COOKIE['user_id'])){
-        header("Location: /shopnest/index.php");
+        header("Location: /index.php");
         exit;
     }
 
     if(isset($_COOKIE['vendor_id'])){
-        header("Location: /shopnest/vendor/vendor_dashboard.php");
+        header("Location: /vendor/vendor_dashboard.php");
         exit;
     }
 
     if(isset($_COOKIE['adminEmail'])){
-        header("Location: /shopnest/admin/dashboard.php");
+        header("Location: /admin/dashboard.php");
         exit;
     }
 ?>
@@ -317,7 +317,7 @@ if (isset($_COOKIE['user_id'])) {
     ?>
 
     <!-- chatboat script -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/48196419.js"></script>
 
 </body>
 </html>

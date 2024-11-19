@@ -1,17 +1,17 @@
 <?php
 
 if (isset($_COOKIE['user_id'])) {
-    header("Location: /shopnest/index.php");
+    header("Location: /index.php");
     exit;
 }
 
 if (isset($_COOKIE['vendor_id'])) {
-    header("Location: /shopnest/vendor/vendor_dashboard.php");
+    header("Location: /vendor/vendor_dashboard.php");
     exit;
 }
 
 if (isset($_COOKIE['adminEmail'])) {
-    header("Location: /shopnest/admin/dashboard.php");
+    header("Location: /admin/dashboard.php");
     exit;
 }
 
@@ -104,7 +104,7 @@ if (isset($_COOKIE['adminEmail'])) {
                 SpopUp.style.display = 'none';
                 SpopUp.style.opacity = '0';
             }, 1500);
-            window.location.href = "/shopnest/index.php";
+            window.location.href = "/index.php";
         }
     </script>
 
@@ -161,7 +161,7 @@ if (isset($_COOKIE['adminEmail'])) {
                     setTimeout(() => {
                         ApopUp.style.display = 'none';
                         ApopUp.style.opacity = '0';
-                        window.location.href = "/shopnest/admin/dashboard.php";
+                        window.location.href = "/admin/dashboard.php";
                     }, 1500);
                 </script>
             <?php
@@ -193,7 +193,7 @@ if (isset($_COOKIE['adminEmail'])) {
                     setTimeout(() => {
                         ApopUp.style.display = 'none';
                         ApopUp.style.opacity = '0';
-                        window.location.href = "/shopnest/admin/dashboard.php";
+                        window.location.href = "/admin/dashboard.php";
                     }, 1500);
                 </script>
     <?php
@@ -231,14 +231,14 @@ if (isset($_COOKIE['adminEmail'])) {
     <div class="w-96">
         <!-- header -->
         <div class="p-2 flex items-center justify-center">
-            <a class="flex items-center mb-2" href="/shopnest/index.php">
+            <a class="flex items-center mb-2" href="/index.php">
                 <!-- icon logo div -->
                 <div>
-                    <img class="w-7 sm:w-12 mt-0.5" src="/shopnest/src/logo/black_cart_logo.svg" alt="">
+                    <img class="w-7 sm:w-12 mt-0.5" src="/src/logo/black_cart_logo.svg" alt="">
                 </div>
                 <!-- text logo -->
                 <div>
-                    <img class="w-16 sm:w-32" src="/shopnest/src/logo/black_text_logo.svg" alt="">
+                    <img class="w-16 sm:w-32" src="/src/logo/black_text_logo.svg" alt="">
                 </div>
             </a>
         </div>
@@ -270,7 +270,7 @@ if (isset($_COOKIE['adminEmail'])) {
                         </span>
                     </div>
                     <div class="flex justify-end">
-                        <a href="/shopnest/authentication/forgot_password_vendor/forgotPass_email_vendor.php" class="text-sm font-semibold tracking-wide underline">Forgot password?</a>
+                        <a href="/authentication/forgot_password_vendor/forgotPass_email_vendor.php" class="text-sm font-semibold tracking-wide underline">Forgot password?</a>
                     </div>
                     <div class="text-center">
                         <input type="submit" class="bg-gray-700 hover:bg-gray-800 py-1 h-10 w-full text-lg rounded-tl-xl rounded-br-xl text-white cursor-pointer hover:transition" name="loginBtn" value="Login">
@@ -292,7 +292,7 @@ if (isset($_COOKIE['adminEmail'])) {
     </div>
 
     <!-- chatboat script -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/47227404.js"></script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/48196419.js"></script>
 </body>
 
 </html>
